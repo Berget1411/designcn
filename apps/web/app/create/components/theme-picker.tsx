@@ -4,6 +4,11 @@ import * as React from "react"
 
 import { useMounted } from "@/hooks/use-mounted"
 import { BASE_COLORS, type Theme, type ThemeName } from "@/registry/config"
+import { cssColorToHex } from "@/app/create/lib/color-utils"
+import {
+  decodeCustomThemeVars,
+  encodeCustomThemeVars,
+} from "@/app/create/lib/custom-theme-vars"
 import { LockButton } from "@/app/create/components/lock-button"
 import {
   Picker,
@@ -30,6 +35,7 @@ export function ThemePicker({
 }) {
   const mounted = useMounted()
   const [params, setParams] = useDesignSystemSearchParams()
+  const colorInputRef = React.useRef<HTMLInputElement>(null)
 
   const currentTheme = React.useMemo(
     () => themes.find((theme) => theme.name === params.theme),
@@ -39,6 +45,41 @@ export function ThemePicker({
   const currentThemeIsBaseColor = React.useMemo(
     () => BASE_COLORS.find((baseColor) => baseColor.name === params.theme),
     [params.theme]
+  )
+
+  const customVars = React.useMemo(
+    () => decodeCustomThemeVars(params.vars),
+    [params.vars]
+  )
+
+  const themeColorVar = currentThemeIsBaseColor ? "muted-foreground" : "primary"
+
+  const displayColor =
+    customVars?.dark?.[themeColorVar] ??
+    currentTheme?.cssVars?.dark?.[themeColorVar]
+
+  const nativeColorValue = React.useMemo(() => {
+    if (!mounted || !displayColor) return "#000000"
+    return cssColorToHex(displayColor) ?? "#000000"
+  }, [mounted, displayColor])
+
+  const handleColorPick = React.useCallback(
+    (hex: string) => {
+      const next = {
+        ...customVars,
+        light: {
+          ...(customVars.light ?? {}),
+          [themeColorVar]: hex,
+        },
+        dark: {
+          ...(customVars.dark ?? {}),
+          [themeColorVar]: hex,
+        },
+      }
+      const encoded = encodeCustomThemeVars(next)
+      setParams({ custom: Boolean(encoded), vars: encoded })
+    },
+    [customVars, themeColorVar, setParams]
   )
 
   React.useEffect(() => {
@@ -55,26 +96,35 @@ export function ThemePicker({
             <div className="text-xs text-muted-foreground">Theme</div>
             <div className="text-sm font-medium text-foreground">
               {currentTheme?.title}
+              {customVars?.dark?.[themeColorVar] ? " (Custom)" : ""}
             </div>
           </div>
           {mounted && (
-            <button
-              type="button"
-              style={
-                {
-                  "--color":
-                    currentTheme?.cssVars?.dark?.[
-                      currentThemeIsBaseColor ? "muted-foreground" : "primary"
-                    ],
-                } as React.CSSProperties
-              }
-              className="absolute top-1/2 right-4 size-4 -translate-y-1/2 rounded-full bg-(--color) select-none md:right-2.5 cursor-pointer hover:ring-2 hover:ring-foreground/30 transition-shadow"
-              onClick={(e) => {
-                e.stopPropagation()
-                onAdvanced?.()
-              }}
-              aria-label="Open advanced color editor"
-            />
+            <>
+              <button
+                type="button"
+                style={
+                  {
+                    "--color": displayColor,
+                  } as React.CSSProperties
+                }
+                className="absolute top-1/2 right-4 size-4 -translate-y-1/2 rounded-full bg-(--color) select-none md:right-2.5 cursor-pointer hover:ring-2 hover:ring-foreground/30 transition-shadow"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  colorInputRef.current?.click()
+                }}
+                aria-label="Pick custom theme color"
+              />
+              <input
+                ref={colorInputRef}
+                type="color"
+                className="sr-only"
+                value={nativeColorValue}
+                onChange={(e) => handleColorPick(e.target.value)}
+                tabIndex={-1}
+                aria-hidden
+              />
+            </>
           )}
         </PickerTrigger>
         <PickerContent

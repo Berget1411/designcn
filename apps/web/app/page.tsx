@@ -1,9 +1,0 @@
-import { Hero } from '@/components/hero'
-
-export default function Page() {
-  return (
-    <div className="flex min-h-svh p-6">
-      <Hero/>
-    </div>
-  )
-}

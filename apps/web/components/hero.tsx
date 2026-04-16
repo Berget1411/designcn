@@ -1,4 +1,3 @@
-import { Volume2Icon } from "lucide-react"
 import type { JSX } from "react"
 
 import { Button } from '@workspace/ui/components/button'

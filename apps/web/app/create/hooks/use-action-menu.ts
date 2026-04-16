@@ -48,6 +48,7 @@ export function useActionMenu(
   itemsByBase: Record<string, ActionMenuSourceItem[]>
 ) {
   const [params, setParams] = useDesignSystemSearchParams()
+  const previewBase = params.previewBase || params.base
   const { data: open = false, mutate: setOpenData } = useSWR<boolean>(
     ACTION_MENU_OPEN_KEY,
     {
@@ -59,7 +60,7 @@ export function useActionMenu(
   )
 
   const groups = React.useMemo<ActionMenuGroup[]>(() => {
-    const currentBaseItems = itemsByBase?.[params.base] ?? []
+    const currentBaseItems = itemsByBase?.[previewBase] ?? []
     const sortedRegistryGroups = sortRegistryGroups(
       groupItemsByType(currentBaseItems)
     )
@@ -74,7 +75,7 @@ export function useActionMenu(
         registryName: item.name,
       })),
     }))
-  }, [itemsByBase, params.base])
+  }, [itemsByBase, previewBase])
 
   const activeRegistryName = params.item
 

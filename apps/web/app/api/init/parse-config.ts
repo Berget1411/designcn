@@ -4,11 +4,16 @@ import {
   designSystemConfigSchema,
   type DesignSystemConfig,
 } from "@/registry/config"
+import {
+  decodeCustomThemeVars,
+  type CustomThemeVars,
+} from "@/app/create/lib/custom-theme-vars"
 import { resolvePresetOverrides } from "@/app/create/lib/preset-query"
 
 // Parses design system config from URL search params.
 export function parseDesignSystemConfig(searchParams: URLSearchParams) {
   let configInput: Record<string, unknown>
+  const customThemeVars = decodeCustomThemeVars(searchParams.get("vars"))
   const presetParam = searchParams.get("preset")
 
   if (presetParam && isPresetCode(presetParam)) {
@@ -45,8 +50,15 @@ export function parseDesignSystemConfig(searchParams: URLSearchParams) {
   const result = designSystemConfigSchema.safeParse(configInput)
 
   if (!result.success) {
-    return { success: false as const, error: result.error.issues[0]?.message ?? "Validation failed" }
+    return {
+      success: false as const,
+      error: result.error.issues[0]?.message ?? "Validation failed",
+    }
   }
 
-  return { success: true as const, data: result.data as DesignSystemConfig }
+  return {
+    success: true as const,
+    data: result.data as DesignSystemConfig,
+    customThemeVars: customThemeVars as CustomThemeVars,
+  }
 }

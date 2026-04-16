@@ -1,23 +1,31 @@
 "use client"
 
 import * as React from "react"
+import { useSearchParams } from "next/navigation"
 import { Share03Icon, Tick02Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { copyToClipboardWithMeta } from "@/components/copy-button"
 import { Button } from "@workspace/ui/components/button"
-import { usePresetCode } from "@/app/create/hooks/use-design-system"
-import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
+
+function getAppOrigin() {
+  if (typeof window !== "undefined" && window.location.origin) {
+    return window.location.origin
+  }
+
+  return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+}
 
 export function ShareButton() {
-  const [params] = useDesignSystemSearchParams()
-  const presetCode = usePresetCode()
+  const searchParams = useSearchParams()
   const [hasCopied, setHasCopied] = React.useState(false)
 
   const shareUrl = React.useMemo(() => {
-    const origin = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
-    return `${origin}/create?preset=${presetCode}&item=${params.item}`
-  }, [presetCode, params.item])
+    const origin = getAppOrigin()
+    const query = searchParams.toString()
+
+    return query ? `${origin}/create?${query}` : `${origin}/create`
+  }, [searchParams])
 
   React.useEffect(() => {
     if (hasCopied) {

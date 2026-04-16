@@ -8,10 +8,14 @@ import {
   getInheritedHeadingFontValue,
   type DesignSystemConfig,
 } from "@/registry/config"
+import { type CustomThemeVars } from "@/app/create/lib/custom-theme-vars"
 
 // Builds step-by-step markdown instructions for manually setting up a project.
-export function buildInstructions(config: DesignSystemConfig) {
-  const registryBase = buildRegistryBase(config)
+export function buildInstructions(
+  config: DesignSystemConfig,
+  customThemeVars: CustomThemeVars = {}
+) {
+  const registryBase = buildRegistryBase(config, customThemeVars)
   const normalizedFontHeading =
     config.fontHeading === config.font ? "inherit" : config.fontHeading
 

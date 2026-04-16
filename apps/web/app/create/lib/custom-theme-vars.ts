@@ -1,5 +1,3 @@
-"use client"
-
 export type ThemeVarMode = "light" | "dark"
 
 export type CustomThemeVars = Partial<

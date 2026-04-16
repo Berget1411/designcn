@@ -1,16 +1,30 @@
 "use client"
 
 import * as React from "react"
+import { useSearchParams } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { copyToClipboardWithMeta } from "@/components/copy-button"
 import { Button } from "@workspace/ui/components/button"
-import { usePresetCode } from "@/app/create/hooks/use-design-system"
+
+function getAppOrigin() {
+  if (typeof window !== "undefined" && window.location.origin) {
+    return window.location.origin
+  }
+
+  return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+}
 
 export function CopyPreset({ className }: React.ComponentProps<typeof Button>) {
-  const presetCode = usePresetCode()
+  const searchParams = useSearchParams()
   const [hasCopied, setHasCopied] = React.useState(false)
-  const label = hasCopied ? "Copied" : `--preset ${presetCode}`
+  const label = hasCopied ? "Copied" : "Copy Link"
+  const shareUrl = React.useMemo(() => {
+    const origin = getAppOrigin()
+    const query = searchParams.toString()
+
+    return query ? `${origin}/create?${query}` : `${origin}/create`
+  }, [searchParams])
 
   React.useEffect(() => {
     if (hasCopied) {
@@ -20,14 +34,14 @@ export function CopyPreset({ className }: React.ComponentProps<typeof Button>) {
   }, [hasCopied])
 
   const handleCopy = React.useCallback(() => {
-    copyToClipboardWithMeta(`--preset ${presetCode}`, {
-      name: "copy_preset_command",
+    copyToClipboardWithMeta(shareUrl, {
+      name: "copy_create_config_url",
       properties: {
-        preset: presetCode,
+        url: shareUrl,
       },
     })
     setHasCopied(true)
-  }, [presetCode])
+  }, [shareUrl])
 
   return (
     <Button

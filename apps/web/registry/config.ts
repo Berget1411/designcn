@@ -5,6 +5,7 @@ import {
 } from "shadcn/icons"
 import { z } from "zod"
 
+import { type CustomThemeVars } from "@/app/create/lib/custom-theme-vars"
 import { BASE_COLORS, type BaseColor } from "@/registry/base-colors"
 import { BASES, type Base } from "@/registry/bases"
 import { bodyFonts, fonts, headingFonts } from "@/registry/fonts"
@@ -436,7 +437,10 @@ export function getIconLibrary(name: IconLibraryName) {
 }
 
 // Builds a registry:theme item from a design system config.
-export function buildRegistryTheme(config: DesignSystemConfig) {
+export function buildRegistryTheme(
+  config: DesignSystemConfig,
+  customThemeVars: CustomThemeVars = {}
+) {
   const baseColor = getBaseColor(config.baseColor)
   const theme = getTheme(config.theme)
 
@@ -494,14 +498,23 @@ export function buildRegistryTheme(config: DesignSystemConfig) {
     type: "registry:theme" as const,
     cssVars: {
       theme: Object.keys(themeVars).length > 0 ? themeVars : undefined,
-      light: lightVars,
-      dark: darkVars,
+      light: {
+        ...lightVars,
+        ...(customThemeVars.light ?? {}),
+      },
+      dark: {
+        ...darkVars,
+        ...(customThemeVars.dark ?? {}),
+      },
     },
   }
 }
 
 // Builds a registry:base item from a design system config.
-export function buildRegistryBase(config: DesignSystemConfig) {
+export function buildRegistryBase(
+  config: DesignSystemConfig,
+  customThemeVars: CustomThemeVars = {}
+) {
   const baseItem = getBase(config.base)
   const iconLibraryItem = getIconLibrary(config.iconLibrary)
   const normalizedFontHeading =
@@ -513,7 +526,7 @@ export function buildRegistryBase(config: DesignSystemConfig) {
     )
   }
 
-  const registryTheme = buildRegistryTheme(config)
+  const registryTheme = buildRegistryTheme(config, customThemeVars)
 
   // Build dependencies.
   const dependencies = [

@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Script from "next/script"
+import { useRouter } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
@@ -32,26 +33,28 @@ import {
   OPEN_PRESET_FORWARD_TYPE,
   useOpenPreset,
 } from "@/app/create/hooks/use-open-preset"
-import { parsePresetInput } from "@/app/create/lib/parse-preset-input"
+import { parseOpenConfigInput } from "@/app/create/lib/parse-open-config-input"
 import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
 
 const PRESET_EXAMPLE = "b2D0wqNxT"
-const PRESET_TITLE = "Open Preset"
-const PRESET_DESCRIPTION = "Paste a preset code to load a saved configuration."
+const PRESET_TITLE = "Open Config"
+const PRESET_DESCRIPTION =
+  "Paste a create link, query string, or preset code to load a saved configuration."
 
 export function OpenPreset({
   className,
-  label = "Open Preset",
+  label = "Open Config",
 }: React.ComponentProps<typeof Button> & {
   label?: string
 }) {
   const [input, setInput] = React.useState("")
   const [, setParams] = useDesignSystemSearchParams()
+  const router = useRouter()
   const isMobile = useIsMobile()
   const { open, setOpen } = useOpenPreset()
 
-  const nextPreset = React.useMemo(() => parsePresetInput(input), [input])
-  const isInvalid = input.trim().length > 0 && nextPreset === null
+  const nextInput = React.useMemo(() => parseOpenConfigInput(input), [input])
+  const isInvalid = input.trim().length > 0 && nextInput === null
 
   const handleOpenChange = React.useCallback(
     (nextOpen: boolean) => {
@@ -68,14 +71,21 @@ export function OpenPreset({
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
 
-      if (!nextPreset) {
+      if (!nextInput) {
         return
       }
 
-      setParams({ preset: nextPreset })
+      if (nextInput?.type === "preset") {
+        setParams({ preset: nextInput.preset })
+      } else if (nextInput?.type === "query") {
+        router.push(`/create?${nextInput.query}`)
+      } else {
+        return
+      }
+
       handleOpenChange(false)
     },
-    [handleOpenChange, nextPreset, setParams]
+    [handleOpenChange, nextInput, router, setParams]
   )
 
   const triggerClassName = cn(
@@ -89,15 +99,15 @@ export function OpenPreset({
 
   const fields = (
     <Field data-invalid={isInvalid || undefined}>
-      <FieldLabel htmlFor="preset-code" className="sr-only">
-        Preset code
+      <FieldLabel htmlFor="config-input" className="sr-only">
+        Config input
       </FieldLabel>
       <FieldContent>
         <Input
-          id="preset-code"
+          id="config-input"
           value={input}
           onChange={(event) => setInput(event.target.value)}
-          placeholder={`${PRESET_EXAMPLE} or --preset ${PRESET_EXAMPLE}`}
+          placeholder={`${PRESET_EXAMPLE}, --preset ${PRESET_EXAMPLE}, or https://.../create?...`}
           autoCapitalize="none"
           autoCorrect="off"
           spellCheck={false}
@@ -124,7 +134,7 @@ export function OpenPreset({
           <form onSubmit={handleSubmit}>
             <div className="px-4 py-2">{fields}</div>
             <DrawerFooter>
-              <Button type="submit" className="h-10" disabled={!nextPreset}>
+              <Button type="submit" className="h-10" disabled={!nextInput}>
                 Open
               </Button>
               <DrawerClose asChild>
@@ -153,7 +163,7 @@ export function OpenPreset({
             <DialogClose render={<Button variant="outline" type="button" />}>
               Cancel
             </DialogClose>
-            <Button type="submit" disabled={!nextPreset}>
+            <Button type="submit" disabled={!nextInput}>
               Open
             </Button>
           </DialogFooter>

@@ -172,7 +172,7 @@ export function Customizer({
             <CopyPreset className="min-w-0 flex-1 md:flex-none" />
             <OpenPreset
               className="max-w-20 min-w-0 flex-1 sm:max-w-none md:flex-none"
-              label={isMobile ? "Open" : "Open Preset"}
+              label={isMobile ? "Open" : "Open Config"}
             />
             <RandomButton className="max-w-20 min-w-0 flex-1 sm:max-w-none md:flex-none" />
             <ActionMenu itemsByBase={itemsByBase} />

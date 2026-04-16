@@ -22,8 +22,28 @@ import {
 const MAC_REGEX = /Mac|iPhone|iPad|iPod/
 
 export function Preview() {
-  const [params] = useDesignSystemSearchParams()
+  const [params, setParams] = useDesignSystemSearchParams()
   const iframeRef = React.useRef<HTMLIFrameElement>(null)
+  const previewBase = params.previewBase || params.base
+  const previewParams = React.useMemo(
+    () => ({
+      ...params,
+      base: previewBase,
+      previewBase,
+    }),
+    [params, previewBase]
+  )
+
+  React.useEffect(() => {
+    if (params.previewBase) {
+      return
+    }
+
+    setParams(
+      { previewBase: params.base },
+      { history: "replace", shallow: true }
+    )
+  }, [params.base, params.previewBase, setParams])
 
   React.useEffect(() => {
     const iframe = iframeRef.current
@@ -32,7 +52,7 @@ export function Preview() {
     }
 
     const sendParams = () => {
-      sendToIframe(iframe, "design-system-params", params)
+      sendToIframe(iframe, "design-system-params", previewParams)
     }
 
     if (iframe.contentWindow) {
@@ -43,7 +63,7 @@ export function Preview() {
     return () => {
       iframe.removeEventListener("load", sendParams)
     }
-  }, [params])
+  }, [previewParams])
 
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -142,18 +162,18 @@ export function Preview() {
     // Further updates of the search params will be sent to the iframe
     // via a postMessage channel, for it to sync its own history onto the host's.
     return serializeDesignSystemSearchParams(
-      `/preview/${params.base}/${params.item}`,
-      params
+      `/preview/${previewBase}/${params.item}`,
+      previewParams
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.base, params.item])
+  }, [params.item, previewBase])
 
   return (
     <div className="relative flex flex-1 flex-col justify-center overflow-hidden rounded-2xl ring ring-foreground/10 md:ring-muted dark:ring-foreground/10">
       <div className="relative z-0 mx-auto flex w-full flex-1 flex-col overflow-hidden">
         <div className="absolute inset-0 bg-muted dark:bg-muted/30" />
         <iframe
-          key={params.base + params.item}
+          key={previewBase + params.item}
           ref={iframeRef}
           src={iframeSrc}
           className="z-10 size-full flex-1"

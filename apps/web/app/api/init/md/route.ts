@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
       return new Response(result.error, { status: 400 })
     }
 
-    const markdown = buildInstructions(result.data)
+    const markdown = buildInstructions(result.data, result.customThemeVars)
 
     return new Response(markdown, {
       headers: { "Content-Type": "text/markdown; charset=utf-8" },

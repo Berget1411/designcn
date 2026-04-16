@@ -45,6 +45,7 @@ const designSystemSearchParams = {
   base: parseAsStringLiteral<BaseName>(BASES.map((b) => b.name)).withDefault(
     DEFAULT_CONFIG.base
   ),
+  previewBase: parseAsStringLiteral<BaseName>(BASES.map((b) => b.name)),
   item: parseAsString.withDefault("preview-02").withOptions({ shallow: true }),
   iconLibrary: parseAsStringLiteral<IconLibraryName>(
     Object.values(iconLibraries).map((i) => i.name)
@@ -123,6 +124,7 @@ function normalizeFontHeading(
 // `base` is not encoded in preset codes — it's an architectural choice, not visual.
 const NON_DESIGN_SYSTEM_KEYS = [
   "base",
+  "previewBase",
   "item",
   "preset",
   "template",
@@ -222,6 +224,7 @@ function resolvePresetParams(
         ...decoded,
         ...presetOverrides,
         base: rawParams.base,
+        previewBase: rawParams.previewBase,
         item: rawParams.item,
         preset: rawParams.preset,
         template: rawParams.template,

@@ -5,7 +5,7 @@ export const siteConfig = {
   description:
     "Customize your design system. Pick your component library, icons, base color, theme, fonts and create your own version.",
   links: {
-    github: "https://github.com/designcn",
+    github: "https://github.com/Berget1411/designcn",
   },
   navItems: [
     {

@@ -4,6 +4,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { TRPCReactProvider } from "@/trpc/client"
 import { cn } from "@workspace/ui/lib/utils"
 import { TooltipProvider } from '@workspace/ui/components/tooltip'
 
@@ -37,9 +38,15 @@ export default function RootLayout({
       )}
     >
       <body>
-        <NuqsAdapter>
-          <ThemeProvider><TooltipProvider>{children}</TooltipProvider></ThemeProvider>
-        </NuqsAdapter>
+        <TRPCReactProvider>
+          <NuqsAdapter>
+            <ThemeProvider>
+              <TooltipProvider>
+                {children}
+              </TooltipProvider>
+            </ThemeProvider>
+          </NuqsAdapter>
+        </TRPCReactProvider>
       </body>
     </html>
   )
