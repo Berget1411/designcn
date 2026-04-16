@@ -23,8 +23,10 @@
     "typescript": "5.9.3"
   },
   "lint-staged": {
-    "*": [
-      "oxlint",
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "oxlint"
+    ],
+    "*.{js,jsx,ts,tsx,mjs,cjs,json,md,css,html,yml,yaml}": [
       "oxfmt --write"
     ]
   },
