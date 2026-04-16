@@ -4,9 +4,12 @@ import * as React from "react";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
 
+import { FolderOpen } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@workspace/ui/components/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@workspace/ui/components/tooltip";
 import {
   Dialog,
   DialogClose,
@@ -86,11 +89,9 @@ export function OpenPreset({
   );
 
   const triggerClassName = cn(
-    "touch-manipulation bg-transparent! px-2! py-0! text-sm! transition-none select-none hover:bg-muted! pointer-coarse:h-10!",
+    "touch-manipulation bg-transparent! transition-none select-none hover:bg-muted! pointer-coarse:size-10!",
     className,
   );
-
-  const desktopTrigger = <Button variant="outline" className={triggerClassName} />;
 
   const fields = (
     <Field data-invalid={isInvalid || undefined}>
@@ -113,56 +114,73 @@ export function OpenPreset({
     </Field>
   );
 
+  const trigger = (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon-sm"
+          aria-label={label}
+          className={triggerClassName}
+          onClick={() => setOpen(true)}
+        >
+          <FolderOpen className="size-4" />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side="top">{label}</TooltipContent>
+    </Tooltip>
+  );
+
   if (isMobile) {
     return (
-      <Drawer open={open} onOpenChange={handleOpenChange}>
-        <DrawerTrigger asChild>
-          <Button variant="outline" className={triggerClassName}>
-            {label}
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent className="dark rounded-t-2xl!">
-          <DrawerHeader>
-            <DrawerTitle className="text-xl">{PRESET_TITLE}</DrawerTitle>
-            <DrawerDescription>{PRESET_DESCRIPTION}</DrawerDescription>
-          </DrawerHeader>
-          <form onSubmit={handleSubmit}>
-            <div className="px-4 py-2">{fields}</div>
-            <DrawerFooter>
-              <Button type="submit" className="h-10" disabled={!nextInput}>
-                Open
-              </Button>
-              <DrawerClose asChild>
-                <Button variant="outline" type="button" className="h-10">
-                  Cancel
+      <>
+        {trigger}
+        <Drawer open={open} onOpenChange={handleOpenChange}>
+          <DrawerContent className="dark rounded-t-2xl!">
+            <DrawerHeader>
+              <DrawerTitle className="text-xl">{PRESET_TITLE}</DrawerTitle>
+              <DrawerDescription>{PRESET_DESCRIPTION}</DrawerDescription>
+            </DrawerHeader>
+            <form onSubmit={handleSubmit}>
+              <div className="px-4 py-2">{fields}</div>
+              <DrawerFooter>
+                <Button type="submit" className="h-10" disabled={!nextInput}>
+                  Open
                 </Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </form>
-        </DrawerContent>
-      </Drawer>
+                <DrawerClose asChild>
+                  <Button variant="outline" type="button" className="h-10">
+                    Cancel
+                  </Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </form>
+          </DrawerContent>
+        </Drawer>
+      </>
     );
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger render={desktopTrigger}>{label}</DialogTrigger>
-      <DialogContent className="dark">
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            <DialogTitle>{PRESET_TITLE}</DialogTitle>
-            <DialogDescription>{PRESET_DESCRIPTION}</DialogDescription>
-          </DialogHeader>
-          <div className="py-4">{fields}</div>
-          <DialogFooter>
-            <DialogClose render={<Button variant="outline" type="button" />}>Cancel</DialogClose>
-            <Button type="submit" disabled={!nextInput}>
-              Open
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+    <>
+      {trigger}
+      <Dialog open={open} onOpenChange={handleOpenChange}>
+        <DialogContent className="dark">
+          <form onSubmit={handleSubmit}>
+            <DialogHeader>
+              <DialogTitle>{PRESET_TITLE}</DialogTitle>
+              <DialogDescription>{PRESET_DESCRIPTION}</DialogDescription>
+            </DialogHeader>
+            <div className="py-4">{fields}</div>
+            <DialogFooter>
+              <DialogClose render={<Button variant="outline" type="button" />}>Cancel</DialogClose>
+              <Button type="submit" disabled={!nextInput}>
+                Open
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 

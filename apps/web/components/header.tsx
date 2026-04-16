@@ -5,6 +5,7 @@ import { useSession, signOut } from "@/lib/auth-client";
 import { ThemeSwitcher } from "@/components/theme-switcher/theme-switcher";
 import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar";
 import { Button } from "@workspace/ui/components/button";
+import { Skeleton } from "@workspace/ui/components/skeleton";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +16,7 @@ import {
 } from "@workspace/ui/components/dropdown-menu";
 
 export function Header({ stars }: { stars?: React.ReactNode }) {
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
 
   function getInitials(name?: string | null, email?: string | null) {
     if (name) {
@@ -37,7 +38,9 @@ export function Header({ stars }: { stars?: React.ReactNode }) {
         <div className="flex items-center gap-3">
           {stars}
           <ThemeSwitcher />
-          {session ? (
+          {isPending ? (
+            <Skeleton className="size-7 rounded-full" />
+          ) : session ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">

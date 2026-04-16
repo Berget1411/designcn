@@ -17,7 +17,7 @@ export default function CreateLayout({ children }: { children: React.ReactNode }
               </Suspense>
             }
           />
-          <div className="flex min-h-svh flex-col pt-14">{children}</div>
+          <div className="flex h-svh flex-col overflow-hidden pt-14">{children}</div>
         </HistoryProvider>
       </Suspense>
     </LocksProvider>

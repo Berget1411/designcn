@@ -2,10 +2,12 @@
 
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
+import { Check, Link } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { copyToClipboardWithMeta } from "@/components/copy-button";
 import { Button } from "@workspace/ui/components/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@workspace/ui/components/tooltip";
 
 function getAppOrigin() {
   if (typeof window !== "undefined" && window.location.origin) {
@@ -44,16 +46,22 @@ export function CopyPreset({ className }: React.ComponentProps<typeof Button>) {
   }, [shareUrl]);
 
   return (
-    <Button
-      variant="outline"
-      onClick={handleCopy}
-      title={label}
-      className={cn(
-        "touch-manipulation bg-transparent! px-2! py-0! text-sm! transition-none select-none hover:bg-muted! pointer-coarse:h-10!",
-        className,
-      )}
-    >
-      <span className="block min-w-0 truncate">{label}</span>
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon-sm"
+          onClick={handleCopy}
+          aria-label={label}
+          className={cn(
+            "touch-manipulation bg-transparent! transition-none select-none hover:bg-muted! pointer-coarse:size-10!",
+            className,
+          )}
+        >
+          {hasCopied ? <Check className="size-4" /> : <Link className="size-4" />}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side="top">{label}</TooltipContent>
+    </Tooltip>
   );
 }

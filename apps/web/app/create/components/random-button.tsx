@@ -6,6 +6,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@workspace/ui/components/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@workspace/ui/components/tooltip";
 import { useRandom } from "@/app/create/hooks/use-random";
 import { RESET_FORWARD_TYPE } from "@/app/create/hooks/use-reset";
 
@@ -19,17 +20,24 @@ export function RandomButton({
   const { randomize } = useRandom();
 
   return (
-    <Button
-      variant={variant}
-      onClick={randomize}
-      className={cn(
-        "touch-manipulation bg-transparent! px-2! py-0! text-sm! transition-none select-none hover:bg-muted! pointer-coarse:h-10!",
-        className,
-      )}
-      {...props}
-    >
-      <span className="w-full truncate text-center font-medium">Shuffle</span>
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant={variant}
+          size="icon-sm"
+          onClick={randomize}
+          aria-label="Shuffle"
+          className={cn(
+            "touch-manipulation bg-transparent! transition-none select-none hover:bg-muted! pointer-coarse:size-10!",
+            className,
+          )}
+          {...props}
+        >
+          <HugeiconsIcon icon={DiceFaces05Icon} size={16} />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side="top">Shuffle</TooltipContent>
+    </Tooltip>
   );
 }
 

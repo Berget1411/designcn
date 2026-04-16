@@ -2,13 +2,15 @@
 
 import * as React from "react";
 import dynamic from "next/dynamic";
-import { Settings2, SlidersHorizontal } from "lucide-react";
+import { MoonStar, Settings2, SlidersHorizontal, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import { type RegistryItem } from "shadcn/schema";
 
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getThemesForBaseColor, STYLES } from "@/registry/config";
 import { Button } from "@workspace/ui/components/button";
+import { ButtonGroup } from "@workspace/ui/components/button-group";
 import { Card, CardContent, CardFooter, CardHeader } from "@workspace/ui/components/card";
 import { FieldGroup, FieldSeparator } from "@workspace/ui/components/field";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@workspace/ui/components/tooltip";
@@ -26,7 +28,7 @@ import { MenuColorPicker } from "@/app/create/components/menu-picker";
 import { OpenPreset } from "@/app/create/components/open-preset";
 import { RadiusPicker } from "@/app/create/components/radius-picker";
 import { RandomButton } from "@/app/create/components/random-button";
-import { ResetDialog } from "@/app/create/components/reset-button";
+import { ResetButton, ResetDialog } from "@/app/create/components/reset-button";
 import { StylePicker } from "@/app/create/components/style-picker";
 import { ThemePicker } from "@/app/create/components/theme-picker";
 import { FONT_HEADING_OPTIONS, FONTS } from "@/app/create/lib/fonts";
@@ -36,6 +38,28 @@ import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
 const ProjectForm = dynamic(() =>
   import("@/app/create/components/project-form").then((m) => m.ProjectForm),
 );
+
+function ThemeToggleButton() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon-sm"
+          aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          className="touch-manipulation bg-transparent! transition-none select-none hover:bg-muted!"
+          onClick={() => setTheme(isDark ? "light" : "dark")}
+        >
+          {isDark ? <Sun className="size-4" /> : <MoonStar className="size-4" />}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side="top">{isDark ? "Light mode" : "Dark mode"}</TooltipContent>
+    </Tooltip>
+  );
+}
 
 function AdvancedToggleButton({ advanced, onClick }: { advanced: boolean; onClick: () => void }) {
   const label = advanced ? "Show config controls" : "Show advanced colors";
@@ -144,13 +168,15 @@ export function Customizer({
       </CardContent>
       {!advanced ? (
         <React.Fragment>
-          <CardFooter className="flex min-w-0 gap-2 md:flex-col md:rounded-b-none md:**:[button,a]:w-full">
-            <CopyPreset className="min-w-0 flex-1 md:flex-none" />
-            <OpenPreset
-              className="max-w-20 min-w-0 flex-1 sm:max-w-none md:flex-none"
-              label={isMobile ? "Open" : "Open Config"}
-            />
-            <RandomButton className="max-w-20 min-w-0 flex-1 sm:max-w-none md:flex-none" />
+          <CardFooter className="flex min-w-0 items-center gap-2 md:rounded-b-none">
+            <div className="min-w-0 flex-1 md:hidden" />
+            <ButtonGroup className="py-0.5">
+              <CopyPreset />
+              <OpenPreset label={isMobile ? "Open" : "Open Config"} />
+              <RandomButton />
+              <ThemeToggleButton />
+              <ResetButton />
+            </ButtonGroup>
             <ActionMenu itemsByBase={itemsByBase} />
             <ResetDialog />
           </CardFooter>

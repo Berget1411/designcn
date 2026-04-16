@@ -111,8 +111,9 @@ export function ChartColorPicker({
           </div>
           {mounted && (
             <>
-              <button
-                type="button"
+              <div
+                role="button"
+                tabIndex={0}
                 style={
                   {
                     "--color-primary": primaryColor,
@@ -124,11 +125,18 @@ export function ChartColorPicker({
                   e.stopPropagation();
                   colorInputRef.current?.click();
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    colorInputRef.current?.click();
+                  }
+                }}
                 aria-label="Pick custom chart color"
               >
                 <span className="absolute inset-0 bg-(--color-secondary)" />
                 <span className="absolute inset-0 bg-(--color-primary) [clip-path:polygon(100%_0,0_100%,100%_100%)]" />
-              </button>
+              </div>
               <input
                 ref={colorInputRef}
                 type="color"

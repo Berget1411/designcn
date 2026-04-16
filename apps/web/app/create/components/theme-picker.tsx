@@ -94,8 +94,9 @@ export function ThemePicker({
           </div>
           {mounted && (
             <>
-              <button
-                type="button"
+              <div
+                role="button"
+                tabIndex={0}
                 style={
                   {
                     "--color": displayColor,
@@ -105,6 +106,13 @@ export function ThemePicker({
                 onClick={(e) => {
                   e.stopPropagation();
                   colorInputRef.current?.click();
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    colorInputRef.current?.click();
+                  }
                 }}
                 aria-label="Pick custom theme color"
               />

@@ -77,8 +77,9 @@ export function BaseColorPicker({
           </div>
           {mounted && (
             <>
-              <button
-                type="button"
+              <div
+                role="button"
+                tabIndex={0}
                 style={
                   {
                     "--color": displayColor,
@@ -88,6 +89,12 @@ export function BaseColorPicker({
                 onClick={(e) => {
                   e.stopPropagation();
                   colorInputRef.current?.click();
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.stopPropagation();
+                    colorInputRef.current?.click();
+                  }
                 }}
                 aria-label="Pick custom base color"
               />
