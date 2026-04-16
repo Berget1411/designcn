@@ -18,6 +18,7 @@ const formSchema = z.object({
 export default function SignUpPage() {
   const [done, setDone] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState("");
+  const [serverError, setServerError] = useState("");
 
   const form = useForm({
     defaultValues: {
@@ -29,17 +30,15 @@ export default function SignUpPage() {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
+      setServerError("");
       const { error } = await signUp.email({
         name: value.name,
         email: value.email,
         password: value.password,
         callbackURL: "/",
       });
-
       if (error) {
-        form.setErrorMap({
-          onSubmit: error.message ?? "Sign up failed",
-        });
+        setServerError(error.message ?? "Sign up failed");
       } else {
         setSubmittedEmail(value.email);
         setDone(true);
@@ -128,20 +127,15 @@ export default function SignUpPage() {
         }}
         className="space-y-4"
       >
-        <form.Subscribe selector={(state) => state.errorMap.onSubmit}>
-          {(error) =>
-            error ? (
-              <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
-                {String(error)}
-              </p>
-            ) : null
-          }
-        </form.Subscribe>
+        {serverError && (
+          <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            {serverError}
+          </p>
+        )}
 
         <FieldGroup>
-          <form.Field
-            name="name"
-            children={(field) => {
+          <form.Field name="name">
+            {(field) => {
               const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
@@ -161,11 +155,10 @@ export default function SignUpPage() {
                 </Field>
               );
             }}
-          />
+          </form.Field>
 
-          <form.Field
-            name="email"
-            children={(field) => {
+          <form.Field name="email">
+            {(field) => {
               const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
@@ -185,11 +178,10 @@ export default function SignUpPage() {
                 </Field>
               );
             }}
-          />
+          </form.Field>
 
-          <form.Field
-            name="password"
-            children={(field) => {
+          <form.Field name="password">
+            {(field) => {
               const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
@@ -209,7 +201,7 @@ export default function SignUpPage() {
                 </Field>
               );
             }}
-          />
+          </form.Field>
         </FieldGroup>
 
         <form.Subscribe selector={(state) => state.isSubmitting}>

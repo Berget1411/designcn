@@ -16,6 +16,7 @@ const formSchema = z.object({
 export default function ForgotPasswordPage() {
   const [done, setDone] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState("");
+  const [serverError, setServerError] = useState("");
 
   const form = useForm({
     defaultValues: {
@@ -25,15 +26,13 @@ export default function ForgotPasswordPage() {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
+      setServerError("");
       const { error } = await forgetPassword({
         email: value.email,
         redirectTo: "/reset-password",
       });
-
       if (error) {
-        form.setErrorMap({
-          onSubmit: error.message ?? "Something went wrong",
-        });
+        setServerError(error.message ?? "Something went wrong");
       } else {
         setSubmittedEmail(value.email);
         setDone(true);
@@ -71,20 +70,15 @@ export default function ForgotPasswordPage() {
         }}
         className="space-y-4"
       >
-        <form.Subscribe selector={(state) => state.errorMap.onSubmit}>
-          {(error) =>
-            error ? (
-              <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
-                {String(error)}
-              </p>
-            ) : null
-          }
-        </form.Subscribe>
+        {serverError && (
+          <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            {serverError}
+          </p>
+        )}
 
         <FieldGroup>
-          <form.Field
-            name="email"
-            children={(field) => {
+          <form.Field name="email">
+            {(field) => {
               const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
@@ -104,7 +98,7 @@ export default function ForgotPasswordPage() {
                 </Field>
               );
             }}
-          />
+          </form.Field>
         </FieldGroup>
 
         <form.Subscribe selector={(state) => state.isSubmitting}>

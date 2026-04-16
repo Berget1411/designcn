@@ -1,6 +1,9 @@
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
-import * as schema from "./auth-schema";
+import * as authSchema from "./auth-schema";
+import * as appSchema from "./schema";
+
+const schema = { ...authSchema, ...appSchema };
 
 type DrizzleDb = ReturnType<typeof drizzle<typeof schema>>;
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "@tanstack/react-form";
@@ -21,6 +22,7 @@ const formSchema = z
 
 export default function ResetPasswordPage() {
   const router = useRouter();
+  const [serverError, setServerError] = useState("");
 
   const form = useForm({
     defaultValues: {
@@ -31,12 +33,10 @@ export default function ResetPasswordPage() {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
+      setServerError("");
       const { error } = await resetPassword({ newPassword: value.password });
-
       if (error) {
-        form.setErrorMap({
-          onSubmit: error.message ?? "Reset failed",
-        });
+        setServerError(error.message ?? "Reset failed");
       } else {
         router.push("/sign-in?reset=1");
       }
@@ -57,20 +57,15 @@ export default function ResetPasswordPage() {
         }}
         className="space-y-4"
       >
-        <form.Subscribe selector={(state) => state.errorMap.onSubmit}>
-          {(error) =>
-            error ? (
-              <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
-                {String(error)}
-              </p>
-            ) : null
-          }
-        </form.Subscribe>
+        {serverError && (
+          <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            {serverError}
+          </p>
+        )}
 
         <FieldGroup>
-          <form.Field
-            name="password"
-            children={(field) => {
+          <form.Field name="password">
+            {(field) => {
               const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
@@ -90,11 +85,10 @@ export default function ResetPasswordPage() {
                 </Field>
               );
             }}
-          />
+          </form.Field>
 
-          <form.Field
-            name="confirm"
-            children={(field) => {
+          <form.Field name="confirm">
+            {(field) => {
               const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
@@ -114,7 +108,7 @@ export default function ResetPasswordPage() {
                 </Field>
               );
             }}
-          />
+          </form.Field>
         </FieldGroup>
 
         <form.Subscribe selector={(state) => state.isSubmitting}>

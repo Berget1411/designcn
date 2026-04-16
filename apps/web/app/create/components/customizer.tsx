@@ -29,6 +29,7 @@ import { OpenPreset } from "@/app/create/components/open-preset";
 import { RadiusPicker } from "@/app/create/components/radius-picker";
 import { RandomButton } from "@/app/create/components/random-button";
 import { ResetButton, ResetDialog } from "@/app/create/components/reset-button";
+import { SavePresetDialog } from "@/app/create/components/save-preset-dialog";
 import { StylePicker } from "@/app/create/components/style-picker";
 import { ThemePicker } from "@/app/create/components/theme-picker";
 import { FONT_HEADING_OPTIONS, FONTS } from "@/app/create/lib/fonts";
@@ -179,6 +180,7 @@ export function Customizer({
             </ButtonGroup>
             <ActionMenu itemsByBase={itemsByBase} />
             <ResetDialog />
+            <SavePresetDialog />
           </CardFooter>
           <CardFooter className="-mt-3 hidden min-w-0 gap-2 md:flex md:flex-col md:**:[button,a]:w-full">
             <ProjectForm />
