@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Bar, BarChart, XAxis } from "recharts"
+import { Bar, BarChart, XAxis } from "recharts";
 
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardAction,
@@ -10,21 +10,21 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
+} from "@/registry/bases/radix/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/registry/bases/radix/ui/chart"
+} from "@/registry/bases/radix/ui/chart";
 import {
   Item,
   ItemContent,
   ItemDescription,
   ItemGroup,
   ItemTitle,
-} from "@/registry/bases/radix/ui/item"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/item";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 const HOLDINGS = [
   {
@@ -71,14 +71,14 @@ const HOLDINGS = [
       { q: "Q4", value: 360 },
     ],
   },
-]
+];
 
 const miniChartConfig = {
   value: {
     label: "Dividend",
     color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function DividendIncome() {
   return (
@@ -108,23 +108,10 @@ export function DividendIncome() {
                 <ItemTitle>{holding.name}</ItemTitle>
                 <ItemDescription>{holding.shares}</ItemDescription>
               </ItemContent>
-              <ChartContainer
-                config={miniChartConfig}
-                className="hidden h-8 w-24 md:block"
-              >
-                <BarChart
-                  data={holding.data}
-                  margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-                >
-                  <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent hideLabel />}
-                  />
-                  <Bar
-                    dataKey="value"
-                    fill="var(--color-value)"
-                    radius={[3, 3, 0, 0]}
-                  />
+              <ChartContainer config={miniChartConfig} className="hidden h-8 w-24 md:block">
+                <BarChart data={holding.data} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                  <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                  <Bar dataKey="value" fill="var(--color-value)" radius={[3, 3, 0, 0]} />
                 </BarChart>
               </ChartContainer>
               <span className="hidden text-sm font-semibold tabular-nums md:block">
@@ -135,5 +122,5 @@ export function DividendIncome() {
         </ItemGroup>
       </CardContent>
     </Card>
-  )
+  );
 }

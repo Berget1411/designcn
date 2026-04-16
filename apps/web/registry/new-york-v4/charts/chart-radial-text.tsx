@@ -1,13 +1,7 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import {
-  Label,
-  PolarGrid,
-  PolarRadiusAxis,
-  RadialBar,
-  RadialBarChart,
-} from "recharts"
+import { TrendingUp } from "lucide-react";
+import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
 import {
   Card,
@@ -16,17 +10,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
-import {
-  ChartContainer,
-  type ChartConfig,
-} from "@/registry/new-york-v4/ui/chart"
+} from "@/registry/new-york-v4/ui/card";
+import { ChartContainer, type ChartConfig } from "@/registry/new-york-v4/ui/chart";
 
-export const description = "A radial chart with text"
+export const description = "A radial chart with text";
 
-const chartData = [
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-]
+const chartData = [{ browser: "safari", visitors: 200, fill: "var(--color-safari)" }];
 
 const chartConfig = {
   visitors: {
@@ -36,7 +25,7 @@ const chartConfig = {
     label: "Safari",
     color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function ChartRadialText() {
   return (
@@ -46,10 +35,7 @@ export function ChartRadialText() {
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
+        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
           <RadialBarChart
             data={chartData}
             startAngle={0}
@@ -91,7 +77,7 @@ export function ChartRadialText() {
                           Visitors
                         </tspan>
                       </text>
-                    )
+                    );
                   }
                 }}
               />
@@ -108,5 +94,5 @@ export function ChartRadialText() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

@@ -1,43 +1,36 @@
-import dedent from "dedent"
+import dedent from "dedent";
 
-import { UI_COMPONENTS } from "@/lib/components"
+import { UI_COMPONENTS } from "@/lib/components";
 import {
   buildRegistryBase,
   getBodyFont,
   getHeadingFont,
   getInheritedHeadingFontValue,
   type DesignSystemConfig,
-} from "@/registry/config"
-import { type CustomThemeVars } from "@/app/create/lib/custom-theme-vars"
+} from "@/registry/config";
+import { type CustomThemeVars } from "@/app/create/lib/custom-theme-vars";
 
 // Builds step-by-step markdown instructions for manually setting up a project.
 export function buildInstructions(
   config: DesignSystemConfig,
-  customThemeVars: CustomThemeVars = {}
+  customThemeVars: CustomThemeVars = {},
 ) {
-  const registryBase = buildRegistryBase(config, customThemeVars)
-  const normalizedFontHeading =
-    config.fontHeading === config.font ? "inherit" : config.fontHeading
+  const registryBase = buildRegistryBase(config, customThemeVars);
+  const normalizedFontHeading = config.fontHeading === config.font ? "inherit" : config.fontHeading;
 
-  const dependencies = [
-    ...(registryBase.dependencies ?? []),
-    "clsx",
-    "tailwind-merge",
-  ]
+  const dependencies = [...(registryBase.dependencies ?? []), "clsx", "tailwind-merge"];
 
   const lightVars = Object.entries(registryBase.cssVars?.light ?? {})
     .map(([key, value]) => `  --${key}: ${value};`)
-    .join("\n")
+    .join("\n");
 
   const darkVars = Object.entries(registryBase.cssVars?.dark ?? {})
     .map(([key, value]) => `  --${key}: ${value};`)
-    .join("\n")
+    .join("\n");
 
-  const font = getBodyFont(config.font)
+  const font = getBodyFont(config.font);
   const headingFont =
-    normalizedFontHeading === "inherit"
-      ? undefined
-      : getHeadingFont(normalizedFontHeading)
+    normalizedFontHeading === "inherit" ? undefined : getHeadingFont(normalizedFontHeading);
 
   const sections = [
     buildDependenciesSection(dependencies),
@@ -47,19 +40,19 @@ export function buildInstructions(
       darkVars,
       normalizedFontHeading === "inherit"
         ? getInheritedHeadingFontValue(config.font)
-        : "var(--font-heading)"
+        : "var(--font-heading)",
     ),
     buildFontSection(font, headingFont),
     buildComponentsJsonSection(config),
     buildAvailableComponentsSection(config),
     config.rtl ? buildRtlSection(config) : null,
-  ]
+  ];
 
-  return sections.filter(Boolean).join("\n\n---\n\n")
+  return sections.filter(Boolean).join("\n\n---\n\n");
 }
 
 function buildDependenciesSection(dependencies: string[]) {
-  const list = dependencies.map((dep) => `- ${dep}`).join("\n")
+  const list = dependencies.map((dep) => `- ${dep}`).join("\n");
 
   return dedent`
     ## Step 1: Dependencies
@@ -67,7 +60,7 @@ function buildDependenciesSection(dependencies: string[]) {
     The following dependencies are required:
 
     ${list}
-  `
+  `;
 }
 
 function buildUtilsSection() {
@@ -82,14 +75,10 @@ function buildUtilsSection() {
       return twMerge(clsx(inputs))
     }
     \`\`\`
-  `
+  `;
 }
 
-function buildCssSection(
-  lightVars: string,
-  darkVars: string,
-  fontHeadingValue: string
-) {
+function buildCssSection(lightVars: string, darkVars: string, fontHeadingValue: string) {
   return dedent`
     ## Step 3: Set up CSS
 
@@ -162,24 +151,24 @@ function buildCssSection(
       }
     }
     \`\`\`
-  `
+  `;
 }
 
 function buildFontSection(
   font: ReturnType<typeof getBodyFont>,
-  headingFont: ReturnType<typeof getHeadingFont>
+  headingFont: ReturnType<typeof getHeadingFont>,
 ) {
   if (!font) {
-    return null
+    return null;
   }
 
-  const googleFontsUrl = `https://fonts.google.com/specimen/${font.font.import.replace(/_/g, "+")}`
+  const googleFontsUrl = `https://fonts.google.com/specimen/${font.font.import.replace(/_/g, "+")}`;
   const headingGoogleFontsUrl = headingFont
     ? `https://fonts.google.com/specimen/${headingFont.font.import.replace(/_/g, "+")}`
-    : null
+    : null;
   const nextImports = headingFont
     ? `${font.font.import}, ${headingFont.font.import}`
-    : font.font.import
+    : font.font.import;
   const nextDeclarations = [
     `const fontSans = ${font.font.import}({`,
     `  subsets: ["latin"],`,
@@ -191,24 +180,22 @@ function buildFontSection(
     headingFont ? `})` : null,
   ]
     .filter(Boolean)
-    .join("\n")
+    .join("\n");
   const nextHtmlClassName = headingFont
     ? 'className={fontSans.variable + " " + fontHeading.variable}'
-    : `className={fontSans.variable}`
+    : `className={fontSans.variable}`;
   const otherFrameworkCss = [
     ":root {",
     `  ${font.font.variable}: ${font.font.family};`,
-    ...(headingFont
-      ? [`  ${headingFont.font.variable}: ${headingFont.font.family};`]
-      : []),
+    ...(headingFont ? [`  ${headingFont.font.variable}: ${headingFont.font.family};`] : []),
     "}",
-  ].join("\n")
+  ].join("\n");
   const headingSection = headingFont
     ? dedent`
 
       This config also uses **${headingFont.title.replace(" (Heading)", "")}** for headings (\`${headingFont.font.variable}\`).
     `
-    : ""
+    : "";
 
   return dedent`
     ## Step 4: Set up the font
@@ -234,7 +221,7 @@ function buildFontSection(
     \`\`\`css
     ${otherFrameworkCss}
     \`\`\`
-  `
+  `;
 }
 
 function buildComponentsJsonSection(config: DesignSystemConfig) {
@@ -253,7 +240,7 @@ function buildComponentsJsonSection(config: DesignSystemConfig) {
       lib: "@/lib",
       hooks: "@/hooks",
     },
-  }
+  };
 
   return dedent`
     ## Step 5: Create \`components.json\`
@@ -263,12 +250,12 @@ function buildComponentsJsonSection(config: DesignSystemConfig) {
     \`\`\`json
     ${JSON.stringify(componentsJson, null, 2)}
     \`\`\`
-  `
+  `;
 }
 
 function buildAvailableComponentsSection(config: DesignSystemConfig) {
-  const list = UI_COMPONENTS.join(", ")
-  const style = `${config.base}-${config.style}`
+  const list = UI_COMPONENTS.join(", ");
+  const style = `${config.base}-${config.style}`;
 
   return dedent`
     ## Available Components
@@ -280,12 +267,11 @@ function buildAvailableComponentsSection(config: DesignSystemConfig) {
 
     For documentation and examples, visit:
     \`https://ui.shadcn.com/docs/components/${config.base}/<component>\`
-  `
+  `;
 }
 
 function buildRtlSection(config: DesignSystemConfig) {
-  const template =
-    config.template === "next-monorepo" ? "next" : (config.template ?? "next")
+  const template = config.template === "next-monorepo" ? "next" : (config.template ?? "next");
 
   return dedent`
     ## RTL Support
@@ -297,5 +283,5 @@ function buildRtlSection(config: DesignSystemConfig) {
     \`\`\`
 
     For full RTL setup including the \`DirectionProvider\`, see the [RTL documentation](https://ui.shadcn.com/docs/rtl/${template}).
-  `
+  `;
 }

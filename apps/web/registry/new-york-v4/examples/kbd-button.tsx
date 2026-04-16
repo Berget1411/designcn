@@ -1,5 +1,5 @@
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Kbd } from "@/registry/new-york-v4/ui/kbd"
+import { Button } from "@/registry/new-york-v4/ui/button";
+import { Kbd } from "@/registry/new-york-v4/ui/kbd";
 
 export default function KbdButton() {
   return (
@@ -11,5 +11,5 @@ export default function KbdButton() {
         Cancel <Kbd>Esc</Kbd>
       </Button>
     </div>
-  )
+  );
 }

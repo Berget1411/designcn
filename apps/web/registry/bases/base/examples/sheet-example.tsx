@@ -1,10 +1,7 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
-import { Button } from "@/registry/bases/base/ui/button"
-import { Field, FieldGroup, FieldLabel } from "@/registry/bases/base/ui/field"
-import { Input } from "@/registry/bases/base/ui/input"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
+import { Button } from "@/registry/bases/base/ui/button";
+import { Field, FieldGroup, FieldLabel } from "@/registry/bases/base/ui/field";
+import { Input } from "@/registry/bases/base/ui/input";
 import {
   Sheet,
   SheetClose,
@@ -14,7 +11,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/registry/bases/base/ui/sheet"
+} from "@/registry/bases/base/ui/sheet";
 
 export default function SheetExample() {
   return (
@@ -23,7 +20,7 @@ export default function SheetExample() {
       <SheetNoCloseButton />
       <SheetWithSides />
     </ExampleWrapper>
-  )
+  );
 }
 
 function SheetWithForm() {
@@ -35,8 +32,7 @@ function SheetWithForm() {
           <SheetHeader>
             <SheetTitle>Edit profile</SheetTitle>
             <SheetDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
+              Make changes to your profile here. Click save when you&apos;re done.
             </SheetDescription>
           </SheetHeader>
           <div className="style-vega:px-4 style-nova:px-4 style-lyra:px-4 style-maia:px-6 style-mira:px-6 style-luma:px-6">
@@ -58,31 +54,29 @@ function SheetWithForm() {
         </SheetContent>
       </Sheet>
     </Example>
-  )
+  );
 }
 
 function SheetNoCloseButton() {
   return (
     <Example title="No Close Button">
       <Sheet>
-        <SheetTrigger render={<Button variant="outline" />}>
-          No Close Button
-        </SheetTrigger>
+        <SheetTrigger render={<Button variant="outline" />}>No Close Button</SheetTrigger>
         <SheetContent showCloseButton={false}>
           <SheetHeader>
             <SheetTitle>No Close Button</SheetTitle>
             <SheetDescription>
-              This sheet doesn&apos;t have a close button in the top-right
-              corner. You can only close it using the button below.
+              This sheet doesn&apos;t have a close button in the top-right corner. You can only
+              close it using the button below.
             </SheetDescription>
           </SheetHeader>
         </SheetContent>
       </Sheet>
     </Example>
-  )
+  );
 }
 
-const SHEET_SIDES = ["top", "right", "bottom", "left"] as const
+const SHEET_SIDES = ["top", "right", "bottom", "left"] as const;
 
 function SheetWithSides() {
   return (
@@ -90,9 +84,7 @@ function SheetWithSides() {
       <div className="flex flex-wrap gap-2">
         {SHEET_SIDES.map((side) => (
           <Sheet key={side}>
-            <SheetTrigger
-              render={<Button variant="outline" className="capitalize" />}
-            >
+            <SheetTrigger render={<Button variant="outline" className="capitalize" />}>
               {side}
             </SheetTrigger>
             <SheetContent
@@ -102,8 +94,7 @@ function SheetWithSides() {
               <SheetHeader>
                 <SheetTitle>Edit profile</SheetTitle>
                 <SheetDescription>
-                  Make changes to your profile here. Click save when you&apos;re
-                  done.
+                  Make changes to your profile here. Click save when you&apos;re done.
                 </SheetDescription>
               </SheetHeader>
               <div className="no-scrollbar overflow-y-auto style-vega:px-4 style-nova:px-4 style-lyra:px-4 style-maia:px-6 style-mira:px-6 style-luma:px-6">
@@ -112,27 +103,23 @@ function SheetWithSides() {
                     key={index}
                     className="mb-4 leading-normal style-lyra:mb-2 style-lyra:leading-relaxed"
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.
                   </p>
                 ))}
               </div>
               <SheetFooter>
                 <Button type="submit">Save changes</Button>
-                <SheetClose render={<Button variant="outline" />}>
-                  Cancel
-                </SheetClose>
+                <SheetClose render={<Button variant="outline" />}>Cancel</SheetClose>
               </SheetFooter>
             </SheetContent>
           </Sheet>
         ))}
       </div>
     </Example>
-  )
+  );
 }

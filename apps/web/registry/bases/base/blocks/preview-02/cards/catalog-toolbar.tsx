@@ -1,16 +1,9 @@
-"use client"
+"use client";
 
-import { Button } from "@/registry/bases/base/ui/button"
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/registry/bases/base/ui/input-group"
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/registry/bases/base/ui/toggle-group"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { Button } from "@/registry/bases/base/ui/button";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/registry/bases/base/ui/input-group";
+import { ToggleGroup, ToggleGroupItem } from "@/registry/bases/base/ui/toggle-group";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function CatalogToolbar() {
   return (
@@ -43,5 +36,5 @@ export function CatalogToolbar() {
         <ToggleGroupItem value="top-earners">Top Earners</ToggleGroupItem>
       </ToggleGroup>
     </div>
-  )
+  );
 }

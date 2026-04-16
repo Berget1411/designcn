@@ -1,4 +1,4 @@
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Field,
   FieldContent,
@@ -8,9 +8,9 @@ import {
   FieldLegend,
   FieldSeparator,
   FieldSet,
-} from "@/registry/new-york-v4/ui/field"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Textarea } from "@/registry/new-york-v4/ui/textarea"
+} from "@/registry/new-york-v4/ui/field";
+import { Input } from "@/registry/new-york-v4/ui/input";
+import { Textarea } from "@/registry/new-york-v4/ui/textarea";
 
 export default function FieldResponsive() {
   return (
@@ -24,9 +24,7 @@ export default function FieldResponsive() {
             <Field orientation="responsive">
               <FieldContent>
                 <FieldLabel htmlFor="name">Name</FieldLabel>
-                <FieldDescription>
-                  Provide your full name for identification
-                </FieldDescription>
+                <FieldDescription>Provide your full name for identification</FieldDescription>
               </FieldContent>
               <Input id="name" placeholder="Evil Rabbit" required />
             </Field>
@@ -35,8 +33,7 @@ export default function FieldResponsive() {
               <FieldContent>
                 <FieldLabel htmlFor="lastName">Message</FieldLabel>
                 <FieldDescription>
-                  You can write your message here. Keep it short, preferably
-                  under 100 characters.
+                  You can write your message here. Keep it short, preferably under 100 characters.
                 </FieldDescription>
               </FieldContent>
               <Textarea
@@ -57,5 +54,5 @@ export default function FieldResponsive() {
         </FieldSet>
       </form>
     </div>
-  )
+  );
 }

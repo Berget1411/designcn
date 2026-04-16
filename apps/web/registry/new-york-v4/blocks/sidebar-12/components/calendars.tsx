@@ -1,11 +1,11 @@
-import * as React from "react"
-import { Check, ChevronRight } from "lucide-react"
+import * as React from "react";
+import { Check, ChevronRight } from "lucide-react";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/registry/new-york-v4/ui/collapsible"
+} from "@/registry/new-york-v4/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -14,25 +14,22 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
-} from "@/registry/new-york-v4/ui/sidebar"
+} from "@/registry/new-york-v4/ui/sidebar";
 
 export function Calendars({
   calendars,
 }: {
   calendars: {
-    name: string
-    items: string[]
-  }[]
+    name: string;
+    items: string[];
+  }[];
 }) {
   return (
     <>
       {calendars.map((calendar, index) => (
         <React.Fragment key={calendar.name}>
           <SidebarGroup key={calendar.name} className="py-0">
-            <Collapsible
-              defaultOpen={index === 0}
-              className="group/collapsible"
-            >
+            <Collapsible defaultOpen={index === 0} className="group/collapsible">
               <SidebarGroupLabel
                 asChild
                 className="group/label w-full text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
@@ -67,5 +64,5 @@ export function Calendars({
         </React.Fragment>
       ))}
     </>
-  )
+  );
 }

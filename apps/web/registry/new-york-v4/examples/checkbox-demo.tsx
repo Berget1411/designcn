@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { Checkbox } from "@/registry/new-york-v4/ui/checkbox"
-import { Label } from "@/registry/new-york-v4/ui/label"
+import { Checkbox } from "@/registry/new-york-v4/ui/checkbox";
+import { Label } from "@/registry/new-york-v4/ui/label";
 
 export default function CheckboxDemo() {
   return (
@@ -30,14 +30,12 @@ export default function CheckboxDemo() {
           className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
         />
         <div className="grid gap-1.5 font-normal">
-          <p className="text-sm leading-none font-medium">
-            Enable notifications
-          </p>
+          <p className="text-sm leading-none font-medium">Enable notifications</p>
           <p className="text-sm text-muted-foreground">
             You can enable or disable notifications at any time.
           </p>
         </div>
       </Label>
     </div>
-  )
+  );
 }

@@ -1,9 +1,6 @@
-import { BookmarkIcon, HeartIcon, StarIcon } from "lucide-react"
+import { BookmarkIcon, HeartIcon, StarIcon } from "lucide-react";
 
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/registry/new-york-v4/ui/toggle-group"
+import { ToggleGroup, ToggleGroupItem } from "@/registry/new-york-v4/ui/toggle-group";
 
 export default function ToggleGroupSpacing() {
   return (
@@ -33,5 +30,5 @@ export default function ToggleGroupSpacing() {
         Bookmark
       </ToggleGroupItem>
     </ToggleGroup>
-  )
+  );
 }

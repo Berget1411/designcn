@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { ChevronDownIcon, SlashIcon } from "lucide-react"
+import Link from "next/link";
+import { ChevronDownIcon, SlashIcon } from "lucide-react";
 
 import {
   Breadcrumb,
@@ -8,13 +8,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/registry/new-york-v4/ui/breadcrumb"
+} from "@/registry/new-york-v4/ui/breadcrumb";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/registry/new-york-v4/ui/dropdown-menu"
+} from "@/registry/new-york-v4/ui/dropdown-menu";
 
 export default function BreadcrumbWithDropdown() {
   return (
@@ -49,5 +49,5 @@ export default function BreadcrumbWithDropdown() {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
-  )
+  );
 }

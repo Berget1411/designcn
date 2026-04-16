@@ -1,4 +1,4 @@
-import { Spinner } from "@/registry/new-york-v4/ui/spinner"
+import { Spinner } from "@/registry/new-york-v4/ui/spinner";
 
 export default function SpinnerSize() {
   return (
@@ -8,5 +8,5 @@ export default function SpinnerSize() {
       <Spinner className="size-6" />
       <Spinner className="size-8" />
     </div>
-  )
+  );
 }

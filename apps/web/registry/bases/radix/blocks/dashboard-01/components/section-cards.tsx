@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Badge } from "@/registry/bases/radix/ui/badge"
+import { Badge } from "@/registry/bases/radix/ui/badge";
 import {
   Card,
   CardAction,
@@ -8,8 +8,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/card";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function SectionCards() {
   return (
@@ -45,9 +45,7 @@ export function SectionCards() {
               className="size-4"
             />
           </div>
-          <div className="text-muted-foreground">
-            Visitors for the last 6 months
-          </div>
+          <div className="text-muted-foreground">Visitors for the last 6 months</div>
         </CardFooter>
       </Card>
       <Card className="@container/card">
@@ -81,9 +79,7 @@ export function SectionCards() {
               className="size-4"
             />
           </div>
-          <div className="text-muted-foreground">
-            Acquisition needs attention
-          </div>
+          <div className="text-muted-foreground">Acquisition needs attention</div>
         </CardFooter>
       </Card>
       <Card className="@container/card">
@@ -155,5 +151,5 @@ export function SectionCards() {
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }

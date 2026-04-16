@@ -1,11 +1,11 @@
-import { SearchIcon } from "lucide-react"
+import { SearchIcon } from "lucide-react";
 
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@/registry/new-york-v4/ui/input-group"
-import { Kbd } from "@/registry/new-york-v4/ui/kbd"
+} from "@/registry/new-york-v4/ui/input-group";
+import { Kbd } from "@/registry/new-york-v4/ui/kbd";
 
 export default function KbdInputGroup() {
   return (
@@ -21,5 +21,5 @@ export default function KbdInputGroup() {
         </InputGroupAddon>
       </InputGroup>
     </div>
-  )
+  );
 }

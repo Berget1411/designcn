@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import Script from "next/script"
-import { type RegistryItem } from "shadcn/schema"
+import Script from "next/script";
+import { type RegistryItem } from "shadcn/schema";
 
 import {
   Command,
@@ -11,24 +11,18 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@workspace/ui/components/command"
-import { useActionMenu } from "@/app/create/hooks/use-action-menu"
+} from "@workspace/ui/components/command";
+import { useActionMenu } from "@/app/create/hooks/use-action-menu";
 
-export const CMD_K_FORWARD_TYPE = "cmd-k-forward"
+export const CMD_K_FORWARD_TYPE = "cmd-k-forward";
 
 export function ActionMenu({
   itemsByBase,
 }: {
-  itemsByBase: Record<string, Pick<RegistryItem, "name" | "title" | "type">[]>
+  itemsByBase: Record<string, Pick<RegistryItem, "name" | "title" | "type">[]>;
 }) {
-  const {
-    activeRegistryName,
-    getCommandValue,
-    groups,
-    handleSelect,
-    open,
-    setOpen,
-  } = useActionMenu(itemsByBase)
+  const { activeRegistryName, getCommandValue, groups, handleSelect, open, setOpen } =
+    useActionMenu(itemsByBase);
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen} className="animate-none!">
@@ -45,18 +39,18 @@ export function ActionMenu({
                   data-checked={activeRegistryName === item.registryName}
                   className="px-2"
                   onSelect={() => {
-                    handleSelect(item.registryName)
+                    handleSelect(item.registryName);
                   }}
                 >
                   {item.label}
                 </CommandItem>
-              ))
+              )),
             )}
           </CommandGroup>
         </CommandList>
       </Command>
     </CommandDialog>
-  )
+  );
 }
 
 export function ActionMenuScript() {
@@ -84,5 +78,5 @@ export function ActionMenuScript() {
           `,
       }}
     />
-  )
+  );
 }

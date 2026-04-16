@@ -1,4 +1,4 @@
-import { type Registry } from "shadcn/schema"
+import { type Registry } from "shadcn/schema";
 
 export const hooks: Registry["items"] = [
   {
@@ -11,4 +11,4 @@ export const hooks: Registry["items"] = [
       },
     ],
   },
-]
+];

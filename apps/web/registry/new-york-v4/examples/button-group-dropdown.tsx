@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   AlertTriangleIcon,
@@ -9,10 +9,10 @@ import {
   TrashIcon,
   UserRoundXIcon,
   VolumeOffIcon,
-} from "lucide-react"
+} from "lucide-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { ButtonGroup } from "@/registry/new-york-v4/ui/button-group"
+import { Button } from "@/registry/new-york-v4/ui/button";
+import { ButtonGroup } from "@/registry/new-york-v4/ui/button-group";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +20,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/new-york-v4/ui/dropdown-menu"
+} from "@/registry/new-york-v4/ui/dropdown-menu";
 
 export default function ButtonGroupDropdown() {
   return (
@@ -69,5 +69,5 @@ export default function ButtonGroupDropdown() {
         </DropdownMenuContent>
       </DropdownMenu>
     </ButtonGroup>
-  )
+  );
 }

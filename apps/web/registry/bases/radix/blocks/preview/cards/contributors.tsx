@@ -1,18 +1,14 @@
-"use client"
+"use client";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/registry/bases/radix/ui/avatar"
-import { Badge } from "@/registry/bases/radix/ui/badge"
+import { Avatar, AvatarFallback, AvatarImage } from "@/registry/bases/radix/ui/avatar";
+import { Badge } from "@/registry/bases/radix/ui/badge";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
+} from "@/registry/bases/radix/ui/card";
 
 // GitHub usernames displayed as contributor avatars.
 const usernames = [
@@ -32,7 +28,7 @@ const usernames = [
   "vue",
   "angular",
   "solid",
-]
+];
 
 export function Contributors() {
   return (
@@ -46,10 +42,7 @@ export function Contributors() {
         <div className="flex flex-wrap gap-2">
           {usernames.map((username) => (
             <Avatar key={username} className="grayscale">
-              <AvatarImage
-                src={`https://github.com/${username}.png`}
-                alt={username}
-              />
+              <AvatarImage src={`https://github.com/${username}.png`} alt={username} />
               <AvatarFallback>{username.charAt(0)}</AvatarFallback>
             </Avatar>
           ))}
@@ -61,5 +54,5 @@ export function Contributors() {
         </a>
       </CardFooter>
     </Card>
-  )
+  );
 }

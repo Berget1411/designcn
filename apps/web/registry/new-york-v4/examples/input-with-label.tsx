@@ -1,5 +1,5 @@
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
+import { Input } from "@/registry/new-york-v4/ui/input";
+import { Label } from "@/registry/new-york-v4/ui/label";
 
 export default function InputWithLabel() {
   return (
@@ -7,5 +7,5 @@ export default function InputWithLabel() {
       <Label htmlFor="email">Email</Label>
       <Input type="email" id="email" placeholder="Email" />
     </div>
-  )
+  );
 }

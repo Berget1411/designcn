@@ -751,9 +751,9 @@ export const baseColors = [
       },
     },
   },
-] as const
+] as const;
 
-export type BaseColor = (typeof baseColors)[number]
+export type BaseColor = (typeof baseColors)[number];
 
 export const baseColorsV4 = {
   stone: {
@@ -1101,7 +1101,7 @@ export const baseColorsV4 = {
       "sidebar-ring": "oklch(0.551 0.027 264.364)", // --color-slate-500
     },
   },
-} as const
+} as const;
 
 export const baseColorsOKLCH = {
   default: {
@@ -1786,4 +1786,4 @@ export const baseColorsOKLCH = {
       "sidebar-ring": "oklch(0.38 0.189 293.745)", // --color-violet-900
     },
   },
-}
+};

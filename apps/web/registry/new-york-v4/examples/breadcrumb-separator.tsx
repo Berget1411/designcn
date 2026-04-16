@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { SlashIcon } from "lucide-react"
+import Link from "next/link";
+import { SlashIcon } from "lucide-react";
 
 import {
   Breadcrumb,
@@ -8,7 +8,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/registry/new-york-v4/ui/breadcrumb"
+} from "@/registry/new-york-v4/ui/breadcrumb";
 
 export default function BreadcrumbWithCustomSeparator() {
   return (
@@ -35,5 +35,5 @@ export default function BreadcrumbWithCustomSeparator() {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
-  )
+  );
 }

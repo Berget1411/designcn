@@ -1,73 +1,67 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { CMD_K_FORWARD_TYPE } from "@/app/create/components/action-menu"
-import {
-  REDO_FORWARD_TYPE,
-  UNDO_FORWARD_TYPE,
-} from "@/app/create/components/history-buttons"
-import { DARK_MODE_FORWARD_TYPE } from "@/app/create/components/mode-switcher"
-import { PreviewSwitcher } from "@/app/create/components/preview-switcher"
-import { RANDOMIZE_FORWARD_TYPE } from "@/app/create/components/random-button"
-import { sendToIframe } from "@/app/create/hooks/use-iframe-sync"
-import { OPEN_PRESET_FORWARD_TYPE } from "@/app/create/hooks/use-open-preset"
-import { RESET_FORWARD_TYPE } from "@/app/create/hooks/use-reset"
+import { CMD_K_FORWARD_TYPE } from "@/app/create/components/action-menu";
+import { REDO_FORWARD_TYPE, UNDO_FORWARD_TYPE } from "@/app/create/components/history-buttons";
+import { DARK_MODE_FORWARD_TYPE } from "@/app/create/components/mode-switcher";
+import { PreviewSwitcher } from "@/app/create/components/preview-switcher";
+import { RANDOMIZE_FORWARD_TYPE } from "@/app/create/components/random-button";
+import { sendToIframe } from "@/app/create/hooks/use-iframe-sync";
+import { OPEN_PRESET_FORWARD_TYPE } from "@/app/create/hooks/use-open-preset";
+import { RESET_FORWARD_TYPE } from "@/app/create/hooks/use-reset";
 import {
   serializeDesignSystemSearchParams,
   useDesignSystemSearchParams,
-} from "@/app/create/lib/search-params"
+} from "@/app/create/lib/search-params";
 
 // Hoisted — avoids recreating on every message event. (js-hoist-regexp)
-const MAC_REGEX = /Mac|iPhone|iPad|iPod/
+const MAC_REGEX = /Mac|iPhone|iPad|iPod/;
 
 export function Preview() {
-  const [params, setParams] = useDesignSystemSearchParams()
-  const iframeRef = React.useRef<HTMLIFrameElement>(null)
-  const previewBase = params.previewBase || params.base
+  const [params, setParams] = useDesignSystemSearchParams();
+  const iframeRef = React.useRef<HTMLIFrameElement>(null);
+  const previewBase = params.previewBase || params.base;
   const previewParams = React.useMemo(
     () => ({
       ...params,
       base: previewBase,
       previewBase,
     }),
-    [params, previewBase]
-  )
+    [params, previewBase],
+  );
 
   React.useEffect(() => {
     if (params.previewBase) {
-      return
+      return;
     }
 
-    setParams(
-      { previewBase: params.base },
-      { history: "replace", shallow: true }
-    )
-  }, [params.base, params.previewBase, setParams])
+    setParams({ previewBase: params.base }, { history: "replace", shallow: true });
+  }, [params.base, params.previewBase, setParams]);
 
   React.useEffect(() => {
-    const iframe = iframeRef.current
+    const iframe = iframeRef.current;
     if (!iframe) {
-      return
+      return;
     }
 
     const sendParams = () => {
-      sendToIframe(iframe, "design-system-params", previewParams)
-    }
+      sendToIframe(iframe, "design-system-params", previewParams);
+    };
 
     if (iframe.contentWindow) {
-      sendParams()
+      sendParams();
     }
 
-    iframe.addEventListener("load", sendParams)
+    iframe.addEventListener("load", sendParams);
     return () => {
-      iframe.removeEventListener("load", sendParams)
-    }
-  }, [previewParams])
+      iframe.removeEventListener("load", sendParams);
+    };
+  }, [previewParams]);
 
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      const iframeWindow = iframeRef.current?.contentWindow
+      const iframeWindow = iframeRef.current?.contentWindow;
       if (
         !iframeWindow ||
         event.origin !== window.location.origin ||
@@ -75,12 +69,12 @@ export function Preview() {
         !event.data ||
         typeof event.data !== "object"
       ) {
-        return
+        return;
       }
 
-      const type = event.data.type
+      const type = event.data.type;
       if (type === CMD_K_FORWARD_TYPE) {
-        const isMac = MAC_REGEX.test(navigator.userAgent)
+        const isMac = MAC_REGEX.test(navigator.userAgent);
         document.dispatchEvent(
           new KeyboardEvent("keydown", {
             key: event.data.key || "k",
@@ -88,26 +82,26 @@ export function Preview() {
             ctrlKey: !isMac,
             bubbles: true,
             cancelable: true,
-          })
-        )
+          }),
+        );
       } else if (type === RANDOMIZE_FORWARD_TYPE) {
         document.dispatchEvent(
           new KeyboardEvent("keydown", {
             key: event.data.key || "r",
             bubbles: true,
             cancelable: true,
-          })
-        )
+          }),
+        );
       } else if (type === OPEN_PRESET_FORWARD_TYPE) {
         document.dispatchEvent(
           new KeyboardEvent("keydown", {
             key: event.data.key || "o",
             bubbles: true,
             cancelable: true,
-          })
-        )
+          }),
+        );
       } else if (type === UNDO_FORWARD_TYPE) {
-        const isMac = MAC_REGEX.test(navigator.userAgent)
+        const isMac = MAC_REGEX.test(navigator.userAgent);
         document.dispatchEvent(
           new KeyboardEvent("keydown", {
             key: "z",
@@ -115,10 +109,10 @@ export function Preview() {
             ctrlKey: !isMac,
             bubbles: true,
             cancelable: true,
-          })
-        )
+          }),
+        );
       } else if (type === REDO_FORWARD_TYPE) {
-        const isMac = MAC_REGEX.test(navigator.userAgent)
+        const isMac = MAC_REGEX.test(navigator.userAgent);
         document.dispatchEvent(
           new KeyboardEvent("keydown", {
             key: "z",
@@ -127,8 +121,8 @@ export function Preview() {
             ctrlKey: !isMac,
             bubbles: true,
             cancelable: true,
-          })
-        )
+          }),
+        );
       } else if (type === RESET_FORWARD_TYPE) {
         document.dispatchEvent(
           new KeyboardEvent("keydown", {
@@ -136,24 +130,24 @@ export function Preview() {
             shiftKey: true,
             bubbles: true,
             cancelable: true,
-          })
-        )
+          }),
+        );
       } else if (type === DARK_MODE_FORWARD_TYPE) {
         document.dispatchEvent(
           new KeyboardEvent("keydown", {
             key: event.data.key || "d",
             bubbles: true,
             cancelable: true,
-          })
-        )
+          }),
+        );
       }
-    }
+    };
 
-    window.addEventListener("message", handleMessage)
+    window.addEventListener("message", handleMessage);
     return () => {
-      window.removeEventListener("message", handleMessage)
-    }
-  }, [])
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
 
   const iframeSrc = React.useMemo(() => {
     // The iframe src needs to include the serialized design system params
@@ -163,10 +157,10 @@ export function Preview() {
     // via a postMessage channel, for it to sync its own history onto the host's.
     return serializeDesignSystemSearchParams(
       `/preview/${previewBase}/${params.item}`,
-      previewParams
-    )
+      previewParams,
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.item, previewBase])
+  }, [params.item, previewBase]);
 
   return (
     <div className="relative flex flex-1 flex-col justify-center overflow-hidden rounded-2xl ring ring-foreground/10 md:ring-muted dark:ring-foreground/10">
@@ -182,5 +176,5 @@ export function Preview() {
       </div>
       <PreviewSwitcher />
     </div>
-  )
+  );
 }

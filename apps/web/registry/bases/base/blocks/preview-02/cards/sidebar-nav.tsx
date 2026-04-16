@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Card } from "@/registry/bases/base/ui/card"
+import { Card } from "@/registry/bases/base/ui/card";
 import {
   Sidebar,
   SidebarContent,
@@ -12,8 +12,8 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarSeparator,
-} from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function SidebarNav() {
   return (
@@ -233,5 +233,5 @@ export function SidebarNav() {
         </SidebarProvider>
       </Card>
     </div>
-  )
+  );
 }

@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Controller, useForm } from "react-hook-form"
-import { toast } from "sonner"
-import * as z from "zod"
+import * as React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Card,
   CardContent,
@@ -14,7 +14,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   Field,
   FieldContent,
@@ -22,7 +22,7 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/registry/new-york-v4/ui/field"
+} from "@/registry/new-york-v4/ui/field";
 import {
   Select,
   SelectContent,
@@ -30,7 +30,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@/registry/new-york-v4/ui/select"
+} from "@/registry/new-york-v4/ui/select";
 
 const spokenLanguages = [
   { label: "English", value: "en" },
@@ -40,17 +40,16 @@ const spokenLanguages = [
   { label: "Italian", value: "it" },
   { label: "Chinese", value: "zh" },
   { label: "Japanese", value: "ja" },
-] as const
+] as const;
 
 const formSchema = z.object({
   language: z
     .string()
     .min(1, "Please select your spoken language.")
     .refine((val) => val !== "auto", {
-      message:
-        "Auto-detection is not allowed. Please select a specific language.",
+      message: "Auto-detection is not allowed. Please select a specific language.",
     }),
-})
+});
 
 export default function FormRhfSelect() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,7 +57,7 @@ export default function FormRhfSelect() {
     defaultValues: {
       language: "",
     },
-  })
+  });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     toast("You submitted the following values:", {
@@ -74,16 +73,14 @@ export default function FormRhfSelect() {
       style: {
         "--border-radius": "calc(var(--radius)  + 4px)",
       } as React.CSSProperties,
-    })
+    });
   }
 
   return (
     <Card className="w-full sm:max-w-lg">
       <CardHeader>
         <CardTitle>Language Preferences</CardTitle>
-        <CardDescription>
-          Select your preferred spoken language.
-        </CardDescription>
+        <CardDescription>Select your preferred spoken language.</CardDescription>
       </CardHeader>
       <CardContent>
         <form id="form-rhf-select" onSubmit={form.handleSubmit(onSubmit)}>
@@ -92,26 +89,15 @@ export default function FormRhfSelect() {
               name="language"
               control={form.control}
               render={({ field, fieldState }) => (
-                <Field
-                  orientation="responsive"
-                  data-invalid={fieldState.invalid}
-                >
+                <Field orientation="responsive" data-invalid={fieldState.invalid}>
                   <FieldContent>
-                    <FieldLabel htmlFor="form-rhf-select-language">
-                      Spoken Language
-                    </FieldLabel>
+                    <FieldLabel htmlFor="form-rhf-select-language">Spoken Language</FieldLabel>
                     <FieldDescription>
                       For best results, select the language you speak.
                     </FieldDescription>
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                   </FieldContent>
-                  <Select
-                    name={field.name}
-                    value={field.value}
-                    onValueChange={field.onChange}
-                  >
+                  <Select name={field.name} value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger
                       id="form-rhf-select-language"
                       aria-invalid={fieldState.invalid}
@@ -146,5 +132,5 @@ export default function FormRhfSelect() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

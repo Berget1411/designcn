@@ -1,30 +1,30 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
+} from "@/registry/bases/radix/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/registry/bases/radix/ui/dropdown-menu"
-import { Field } from "@/registry/bases/radix/ui/field"
+} from "@/registry/bases/radix/ui/dropdown-menu";
+import { Field } from "@/registry/bases/radix/ui/field";
 import {
   Item,
   ItemContent,
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/registry/bases/radix/ui/item"
+} from "@/registry/bases/radix/ui/item";
 import {
   Sidebar,
   SidebarContent,
@@ -39,8 +39,8 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/registry/bases/radix/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function SidebarFloatingExample() {
   const data = {
@@ -171,7 +171,7 @@ export default function SidebarFloatingExample() {
         ],
       },
     ],
-  }
+  };
 
   return (
     <SidebarProvider className="bg-background">
@@ -232,9 +232,7 @@ export default function SidebarFloatingExample() {
           <SidebarGroup>
             <Card size="sm" className="-mx-2">
               <CardHeader>
-                <CardTitle className="text-sm">
-                  Subscribe to our newsletter
-                </CardTitle>
+                <CardTitle className="text-sm">Subscribe to our newsletter</CardTitle>
                 <CardDescription>
                   Opt-in to receive updates and news about the sidebar.
                 </CardDescription>
@@ -271,5 +269,5 @@ export default function SidebarFloatingExample() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import { ShieldAlertIcon } from "lucide-react"
+import { ShieldAlertIcon } from "lucide-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Item,
   ItemActions,
@@ -8,7 +8,7 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/registry/new-york-v4/ui/item"
+} from "@/registry/new-york-v4/ui/item";
 
 export default function ItemIcon() {
   return (
@@ -19,9 +19,7 @@ export default function ItemIcon() {
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Security Alert</ItemTitle>
-          <ItemDescription>
-            New login detected from unknown device.
-          </ItemDescription>
+          <ItemDescription>New login detected from unknown device.</ItemDescription>
         </ItemContent>
         <ItemActions>
           <Button size="sm" variant="outline">
@@ -30,5 +28,5 @@ export default function ItemIcon() {
         </ItemActions>
       </Item>
     </div>
-  )
+  );
 }

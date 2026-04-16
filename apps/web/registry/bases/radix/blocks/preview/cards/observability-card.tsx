@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { Badge } from "@/registry/bases/radix/ui/badge"
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Badge } from "@/registry/bases/radix/ui/badge";
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/card";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function ObservabilityCard() {
   return (
@@ -24,9 +24,8 @@ export function ObservabilityCard() {
       <CardHeader>
         <CardTitle>Observability Plus is replacing Monitoring</CardTitle>
         <CardDescription>
-          Switch to the improved way to explore your data, with natural
-          language. Monitoring will no longer be available on the Pro plan in
-          November, 2025
+          Switch to the improved way to explore your data, with natural language. Monitoring will no
+          longer be available on the Pro plan in November, 2025
         </CardDescription>
       </CardHeader>
       <CardFooter>
@@ -46,5 +45,5 @@ export function ObservabilityCard() {
         </Badge>
       </CardFooter>
     </Card>
-  )
+  );
 }

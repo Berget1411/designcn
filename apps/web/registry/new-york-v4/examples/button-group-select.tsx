@@ -1,17 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { ArrowRightIcon } from "lucide-react"
+import * as React from "react";
+import { ArrowRightIcon } from "lucide-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { ButtonGroup } from "@/registry/new-york-v4/ui/button-group"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-} from "@/registry/new-york-v4/ui/select"
+import { Button } from "@/registry/new-york-v4/ui/button";
+import { ButtonGroup } from "@/registry/new-york-v4/ui/button-group";
+import { Input } from "@/registry/new-york-v4/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/registry/new-york-v4/ui/select";
 
 const CURRENCIES = [
   {
@@ -26,10 +21,10 @@ const CURRENCIES = [
     value: "£",
     label: "British Pound",
   },
-]
+];
 
 export default function ButtonGroupSelect() {
-  const [currency, setCurrency] = React.useState("$")
+  const [currency, setCurrency] = React.useState("$");
 
   return (
     <ButtonGroup>
@@ -39,8 +34,7 @@ export default function ButtonGroupSelect() {
           <SelectContent className="min-w-24">
             {CURRENCIES.map((currency) => (
               <SelectItem key={currency.value} value={currency.value}>
-                {currency.value}{" "}
-                <span className="text-muted-foreground">{currency.label}</span>
+                {currency.value} <span className="text-muted-foreground">{currency.label}</span>
               </SelectItem>
             ))}
           </SelectContent>
@@ -53,5 +47,5 @@ export default function ButtonGroupSelect() {
         </Button>
       </ButtonGroup>
     </ButtonGroup>
-  )
+  );
 }

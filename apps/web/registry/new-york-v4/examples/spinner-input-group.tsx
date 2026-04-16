@@ -1,4 +1,4 @@
-import { ArrowUpIcon } from "lucide-react"
+import { ArrowUpIcon } from "lucide-react";
 
 import {
   InputGroup,
@@ -6,8 +6,8 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupTextarea,
-} from "@/registry/new-york-v4/ui/input-group"
-import { Spinner } from "@/registry/new-york-v4/ui/spinner"
+} from "@/registry/new-york-v4/ui/input-group";
+import { Spinner } from "@/registry/new-york-v4/ui/spinner";
 
 export default function SpinnerInputGroup() {
   return (
@@ -29,5 +29,5 @@ export default function SpinnerInputGroup() {
         </InputGroupAddon>
       </InputGroup>
     </div>
-  )
+  );
 }

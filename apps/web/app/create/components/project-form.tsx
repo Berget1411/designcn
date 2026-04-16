@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { useSearchParams } from "next/navigation"
-import { Copy01Icon, Globe02Icon, Tick02Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import * as React from "react";
+import { useSearchParams } from "next/navigation";
+import { Copy01Icon, Globe02Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
-import { cn } from "@/lib/utils"
-import { useConfig } from "@/hooks/use-config"
-import { copyToClipboardWithMeta } from "@/components/copy-button"
-import { BASES, type BaseName } from "@/registry/config"
-import { Button } from "@workspace/ui/components/button"
+import { cn } from "@/lib/utils";
+import { useConfig } from "@/hooks/use-config";
+import { copyToClipboardWithMeta } from "@/components/copy-button";
+import { BASES, type BaseName } from "@/registry/config";
+import { Button } from "@workspace/ui/components/button";
 import {
   Dialog,
   DialogContent,
@@ -17,7 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@workspace/ui/components/dialog"
+} from "@workspace/ui/components/dialog";
 import {
   Field,
   FieldContent,
@@ -28,78 +28,59 @@ import {
   FieldSeparator,
   FieldSet,
   FieldTitle,
-} from "@workspace/ui/components/field"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@workspace/ui/components/radio-group"
-import { Switch } from "@workspace/ui/components/switch"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@workspace/ui/components/tabs"
-import { Textarea } from "@workspace/ui/components/textarea"
-import { decodeCustomThemeVars } from "@/app/create/lib/custom-theme-vars"
-import {
-  buildManualComponentsJson,
-  buildManualGlobalsCss,
-} from "@/app/create/lib/manual-install"
+} from "@workspace/ui/components/field";
+import { RadioGroup, RadioGroupItem } from "@workspace/ui/components/radio-group";
+import { Switch } from "@workspace/ui/components/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs";
+import { Textarea } from "@workspace/ui/components/textarea";
+import { decodeCustomThemeVars } from "@/app/create/lib/custom-theme-vars";
+import { buildManualComponentsJson, buildManualGlobalsCss } from "@/app/create/lib/manual-install";
 import {
   useDesignSystemSearchParams,
   type DesignSystemSearchParams,
-} from "@/app/create/lib/search-params"
+} from "@/app/create/lib/search-params";
 import {
   getFramework,
   getTemplateValue,
   NO_MONOREPO_FRAMEWORKS,
   TEMPLATES,
-} from "@/app/create/lib/templates"
+} from "@/app/create/lib/templates";
 
 const TURBOREPO_LOGO =
-  '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Turborepo</title><path d="M11.9906 4.1957c-4.2998 0-7.7981 3.501-7.7981 7.8043s3.4983 7.8043 7.7981 7.8043c4.2999 0 7.7982-3.501 7.7982-7.8043s-3.4983-7.8043-7.7982-7.8043m0 11.843c-2.229 0-4.0356-1.8079-4.0356-4.0387s1.8065-4.0387 4.0356-4.0387S16.0262 9.7692 16.0262 12s-1.8065 4.0388-4.0356 4.0388m.6534-13.1249V0C18.9726.3386 24 5.5822 24 12s-5.0274 11.66-11.356 12v-2.9139c4.7167-.3372 8.4516-4.2814 8.4516-9.0861s-3.735-8.749-8.4516-9.0861M5.113 17.9586c-1.2502-1.4446-2.0562-3.2845-2.2-5.3046H0c.151 2.8266 1.2808 5.3917 3.051 7.3668l2.0606-2.0622zM11.3372 24v-2.9139c-2.02-.1439-3.8584-.949-5.3019-2.2018l-2.0606 2.0623c1.975 1.773 4.538 2.9022 7.361 3.0534z"/></svg>'
-const SHADCN_VERSION = process.env.NEXT_PUBLIC_RC ? "@rc" : "@latest"
-const PACKAGE_MANAGERS = ["pnpm", "npm", "yarn", "bun"] as const
-type PackageManager = (typeof PACKAGE_MANAGERS)[number]
-type InstallMode = "auto" | "manual"
+  '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Turborepo</title><path d="M11.9906 4.1957c-4.2998 0-7.7981 3.501-7.7981 7.8043s3.4983 7.8043 7.7981 7.8043c4.2999 0 7.7982-3.501 7.7982-7.8043s-3.4983-7.8043-7.7982-7.8043m0 11.843c-2.229 0-4.0356-1.8079-4.0356-4.0387s1.8065-4.0387 4.0356-4.0387S16.0262 9.7692 16.0262 12s-1.8065 4.0388-4.0356 4.0388m.6534-13.1249V0C18.9726.3386 24 5.5822 24 12s-5.0274 11.66-11.356 12v-2.9139c4.7167-.3372 8.4516-4.2814 8.4516-9.0861s-3.735-8.749-8.4516-9.0861M5.113 17.9586c-1.2502-1.4446-2.0562-3.2845-2.2-5.3046H0c.151 2.8266 1.2808 5.3917 3.051 7.3668l2.0606-2.0622zM11.3372 24v-2.9139c-2.02-.1439-3.8584-.949-5.3019-2.2018l-2.0606 2.0623c1.975 1.773 4.538 2.9022 7.361 3.0534z"/></svg>';
+const SHADCN_VERSION = process.env.NEXT_PUBLIC_RC ? "@rc" : "@latest";
+const PACKAGE_MANAGERS = ["pnpm", "npm", "yarn", "bun"] as const;
+type PackageManager = (typeof PACKAGE_MANAGERS)[number];
+type InstallMode = "auto" | "manual";
 
 function getAppOrigin() {
   if (typeof window !== "undefined" && window.location.origin) {
-    return window.location.origin
+    return window.location.origin;
   }
 
-  return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+  return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 }
 
-export function ProjectForm({
-  className,
-}: React.ComponentProps<typeof Button>) {
-  const [open, setOpen] = React.useState(false)
-  const [installMode, setInstallMode] = React.useState<InstallMode>("auto")
-  const [params, setParams] = useDesignSystemSearchParams()
-  const searchParams = useSearchParams()
-  const [config, setConfig] = useConfig()
-  const [hasCopied, setHasCopied] = React.useState(false)
+export function ProjectForm({ className }: React.ComponentProps<typeof Button>) {
+  const [open, setOpen] = React.useState(false);
+  const [installMode, setInstallMode] = React.useState<InstallMode>("auto");
+  const [params, setParams] = useDesignSystemSearchParams();
+  const searchParams = useSearchParams();
+  const [config, setConfig] = useConfig();
+  const [hasCopied, setHasCopied] = React.useState(false);
 
-  const packageManager = (config.packageManager || "pnpm") as PackageManager
-  const framework = React.useMemo(
-    () => getFramework(params.template ?? "next"),
-    [params.template]
-  )
+  const packageManager = (config.packageManager || "pnpm") as PackageManager;
+  const framework = React.useMemo(() => getFramework(params.template ?? "next"), [params.template]);
   const isMonorepo = React.useMemo(
     () => params.template?.endsWith("-monorepo") ?? false,
-    [params.template]
-  )
+    [params.template],
+  );
 
   const hasMonorepo = !NO_MONOREPO_FRAMEWORKS.includes(
-    framework as (typeof NO_MONOREPO_FRAMEWORKS)[number]
-  )
-  const appOrigin = React.useMemo(() => getAppOrigin(), [])
-  const customThemeVars = React.useMemo(
-    () => decodeCustomThemeVars(params.vars),
-    [params.vars]
-  )
+    framework as (typeof NO_MONOREPO_FRAMEWORKS)[number],
+  );
+  const appOrigin = React.useMemo(() => getAppOrigin(), []);
+  const customThemeVars = React.useMemo(() => decodeCustomThemeVars(params.vars), [params.vars]);
   const designSystemConfig = React.useMemo(
     () => ({
       base: params.base,
@@ -117,33 +98,33 @@ export function ProjectForm({
       radius: params.radius,
       template: params.template,
     }),
-    [params]
-  )
+    [params],
+  );
 
   const initUrl = React.useMemo(() => {
-    const nextSearchParams = new URLSearchParams(searchParams.toString())
-    nextSearchParams.delete("item")
-    nextSearchParams.delete("size")
+    const nextSearchParams = new URLSearchParams(searchParams.toString());
+    nextSearchParams.delete("item");
+    nextSearchParams.delete("size");
 
-    const query = nextSearchParams.toString()
-    return query ? `${appOrigin}/api/init?${query}` : `${appOrigin}/api/init`
-  }, [appOrigin, searchParams])
+    const query = nextSearchParams.toString();
+    return query ? `${appOrigin}/api/init?${query}` : `${appOrigin}/api/init`;
+  }, [appOrigin, searchParams]);
 
   const commands = React.useMemo(() => {
-    const registryArg = ` '${initUrl}'`
-    const baseFlag = params.base !== "radix" ? ` --base ${params.base}` : ""
-    const templateFlag = ` --template ${framework}`
-    const monorepoFlag = isMonorepo ? " --monorepo" : ""
-    const rtlFlag = params.rtl ? " --rtl" : ""
-    const flags = `${registryArg}${baseFlag}${templateFlag}${monorepoFlag}${rtlFlag}`
+    const registryArg = ` '${initUrl}'`;
+    const baseFlag = params.base !== "radix" ? ` --base ${params.base}` : "";
+    const templateFlag = ` --template ${framework}`;
+    const monorepoFlag = isMonorepo ? " --monorepo" : "";
+    const rtlFlag = params.rtl ? " --rtl" : "";
+    const flags = `${registryArg}${baseFlag}${templateFlag}${monorepoFlag}${rtlFlag}`;
 
     return {
       pnpm: `pnpm dlx shadcn${SHADCN_VERSION} init${flags}`,
       npm: `npx shadcn${SHADCN_VERSION} init${flags}`,
       yarn: `yarn dlx shadcn${SHADCN_VERSION} init${flags}`,
       bun: `bunx --bun shadcn${SHADCN_VERSION} init${flags}`,
-    }
-  }, [framework, initUrl, isMonorepo, params.base, params.rtl])
+    };
+  }, [framework, initUrl, isMonorepo, params.base, params.rtl]);
 
   const manualCommands = React.useMemo(
     () => ({
@@ -152,38 +133,38 @@ export function ProjectForm({
       yarn: `yarn dlx shadcn${SHADCN_VERSION} add --all`,
       bun: `bunx --bun shadcn${SHADCN_VERSION} add --all`,
     }),
-    []
-  )
+    [],
+  );
   const componentsJson = React.useMemo(
     () => buildManualComponentsJson(designSystemConfig),
-    [designSystemConfig]
-  )
+    [designSystemConfig],
+  );
   const globalsCss = React.useMemo(
     () => buildManualGlobalsCss(designSystemConfig, customThemeVars),
-    [customThemeVars, designSystemConfig]
-  )
-  const command = commands[packageManager]
+    [customThemeVars, designSystemConfig],
+  );
+  const command = commands[packageManager];
 
   React.useEffect(() => {
     if (hasCopied) {
-      const timer = setTimeout(() => setHasCopied(false), 2000)
-      return () => clearTimeout(timer)
+      const timer = setTimeout(() => setHasCopied(false), 2000);
+      return () => clearTimeout(timer);
     }
-  }, [hasCopied])
+  }, [hasCopied]);
 
   const handleCopy = React.useCallback(() => {
     const properties: Record<string, string> = {
       command,
-    }
+    };
     if (params.template) {
-      properties.template = params.template
+      properties.template = params.template;
     }
     copyToClipboardWithMeta(command, {
       name: "copy_npm_command",
       properties,
-    })
-    setHasCopied(true)
-  }, [command, params.template])
+    });
+    setHasCopied(true);
+  }, [command, params.template]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -193,9 +174,7 @@ export function ProjectForm({
       <DialogContent className="dark no-scrollbar max-h-[calc(100svh-2rem)] overflow-y-auto rounded-2xl p-6 shadow-xl **:data-[slot=field-separator]:h-2 sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>Create Project</DialogTitle>
-          <DialogDescription>
-            Pick a template and configure your project.
-          </DialogDescription>
+          <DialogDescription>Pick a template and configure your project.</DialogDescription>
         </DialogHeader>
         <Tabs
           value={installMode}
@@ -211,10 +190,7 @@ export function ProjectForm({
               <FieldGroup>
                 <Field className="-mt-2 gap-3">
                   <FieldLabel>Template</FieldLabel>
-                  <TemplateGrid
-                    template={params.template}
-                    setParams={setParams}
-                  />
+                  <TemplateGrid template={params.template} setParams={setParams} />
                 </Field>
                 <FieldSeparator className="-mx-6" />
                 <Field className="-mt-2">
@@ -226,10 +202,7 @@ export function ProjectForm({
                   <FieldLegend variant="label" className="sr-only">
                     Options
                   </FieldLegend>
-                  <Field
-                    orientation="horizontal"
-                    data-disabled={hasMonorepo ? undefined : "true"}
-                  >
+                  <Field orientation="horizontal" data-disabled={hasMonorepo ? undefined : "true"}>
                     <FieldLabel htmlFor="monorepo">
                       <span
                         className="size-4 text-neutral-100 [&_svg]:size-4 [&_svg]:fill-current"
@@ -244,15 +217,13 @@ export function ProjectForm({
                       checked={params.template?.endsWith("-monorepo") ?? false}
                       disabled={!hasMonorepo}
                       onCheckedChange={(checked) => {
-                        const framework = getFramework(
-                          params.template ?? "next"
-                        )
+                        const framework = getFramework(params.template ?? "next");
                         setParams({
                           template: getTemplateValue(
                             framework,
-                            checked === true
+                            checked === true,
                           ) as typeof params.template,
-                        })
+                        });
                       }}
                     />
                   </Field>
@@ -265,9 +236,7 @@ export function ProjectForm({
                     <Switch
                       id="rtl"
                       checked={params.rtl}
-                      onCheckedChange={(checked) =>
-                        setParams({ rtl: checked === true })
-                      }
+                      onCheckedChange={(checked) => setParams({ rtl: checked === true })}
                     />
                   </Field>
                 </FieldSet>
@@ -278,7 +247,7 @@ export function ProjectForm({
                   setConfig((prev) => ({
                     ...prev,
                     packageManager: value,
-                  }))
+                  }));
                 }}
                 commands={commands}
                 onCopy={handleCopy}
@@ -300,7 +269,7 @@ export function ProjectForm({
                   setConfig((prev) => ({
                     ...prev,
                     packageManager: value,
-                  }))
+                  }));
                 }}
                 commands={manualCommands}
                 title="Install all components"
@@ -322,16 +291,15 @@ export function ProjectForm({
                 />
               </FieldGroup>
               <p className="text-xs text-muted-foreground">
-                Manual setup only covers the shadcn config files and component
-                install. If you changed fonts, you still need to load those font
-                families in your app.
+                Manual setup only covers the shadcn config files and component install. If you
+                changed fonts, you still need to load those font families in your app.
               </p>
             </div>
           </TabsContent>
         </Tabs>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 function PackageManagerCommandPanel({
@@ -344,32 +312,32 @@ function PackageManagerCommandPanel({
   hasCopied,
   copyEventName = "copy_npm_command",
 }: {
-  packageManager: PackageManager
-  setPackageManager: (value: PackageManager) => void
-  commands: Record<PackageManager, string>
-  title?: string
-  description?: string
-  onCopy?: () => void
-  hasCopied?: boolean
-  copyEventName?: string
+  packageManager: PackageManager;
+  setPackageManager: (value: PackageManager) => void;
+  commands: Record<PackageManager, string>;
+  title?: string;
+  description?: string;
+  onCopy?: () => void;
+  hasCopied?: boolean;
+  copyEventName?: string;
 }) {
-  const [hasLocalCopy, setHasLocalCopy] = React.useState(false)
-  const command = commands[packageManager]
-  const copied = onCopy ? Boolean(hasCopied) : hasLocalCopy
+  const [hasLocalCopy, setHasLocalCopy] = React.useState(false);
+  const command = commands[packageManager];
+  const copied = onCopy ? Boolean(hasCopied) : hasLocalCopy;
 
   React.useEffect(() => {
     if (!hasLocalCopy) {
-      return
+      return;
     }
 
-    const timer = setTimeout(() => setHasLocalCopy(false), 2000)
-    return () => clearTimeout(timer)
-  }, [hasLocalCopy])
+    const timer = setTimeout(() => setHasLocalCopy(false), 2000);
+    return () => clearTimeout(timer);
+  }, [hasLocalCopy]);
 
   const handleCopy = React.useCallback(() => {
     if (onCopy) {
-      onCopy()
-      return
+      onCopy();
+      return;
     }
 
     copyToClipboardWithMeta(command, {
@@ -377,9 +345,9 @@ function PackageManagerCommandPanel({
       properties: {
         command,
       },
-    })
-    setHasLocalCopy(true)
-  }, [command, copyEventName, onCopy])
+    });
+    setHasLocalCopy(true);
+  }, [command, copyEventName, onCopy]);
 
   return (
     <div className="min-w-0 overflow-hidden rounded-xl ring-1 ring-border">
@@ -400,26 +368,15 @@ function PackageManagerCommandPanel({
               </TabsTrigger>
             ))}
           </TabsList>
-          <Button
-            size="icon-sm"
-            variant="ghost"
-            className="ml-auto"
-            onClick={handleCopy}
-          >
-            {copied ? (
-              <HugeiconsIcon icon={Tick02Icon} />
-            ) : (
-              <HugeiconsIcon icon={Copy01Icon} />
-            )}
+          <Button size="icon-sm" variant="ghost" className="ml-auto" onClick={handleCopy}>
+            {copied ? <HugeiconsIcon icon={Tick02Icon} /> : <HugeiconsIcon icon={Copy01Icon} />}
             <span className="sr-only">Copy command</span>
           </Button>
         </div>
         <div className="border-b bg-popover/40 px-3 py-2">
           <p className="text-xs font-medium">{title}</p>
           {description ? (
-            <p className="mt-0.5 text-xs text-muted-foreground">
-              {description}
-            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>
           ) : null}
         </div>
         {Object.entries(commands).map(([key, value]) => (
@@ -440,7 +397,7 @@ function PackageManagerCommandPanel({
         </Button>
       </div>
     </div>
-  )
+  );
 }
 
 function CodeField({
@@ -449,21 +406,21 @@ function CodeField({
   value,
   copyEventName,
 }: {
-  label: string
-  description: string
-  value: string
-  copyEventName: string
+  label: string;
+  description: string;
+  value: string;
+  copyEventName: string;
 }) {
-  const [hasCopied, setHasCopied] = React.useState(false)
+  const [hasCopied, setHasCopied] = React.useState(false);
 
   React.useEffect(() => {
     if (!hasCopied) {
-      return
+      return;
     }
 
-    const timer = setTimeout(() => setHasCopied(false), 2000)
-    return () => clearTimeout(timer)
-  }, [hasCopied])
+    const timer = setTimeout(() => setHasCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [hasCopied]);
 
   const handleCopy = React.useCallback(() => {
     copyToClipboardWithMeta(value, {
@@ -471,9 +428,9 @@ function CodeField({
       properties: {
         target: label,
       },
-    })
-    setHasCopied(true)
-  }, [copyEventName, label, value])
+    });
+    setHasCopied(true);
+  }, [copyEventName, label, value]);
 
   return (
     <Field className="gap-2 rounded-xl border border-border/70 bg-popover/60 p-3">
@@ -482,12 +439,7 @@ function CodeField({
           <FieldLabel>{label}</FieldLabel>
           <FieldDescription>{description}</FieldDescription>
         </div>
-        <Button
-          size="sm"
-          variant="outline"
-          className="shrink-0"
-          onClick={handleCopy}
-        >
+        <Button size="sm" variant="outline" className="shrink-0" onClick={handleCopy}>
           {hasCopied ? "Copied" : "Copy"}
         </Button>
       </div>
@@ -497,30 +449,27 @@ function CodeField({
         className="min-h-40 resize-y rounded-xl bg-background font-mono text-xs"
       />
     </Field>
-  )
+  );
 }
 
 const TemplateGrid = React.memo(function TemplateGrid({
   template,
   setParams,
 }: {
-  template: DesignSystemSearchParams["template"]
-  setParams: ReturnType<typeof useDesignSystemSearchParams>[1]
+  template: DesignSystemSearchParams["template"];
+  setParams: ReturnType<typeof useDesignSystemSearchParams>[1];
 }) {
-  const isMonorepo = template?.endsWith("-monorepo") ?? false
-  const framework = getFramework(template ?? "next")
+  const isMonorepo = template?.endsWith("-monorepo") ?? false;
+  const framework = getFramework(template ?? "next");
 
   const handleTemplateChange = React.useCallback(
     (value: string) => {
       setParams({
-        template: getTemplateValue(
-          value,
-          isMonorepo
-        ) as DesignSystemSearchParams["template"],
-      })
+        template: getTemplateValue(value, isMonorepo) as DesignSystemSearchParams["template"],
+      });
     },
-    [isMonorepo, setParams]
-  )
+    [isMonorepo, setParams],
+  );
 
   return (
     <RadioGroup
@@ -529,11 +478,7 @@ const TemplateGrid = React.memo(function TemplateGrid({
       className="grid grid-cols-2 gap-2"
     >
       {TEMPLATES.map((item) => (
-        <FieldLabel
-          key={item.value}
-          htmlFor={`template-${item.value}`}
-          className="block w-full"
-        >
+        <FieldLabel key={item.value} htmlFor={`template-${item.value}`} className="block w-full">
           <Field
             orientation="horizontal"
             className="w-full rounded-md transition-colors duration-150 hover:bg-neutral-700/45"
@@ -556,22 +501,22 @@ const TemplateGrid = React.memo(function TemplateGrid({
         </FieldLabel>
       ))}
     </RadioGroup>
-  )
-})
+  );
+});
 
 const BaseGrid = React.memo(function BaseGrid({
   base,
   setParams,
 }: {
-  base: DesignSystemSearchParams["base"]
-  setParams: ReturnType<typeof useDesignSystemSearchParams>[1]
+  base: DesignSystemSearchParams["base"];
+  setParams: ReturnType<typeof useDesignSystemSearchParams>[1];
 }) {
   const handleBaseChange = React.useCallback(
     (value: string) => {
-      setParams({ base: value as BaseName })
+      setParams({ base: value as BaseName });
     },
-    [setParams]
-  )
+    [setParams],
+  );
 
   return (
     <RadioGroup
@@ -581,11 +526,7 @@ const BaseGrid = React.memo(function BaseGrid({
       className="grid grid-cols-2 gap-2"
     >
       {BASES.map((item) => (
-        <FieldLabel
-          key={item.name}
-          htmlFor={`base-${item.name}`}
-          className="block w-full"
-        >
+        <FieldLabel key={item.name} htmlFor={`base-${item.name}`} className="block w-full">
           <Field
             orientation="horizontal"
             className="w-full rounded-md transition-colors duration-150 hover:bg-neutral-700/45"
@@ -608,5 +549,5 @@ const BaseGrid = React.memo(function BaseGrid({
         </FieldLabel>
       ))}
     </RadioGroup>
-  )
-})
+  );
+});

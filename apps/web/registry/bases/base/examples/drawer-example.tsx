@@ -1,10 +1,7 @@
-"use client"
+"use client";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
-import { Button } from "@/registry/bases/base/ui/button"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
+import { Button } from "@/registry/bases/base/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -14,7 +11,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/registry/bases/base/ui/drawer"
+} from "@/registry/bases/base/ui/drawer";
 
 export default function DrawerExample() {
   return (
@@ -22,10 +19,10 @@ export default function DrawerExample() {
       <DrawerScrollableContent />
       <DrawerWithSides />
     </ExampleWrapper>
-  )
+  );
 }
 
-const DRAWER_SIDES = ["top", "right", "bottom", "left"] as const
+const DRAWER_SIDES = ["top", "right", "bottom", "left"] as const;
 
 function DrawerWithSides() {
   return (
@@ -34,9 +31,7 @@ function DrawerWithSides() {
         {DRAWER_SIDES.map((side) => (
           <Drawer
             key={side}
-            direction={
-              side === "bottom" ? undefined : (side as "top" | "right" | "left")
-            }
+            direction={side === "bottom" ? undefined : (side as "top" | "right" | "left")}
           >
             <DrawerTrigger asChild>
               <Button variant="outline" className="capitalize">
@@ -46,9 +41,7 @@ function DrawerWithSides() {
             <DrawerContent className="data-[vaul-drawer-direction=bottom]:max-h-[50vh] data-[vaul-drawer-direction=top]:max-h-[50vh]">
               <DrawerHeader>
                 <DrawerTitle>Move Goal</DrawerTitle>
-                <DrawerDescription>
-                  Set your daily activity goal.
-                </DrawerDescription>
+                <DrawerDescription>Set your daily activity goal.</DrawerDescription>
               </DrawerHeader>
               <div className="no-scrollbar overflow-y-auto px-4">
                 {Array.from({ length: 10 }).map((_, index) => (
@@ -56,14 +49,12 @@ function DrawerWithSides() {
                     key={index}
                     className="mb-4 leading-normal style-lyra:mb-2 style-lyra:leading-relaxed"
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.
                   </p>
                 ))}
               </div>
@@ -78,7 +69,7 @@ function DrawerWithSides() {
         ))}
       </div>
     </Example>
-  )
+  );
 }
 
 function DrawerScrollableContent() {
@@ -99,13 +90,12 @@ function DrawerScrollableContent() {
                 key={index}
                 className="mb-4 leading-normal style-lyra:mb-2 style-lyra:leading-relaxed"
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
               </p>
             ))}
           </div>
@@ -118,5 +108,5 @@ function DrawerScrollableContent() {
         </DrawerContent>
       </Drawer>
     </Example>
-  )
+  );
 }

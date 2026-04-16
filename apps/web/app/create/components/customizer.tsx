@@ -1,59 +1,44 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import dynamic from "next/dynamic"
-import { Settings2, SlidersHorizontal } from "lucide-react"
-import { type RegistryItem } from "shadcn/schema"
+import * as React from "react";
+import dynamic from "next/dynamic";
+import { Settings2, SlidersHorizontal } from "lucide-react";
+import { type RegistryItem } from "shadcn/schema";
 
-import { cn } from "@/lib/utils"
-import { useIsMobile } from "@/hooks/use-mobile"
-import { getThemesForBaseColor, STYLES } from "@/registry/config"
-import { Button } from "@workspace/ui/components/button"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@workspace/ui/components/card"
-import { FieldGroup, FieldSeparator } from "@workspace/ui/components/field"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@workspace/ui/components/tooltip"
-import { MenuAccentPicker } from "@/app/create/components/accent-picker"
-import { ActionMenu } from "@/app/create/components/action-menu"
-import { AdvancedColorEditor } from "@/app/create/components/advanced-color-editor"
-import { BaseColorPicker } from "@/app/create/components/base-color-picker"
-import { BasePicker } from "@/app/create/components/base-picker"
-import { ChartColorPicker } from "@/app/create/components/chart-color-picker"
-import { CopyPreset } from "@/app/create/components/copy-preset"
-import { FontPicker } from "@/app/create/components/font-picker"
-import { IconLibraryPicker } from "@/app/create/components/icon-library-picker"
-import { MainMenu } from "@/app/create/components/main-menu"
-import { MenuColorPicker } from "@/app/create/components/menu-picker"
-import { OpenPreset } from "@/app/create/components/open-preset"
-import { RadiusPicker } from "@/app/create/components/radius-picker"
-import { RandomButton } from "@/app/create/components/random-button"
-import { ResetDialog } from "@/app/create/components/reset-button"
-import { StylePicker } from "@/app/create/components/style-picker"
-import { ThemePicker } from "@/app/create/components/theme-picker"
-import { FONT_HEADING_OPTIONS, FONTS } from "@/app/create/lib/fonts"
-import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
+import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { getThemesForBaseColor, STYLES } from "@/registry/config";
+import { Button } from "@workspace/ui/components/button";
+import { Card, CardContent, CardFooter, CardHeader } from "@workspace/ui/components/card";
+import { FieldGroup, FieldSeparator } from "@workspace/ui/components/field";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@workspace/ui/components/tooltip";
+import { MenuAccentPicker } from "@/app/create/components/accent-picker";
+import { ActionMenu } from "@/app/create/components/action-menu";
+import { AdvancedColorEditor } from "@/app/create/components/advanced-color-editor";
+import { BaseColorPicker } from "@/app/create/components/base-color-picker";
+import { BasePicker } from "@/app/create/components/base-picker";
+import { ChartColorPicker } from "@/app/create/components/chart-color-picker";
+import { CopyPreset } from "@/app/create/components/copy-preset";
+import { FontPicker } from "@/app/create/components/font-picker";
+import { IconLibraryPicker } from "@/app/create/components/icon-library-picker";
+import { MainMenu } from "@/app/create/components/main-menu";
+import { MenuColorPicker } from "@/app/create/components/menu-picker";
+import { OpenPreset } from "@/app/create/components/open-preset";
+import { RadiusPicker } from "@/app/create/components/radius-picker";
+import { RandomButton } from "@/app/create/components/random-button";
+import { ResetDialog } from "@/app/create/components/reset-button";
+import { StylePicker } from "@/app/create/components/style-picker";
+import { ThemePicker } from "@/app/create/components/theme-picker";
+import { FONT_HEADING_OPTIONS, FONTS } from "@/app/create/lib/fonts";
+import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
 
 // Only visible when user clicks "Create Project".
 const ProjectForm = dynamic(() =>
-  import("@/app/create/components/project-form").then((m) => m.ProjectForm)
-)
+  import("@/app/create/components/project-form").then((m) => m.ProjectForm),
+);
 
-function AdvancedToggleButton({
-  advanced,
-  onClick,
-}: {
-  advanced: boolean
-  onClick: () => void
-}) {
-  const label = advanced ? "Show config controls" : "Show advanced colors"
+function AdvancedToggleButton({ advanced, onClick }: { advanced: boolean; onClick: () => void }) {
+  const label = advanced ? "Show config controls" : "Show advanced colors";
 
   return (
     <Tooltip>
@@ -74,23 +59,23 @@ function AdvancedToggleButton({
       </TooltipTrigger>
       <TooltipContent side="bottom">{label}</TooltipContent>
     </Tooltip>
-  )
+  );
 }
 
 export function Customizer({
   itemsByBase,
 }: {
-  itemsByBase: Record<string, Pick<RegistryItem, "name" | "title" | "type">[]>
+  itemsByBase: Record<string, Pick<RegistryItem, "name" | "title" | "type">[]>;
 }) {
-  const [params] = useDesignSystemSearchParams()
-  const isMobile = useIsMobile()
-  const anchorRef = React.useRef<HTMLDivElement | null>(null)
-  const [advanced, setAdvanced] = React.useState(false)
+  const [params] = useDesignSystemSearchParams();
+  const isMobile = useIsMobile();
+  const anchorRef = React.useRef<HTMLDivElement | null>(null);
+  const [advanced, setAdvanced] = React.useState(false);
 
   const availableThemes = React.useMemo(
     () => getThemesForBaseColor(params.baseColor),
-    [params.baseColor]
-  )
+    [params.baseColor],
+  );
 
   return (
     <Card
@@ -102,17 +87,14 @@ export function Customizer({
         <div className="min-w-0 flex-1">
           <MainMenu className="w-full" />
         </div>
-        <AdvancedToggleButton
-          advanced={advanced}
-          onClick={() => setAdvanced((value) => !value)}
-        />
+        <AdvancedToggleButton advanced={advanced} onClick={() => setAdvanced((value) => !value)} />
       </CardHeader>
       <CardContent
         className={cn(
           "no-scrollbar min-h-0 flex-1",
           advanced
             ? "flex flex-col overflow-hidden"
-            : "overflow-x-auto overflow-y-hidden md:overflow-y-auto"
+            : "overflow-x-auto overflow-y-hidden md:overflow-y-auto",
         )}
       >
         <div className="flex items-center justify-end px-px pb-3 md:hidden">
@@ -125,11 +107,7 @@ export function Customizer({
           <AdvancedColorEditor params={params} />
         ) : (
           <FieldGroup className="flex-row gap-2.5 py-px **:data-[slot=field-separator]:-mx-4 **:data-[slot=field-separator]:w-auto md:flex-col md:gap-3.25">
-            <StylePicker
-              styles={STYLES}
-              isMobile={isMobile}
-              anchorRef={anchorRef}
-            />
+            <StylePicker styles={STYLES} isMobile={isMobile} anchorRef={anchorRef} />
             <FieldSeparator className="hidden md:block" />
             <BaseColorPicker isMobile={isMobile} anchorRef={anchorRef} />
             <ThemePicker
@@ -160,9 +138,7 @@ export function Customizer({
             <FieldSeparator className="hidden md:block" />
             <MenuColorPicker isMobile={isMobile} anchorRef={anchorRef} />
             <MenuAccentPicker isMobile={isMobile} anchorRef={anchorRef} />
-            {isMobile && (
-              <BasePicker isMobile={isMobile} anchorRef={anchorRef} />
-            )}
+            {isMobile && <BasePicker isMobile={isMobile} anchorRef={anchorRef} />}
           </FieldGroup>
         )}
       </CardContent>
@@ -184,5 +160,5 @@ export function Customizer({
         </React.Fragment>
       ) : null}
     </Card>
-  )
+  );
 }

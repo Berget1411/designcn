@@ -1,16 +1,10 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Button } from "@/registry/bases/radix/ui/button"
-import {
-  ButtonGroup,
-  ButtonGroupText,
-} from "@/registry/bases/radix/ui/button-group"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Button } from "@/registry/bases/radix/ui/button";
+import { ButtonGroup, ButtonGroupText } from "@/registry/bases/radix/ui/button-group";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,15 +12,15 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/bases/radix/ui/dropdown-menu"
-import { Field, FieldGroup } from "@/registry/bases/radix/ui/field"
-import { Input } from "@/registry/bases/radix/ui/input"
+} from "@/registry/bases/radix/ui/dropdown-menu";
+import { Field, FieldGroup } from "@/registry/bases/radix/ui/field";
+import { Input } from "@/registry/bases/radix/ui/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@/registry/bases/radix/ui/input-group"
-import { Label } from "@/registry/bases/radix/ui/label"
+} from "@/registry/bases/radix/ui/input-group";
+import { Label } from "@/registry/bases/radix/ui/label";
 import {
   Select,
   SelectContent,
@@ -34,13 +28,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/radix/ui/select"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/bases/radix/ui/tooltip"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/bases/radix/ui/tooltip";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function ButtonGroupExample() {
   return (
@@ -63,7 +53,7 @@ export default function ButtonGroupExample() {
       <ButtonGroupVertical />
       <ButtonGroupVerticalNested />
     </ExampleWrapper>
-  )
+  );
 }
 
 function ButtonGroupBasic() {
@@ -76,7 +66,7 @@ function ButtonGroupBasic() {
         </ButtonGroup>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupWithInput() {
@@ -93,7 +83,7 @@ function ButtonGroupWithInput() {
         </ButtonGroup>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupWithText() {
@@ -116,7 +106,7 @@ function ButtonGroupWithText() {
         </ButtonGroup>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupWithDropdown() {
@@ -139,9 +129,7 @@ function ButtonGroupWithDropdown() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem>Disable</DropdownMenuItem>
-              <DropdownMenuItem variant="destructive">
-                Uninstall
-              </DropdownMenuItem>
+              <DropdownMenuItem variant="destructive">Uninstall</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </ButtonGroup>
@@ -240,11 +228,11 @@ function ButtonGroupWithDropdown() {
         </ButtonGroup>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupWithSelect() {
-  const [currency, setCurrency] = useState("$")
+  const [currency, setCurrency] = useState("$");
 
   return (
     <Example title="With Select">
@@ -276,7 +264,7 @@ function ButtonGroupWithSelect() {
         </ButtonGroup>
       </Field>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupWithIcons() {
@@ -314,7 +302,7 @@ function ButtonGroupWithIcons() {
         </ButtonGroup>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupWithInputGroup() {
@@ -323,10 +311,7 @@ function ButtonGroupWithInputGroup() {
       <div className="flex flex-col gap-4">
         <InputGroup>
           <InputGroupInput placeholder="Type to search..." />
-          <InputGroupAddon
-            align="inline-start"
-            className="text-muted-foreground"
-          >
+          <InputGroupAddon align="inline-start" className="text-muted-foreground">
             <IconPlaceholder
               lucide="SearchIcon"
               tabler="IconSearch"
@@ -338,7 +323,7 @@ function ButtonGroupWithInputGroup() {
         </InputGroup>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupWithFields() {
@@ -350,13 +335,8 @@ function ButtonGroupWithFields() {
           <ButtonGroup>
             <InputGroup>
               <InputGroupInput id="width" />
-              <InputGroupAddon className="text-muted-foreground">
-                W
-              </InputGroupAddon>
-              <InputGroupAddon
-                align="inline-end"
-                className="text-muted-foreground"
-              >
+              <InputGroupAddon className="text-muted-foreground">W</InputGroupAddon>
+              <InputGroupAddon align="inline-end" className="text-muted-foreground">
                 px
               </InputGroupAddon>
             </InputGroup>
@@ -382,7 +362,7 @@ function ButtonGroupWithFields() {
         </Field>
       </FieldGroup>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupWithLike() {
@@ -405,7 +385,7 @@ function ButtonGroupWithLike() {
         </Button>
       </ButtonGroup>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupWithSelectAndInput() {
@@ -427,7 +407,7 @@ function ButtonGroupWithSelectAndInput() {
         <Input />
       </ButtonGroup>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupNested() {
@@ -466,7 +446,7 @@ function ButtonGroupNested() {
         </ButtonGroup>
       </ButtonGroup>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupPagination() {
@@ -512,7 +492,7 @@ function ButtonGroupPagination() {
         </Button>
       </ButtonGroup>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupPaginationSplit() {
@@ -558,7 +538,7 @@ function ButtonGroupPaginationSplit() {
         </ButtonGroup>
       </ButtonGroup>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupNavigation() {
@@ -598,7 +578,7 @@ function ButtonGroupNavigation() {
         </ButtonGroup>
       </ButtonGroup>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupTextAlignment() {
@@ -622,18 +602,14 @@ function ButtonGroupTextAlignment() {
         </ButtonGroup>
       </Field>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupVertical() {
   return (
     <Example title="Vertical">
       <div className="flex gap-6">
-        <ButtonGroup
-          orientation="vertical"
-          aria-label="Media controls"
-          className="h-fit"
-        >
+        <ButtonGroup orientation="vertical" aria-label="Media controls" className="h-fit">
           <Button variant="outline" size="icon">
             <IconPlaceholder
               lucide="PlusIcon"
@@ -655,7 +631,7 @@ function ButtonGroupVertical() {
         </ButtonGroup>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonGroupVerticalNested() {
@@ -733,5 +709,5 @@ function ButtonGroupVerticalNested() {
         </ButtonGroup>
       </ButtonGroup>
     </Example>
-  )
+  );
 }

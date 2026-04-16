@@ -1,22 +1,12 @@
-import {
-  Field,
-  FieldDescription,
-  FieldLabel,
-  FieldSet,
-} from "@/registry/new-york-v4/ui/field"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/new-york-v4/ui/radio-group"
+import { Field, FieldDescription, FieldLabel, FieldSet } from "@/registry/new-york-v4/ui/field";
+import { RadioGroup, RadioGroupItem } from "@/registry/new-york-v4/ui/radio-group";
 
 export default function FieldRadio() {
   return (
     <div className="w-full max-w-md">
       <FieldSet>
         <FieldLabel>Subscription Plan</FieldLabel>
-        <FieldDescription>
-          Yearly and lifetime plans offer significant savings.
-        </FieldDescription>
+        <FieldDescription>Yearly and lifetime plans offer significant savings.</FieldDescription>
         <RadioGroup defaultValue="monthly">
           <Field orientation="horizontal">
             <RadioGroupItem value="monthly" id="plan-monthly" />
@@ -39,5 +29,5 @@ export default function FieldRadio() {
         </RadioGroup>
       </FieldSet>
     </div>
-  )
+  );
 }

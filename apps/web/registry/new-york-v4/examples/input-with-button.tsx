@@ -1,5 +1,5 @@
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Input } from "@/registry/new-york-v4/ui/input"
+import { Button } from "@/registry/new-york-v4/ui/button";
+import { Input } from "@/registry/new-york-v4/ui/input";
 
 export default function InputWithButton() {
   return (
@@ -9,5 +9,5 @@ export default function InputWithButton() {
         Subscribe
       </Button>
     </div>
-  )
+  );
 }

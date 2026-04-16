@@ -1,15 +1,12 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
-import { Card, CardContent } from "@/registry/bases/base/ui/card"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
+import { Card, CardContent } from "@/registry/bases/base/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/registry/bases/base/ui/carousel"
+} from "@/registry/bases/base/ui/carousel";
 
 export default function CarouselExample() {
   return (
@@ -18,7 +15,7 @@ export default function CarouselExample() {
       <CarouselMultiple />
       <CarouselWithGap />
     </ExampleWrapper>
-  )
+  );
 }
 
 function CarouselBasic() {
@@ -42,7 +39,7 @@ function CarouselBasic() {
         <CarouselNext className="hidden sm:inline-flex" />
       </Carousel>
     </Example>
-  )
+  );
 }
 
 function CarouselMultiple() {
@@ -71,7 +68,7 @@ function CarouselMultiple() {
         <CarouselNext className="hidden sm:inline-flex" />
       </Carousel>
     </Example>
-  )
+  );
 }
 
 function CarouselWithGap() {
@@ -95,5 +92,5 @@ function CarouselWithGap() {
         <CarouselNext className="hidden sm:inline-flex" />
       </Carousel>
     </Example>
-  )
+  );
 }

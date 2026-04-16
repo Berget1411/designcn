@@ -1,13 +1,13 @@
 /* eslint-disable react/no-children-prop */
-"use client"
+"use client";
 
-import * as React from "react"
-import { useForm } from "@tanstack/react-form"
-import { XIcon } from "lucide-react"
-import { toast } from "sonner"
-import { z } from "zod"
+import * as React from "react";
+import { useForm } from "@tanstack/react-form";
+import { XIcon } from "lucide-react";
+import { toast } from "sonner";
+import { z } from "zod";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Card,
   CardContent,
@@ -15,7 +15,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   Field,
   FieldContent,
@@ -24,24 +24,24 @@ import {
   FieldGroup,
   FieldLegend,
   FieldSet,
-} from "@/registry/new-york-v4/ui/field"
+} from "@/registry/new-york-v4/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@/registry/new-york-v4/ui/input-group"
+} from "@/registry/new-york-v4/ui/input-group";
 
 const formSchema = z.object({
   emails: z
     .array(
       z.object({
         address: z.string().email("Enter a valid email address."),
-      })
+      }),
     )
     .min(1, "Add at least one email address.")
     .max(5, "You can add up to 5 email addresses."),
-})
+});
 
 export default function FormTanstackArray() {
   const form = useForm({
@@ -65,9 +65,9 @@ export default function FormTanstackArray() {
         style: {
           "--border-radius": "calc(var(--radius)  + 4px)",
         } as React.CSSProperties,
-      })
+      });
     },
-  })
+  });
 
   return (
     <Card className="w-full sm:max-w-md">
@@ -79,14 +79,13 @@ export default function FormTanstackArray() {
         <form
           id="form-tanstack-array"
           onSubmit={(e) => {
-            e.preventDefault()
-            form.handleSubmit()
+            e.preventDefault();
+            form.handleSubmit();
           }}
         >
           <form.Field name="emails" mode="array">
             {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <FieldSet className="gap-4">
                   <FieldLegend variant="label">Email Addresses</FieldLegend>
@@ -100,13 +99,9 @@ export default function FormTanstackArray() {
                         name={`emails[${index}].address`}
                         children={(subField) => {
                           const isSubFieldInvalid =
-                            subField.state.meta.isTouched &&
-                            !subField.state.meta.isValid
+                            subField.state.meta.isTouched && !subField.state.meta.isValid;
                           return (
-                            <Field
-                              orientation="horizontal"
-                              data-invalid={isSubFieldInvalid}
-                            >
+                            <Field orientation="horizontal" data-invalid={isSubFieldInvalid}>
                               <FieldContent>
                                 <InputGroup>
                                   <InputGroupInput
@@ -114,9 +109,7 @@ export default function FormTanstackArray() {
                                     name={subField.name}
                                     value={subField.state.value}
                                     onBlur={subField.handleBlur}
-                                    onChange={(e) =>
-                                      subField.handleChange(e.target.value)
-                                    }
+                                    onChange={(e) => subField.handleChange(e.target.value)}
                                     aria-invalid={isSubFieldInvalid}
                                     placeholder="name@example.com"
                                     type="email"
@@ -137,13 +130,11 @@ export default function FormTanstackArray() {
                                   )}
                                 </InputGroup>
                                 {isSubFieldInvalid && (
-                                  <FieldError
-                                    errors={subField.state.meta.errors}
-                                  />
+                                  <FieldError errors={subField.state.meta.errors} />
                                 )}
                               </FieldContent>
                             </Field>
-                          )
+                          );
                         }}
                       />
                     ))}
@@ -159,7 +150,7 @@ export default function FormTanstackArray() {
                   </FieldGroup>
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </FieldSet>
-              )
+              );
             }}
           </form.Field>
         </form>
@@ -175,5 +166,5 @@ export default function FormTanstackArray() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { Button } from "@/registry/bases/base/ui/button"
-import { Card, CardContent } from "@/registry/bases/base/ui/card"
+import { Button } from "@/registry/bases/base/ui/button";
+import { Card, CardContent } from "@/registry/bases/base/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/bases/base/ui/dropdown-menu"
+} from "@/registry/bases/base/ui/dropdown-menu";
 import {
   Empty,
   EmptyContent,
@@ -19,42 +19,29 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/registry/bases/base/ui/empty"
-import {
-  Field,
-  FieldDescription,
-  FieldLabel,
-} from "@/registry/bases/base/ui/field"
+} from "@/registry/bases/base/ui/empty";
+import { Field, FieldDescription, FieldLabel } from "@/registry/bases/base/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@/registry/bases/base/ui/input-group"
+} from "@/registry/bases/base/ui/input-group";
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from "@/registry/bases/base/ui/item"
-import { Separator } from "@/registry/bases/base/ui/separator"
-import { Spinner } from "@/registry/bases/base/ui/spinner"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/registry/bases/base/ui/tabs"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/bases/base/ui/tooltip"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/item";
+import { Separator } from "@/registry/bases/base/ui/separator";
+import { Spinner } from "@/registry/bases/base/ui/spinner";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/bases/base/ui/tabs";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/bases/base/ui/tooltip";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function CodespacesCard() {
-  const [isCreatingCodespace, setIsCreatingCodespace] = React.useState(false)
+  const [isCreatingCodespace, setIsCreatingCodespace] = React.useState(false);
   return (
     <Card>
       <CardContent>
@@ -71,9 +58,7 @@ export function CodespacesCard() {
               </ItemContent>
               <ItemActions>
                 <Tooltip>
-                  <TooltipTrigger
-                    render={<Button variant="ghost" size="icon-sm" />}
-                  >
+                  <TooltipTrigger render={<Button variant="ghost" size="icon-sm" />}>
                     <IconPlaceholder
                       lucide="PlusIcon"
                       tabler="IconPlus"
@@ -82,14 +67,10 @@ export function CodespacesCard() {
                       remixicon="RiAddLine"
                     />
                   </TooltipTrigger>
-                  <TooltipContent side="bottom">
-                    Create a codespace on main
-                  </TooltipContent>
+                  <TooltipContent side="bottom">Create a codespace on main</TooltipContent>
                 </Tooltip>
                 <DropdownMenu>
-                  <DropdownMenuTrigger
-                    render={<Button variant="ghost" size="icon-sm" />}
-                  >
+                  <DropdownMenuTrigger render={<Button variant="ghost" size="icon-sm" />}>
                     <IconPlaceholder
                       lucide="MoreHorizontalIcon"
                       tabler="IconDots"
@@ -182,26 +163,21 @@ export function CodespacesCard() {
                 </EmptyMedia>
                 <EmptyTitle>No codespaces</EmptyTitle>
                 <EmptyDescription>
-                  You don&apos;t have any codespaces with this repository
-                  checked out
+                  You don&apos;t have any codespaces with this repository checked out
                 </EmptyDescription>
               </EmptyHeader>
               <EmptyContent>
                 <Button
                   size="sm"
                   onClick={() => {
-                    setIsCreatingCodespace(true)
+                    setIsCreatingCodespace(true);
                     setTimeout(() => {
-                      setIsCreatingCodespace(false)
-                    }, 2000)
+                      setIsCreatingCodespace(false);
+                    }, 2000);
                   }}
                   disabled={isCreatingCodespace}
                 >
-                  {isCreatingCodespace ? (
-                    <Spinner data-icon="inline-start" />
-                  ) : (
-                    ""
-                  )}
+                  {isCreatingCodespace ? <Spinner data-icon="inline-start" /> : ""}
                   Create Codespace
                 </Button>
                 <a
@@ -235,9 +211,7 @@ export function CodespacesCard() {
               </ItemContent>
               <ItemActions>
                 <Tooltip>
-                  <TooltipTrigger
-                    render={<Button variant="ghost" size="icon" />}
-                  >
+                  <TooltipTrigger render={<Button variant="ghost" size="icon" />}>
                     <IconPlaceholder
                       lucide="InfoIcon"
                       tabler="IconInfoCircle"
@@ -246,17 +220,12 @@ export function CodespacesCard() {
                       remixicon="RiInformationLine"
                     />
                   </TooltipTrigger>
-                  <TooltipContent side="left">
-                    Which remote URL should I use?
-                  </TooltipContent>
+                  <TooltipContent side="left">Which remote URL should I use?</TooltipContent>
                 </Tooltip>
               </ItemActions>
             </Item>
             <Tabs defaultValue="https">
-              <TabsList
-                variant="line"
-                className="w-full justify-start border-b *:[button]:flex-0"
-              >
+              <TabsList variant="line" className="w-full justify-start border-b *:[button]:flex-0">
                 <TabsTrigger value="https">HTTPS</TabsTrigger>
                 <TabsTrigger value="ssh">SSH</TabsTrigger>
                 <TabsTrigger value="cli">GitHub CLI</TabsTrigger>
@@ -285,9 +254,7 @@ export function CodespacesCard() {
                         readOnly
                       />
                     </InputGroup>
-                    <FieldDescription>
-                      Clone using the web URL.
-                    </FieldDescription>
+                    <FieldDescription>Clone using the web URL.</FieldDescription>
                   </Field>
                 </TabsContent>
                 <TabsContent value="ssh">
@@ -313,9 +280,7 @@ export function CodespacesCard() {
                         readOnly
                       />
                     </InputGroup>
-                    <FieldDescription>
-                      Use a password-protected SSH key.
-                    </FieldDescription>
+                    <FieldDescription>Use a password-protected SSH key.</FieldDescription>
                   </Field>
                 </TabsContent>
                 <TabsContent value="cli">
@@ -342,8 +307,7 @@ export function CodespacesCard() {
                       />
                     </InputGroup>
                     <FieldDescription>
-                      Work fast with our official CLI.{" "}
-                      <a href="#learn-more">Learn more</a>
+                      Work fast with our official CLI. <a href="#learn-more">Learn more</a>
                     </FieldDescription>
                   </Field>
                 </TabsContent>
@@ -351,11 +315,7 @@ export function CodespacesCard() {
             </Tabs>
             <Separator className="-mx-2 my-2 w-auto!" />
             <div className="flex flex-col">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="justify-start gap-1.5"
-              >
+              <Button variant="ghost" size="sm" className="justify-start gap-1.5">
                 <IconPlaceholder
                   lucide="MonitorIcon"
                   tabler="IconDeviceDesktop"
@@ -366,11 +326,7 @@ export function CodespacesCard() {
                 />
                 Open with GitHub Desktop
               </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="justify-start gap-1.5"
-              >
+              <Button variant="ghost" size="sm" className="justify-start gap-1.5">
                 <IconPlaceholder
                   lucide="DownloadIcon"
                   tabler="IconDownload"
@@ -386,5 +342,5 @@ export function CodespacesCard() {
         </Tabs>
       </CardContent>
     </Card>
-  )
+  );
 }

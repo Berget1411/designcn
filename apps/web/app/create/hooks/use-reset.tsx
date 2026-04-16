@@ -1,29 +1,30 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import useSWR from "swr"
+import * as React from "react";
+import useSWR from "swr";
 
-import { DEFAULT_CONFIG, PRESETS } from "@/registry/config"
-import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
+import { DEFAULT_CONFIG, PRESETS } from "@/registry/config";
+import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
 
-const RESET_DIALOG_KEY = "create:reset-dialog-open"
-export const RESET_FORWARD_TYPE = "reset-forward"
+const RESET_DIALOG_KEY = "create:reset-dialog-open";
+export const RESET_FORWARD_TYPE = "reset-forward";
 
 export function useReset() {
-  const [params, setParams] = useDesignSystemSearchParams()
-  const { data: showResetDialog = false, mutate: setShowResetDialogData } =
-    useSWR<boolean>(RESET_DIALOG_KEY, {
+  const [params, setParams] = useDesignSystemSearchParams();
+  const { data: showResetDialog = false, mutate: setShowResetDialogData } = useSWR<boolean>(
+    RESET_DIALOG_KEY,
+    {
       fallbackData: false,
       revalidateOnFocus: false,
       revalidateIfStale: false,
       revalidateOnReconnect: false,
-    })
+    },
+  );
 
   const reset = React.useCallback(() => {
     const preset =
-      PRESETS.find(
-        (preset) => preset.base === params.base && preset.style === params.style
-      ) ?? DEFAULT_CONFIG
+      PRESETS.find((preset) => preset.base === params.base && preset.style === params.style) ??
+      DEFAULT_CONFIG;
 
     setParams({
       base: params.base,
@@ -39,30 +40,30 @@ export function useReset() {
       radius: preset.radius,
       template: DEFAULT_CONFIG.template,
       item: params.item,
-    })
-  }, [setParams, params.base, params.style, params.item])
+    });
+  }, [setParams, params.base, params.style, params.item]);
 
   const handleShowResetDialogChange = React.useCallback(
     (open: boolean) => {
-      void setShowResetDialogData(open, { revalidate: false })
+      void setShowResetDialogData(open, { revalidate: false });
     },
-    [setShowResetDialogData]
-  )
+    [setShowResetDialogData],
+  );
 
   const confirmReset = React.useCallback(() => {
-    reset()
-    void setShowResetDialogData(false, { revalidate: false })
-  }, [reset, setShowResetDialogData])
+    reset();
+    void setShowResetDialogData(false, { revalidate: false });
+  }, [reset, setShowResetDialogData]);
 
-  const showResetDialogRef = React.useRef(showResetDialog)
+  const showResetDialogRef = React.useRef(showResetDialog);
   React.useEffect(() => {
-    showResetDialogRef.current = showResetDialog
-  }, [showResetDialog])
+    showResetDialogRef.current = showResetDialog;
+  }, [showResetDialog]);
 
-  const confirmResetRef = React.useRef(confirmReset)
+  const confirmResetRef = React.useRef(confirmReset);
   React.useEffect(() => {
-    confirmResetRef.current = confirmReset
-  }, [confirmReset])
+    confirmResetRef.current = confirmReset;
+  }, [confirmReset]);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -73,31 +74,31 @@ export function useReset() {
           e.target instanceof HTMLTextAreaElement ||
           e.target instanceof HTMLSelectElement
         ) {
-          return
+          return;
         }
 
-        e.preventDefault()
+        e.preventDefault();
 
         // If the dialog is already open, confirm the reset.
         if (showResetDialogRef.current) {
-          confirmResetRef.current()
-          return
+          confirmResetRef.current();
+          return;
         }
 
-        handleShowResetDialogChange(true)
+        handleShowResetDialogChange(true);
       }
-    }
+    };
 
-    document.addEventListener("keydown", down)
+    document.addEventListener("keydown", down);
     return () => {
-      document.removeEventListener("keydown", down)
-    }
-  }, [handleShowResetDialogChange])
+      document.removeEventListener("keydown", down);
+    };
+  }, [handleShowResetDialogChange]);
 
   return {
     reset,
     showResetDialog,
     setShowResetDialog: handleShowResetDialogChange,
     confirmReset,
-  }
+  };
 }

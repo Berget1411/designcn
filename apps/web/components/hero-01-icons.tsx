@@ -6,7 +6,7 @@ export function LaravelIcon(props: React.ComponentProps<"svg">) {
         fill="currentColor"
       />
     </svg>
-  )
+  );
 }
 
 export function NextJSIcon(props: React.ComponentProps<"svg">) {
@@ -21,7 +21,7 @@ export function NextJSIcon(props: React.ComponentProps<"svg">) {
         fill="currentColor"
       />
     </svg>
-  )
+  );
 }
 
 export function NodeJSIcon(props: React.ComponentProps<"svg">) {
@@ -36,7 +36,7 @@ export function NodeJSIcon(props: React.ComponentProps<"svg">) {
         fill="currentColor"
       />
     </svg>
-  )
+  );
 }
 
 export function ReactIcon(props: React.ComponentProps<"svg">) {
@@ -62,7 +62,7 @@ export function ReactIcon(props: React.ComponentProps<"svg">) {
         strokeWidth="4"
       />
     </svg>
-  )
+  );
 }
 
 export function TailwindCSSIcon(props: React.ComponentProps<"svg">) {
@@ -73,5 +73,5 @@ export function TailwindCSSIcon(props: React.ComponentProps<"svg">) {
         fill="currentColor"
       />
     </svg>
-  )
+  );
 }

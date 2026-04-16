@@ -1,4 +1,4 @@
-import { Spinner } from "@/registry/new-york-v4/ui/spinner"
+import { Spinner } from "@/registry/new-york-v4/ui/spinner";
 
 export default function SpinnerColor() {
   return (
@@ -9,5 +9,5 @@ export default function SpinnerColor() {
       <Spinner className="size-6 text-yellow-500" />
       <Spinner className="size-6 text-purple-500" />
     </div>
-  )
+  );
 }

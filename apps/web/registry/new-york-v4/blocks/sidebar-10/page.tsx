@@ -1,17 +1,13 @@
-import { AppSidebar } from "@/registry/new-york-v4/blocks/sidebar-10/components/app-sidebar"
-import { NavActions } from "@/registry/new-york-v4/blocks/sidebar-10/components/nav-actions"
+import { AppSidebar } from "@/registry/new-york-v4/blocks/sidebar-10/components/app-sidebar";
+import { NavActions } from "@/registry/new-york-v4/blocks/sidebar-10/components/nav-actions";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
-} from "@/registry/new-york-v4/ui/breadcrumb"
-import { Separator } from "@/registry/new-york-v4/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/registry/new-york-v4/ui/sidebar"
+} from "@/registry/new-york-v4/ui/breadcrumb";
+import { Separator } from "@/registry/new-york-v4/ui/separator";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/registry/new-york-v4/ui/sidebar";
 
 export default function Page() {
   return (
@@ -21,10 +17,7 @@ export default function Page() {
         <header className="flex h-14 shrink-0 items-center gap-2">
           <div className="flex flex-1 items-center gap-2 px-3">
             <SidebarTrigger />
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
+            <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -45,5 +38,5 @@ export default function Page() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { Kbd, KbdGroup } from "@/registry/new-york-v4/ui/kbd"
+import { Kbd, KbdGroup } from "@/registry/new-york-v4/ui/kbd";
 
 export default function KbdDemo() {
   return (
@@ -15,5 +15,5 @@ export default function KbdDemo() {
         <Kbd>B</Kbd>
       </KbdGroup>
     </div>
-  )
+  );
 }

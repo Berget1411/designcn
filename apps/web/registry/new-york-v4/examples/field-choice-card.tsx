@@ -6,23 +6,16 @@ import {
   FieldLabel,
   FieldSet,
   FieldTitle,
-} from "@/registry/new-york-v4/ui/field"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/new-york-v4/ui/radio-group"
+} from "@/registry/new-york-v4/ui/field";
+import { RadioGroup, RadioGroupItem } from "@/registry/new-york-v4/ui/radio-group";
 
 export default function FieldChoiceCard() {
   return (
     <div className="w-full max-w-md">
       <FieldGroup>
         <FieldSet>
-          <FieldLabel htmlFor="compute-environment-p8w">
-            Compute Environment
-          </FieldLabel>
-          <FieldDescription>
-            Select the compute environment for your cluster.
-          </FieldDescription>
+          <FieldLabel htmlFor="compute-environment-p8w">Compute Environment</FieldLabel>
+          <FieldDescription>Select the compute environment for your cluster.</FieldDescription>
           <RadioGroup defaultValue="kubernetes">
             <FieldLabel htmlFor="kubernetes-r2h">
               <Field orientation="horizontal">
@@ -50,5 +43,5 @@ export default function FieldChoiceCard() {
         </FieldSet>
       </FieldGroup>
     </div>
-  )
+  );
 }

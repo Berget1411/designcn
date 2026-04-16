@@ -1,13 +1,10 @@
-"use client"
+"use client";
 
-import { Button } from "@/registry/bases/base/ui/button"
-import { Card, CardContent, CardFooter } from "@/registry/bases/base/ui/card"
-import { Field, FieldGroup, FieldLabel } from "@/registry/bases/base/ui/field"
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/registry/bases/base/ui/native-select"
-import { Textarea } from "@/registry/bases/base/ui/textarea"
+import { Button } from "@/registry/bases/base/ui/button";
+import { Card, CardContent, CardFooter } from "@/registry/bases/base/ui/card";
+import { Field, FieldGroup, FieldLabel } from "@/registry/bases/base/ui/field";
+import { NativeSelect, NativeSelectOption } from "@/registry/bases/base/ui/native-select";
+import { Textarea } from "@/registry/bases/base/ui/textarea";
 
 export function FeedbackForm() {
   return (
@@ -24,9 +21,7 @@ export function FeedbackForm() {
                   Accounts and Access Controls
                 </NativeSelectOption>
                 <NativeSelectOption value="billing">Billing</NativeSelectOption>
-                <NativeSelectOption value="cdn">
-                  CDN (Firewall, Caching)
-                </NativeSelectOption>
+                <NativeSelectOption value="cdn">CDN (Firewall, Caching)</NativeSelectOption>
                 <NativeSelectOption value="ci-cd">
                   CI/CD (Builds, Deployments, Environment Variables)
                 </NativeSelectOption>
@@ -34,9 +29,7 @@ export function FeedbackForm() {
                   Dashboard Interface (Navigation, UI Issues)
                 </NativeSelectOption>
                 <NativeSelectOption value="domains">Domains</NativeSelectOption>
-                <NativeSelectOption value="frameworks">
-                  Frameworks
-                </NativeSelectOption>
+                <NativeSelectOption value="frameworks">Frameworks</NativeSelectOption>
                 <NativeSelectOption value="marketplace-and-integrations">
                   Marketplace and Integrations
                 </NativeSelectOption>
@@ -48,10 +41,7 @@ export function FeedbackForm() {
             </Field>
             <Field>
               <FieldLabel htmlFor="feedback">Feedback</FieldLabel>
-              <Textarea
-                id="feedback"
-                placeholder="Your feedback helps us improve..."
-              />
+              <Textarea id="feedback" placeholder="Your feedback helps us improve..." />
             </Field>
           </FieldGroup>
         </form>
@@ -62,5 +52,5 @@ export function FeedbackForm() {
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

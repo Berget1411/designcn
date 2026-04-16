@@ -1,17 +1,10 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import {
-  Field,
-  FieldDescription,
-  FieldLabel,
-} from "@/registry/bases/radix/ui/field"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Field, FieldDescription, FieldLabel } from "@/registry/bases/radix/ui/field";
 import {
   NativeSelect,
   NativeSelectOptGroup,
   NativeSelectOption,
-} from "@/registry/bases/radix/ui/native-select"
+} from "@/registry/bases/radix/ui/native-select";
 
 export default function NativeSelectExample() {
   return (
@@ -23,7 +16,7 @@ export default function NativeSelectExample() {
       <NativeSelectDisabled />
       <NativeSelectInvalid />
     </ExampleWrapper>
-  )
+  );
 }
 
 function NativeSelectBasic() {
@@ -40,7 +33,7 @@ function NativeSelectBasic() {
         <NativeSelectOption value="pineapple">Pineapple</NativeSelectOption>
       </NativeSelect>
     </Example>
-  )
+  );
 }
 
 function NativeSelectWithGroups() {
@@ -60,7 +53,7 @@ function NativeSelectWithGroups() {
         </NativeSelectOptGroup>
       </NativeSelect>
     </Example>
-  )
+  );
 }
 
 function NativeSelectSizes() {
@@ -81,7 +74,7 @@ function NativeSelectSizes() {
         </NativeSelect>
       </div>
     </Example>
-  )
+  );
 }
 
 function NativeSelectWithField() {
@@ -99,7 +92,7 @@ function NativeSelectWithField() {
         <FieldDescription>Select your country of residence.</FieldDescription>
       </Field>
     </Example>
-  )
+  );
 }
 
 function NativeSelectDisabled() {
@@ -112,7 +105,7 @@ function NativeSelectDisabled() {
         <NativeSelectOption value="blueberry">Blueberry</NativeSelectOption>
       </NativeSelect>
     </Example>
-  )
+  );
 }
 
 function NativeSelectInvalid() {
@@ -125,5 +118,5 @@ function NativeSelectInvalid() {
         <NativeSelectOption value="blueberry">Blueberry</NativeSelectOption>
       </NativeSelect>
     </Example>
-  )
+  );
 }

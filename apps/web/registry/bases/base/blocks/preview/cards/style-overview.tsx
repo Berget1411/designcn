@@ -1,29 +1,29 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { Card, CardContent } from "@/registry/bases/base/ui/card"
-import { STYLES } from "@/registry/styles"
-import { FONTS } from "@/app/create/lib/fonts"
-import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
+import { Card, CardContent } from "@/registry/bases/base/ui/card";
+import { STYLES } from "@/registry/styles";
+import { FONTS } from "@/app/create/lib/fonts";
+import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
 
 export function StyleOverview() {
-  const [params] = useDesignSystemSearchParams()
+  const [params] = useDesignSystemSearchParams();
 
   const currentFont = React.useMemo(
     () => FONTS.find((font) => font.value === params.font),
-    [params.font]
-  )
+    [params.font],
+  );
 
   const currentFontHeading = React.useMemo(
     () => FONTS.find((font) => font.value === params.fontHeading),
-    [params.fontHeading]
-  )
+    [params.fontHeading],
+  );
 
   const currentStyle = React.useMemo(
     () => STYLES.find((style) => style.name === params.style),
-    [params.style]
-  )
+    [params.style],
+  );
 
   return (
     <Card>
@@ -31,14 +31,13 @@ export function StyleOverview() {
         <div className="flex flex-col gap-1">
           <div className="cn-font-heading text-2xl font-medium style-lyra:text-lg style-mira:text-lg">
             {currentStyle?.title} -{" "}
-            {currentFontHeading?.name &&
-            currentFontHeading.name !== currentFont?.name
+            {currentFontHeading?.name && currentFontHeading.name !== currentFont?.name
               ? currentFontHeading.name
               : currentFont?.name}
           </div>
           <div className="line-clamp-2 text-base text-muted-foreground style-lyra:text-sm style-mira:text-sm">
-            Designers love packing quirky glyphs into test phrases. This is a
-            preview of the typography styles.
+            Designers love packing quirky glyphs into test phrases. This is a preview of the
+            typography styles.
           </div>
         </div>
         <div className="grid grid-cols-6 gap-3">
@@ -56,10 +55,7 @@ export function StyleOverview() {
             "--chart-4",
             "--chart-5",
           ].map((variant) => (
-            <div
-              key={variant}
-              className="flex flex-col flex-wrap items-center gap-2"
-            >
+            <div key={variant} className="flex flex-col flex-wrap items-center gap-2">
               <div
                 className="relative aspect-square w-full rounded-lg bg-(--color) after:absolute after:inset-0 after:rounded-lg after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten"
                 style={
@@ -76,5 +72,5 @@ export function StyleOverview() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

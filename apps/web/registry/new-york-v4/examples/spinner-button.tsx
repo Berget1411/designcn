@@ -1,5 +1,5 @@
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Spinner } from "@/registry/new-york-v4/ui/spinner"
+import { Button } from "@/registry/new-york-v4/ui/button";
+import { Spinner } from "@/registry/new-york-v4/ui/spinner";
 
 export default function SpinnerButton() {
   return (
@@ -17,5 +17,5 @@ export default function SpinnerButton() {
         Processing
       </Button>
     </div>
-  )
+  );
 }

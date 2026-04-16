@@ -1,10 +1,7 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Button } from "@/registry/bases/radix/ui/button"
-import { Toggle } from "@/registry/bases/radix/ui/toggle"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Button } from "@/registry/bases/radix/ui/button";
+import { Toggle } from "@/registry/bases/radix/ui/toggle";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function ToggleExample() {
   return (
@@ -18,7 +15,7 @@ export default function ToggleExample() {
       <ToggleDisabled />
       <ToggleWithIcon />
     </ExampleWrapper>
-  )
+  );
 }
 
 function ToggleBasic() {
@@ -54,7 +51,7 @@ function ToggleBasic() {
         </Toggle>
       </div>
     </Example>
-  )
+  );
 }
 
 function ToggleOutline() {
@@ -85,7 +82,7 @@ function ToggleOutline() {
         </Toggle>
       </div>
     </Example>
-  )
+  );
 }
 
 function ToggleSizes() {
@@ -103,7 +100,7 @@ function ToggleSizes() {
         </Toggle>
       </div>
     </Example>
-  )
+  );
 }
 
 function ToggleWithButtonText() {
@@ -136,7 +133,7 @@ function ToggleWithButtonText() {
         </div>
       </div>
     </Example>
-  )
+  );
 }
 
 function ToggleWithButtonIcon() {
@@ -173,11 +170,7 @@ function ToggleWithButtonIcon() {
               remixicon="RiItalic"
             />
           </Button>
-          <Toggle
-            variant="outline"
-            aria-label="Toggle default icon"
-            size="default"
-          >
+          <Toggle variant="outline" aria-label="Toggle default icon" size="default">
             <IconPlaceholder
               lucide="ItalicIcon"
               tabler="IconItalic"
@@ -209,7 +202,7 @@ function ToggleWithButtonIcon() {
         </div>
       </div>
     </Example>
-  )
+  );
 }
 
 function ToggleWithButtonIconText() {
@@ -252,11 +245,7 @@ function ToggleWithButtonIconText() {
             />
             Button
           </Button>
-          <Toggle
-            variant="outline"
-            aria-label="Toggle default icon text"
-            size="default"
-          >
+          <Toggle variant="outline" aria-label="Toggle default icon text" size="default">
             <IconPlaceholder
               lucide="ItalicIcon"
               tabler="IconItalic"
@@ -294,7 +283,7 @@ function ToggleWithButtonIconText() {
         </div>
       </div>
     </Example>
-  )
+  );
 }
 
 function ToggleDisabled() {
@@ -309,7 +298,7 @@ function ToggleDisabled() {
         </Toggle>
       </div>
     </Example>
-  )
+  );
 }
 
 function ToggleWithIcon() {
@@ -340,5 +329,5 @@ function ToggleWithIcon() {
         </Toggle>
       </div>
     </Example>
-  )
+  );
 }

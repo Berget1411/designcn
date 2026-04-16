@@ -1,5 +1,5 @@
-import { Button } from "@/registry/bases/base/ui/button"
-import { Card, CardContent } from "@/registry/bases/base/ui/card"
+import { Button } from "@/registry/bases/base/ui/button";
+import { Card, CardContent } from "@/registry/bases/base/ui/card";
 import {
   Empty,
   EmptyContent,
@@ -7,8 +7,8 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/registry/bases/base/ui/empty"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/empty";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function EmptyDistributeTrack() {
   return (
@@ -27,8 +27,8 @@ export function EmptyDistributeTrack() {
           <EmptyHeader>
             <EmptyTitle>Distribute Track</EmptyTitle>
             <EmptyDescription>
-              Upload your first master to start reaching listeners on Spotify,
-              Apple Music, and more.
+              Upload your first master to start reaching listeners on Spotify, Apple Music, and
+              more.
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
@@ -37,5 +37,5 @@ export function EmptyDistributeTrack() {
         </Empty>
       </CardContent>
     </Card>
-  )
+  );
 }

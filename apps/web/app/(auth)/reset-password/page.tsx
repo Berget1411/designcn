@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { resetPassword } from '@/lib/auth-client';
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { resetPassword } from "@/lib/auth-client";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
-  const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (password !== confirm) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
@@ -26,10 +26,10 @@ export default function ResetPasswordPage() {
     const { error } = await resetPassword({ newPassword: password });
 
     if (error) {
-      setError(error.message ?? 'Reset failed');
+      setError(error.message ?? "Reset failed");
       setLoading(false);
     } else {
-      router.push('/sign-in?reset=1');
+      router.push("/sign-in?reset=1");
     }
   }
 
@@ -42,12 +42,12 @@ export default function ResetPasswordPage() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
-            {error}
-          </p>
+          <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>
         )}
         <div className="space-y-2">
-          <label htmlFor="password" className="text-sm font-medium">New password</label>
+          <label htmlFor="password" className="text-sm font-medium">
+            New password
+          </label>
           <input
             id="password"
             type="password"
@@ -61,7 +61,9 @@ export default function ResetPasswordPage() {
           />
         </div>
         <div className="space-y-2">
-          <label htmlFor="confirm" className="text-sm font-medium">Confirm password</label>
+          <label htmlFor="confirm" className="text-sm font-medium">
+            Confirm password
+          </label>
           <input
             id="confirm"
             type="password"
@@ -78,7 +80,7 @@ export default function ResetPasswordPage() {
           disabled={loading}
           className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
         >
-          {loading ? 'Saving…' : 'Set new password'}
+          {loading ? "Saving…" : "Set new password"}
         </button>
       </form>
 

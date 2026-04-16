@@ -1,12 +1,6 @@
-"use client"
+"use client";
 
-import {
-  FrameIcon,
-  LifeBuoyIcon,
-  MapIcon,
-  PieChartIcon,
-  SendIcon,
-} from "lucide-react"
+import { FrameIcon, LifeBuoyIcon, MapIcon, PieChartIcon, SendIcon } from "lucide-react";
 
 import {
   Sidebar,
@@ -19,7 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@/registry/new-york-v4/ui/sidebar"
+} from "@/registry/new-york-v4/ui/sidebar";
 
 const projects = [
   {
@@ -52,7 +46,7 @@ const projects = [
     icon: SendIcon,
     badge: "8",
   },
-]
+];
 
 export default function AppSidebar() {
   return (
@@ -83,5 +77,5 @@ export default function AppSidebar() {
         </SidebarContent>
       </Sidebar>
     </SidebarProvider>
-  )
+  );
 }

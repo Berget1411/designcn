@@ -1,8 +1,5 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,9 +7,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/bases/radix/ui/dialog"
-import { Field, FieldGroup, FieldLabel } from "@/registry/bases/radix/ui/field"
-import { Input } from "@/registry/bases/radix/ui/input"
+} from "@/registry/bases/radix/ui/dialog";
+import { Field, FieldGroup, FieldLabel } from "@/registry/bases/radix/ui/field";
+import { Input } from "@/registry/bases/radix/ui/input";
 import {
   Popover,
   PopoverContent,
@@ -20,7 +17,7 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@/registry/bases/radix/ui/popover"
+} from "@/registry/bases/radix/ui/popover";
 
 export default function PopoverExample() {
   return (
@@ -30,7 +27,7 @@ export default function PopoverExample() {
       <PopoverAlignments />
       <PopoverInDialog />
     </ExampleWrapper>
-  )
+  );
 }
 
 function PopoverBasic() {
@@ -43,14 +40,12 @@ function PopoverBasic() {
         <PopoverContent align="start">
           <PopoverHeader>
             <PopoverTitle>Dimensions</PopoverTitle>
-            <PopoverDescription>
-              Set the dimensions for the layer.
-            </PopoverDescription>
+            <PopoverDescription>Set the dimensions for the layer.</PopoverDescription>
           </PopoverHeader>
         </PopoverContent>
       </Popover>
     </Example>
-  )
+  );
 }
 
 function PopoverWithForm() {
@@ -63,9 +58,7 @@ function PopoverWithForm() {
         <PopoverContent className="w-64" align="start">
           <PopoverHeader>
             <PopoverTitle>Dimensions</PopoverTitle>
-            <PopoverDescription>
-              Set the dimensions for the layer.
-            </PopoverDescription>
+            <PopoverDescription>Set the dimensions for the layer.</PopoverDescription>
           </PopoverHeader>
           <FieldGroup className="gap-4">
             <Field orientation="horizontal">
@@ -84,7 +77,7 @@ function PopoverWithForm() {
         </PopoverContent>
       </Popover>
     </Example>
-  )
+  );
 }
 
 function PopoverAlignments() {
@@ -123,7 +116,7 @@ function PopoverAlignments() {
         </Popover>
       </div>
     </Example>
-  )
+  );
 }
 
 function PopoverInDialog() {
@@ -136,9 +129,7 @@ function PopoverInDialog() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Popover Example</DialogTitle>
-            <DialogDescription>
-              Click the button below to see the popover.
-            </DialogDescription>
+            <DialogDescription>Click the button below to see the popover.</DialogDescription>
           </DialogHeader>
           <Popover>
             <PopoverTrigger asChild>
@@ -150,8 +141,7 @@ function PopoverInDialog() {
               <PopoverHeader>
                 <PopoverTitle>Popover in Dialog</PopoverTitle>
                 <PopoverDescription>
-                  This popover appears inside a dialog. Click the button to open
-                  it.
+                  This popover appears inside a dialog. Click the button to open it.
                 </PopoverDescription>
               </PopoverHeader>
             </PopoverContent>
@@ -159,5 +149,5 @@ function PopoverInDialog() {
         </DialogContent>
       </Dialog>
     </Example>
-  )
+  );
 }

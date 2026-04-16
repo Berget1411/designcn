@@ -1,14 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { RADII, type RadiusValue } from "@/registry/config"
-import {
-  decodeCustomThemeVars,
-  encodeCustomThemeVars,
-} from "@/app/create/lib/custom-theme-vars"
-import { Input } from "@workspace/ui/components/input"
-import { LockButton } from "@/app/create/components/lock-button"
+import { RADII, type RadiusValue } from "@/registry/config";
+import { decodeCustomThemeVars, encodeCustomThemeVars } from "@/app/create/lib/custom-theme-vars";
+import { Input } from "@workspace/ui/components/input";
+import { LockButton } from "@/app/create/components/lock-button";
 import {
   Picker,
   PickerContent,
@@ -18,71 +15,66 @@ import {
   PickerRadioItem,
   PickerSeparator,
   PickerTrigger,
-} from "@/app/create/components/picker"
-import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
+} from "@/app/create/components/picker";
+import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
 
 function isValidCssLength(value: string) {
-  return /^\d+(\.\d+)?\s*(px|rem|em)$/.test(value.trim())
+  return /^\d+(\.\d+)?\s*(px|rem|em)$/.test(value.trim());
 }
 
 export function RadiusPicker({
   isMobile,
   anchorRef,
 }: {
-  isMobile: boolean
-  anchorRef: React.RefObject<HTMLDivElement | null>
+  isMobile: boolean;
+  anchorRef: React.RefObject<HTMLDivElement | null>;
 }) {
-  const [params, setParams] = useDesignSystemSearchParams()
-  const isRadiusLocked = params.style === "lyra"
-  const selectedRadiusName = isRadiusLocked ? "none" : params.radius
-  const inputRef = React.useRef<HTMLInputElement>(null)
-  const [editing, setEditing] = React.useState(false)
+  const [params, setParams] = useDesignSystemSearchParams();
+  const isRadiusLocked = params.style === "lyra";
+  const selectedRadiusName = isRadiusLocked ? "none" : params.radius;
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [editing, setEditing] = React.useState(false);
 
-  const customVars = React.useMemo(
-    () => decodeCustomThemeVars(params.vars),
-    [params.vars]
-  )
+  const customVars = React.useMemo(() => decodeCustomThemeVars(params.vars), [params.vars]);
 
-  const customRadius = customVars?.light?.radius
+  const customRadius = customVars?.light?.radius;
 
-  const currentRadius = RADII.find(
-    (radius) => radius.name === selectedRadiusName
-  )
-  const defaultRadius = RADII.find((radius) => radius.name === "default")
-  const otherRadii = RADII.filter((radius) => radius.name !== "default")
+  const currentRadius = RADII.find((radius) => radius.name === selectedRadiusName);
+  const defaultRadius = RADII.find((radius) => radius.name === "default");
+  const otherRadii = RADII.filter((radius) => radius.name !== "default");
 
-  const [customInput, setCustomInput] = React.useState(customRadius ?? "")
+  const [customInput, setCustomInput] = React.useState(customRadius ?? "");
 
   React.useEffect(() => {
-    setCustomInput(customRadius ?? "")
-  }, [customRadius])
+    setCustomInput(customRadius ?? "");
+  }, [customRadius]);
 
   React.useEffect(() => {
     if (editing) {
       // Focus after menu closes and state updates
-      requestAnimationFrame(() => inputRef.current?.focus())
+      requestAnimationFrame(() => inputRef.current?.focus());
     }
-  }, [editing])
+  }, [editing]);
 
   const applyCustomRadius = React.useCallback(
     (value: string) => {
-      const trimmed = value.trim()
+      const trimmed = value.trim();
 
       if (!trimmed) {
         // Clear custom radius
-        const nextLight = { ...(customVars.light ?? {}) }
-        delete nextLight.radius
-        const next = { ...customVars, light: nextLight }
-        const encoded = encodeCustomThemeVars(next)
-        setParams({ custom: Boolean(encoded), vars: encoded })
-        setEditing(false)
-        return
+        const nextLight = { ...(customVars.light ?? {}) };
+        delete nextLight.radius;
+        const next = { ...customVars, light: nextLight };
+        const encoded = encodeCustomThemeVars(next);
+        setParams({ custom: Boolean(encoded), vars: encoded });
+        setEditing(false);
+        return;
       }
 
       if (!isValidCssLength(trimmed)) {
-        setCustomInput(customRadius ?? "")
-        setEditing(false)
-        return
+        setCustomInput(customRadius ?? "");
+        setEditing(false);
+        return;
       }
 
       const next = {
@@ -91,13 +83,13 @@ export function RadiusPicker({
           ...(customVars.light ?? {}),
           radius: trimmed,
         },
-      }
-      const encoded = encodeCustomThemeVars(next)
-      setParams({ custom: Boolean(encoded), vars: encoded })
-      setEditing(false)
+      };
+      const encoded = encodeCustomThemeVars(next);
+      setParams({ custom: Boolean(encoded), vars: encoded });
+      setEditing(false);
     },
-    [customVars, customRadius, setParams]
-  )
+    [customVars, customRadius, setParams],
+  );
 
   return (
     <div className="group/picker relative">
@@ -113,11 +105,11 @@ export function RadiusPicker({
               onBlur={() => applyCustomRadius(customInput)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  e.currentTarget.blur()
+                  e.currentTarget.blur();
                 }
                 if (e.key === "Escape") {
-                  setCustomInput(customRadius ?? "")
-                  setEditing(false)
+                  setCustomInput(customRadius ?? "");
+                  setEditing(false);
                 }
               }}
               className="mt-0.5 h-6 border-0 p-0 font-mono text-sm font-medium shadow-none focus-visible:ring-0"
@@ -162,21 +154,21 @@ export function RadiusPicker({
               value={customRadius ? undefined : currentRadius?.name}
               onValueChange={(value) => {
                 if (isRadiusLocked) {
-                  return
+                  return;
                 }
                 // Clear custom radius when selecting preset
                 if (customRadius) {
-                  const nextLight = { ...(customVars.light ?? {}) }
-                  delete nextLight.radius
-                  const next = { ...customVars, light: nextLight }
-                  const encoded = encodeCustomThemeVars(next)
+                  const nextLight = { ...(customVars.light ?? {}) };
+                  delete nextLight.radius;
+                  const next = { ...customVars, light: nextLight };
+                  const encoded = encodeCustomThemeVars(next);
                   setParams({
                     radius: value as RadiusValue,
                     custom: Boolean(encoded),
                     vars: encoded,
-                  })
+                  });
                 } else {
-                  setParams({ radius: value as RadiusValue })
+                  setParams({ radius: value as RadiusValue });
                 }
               }}
             >
@@ -194,11 +186,7 @@ export function RadiusPicker({
               <PickerSeparator />
               <PickerGroup>
                 {otherRadii.map((radius) => (
-                  <PickerRadioItem
-                    key={radius.name}
-                    value={radius.name}
-                    closeOnClick={isMobile}
-                  >
+                  <PickerRadioItem key={radius.name} value={radius.name} closeOnClick={isMobile}>
                     {radius.label}
                   </PickerRadioItem>
                 ))}
@@ -206,17 +194,12 @@ export function RadiusPicker({
             </PickerRadioGroup>
             <PickerSeparator />
             <PickerGroup>
-              <PickerItem onClick={() => setEditing(true)}>
-                Custom…
-              </PickerItem>
+              <PickerItem onClick={() => setEditing(true)}>Custom…</PickerItem>
             </PickerGroup>
           </PickerContent>
         </Picker>
       )}
-      <LockButton
-        param="radius"
-        className="absolute top-1/2 right-8 -translate-y-1/2"
-      />
+      <LockButton param="radius" className="absolute top-1/2 right-8 -translate-y-1/2" />
     </div>
-  )
+  );
 }

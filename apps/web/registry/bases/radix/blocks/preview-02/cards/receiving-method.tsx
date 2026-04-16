@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardAction,
@@ -9,7 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
+} from "@/registry/bases/radix/ui/card";
 import {
   Field,
   FieldContent,
@@ -18,13 +18,10 @@ import {
   FieldLabel,
   FieldLegend,
   FieldSet,
-} from "@/registry/bases/radix/ui/field"
-import { Input } from "@/registry/bases/radix/ui/input"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/bases/radix/ui/radio-group"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/field";
+import { Input } from "@/registry/bases/radix/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/registry/bases/radix/ui/radio-group";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function ReceivingMethod() {
   return (
@@ -47,13 +44,8 @@ export function ReceivingMethod() {
       <CardContent>
         <FieldGroup>
           <Field>
-            <FieldLabel htmlFor="account-holder">
-              Account Holder Name
-            </FieldLabel>
-            <Input
-              id="account-holder"
-              defaultValue="Synthetic Horizons Music LLC"
-            />
+            <FieldLabel htmlFor="account-holder">Account Holder Name</FieldLabel>
+            <Input id="account-holder" defaultValue="Synthetic Horizons Music LLC" />
           </Field>
           <FieldSet>
             <FieldLegend variant="label">Receiving Method</FieldLegend>
@@ -79,9 +71,7 @@ export function ReceivingMethod() {
                     <FieldDescription className="font-medium text-foreground">
                       PayPal
                     </FieldDescription>
-                    <FieldDescription className="line-clamp-1">
-                      Instant Payout
-                    </FieldDescription>
+                    <FieldDescription className="line-clamp-1">Instant Payout</FieldDescription>
                   </FieldContent>
                 </Field>
               </FieldLabel>
@@ -99,5 +89,5 @@ export function ReceivingMethod() {
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

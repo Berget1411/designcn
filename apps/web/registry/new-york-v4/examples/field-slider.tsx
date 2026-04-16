@@ -1,16 +1,12 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 
-import {
-  Field,
-  FieldDescription,
-  FieldTitle,
-} from "@/registry/new-york-v4/ui/field"
-import { Slider } from "@/registry/new-york-v4/ui/slider"
+import { Field, FieldDescription, FieldTitle } from "@/registry/new-york-v4/ui/field";
+import { Slider } from "@/registry/new-york-v4/ui/slider";
 
 export default function FieldSlider() {
-  const [value, setValue] = useState([200, 800])
+  const [value, setValue] = useState([200, 800]);
   return (
     <div className="w-full max-w-md">
       <Field>
@@ -31,5 +27,5 @@ export default function FieldSlider() {
         />
       </Field>
     </div>
-  )
+  );
 }

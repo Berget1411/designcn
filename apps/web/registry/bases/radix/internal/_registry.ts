@@ -1,3 +1,3 @@
-import { type Registry } from "shadcn/schema"
+import { type Registry } from "shadcn/schema";
 
-export const internal: Registry["items"] = []
+export const internal: Registry["items"] = [];

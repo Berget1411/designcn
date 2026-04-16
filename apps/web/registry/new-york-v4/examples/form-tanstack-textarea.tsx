@@ -1,11 +1,11 @@
 /* eslint-disable react/no-children-prop */
-"use client"
+"use client";
 
-import { useForm } from "@tanstack/react-form"
-import { toast } from "sonner"
-import * as z from "zod"
+import { useForm } from "@tanstack/react-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Card,
   CardContent,
@@ -13,22 +13,22 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/registry/new-york-v4/ui/field"
-import { Textarea } from "@/registry/new-york-v4/ui/textarea"
+} from "@/registry/new-york-v4/ui/field";
+import { Textarea } from "@/registry/new-york-v4/ui/textarea";
 
 const formSchema = z.object({
   about: z
     .string()
     .min(10, "Please provide at least 10 characters.")
     .max(200, "Please keep it under 200 characters."),
-})
+});
 
 export default function FormTanstackTextarea() {
   const form = useForm({
@@ -52,9 +52,9 @@ export default function FormTanstackTextarea() {
         style: {
           "--border-radius": "calc(var(--radius)  + 4px)",
         } as React.CSSProperties,
-      })
+      });
     },
-  })
+  });
 
   return (
     <Card className="w-full sm:max-w-md">
@@ -68,21 +68,18 @@ export default function FormTanstackTextarea() {
         <form
           id="form-tanstack-textarea"
           onSubmit={(e) => {
-            e.preventDefault()
-            form.handleSubmit()
+            e.preventDefault();
+            form.handleSubmit();
           }}
         >
           <FieldGroup>
             <form.Field
               name="about"
               children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid
+                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor="form-tanstack-textarea-about">
-                      More about you
-                    </FieldLabel>
+                    <FieldLabel htmlFor="form-tanstack-textarea-about">More about you</FieldLabel>
                     <Textarea
                       id="form-tanstack-textarea-about"
                       name={field.name}
@@ -94,14 +91,12 @@ export default function FormTanstackTextarea() {
                       className="min-h-[120px]"
                     />
                     <FieldDescription>
-                      Tell us more about yourself. This will be used to help us
-                      personalize your experience.
+                      Tell us more about yourself. This will be used to help us personalize your
+                      experience.
                     </FieldDescription>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                   </Field>
-                )
+                );
               }}
             />
           </FieldGroup>
@@ -118,5 +113,5 @@ export default function FormTanstackTextarea() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

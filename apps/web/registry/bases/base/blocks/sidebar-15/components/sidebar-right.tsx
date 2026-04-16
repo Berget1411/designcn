@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { Calendars } from "@/registry/bases/base/blocks/sidebar-15/components/calendars"
-import { DatePicker } from "@/registry/bases/base/blocks/sidebar-15/components/date-picker"
-import { NavUser } from "@/registry/bases/base/blocks/sidebar-15/components/nav-user"
+import { Calendars } from "@/registry/bases/base/blocks/sidebar-15/components/calendars";
+import { DatePicker } from "@/registry/bases/base/blocks/sidebar-15/components/date-picker";
+import { NavUser } from "@/registry/bases/base/blocks/sidebar-15/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -15,8 +15,8 @@ import {
   SidebarMenuItem,
   SidebarRail,
   SidebarSeparator,
-} from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 // This is sample data.
 const data = {
@@ -39,17 +39,11 @@ const data = {
       items: ["Travel", "Reminders", "Deadlines"],
     },
   ],
-}
+};
 
-export function SidebarRight({
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
+export function SidebarRight({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar
-      collapsible="none"
-      className="sticky top-0 hidden h-svh border-l lg:flex"
-      {...props}
-    >
+    <Sidebar collapsible="none" className="sticky top-0 hidden h-svh border-l lg:flex" {...props}>
       <SidebarHeader className="h-16 border-b border-sidebar-border">
         <NavUser user={data.user} />
       </SidebarHeader>
@@ -75,5 +69,5 @@ export function SidebarRight({
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

@@ -1,50 +1,50 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import type { DesignSystemSearchParams } from "@/app/create/lib/search-params"
+import type { DesignSystemSearchParams } from "@/app/create/lib/search-params";
 
 type ParentToIframeMessage = {
-  type: "design-system-params"
-  data: DesignSystemSearchParams
-}
+  type: "design-system-params";
+  data: DesignSystemSearchParams;
+};
 
 export const isInIframe = () => {
   if (typeof window === "undefined") {
-    return false
+    return false;
   }
-  return window.self !== window.top
-}
+  return window.self !== window.top;
+};
 
 export function useIframeMessageListener<
   Message extends ParentToIframeMessage,
   MessageType extends Message["type"],
 >(
   messageType: MessageType,
-  onMessage: (data: Extract<Message, { type: MessageType }>["data"]) => void
+  onMessage: (data: Extract<Message, { type: MessageType }>["data"]) => void,
 ) {
-  const onMessageRef = React.useRef(onMessage)
+  const onMessageRef = React.useRef(onMessage);
 
   React.useEffect(() => {
-    onMessageRef.current = onMessage
-  }, [onMessage])
+    onMessageRef.current = onMessage;
+  }, [onMessage]);
 
   React.useEffect(() => {
     if (!isInIframe()) {
-      return
+      return;
     }
 
     const handleMessage = (event: MessageEvent) => {
       if (event.data.type === messageType) {
-        onMessageRef.current(event.data.data)
+        onMessageRef.current(event.data.data);
       }
-    }
+    };
 
-    window.addEventListener("message", handleMessage)
+    window.addEventListener("message", handleMessage);
     return () => {
-      window.removeEventListener("message", handleMessage)
-    }
-  }, [messageType])
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [messageType]);
 }
 
 export function sendToIframe<
@@ -53,10 +53,10 @@ export function sendToIframe<
 >(
   iframe: HTMLIFrameElement | null,
   messageType: MessageType,
-  data: Extract<Message, { type: MessageType }>["data"]
+  data: Extract<Message, { type: MessageType }>["data"],
 ) {
   if (!iframe?.contentWindow) {
-    return
+    return;
   }
 
   iframe.contentWindow.postMessage(
@@ -64,6 +64,6 @@ export function sendToIframe<
       type: messageType,
       data,
     },
-    "*"
-  )
+    "*",
+  );
 }

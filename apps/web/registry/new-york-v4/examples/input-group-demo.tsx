@@ -1,12 +1,12 @@
-import { IconCheck, IconInfoCircle, IconPlus } from "@tabler/icons-react"
-import { ArrowUpIcon, Search } from "lucide-react"
+import { IconCheck, IconInfoCircle, IconPlus } from "@tabler/icons-react";
+import { ArrowUpIcon, Search } from "lucide-react";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/registry/new-york-v4/ui/dropdown-menu"
+} from "@/registry/new-york-v4/ui/dropdown-menu";
 import {
   InputGroup,
   InputGroupAddon,
@@ -14,13 +14,9 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from "@/registry/new-york-v4/ui/input-group"
-import { Separator } from "@/registry/new-york-v4/ui/separator"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/new-york-v4/ui/tooltip"
+} from "@/registry/new-york-v4/ui/input-group";
+import { Separator } from "@/registry/new-york-v4/ui/separator";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/new-york-v4/ui/tooltip";
 
 export default function InputGroupDemo() {
   return (
@@ -51,22 +47,14 @@ export default function InputGroupDemo() {
       <InputGroup>
         <InputGroupTextarea placeholder="Ask, Search or Chat..." />
         <InputGroupAddon align="block-end">
-          <InputGroupButton
-            variant="outline"
-            className="rounded-full"
-            size="icon-xs"
-          >
+          <InputGroupButton variant="outline" className="rounded-full" size="icon-xs">
             <IconPlus />
           </InputGroupButton>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <InputGroupButton variant="ghost">Auto</InputGroupButton>
             </DropdownMenuTrigger>
-            <DropdownMenuContent
-              side="top"
-              align="start"
-              className="[--radius:0.95rem]"
-            >
+            <DropdownMenuContent side="top" align="start" className="[--radius:0.95rem]">
               <DropdownMenuItem>Auto</DropdownMenuItem>
               <DropdownMenuItem>Agent</DropdownMenuItem>
               <DropdownMenuItem>Manual</DropdownMenuItem>
@@ -74,12 +62,7 @@ export default function InputGroupDemo() {
           </DropdownMenu>
           <InputGroupText className="ml-auto">52% used</InputGroupText>
           <Separator orientation="vertical" className="h-4!" />
-          <InputGroupButton
-            variant="default"
-            className="rounded-full"
-            size="icon-xs"
-            disabled
-          >
+          <InputGroupButton variant="default" className="rounded-full" size="icon-xs" disabled>
             <ArrowUpIcon />
             <span className="sr-only">Send</span>
           </InputGroupButton>
@@ -94,5 +77,5 @@ export default function InputGroupDemo() {
         </InputGroupAddon>
       </InputGroup>
     </div>
-  )
+  );
 }

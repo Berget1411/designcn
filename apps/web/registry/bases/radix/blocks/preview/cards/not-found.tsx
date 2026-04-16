@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { Button } from "@/registry/bases/radix/ui/button"
-import { Card, CardContent } from "@/registry/bases/radix/ui/card"
+import { Button } from "@/registry/bases/radix/ui/button";
+import { Card, CardContent } from "@/registry/bases/radix/ui/card";
 import {
   Empty,
   EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyTitle,
-} from "@/registry/bases/radix/ui/empty"
+} from "@/registry/bases/radix/ui/empty";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@/registry/bases/radix/ui/input-group"
-import { Kbd } from "@/registry/bases/radix/ui/kbd"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/input-group";
+import { Kbd } from "@/registry/bases/radix/ui/kbd";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function NotFound() {
   return (
@@ -25,8 +25,8 @@ export function NotFound() {
           <EmptyHeader>
             <EmptyTitle>404 - Not Found</EmptyTitle>
             <EmptyDescription>
-              The page you&apos;re looking for doesn&apos;t exist. Try searching
-              for what you need below.
+              The page you&apos;re looking for doesn&apos;t exist. Try searching for what you need
+              below.
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
@@ -50,5 +50,5 @@ export function NotFound() {
         </Empty>
       </CardContent>
     </Card>
-  )
+  );
 }

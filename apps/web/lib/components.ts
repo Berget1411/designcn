@@ -60,6 +60,6 @@ export const UI_COMPONENTS = [
   "toggle-group",
   "tooltip",
   "typography",
-] as const
+] as const;
 
-export type UIComponent = (typeof UI_COMPONENTS)[number]
+export type UIComponent = (typeof UI_COMPONENTS)[number];

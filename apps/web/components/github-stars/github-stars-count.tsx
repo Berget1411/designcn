@@ -1,8 +1,8 @@
-import { cache } from 'react';
-import { GitHubStars } from './github-stars';
-import { siteConfig } from '@/lib/config';
+import { cache } from "react";
+import { GitHubStars } from "./github-stars";
+import { siteConfig } from "@/lib/config";
 
-const REPO = siteConfig.links.github.replace('https://github.com/', '');
+const REPO = siteConfig.links.github.replace("https://github.com/", "");
 
 const fetchStars = cache(async (): Promise<number> => {
   try {

@@ -1,9 +1,6 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Badge } from "@/registry/bases/radix/ui/badge"
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Badge } from "@/registry/bases/radix/ui/badge";
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -11,15 +8,15 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/registry/bases/radix/ui/empty"
-import { Field, FieldLabel } from "@/registry/bases/radix/ui/field"
+} from "@/registry/bases/radix/ui/empty";
+import { Field, FieldLabel } from "@/registry/bases/radix/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@/registry/bases/radix/ui/input-group"
-import { Spinner } from "@/registry/bases/radix/ui/spinner"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/input-group";
+import { Spinner } from "@/registry/bases/radix/ui/spinner";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function SpinnerExample() {
   return (
@@ -30,7 +27,7 @@ export default function SpinnerExample() {
       <SpinnerInInputGroup />
       <SpinnerInEmpty />
     </ExampleWrapper>
-  )
+  );
 }
 
 function SpinnerBasic() {
@@ -41,7 +38,7 @@ function SpinnerBasic() {
         <Spinner className="size-6" />
       </div>
     </Example>
-  )
+  );
 }
 
 function SpinnerInButtons() {
@@ -63,7 +60,7 @@ function SpinnerInButtons() {
         </Button>
       </div>
     </Example>
-  )
+  );
 }
 
 function SpinnerInBadges() {
@@ -88,7 +85,7 @@ function SpinnerInBadges() {
         </Badge>
       </div>
     </Example>
-  )
+  );
 }
 
 function SpinnerInInputGroup() {
@@ -104,7 +101,7 @@ function SpinnerInInputGroup() {
         </InputGroup>
       </Field>
     </Example>
-  )
+  );
 }
 
 function SpinnerInEmpty() {
@@ -117,8 +114,7 @@ function SpinnerInEmpty() {
           </EmptyMedia>
           <EmptyTitle>No projects yet</EmptyTitle>
           <EmptyDescription>
-            You haven&apos;t created any projects yet. Get started by creating
-            your first project.
+            You haven&apos;t created any projects yet. Get started by creating your first project.
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
@@ -143,5 +139,5 @@ function SpinnerInEmpty() {
         </EmptyContent>
       </Empty>
     </Example>
-  )
+  );
 }

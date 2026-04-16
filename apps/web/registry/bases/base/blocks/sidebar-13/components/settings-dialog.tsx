@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   Breadcrumb,
@@ -9,15 +9,15 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/registry/bases/base/ui/breadcrumb"
-import { Button } from "@/registry/bases/base/ui/button"
+} from "@/registry/bases/base/ui/breadcrumb";
+import { Button } from "@/registry/bases/base/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/bases/base/ui/dialog"
+} from "@/registry/bases/base/ui/dialog";
 import {
   Sidebar,
   SidebarContent,
@@ -27,8 +27,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 const data = {
   nav: [
@@ -177,18 +177,16 @@ const data = {
       ),
     },
   ],
-}
+};
 
 export function SettingsDialog() {
-  const [open, setOpen] = React.useState(true)
+  const [open, setOpen] = React.useState(true);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button size="sm" />}>Open Dialog</DialogTrigger>
       <DialogContent className="overflow-hidden p-0 md:max-h-[500px] md:max-w-[700px] lg:max-w-[800px]">
         <DialogTitle className="sr-only">Settings</DialogTitle>
-        <DialogDescription className="sr-only">
-          Customize your settings here.
-        </DialogDescription>
+        <DialogDescription className="sr-only">Customize your settings here.</DialogDescription>
         <SidebarProvider className="items-start">
           <Sidebar collapsible="none" className="hidden md:flex">
             <SidebarContent>
@@ -231,15 +229,12 @@ export function SettingsDialog() {
               {Array.from({
                 length: 10,
               }).map((_, i) => (
-                <div
-                  key={i}
-                  className="aspect-video max-w-3xl rounded-xl bg-muted/50"
-                />
+                <div key={i} className="aspect-video max-w-3xl rounded-xl bg-muted/50" />
               ))}
             </div>
           </main>
         </SidebarProvider>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

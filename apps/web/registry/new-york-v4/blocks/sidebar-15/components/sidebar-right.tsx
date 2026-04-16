@@ -1,9 +1,9 @@
-import * as React from "react"
-import { Plus } from "lucide-react"
+import * as React from "react";
+import { Plus } from "lucide-react";
 
-import { Calendars } from "@/registry/new-york-v4/blocks/sidebar-15/components/calendars"
-import { DatePicker } from "@/registry/new-york-v4/blocks/sidebar-15/components/date-picker"
-import { NavUser } from "@/registry/new-york-v4/blocks/sidebar-15/components/nav-user"
+import { Calendars } from "@/registry/new-york-v4/blocks/sidebar-15/components/calendars";
+import { DatePicker } from "@/registry/new-york-v4/blocks/sidebar-15/components/date-picker";
+import { NavUser } from "@/registry/new-york-v4/blocks/sidebar-15/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -14,7 +14,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
   SidebarSeparator,
-} from "@/registry/new-york-v4/ui/sidebar"
+} from "@/registry/new-york-v4/ui/sidebar";
 
 // This is sample data.
 const data = {
@@ -37,17 +37,11 @@ const data = {
       items: ["Travel", "Reminders", "Deadlines"],
     },
   ],
-}
+};
 
-export function SidebarRight({
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
+export function SidebarRight({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar
-      collapsible="none"
-      className="sticky top-0 hidden h-svh border-l lg:flex"
-      {...props}
-    >
+    <Sidebar collapsible="none" className="sticky top-0 hidden h-svh border-l lg:flex" {...props}>
       <SidebarHeader className="h-16 border-b border-sidebar-border">
         <NavUser user={data.user} />
       </SidebarHeader>
@@ -67,5 +61,5 @@ export function SidebarRight({
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/registry/bases/radix/blocks/sidebar-14/components/app-sidebar"
+import { AppSidebar } from "@/registry/bases/radix/blocks/sidebar-14/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,12 +6,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/registry/bases/radix/ui/breadcrumb"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/registry/bases/radix/ui/sidebar"
+} from "@/registry/bases/radix/ui/breadcrumb";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/registry/bases/radix/ui/sidebar";
 
 export default function Page() {
   return (
@@ -42,5 +38,5 @@ export default function Page() {
       </SidebarInset>
       <AppSidebar side="right" />
     </SidebarProvider>
-  )
+  );
 }

@@ -1,10 +1,6 @@
-import { AlertCircleIcon, CheckCircle2Icon, PopcornIcon } from "lucide-react"
+import { AlertCircleIcon, CheckCircle2Icon, PopcornIcon } from "lucide-react";
 
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/registry/new-york-v4/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@/registry/new-york-v4/ui/alert";
 
 export default function AlertDemo() {
   return (
@@ -12,15 +8,11 @@ export default function AlertDemo() {
       <Alert>
         <CheckCircle2Icon />
         <AlertTitle>Success! Your changes have been saved</AlertTitle>
-        <AlertDescription>
-          This is an alert with icon, title and description.
-        </AlertDescription>
+        <AlertDescription>This is an alert with icon, title and description.</AlertDescription>
       </Alert>
       <Alert>
         <PopcornIcon />
-        <AlertTitle>
-          This Alert has a title and an icon. No description.
-        </AlertTitle>
+        <AlertTitle>This Alert has a title and an icon. No description.</AlertTitle>
       </Alert>
       <Alert variant="destructive">
         <AlertCircleIcon />
@@ -35,5 +27,5 @@ export default function AlertDemo() {
         </AlertDescription>
       </Alert>
     </div>
-  )
+  );
 }

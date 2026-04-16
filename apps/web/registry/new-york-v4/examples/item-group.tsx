@@ -1,12 +1,8 @@
-import * as React from "react"
-import { PlusIcon } from "lucide-react"
+import * as React from "react";
+import { PlusIcon } from "lucide-react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/registry/new-york-v4/ui/avatar"
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/registry/new-york-v4/ui/avatar";
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Item,
   ItemActions,
@@ -16,7 +12,7 @@ import {
   ItemMedia,
   ItemSeparator,
   ItemTitle,
-} from "@/registry/new-york-v4/ui/item"
+} from "@/registry/new-york-v4/ui/item";
 
 const people = [
   {
@@ -34,7 +30,7 @@ const people = [
     avatar: "https://github.com/evilrabbit.png",
     email: "evilrabbit@vercel.com",
   },
-]
+];
 
 export default function ItemGroupExample() {
   return (
@@ -64,5 +60,5 @@ export default function ItemGroupExample() {
         ))}
       </ItemGroup>
     </div>
-  )
+  );
 }

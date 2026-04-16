@@ -1,7 +1,7 @@
-import { IconBell } from "@tabler/icons-react"
-import { RefreshCcwIcon } from "lucide-react"
+import { IconBell } from "@tabler/icons-react";
+import { RefreshCcwIcon } from "lucide-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -9,7 +9,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/registry/new-york-v4/ui/empty"
+} from "@/registry/new-york-v4/ui/empty";
 
 export default function EmptyMuted() {
   return (
@@ -30,5 +30,5 @@ export default function EmptyMuted() {
         </Button>
       </EmptyContent>
     </Empty>
-  )
+  );
 }

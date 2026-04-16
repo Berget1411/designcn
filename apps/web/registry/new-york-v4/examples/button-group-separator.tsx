@@ -1,8 +1,5 @@
-import { Button } from "@/registry/new-york-v4/ui/button"
-import {
-  ButtonGroup,
-  ButtonGroupSeparator,
-} from "@/registry/new-york-v4/ui/button-group"
+import { Button } from "@/registry/new-york-v4/ui/button";
+import { ButtonGroup, ButtonGroupSeparator } from "@/registry/new-york-v4/ui/button-group";
 
 export default function ButtonGroupSeparatorDemo() {
   return (
@@ -15,5 +12,5 @@ export default function ButtonGroupSeparatorDemo() {
         Paste
       </Button>
     </ButtonGroup>
-  )
+  );
 }

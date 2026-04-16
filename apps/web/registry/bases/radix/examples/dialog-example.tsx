@@ -1,13 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Button } from "@/registry/bases/radix/ui/button"
-import { Checkbox } from "@/registry/bases/radix/ui/checkbox"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Button } from "@/registry/bases/radix/ui/button";
+import { Checkbox } from "@/registry/bases/radix/ui/checkbox";
 import {
   Dialog,
   DialogClose,
@@ -17,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/bases/radix/ui/dialog"
+} from "@/registry/bases/radix/ui/dialog";
 import {
   Field,
   FieldContent,
@@ -27,19 +24,16 @@ import {
   FieldSeparator,
   FieldSet,
   FieldTitle,
-} from "@/registry/bases/radix/ui/field"
-import { Input } from "@/registry/bases/radix/ui/input"
+} from "@/registry/bases/radix/ui/field";
+import { Input } from "@/registry/bases/radix/ui/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@/registry/bases/radix/ui/input-group"
-import { Kbd } from "@/registry/bases/radix/ui/kbd"
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/registry/bases/radix/ui/native-select"
+} from "@/registry/bases/radix/ui/input-group";
+import { Kbd } from "@/registry/bases/radix/ui/kbd";
+import { NativeSelect, NativeSelectOption } from "@/registry/bases/radix/ui/native-select";
 import {
   Select,
   SelectContent,
@@ -48,21 +42,12 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/radix/ui/select"
-import { Switch } from "@/registry/bases/radix/ui/switch"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/registry/bases/radix/ui/tabs"
-import { Textarea } from "@/registry/bases/radix/ui/textarea"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/bases/radix/ui/tooltip"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/select";
+import { Switch } from "@/registry/bases/radix/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/bases/radix/ui/tabs";
+import { Textarea } from "@/registry/bases/radix/ui/textarea";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/bases/radix/ui/tooltip";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function DialogExample() {
   return (
@@ -73,7 +58,7 @@ export default function DialogExample() {
       <DialogNoCloseButton />
       <DialogChatSettings />
     </ExampleWrapper>
-  )
+  );
 }
 
 function DialogWithForm() {
@@ -88,8 +73,8 @@ function DialogWithForm() {
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>
-                Make changes to your profile here. Click save when you&apos;re
-                done. Your profile will be updated immediately.
+                Make changes to your profile here. Click save when you&apos;re done. Your profile
+                will be updated immediately.
               </DialogDescription>
             </DialogHeader>
             <FieldGroup>
@@ -99,11 +84,7 @@ function DialogWithForm() {
               </Field>
               <Field>
                 <FieldLabel htmlFor="username-1">Username</FieldLabel>
-                <Input
-                  id="username-1"
-                  name="username"
-                  defaultValue="@peduarte"
-                />
+                <Input id="username-1" name="username" defaultValue="@peduarte" />
               </Field>
             </FieldGroup>
             <DialogFooter>
@@ -116,7 +97,7 @@ function DialogWithForm() {
         </form>
       </Dialog>
     </Example>
-  )
+  );
 }
 
 function DialogScrollableContent() {
@@ -129,9 +110,7 @@ function DialogScrollableContent() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Scrollable Content</DialogTitle>
-            <DialogDescription>
-              This is a dialog with scrollable content.
-            </DialogDescription>
+            <DialogDescription>This is a dialog with scrollable content.</DialogDescription>
           </DialogHeader>
           <div className="no-scrollbar max-h-[70vh] overflow-y-auto style-vega:-mx-6 style-vega:px-6 style-nova:-mx-4 style-nova:px-4 style-lyra:-mx-4 style-lyra:px-4 style-maia:-mx-6 style-maia:px-6 style-mira:-mx-4 style-mira:px-4 style-luma:-mx-6 style-luma:px-6">
             {Array.from({ length: 10 }).map((_, index) => (
@@ -139,20 +118,19 @@ function DialogScrollableContent() {
                 key={index}
                 className="mb-4 leading-normal style-lyra:mb-2 style-lyra:leading-relaxed"
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
               </p>
             ))}
           </div>
         </DialogContent>
       </Dialog>
     </Example>
-  )
+  );
 }
 
 function DialogWithStickyFooter() {
@@ -165,9 +143,7 @@ function DialogWithStickyFooter() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Scrollable Content</DialogTitle>
-            <DialogDescription>
-              This is a dialog with scrollable content.
-            </DialogDescription>
+            <DialogDescription>This is a dialog with scrollable content.</DialogDescription>
           </DialogHeader>
           <div className="no-scrollbar max-h-[70vh] overflow-y-auto style-vega:-mx-6 style-vega:px-6 style-nova:-mx-4 style-nova:px-4 style-lyra:-mx-4 style-lyra:px-4 style-maia:-mx-6 style-maia:px-6 style-mira:-mx-4 style-mira:px-4 style-luma:-mx-6 style-luma:px-6">
             {Array.from({ length: 10 }).map((_, index) => (
@@ -175,13 +151,12 @@ function DialogWithStickyFooter() {
                 key={index}
                 className="mb-4 leading-normal style-lyra:mb-2 style-lyra:leading-relaxed"
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
               </p>
             ))}
           </div>
@@ -193,7 +168,7 @@ function DialogWithStickyFooter() {
         </DialogContent>
       </Dialog>
     </Example>
-  )
+  );
 }
 
 function DialogNoCloseButton() {
@@ -207,8 +182,7 @@ function DialogNoCloseButton() {
           <DialogHeader>
             <DialogTitle>No Close Button</DialogTitle>
             <DialogDescription>
-              This dialog doesn&apos;t have a close button in the top-right
-              corner.
+              This dialog doesn&apos;t have a close button in the top-right corner.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -219,7 +193,7 @@ function DialogNoCloseButton() {
         </DialogContent>
       </Dialog>
     </Example>
-  )
+  );
 }
 
 const spokenLanguages = [
@@ -240,7 +214,7 @@ const spokenLanguages = [
   { label: "Marathi", value: "mr" },
   { label: "Kannada", value: "kn" },
   { label: "Malayalam", value: "ml" },
-]
+];
 
 const voices = [
   { label: "Samantha", value: "samantha" },
@@ -251,14 +225,14 @@ const voices = [
   { label: "Karen", value: "karen" },
   { label: "Sam", value: "sam" },
   { label: "Daniel", value: "daniel" },
-]
+];
 
 function DialogChatSettings() {
-  const [tab, setTab] = React.useState("general")
-  const [theme, setTheme] = React.useState("system")
-  const [accentColor, setAccentColor] = React.useState("default")
-  const [spokenLanguage, setSpokenLanguage] = React.useState("en")
-  const [voice, setVoice] = React.useState("samantha")
+  const [tab, setTab] = React.useState("general");
+  const [theme, setTheme] = React.useState("system");
+  const [accentColor, setAccentColor] = React.useState("default");
+  const [spokenLanguage, setSpokenLanguage] = React.useState("en");
+  const [voice, setVoice] = React.useState("samantha");
 
   return (
     <Example title="Chat Settings" className="items-center justify-center">
@@ -270,8 +244,8 @@ function DialogChatSettings() {
           <DialogHeader>
             <DialogTitle>Chat Settings</DialogTitle>
             <DialogDescription>
-              Customize your chat settings: theme, accent color, spoken
-              language, voice, personality, and custom instructions.
+              Customize your chat settings: theme, accent color, spoken language, voice,
+              personality, and custom instructions.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-4">
@@ -281,21 +255,15 @@ function DialogChatSettings() {
               className="w-full md:hidden"
             >
               <NativeSelectOption value="general">General</NativeSelectOption>
-              <NativeSelectOption value="notifications">
-                Notifications
-              </NativeSelectOption>
-              <NativeSelectOption value="personalization">
-                Personalization
-              </NativeSelectOption>
+              <NativeSelectOption value="notifications">Notifications</NativeSelectOption>
+              <NativeSelectOption value="personalization">Personalization</NativeSelectOption>
               <NativeSelectOption value="security">Security</NativeSelectOption>
             </NativeSelect>
             <Tabs value={tab} onValueChange={setTab}>
               <TabsList className="hidden w-full md:flex">
                 <TabsTrigger value="general">General</TabsTrigger>
                 <TabsTrigger value="notifications">Notifications</TabsTrigger>
-                <TabsTrigger value="personalization">
-                  Personalization
-                </TabsTrigger>
+                <TabsTrigger value="personalization">Personalization</TabsTrigger>
                 <TabsTrigger value="security">Security</TabsTrigger>
               </TabsList>
               <div className="border style-vega:min-h-[550px] style-vega:rounded-lg style-vega:p-6 style-nova:min-h-[460px] style-nova:rounded-lg style-nova:p-4 style-lyra:min-h-[450px] style-lyra:rounded-none style-lyra:p-4 style-maia:min-h-[550px] style-maia:rounded-xl style-maia:p-6 style-mira:min-h-[450px] style-mira:rounded-md style-mira:p-4 style-luma:min-h-[550px] style-luma:rounded-xl style-luma:p-6 [&_[data-slot=select-trigger]]:min-w-[125px]">
@@ -319,13 +287,8 @@ function DialogChatSettings() {
                       </Field>
                       <FieldSeparator />
                       <Field orientation="horizontal">
-                        <FieldLabel htmlFor="accent-color">
-                          Accent Color
-                        </FieldLabel>
-                        <Select
-                          value={accentColor}
-                          onValueChange={setAccentColor}
-                        >
+                        <FieldLabel htmlFor="accent-color">Accent Color</FieldLabel>
+                        <Select value={accentColor} onValueChange={setAccentColor}>
                           <SelectTrigger id="accent-color">
                             <SelectValue placeholder="Select" />
                           </SelectTrigger>
@@ -362,19 +325,13 @@ function DialogChatSettings() {
                       <FieldSeparator />
                       <Field orientation="responsive">
                         <FieldContent>
-                          <FieldLabel htmlFor="spoken-language">
-                            Spoken Language
-                          </FieldLabel>
+                          <FieldLabel htmlFor="spoken-language">Spoken Language</FieldLabel>
                           <FieldDescription>
-                            For best results, select the language you mainly
-                            speak. If it&apos;s not listed, it may still be
-                            supported via auto-detection.
+                            For best results, select the language you mainly speak. If it&apos;s not
+                            listed, it may still be supported via auto-detection.
                           </FieldDescription>
                         </FieldContent>
-                        <Select
-                          value={spokenLanguage}
-                          onValueChange={setSpokenLanguage}
-                        >
+                        <Select value={spokenLanguage} onValueChange={setSpokenLanguage}>
                           <SelectTrigger id="spoken-language">
                             <SelectValue placeholder="Select" />
                           </SelectTrigger>
@@ -385,10 +342,7 @@ function DialogChatSettings() {
                             <SelectSeparator />
                             <SelectGroup>
                               {spokenLanguages.map((language) => (
-                                <SelectItem
-                                  key={language.value}
-                                  value={language.value}
-                                >
+                                <SelectItem key={language.value} value={language.value}>
                                   {language.label}
                                 </SelectItem>
                               ))}
@@ -406,10 +360,7 @@ function DialogChatSettings() {
                           <SelectContent align="end" position="item-aligned">
                             <SelectGroup>
                               {voices.map((voice) => (
-                                <SelectItem
-                                  key={voice.value}
-                                  value={voice.value}
-                                >
+                                <SelectItem key={voice.value} value={voice.value}>
                                   {voice.label}
                                 </SelectItem>
                               ))}
@@ -425,8 +376,8 @@ function DialogChatSettings() {
                     <FieldSet>
                       <FieldLabel>Responses</FieldLabel>
                       <FieldDescription>
-                        Get notified when ChatGPT responds to requests that take
-                        time, like research or image generation.
+                        Get notified when ChatGPT responds to requests that take time, like research
+                        or image generation.
                       </FieldDescription>
                       <FieldGroup data-slot="checkbox-group">
                         <Field orientation="horizontal">
@@ -441,25 +392,19 @@ function DialogChatSettings() {
                     <FieldSet>
                       <FieldLabel>Tasks</FieldLabel>
                       <FieldDescription>
-                        Get notified when tasks you&apos;ve created have
-                        updates. <a href="#">Manage tasks</a>
+                        Get notified when tasks you&apos;ve created have updates.{" "}
+                        <a href="#">Manage tasks</a>
                       </FieldDescription>
                       <FieldGroup data-slot="checkbox-group">
                         <Field orientation="horizontal">
                           <Checkbox id="push-tasks" />
-                          <FieldLabel
-                            htmlFor="push-tasks"
-                            className="font-normal"
-                          >
+                          <FieldLabel htmlFor="push-tasks" className="font-normal">
                             Push notifications
                           </FieldLabel>
                         </Field>
                         <Field orientation="horizontal">
                           <Checkbox id="email-tasks" />
-                          <FieldLabel
-                            htmlFor="email-tasks"
-                            className="font-normal"
-                          >
+                          <FieldLabel htmlFor="email-tasks" className="font-normal">
                             Email notifications
                           </FieldLabel>
                         </Field>
@@ -505,8 +450,8 @@ function DialogChatSettings() {
                       <FieldContent>
                         <FieldLabel htmlFor="about">More about you</FieldLabel>
                         <FieldDescription>
-                          Tell us more about yourself. This will be used to help
-                          us personalize your experience.
+                          Tell us more about yourself. This will be used to help us personalize your
+                          experience.
                         </FieldDescription>
                       </FieldContent>
                       <Textarea
@@ -519,12 +464,9 @@ function DialogChatSettings() {
                     <FieldLabel>
                       <Field orientation="horizontal">
                         <FieldContent>
-                          <FieldLabel htmlFor="customization">
-                            Enable customizations
-                          </FieldLabel>
+                          <FieldLabel htmlFor="customization">Enable customizations</FieldLabel>
                           <FieldDescription>
-                            Enable customizations to make ChatGPT more
-                            personalized.
+                            Enable customizations to make ChatGPT more personalized.
                           </FieldDescription>
                         </FieldContent>
                         <Switch id="customization" defaultChecked />
@@ -536,14 +478,11 @@ function DialogChatSettings() {
                   <FieldGroup>
                     <Field orientation="horizontal">
                       <FieldContent>
-                        <FieldLabel htmlFor="2fa">
-                          Multi-factor authentication
-                        </FieldLabel>
+                        <FieldLabel htmlFor="2fa">Multi-factor authentication</FieldLabel>
                         <FieldDescription>
-                          Enable multi-factor authentication to secure your
-                          account. If you do not have a two-factor
-                          authentication device, you can use a one-time code
-                          sent to your email.
+                          Enable multi-factor authentication to secure your account. If you do not
+                          have a two-factor authentication device, you can use a one-time code sent
+                          to your email.
                         </FieldDescription>
                       </FieldContent>
                       <Switch id="2fa" />
@@ -552,9 +491,7 @@ function DialogChatSettings() {
                     <Field orientation="horizontal">
                       <FieldContent>
                         <FieldTitle>Log out</FieldTitle>
-                        <FieldDescription>
-                          Log out of your account on this device.
-                        </FieldDescription>
+                        <FieldDescription>Log out of your account on this device.</FieldDescription>
                       </FieldContent>
                       <Button variant="outline" size="sm">
                         Log Out
@@ -565,9 +502,8 @@ function DialogChatSettings() {
                       <FieldContent>
                         <FieldTitle>Log out of all devices</FieldTitle>
                         <FieldDescription>
-                          This will log you out of all devices, including the
-                          current session. It may take up to 30 minutes for the
-                          changes to take effect.
+                          This will log you out of all devices, including the current session. It
+                          may take up to 30 minutes for the changes to take effect.
                         </FieldDescription>
                       </FieldContent>
                       <Button variant="outline" size="sm">
@@ -582,5 +518,5 @@ function DialogChatSettings() {
         </DialogContent>
       </Dialog>
     </Example>
-  )
+  );
 }

@@ -1,8 +1,5 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Separator } from "@/registry/bases/radix/ui/separator"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Separator } from "@/registry/bases/radix/ui/separator";
 
 export default function SeparatorExample() {
   return (
@@ -12,7 +9,7 @@ export default function SeparatorExample() {
       <SeparatorVerticalMenu />
       <SeparatorInList />
     </ExampleWrapper>
-  )
+  );
 }
 
 function SeparatorHorizontal() {
@@ -21,18 +18,15 @@ function SeparatorHorizontal() {
       <div className="flex flex-col gap-4 text-sm style-lyra:text-xs/relaxed">
         <div className="flex flex-col gap-1">
           <div className="leading-none font-medium">shadcn/ui</div>
-          <div className="text-muted-foreground">
-            The Foundation for your Design System
-          </div>
+          <div className="text-muted-foreground">The Foundation for your Design System</div>
         </div>
         <Separator />
         <div>
-          A set of beautifully designed components that you can customize,
-          extend, and build on.
+          A set of beautifully designed components that you can customize, extend, and build on.
         </div>
       </div>
     </Example>
-  )
+  );
 }
 
 function SeparatorVertical() {
@@ -46,7 +40,7 @@ function SeparatorVertical() {
         <div>Source</div>
       </div>
     </Example>
-  )
+  );
 }
 
 function SeparatorVerticalMenu() {
@@ -55,16 +49,12 @@ function SeparatorVerticalMenu() {
       <div className="flex items-center gap-2 text-sm md:gap-4 style-lyra:text-xs/relaxed">
         <div className="flex flex-col gap-1">
           <span className="font-medium">Settings</span>
-          <span className="text-xs text-muted-foreground">
-            Manage preferences
-          </span>
+          <span className="text-xs text-muted-foreground">Manage preferences</span>
         </div>
         <Separator orientation="vertical" />
         <div className="flex flex-col gap-1">
           <span className="font-medium">Account</span>
-          <span className="text-xs text-muted-foreground">
-            Profile & security
-          </span>
+          <span className="text-xs text-muted-foreground">Profile & security</span>
         </div>
         <Separator orientation="vertical" />
         <div className="flex flex-col gap-1">
@@ -73,7 +63,7 @@ function SeparatorVerticalMenu() {
         </div>
       </div>
     </Example>
-  )
+  );
 }
 
 function SeparatorInList() {
@@ -96,5 +86,5 @@ function SeparatorInList() {
         </dl>
       </div>
     </Example>
-  )
+  );
 }

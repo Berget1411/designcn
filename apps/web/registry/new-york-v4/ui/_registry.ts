@@ -1,4 +1,4 @@
-import { type Registry } from "shadcn/schema"
+import { type Registry } from "shadcn/schema";
 
 export const ui: Registry["items"] = [
   {
@@ -702,4 +702,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       },
     ],
   },
-]
+];

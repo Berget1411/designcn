@@ -1,16 +1,11 @@
-import * as React from "react"
-import Image from "next/image"
+import * as React from "react";
+import Image from "next/image";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { ScrollArea, ScrollBar } from "@/registry/bases/radix/ui/scroll-area"
-import { Separator } from "@/registry/bases/radix/ui/separator"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { ScrollArea, ScrollBar } from "@/registry/bases/radix/ui/scroll-area";
+import { Separator } from "@/registry/bases/radix/ui/separator";
 
-const tags = Array.from({ length: 50 }).map(
-  (_, i, a) => `v1.2.0-beta.${a.length - i}`
-)
+const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
 
 const works = [
   {
@@ -25,7 +20,7 @@ const works = [
     artist: "Vladimir Malyav",
     art: "https://images.unsplash.com/photo-1494337480532-3725c85fd2ab?auto=format&fit=crop&w=300&q=80",
   },
-] as const
+] as const;
 
 export default function ScrollAreaExample() {
   return (
@@ -33,7 +28,7 @@ export default function ScrollAreaExample() {
       <ScrollAreaVertical />
       <ScrollAreaHorizontal />
     </ExampleWrapper>
-  )
+  );
 }
 
 function ScrollAreaVertical() {
@@ -51,7 +46,7 @@ function ScrollAreaVertical() {
         </div>
       </ScrollArea>
     </Example>
-  )
+  );
 }
 
 function ScrollAreaHorizontal() {
@@ -71,10 +66,7 @@ function ScrollAreaHorizontal() {
                 />
               </div>
               <figcaption className="pt-2 text-xs text-muted-foreground">
-                Photo by{" "}
-                <span className="font-semibold text-foreground">
-                  {artwork.artist}
-                </span>
+                Photo by <span className="font-semibold text-foreground">{artwork.artist}</span>
               </figcaption>
             </figure>
           ))}
@@ -82,5 +74,5 @@ function ScrollAreaHorizontal() {
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </Example>
-  )
+  );
 }

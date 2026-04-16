@@ -1,8 +1,8 @@
-import { SearchIcon } from "lucide-react"
+import { SearchIcon } from "lucide-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { ButtonGroup } from "@/registry/new-york-v4/ui/button-group"
-import { Input } from "@/registry/new-york-v4/ui/input"
+import { Button } from "@/registry/new-york-v4/ui/button";
+import { ButtonGroup } from "@/registry/new-york-v4/ui/button-group";
+import { Input } from "@/registry/new-york-v4/ui/input";
 
 export default function ButtonGroupInput() {
   return (
@@ -12,5 +12,5 @@ export default function ButtonGroupInput() {
         <SearchIcon />
       </Button>
     </ButtonGroup>
-  )
+  );
 }

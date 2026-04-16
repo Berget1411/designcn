@@ -1,7 +1,4 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,8 +10,8 @@ import {
   AlertDialogMedia,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/registry/bases/base/ui/alert-dialog"
-import { Button } from "@/registry/bases/base/ui/button"
+} from "@/registry/bases/base/ui/alert-dialog";
+import { Button } from "@/registry/bases/base/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -23,8 +20,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/bases/base/ui/dialog"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/dialog";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function AlertDialogExample() {
   return (
@@ -36,22 +33,20 @@ export default function AlertDialogExample() {
       <AlertDialogDestructive />
       <AlertDialogInDialog />
     </ExampleWrapper>
-  )
+  );
 }
 
 function AlertDialogBasic() {
   return (
     <Example title="Basic" className="items-center">
       <AlertDialog>
-        <AlertDialogTrigger
-          render={<Button variant="outline">Default</Button>}
-        />
+        <AlertDialogTrigger render={<Button variant="outline">Default</Button>} />
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              This action cannot be undone. This will permanently delete your account and remove
+              your data from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -61,7 +56,7 @@ function AlertDialogBasic() {
         </AlertDialogContent>
       </AlertDialog>
     </Example>
-  )
+  );
 }
 
 function AlertDialogSmall() {
@@ -83,16 +78,14 @@ function AlertDialogSmall() {
         </AlertDialogContent>
       </AlertDialog>
     </Example>
-  )
+  );
 }
 
 function AlertDialogWithMedia() {
   return (
     <Example title="With Media" className="items-center">
       <AlertDialog>
-        <AlertDialogTrigger
-          render={<Button variant="outline">Default (Media)</Button>}
-        />
+        <AlertDialogTrigger render={<Button variant="outline">Default (Media)</Button>} />
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogMedia>
@@ -106,8 +99,7 @@ function AlertDialogWithMedia() {
             </AlertDialogMedia>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will permanently delete your account and remove your data
-              from our servers.
+              This will permanently delete your account and remove your data from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -117,16 +109,14 @@ function AlertDialogWithMedia() {
         </AlertDialogContent>
       </AlertDialog>
     </Example>
-  )
+  );
 }
 
 function AlertDialogSmallWithMedia() {
   return (
     <Example title="Small With Media" className="items-center">
       <AlertDialog>
-        <AlertDialogTrigger
-          render={<Button variant="outline">Small (Media)</Button>}
-        />
+        <AlertDialogTrigger render={<Button variant="outline">Small (Media)</Button>} />
 
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
@@ -151,16 +141,14 @@ function AlertDialogSmallWithMedia() {
         </AlertDialogContent>
       </AlertDialog>
     </Example>
-  )
+  );
 }
 
 function AlertDialogDestructive() {
   return (
     <Example title="Destructive" className="items-center">
       <AlertDialog>
-        <AlertDialogTrigger
-          render={<Button variant="destructive">Delete Chat</Button>}
-        />
+        <AlertDialogTrigger render={<Button variant="destructive">Delete Chat</Button>} />
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
             <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
@@ -174,9 +162,8 @@ function AlertDialogDestructive() {
             </AlertDialogMedia>
             <AlertDialogTitle>Delete chat?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will permanently delete this chat conversation. View{" "}
-              <a href="#">Settings</a> delete any memories saved during this
-              chat.
+              This will permanently delete this chat conversation. View <a href="#">Settings</a>{" "}
+              delete any memories saved during this chat.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -186,34 +173,28 @@ function AlertDialogDestructive() {
         </AlertDialogContent>
       </AlertDialog>
     </Example>
-  )
+  );
 }
 
 function AlertDialogInDialog() {
   return (
     <Example title="In Dialog" className="items-center">
       <Dialog>
-        <DialogTrigger render={<Button variant="outline" />}>
-          Open Dialog
-        </DialogTrigger>
+        <DialogTrigger render={<Button variant="outline" />}>Open Dialog</DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Alert Dialog Example</DialogTitle>
-            <DialogDescription>
-              Click the button below to open an alert dialog.
-            </DialogDescription>
+            <DialogDescription>Click the button below to open an alert dialog.</DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <AlertDialog>
-              <AlertDialogTrigger render={<Button />}>
-                Open Alert Dialog
-              </AlertDialogTrigger>
+              <AlertDialogTrigger render={<Button />}>Open Alert Dialog</AlertDialogTrigger>
               <AlertDialogContent size="sm">
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
+                    This action cannot be undone. This will permanently delete your account and
+                    remove your data from our servers.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -226,5 +207,5 @@ function AlertDialogInDialog() {
         </DialogContent>
       </Dialog>
     </Example>
-  )
+  );
 }

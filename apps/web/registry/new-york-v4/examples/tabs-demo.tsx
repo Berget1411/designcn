@@ -1,6 +1,6 @@
-import { AppWindowIcon, CodeIcon } from "lucide-react"
+import { AppWindowIcon, CodeIcon } from "lucide-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Card,
   CardContent,
@@ -8,15 +8,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/registry/new-york-v4/ui/tabs"
+} from "@/registry/new-york-v4/ui/card";
+import { Input } from "@/registry/new-york-v4/ui/input";
+import { Label } from "@/registry/new-york-v4/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/new-york-v4/ui/tabs";
 
 export default function TabsDemo() {
   return (
@@ -31,8 +26,7 @@ export default function TabsDemo() {
             <CardHeader>
               <CardTitle>Account</CardTitle>
               <CardDescription>
-                Make changes to your account here. Click save when you&apos;re
-                done.
+                Make changes to your account here. Click save when you&apos;re done.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-6">
@@ -55,8 +49,7 @@ export default function TabsDemo() {
             <CardHeader>
               <CardTitle>Password</CardTitle>
               <CardDescription>
-                Change your password here. After saving, you&apos;ll be logged
-                out.
+                Change your password here. After saving, you&apos;ll be logged out.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-6">
@@ -76,5 +69,5 @@ export default function TabsDemo() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Button } from "@/registry/bases/base/ui/button"
+import { Button } from "@/registry/bases/base/ui/button";
 import {
   Card,
   CardContent,
@@ -8,15 +8,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/base/ui/card"
-import { Field, FieldLabel } from "@/registry/bases/base/ui/field"
-import { Input } from "@/registry/bases/base/ui/input"
+} from "@/registry/bases/base/ui/card";
+import { Field, FieldLabel } from "@/registry/bases/base/ui/field";
+import { Input } from "@/registry/bases/base/ui/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@/registry/bases/base/ui/input-group"
+} from "@/registry/bases/base/ui/input-group";
 import {
   Select,
   SelectContent,
@@ -24,9 +24,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/base/ui/select"
-import { Separator } from "@/registry/bases/base/ui/separator"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/select";
+import { Separator } from "@/registry/bases/base/ui/separator";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function InviteTeam() {
   return (
@@ -80,11 +80,7 @@ export function InviteTeam() {
         <Field>
           <FieldLabel htmlFor="invite-link">Or share invite link</FieldLabel>
           <InputGroup>
-            <InputGroupInput
-              id="invite-link"
-              defaultValue="https://app.co/invite/x8f2k"
-              readOnly
-            />
+            <InputGroupInput id="invite-link" defaultValue="https://app.co/invite/x8f2k" readOnly />
             <InputGroupAddon align="inline-end">
               <InputGroupButton size="icon-xs" aria-label="Copy link">
                 <IconPlaceholder
@@ -103,5 +99,5 @@ export function InviteTeam() {
         <Button className="w-full">Send Invites</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

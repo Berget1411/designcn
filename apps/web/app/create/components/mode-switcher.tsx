@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Script from "next/script"
+import * as React from "react";
+import Script from "next/script";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@workspace/ui/components/button"
-import { useThemeToggle } from "@/app/create/hooks/use-theme-toggle"
+import { cn } from "@/lib/utils";
+import { Button } from "@workspace/ui/components/button";
+import { useThemeToggle } from "@/app/create/hooks/use-theme-toggle";
 
-export const DARK_MODE_FORWARD_TYPE = "dark-mode-forward"
+export const DARK_MODE_FORWARD_TYPE = "dark-mode-forward";
 
 export function ModeSwitcher({
   variant = "ghost",
   className,
 }: {
-  variant?: React.ComponentProps<typeof Button>["variant"]
-  className?: React.ComponentProps<typeof Button>["className"]
+  variant?: React.ComponentProps<typeof Button>["variant"];
+  className?: React.ComponentProps<typeof Button>["className"];
 }) {
-  const { toggleTheme } = useThemeToggle()
+  const { toggleTheme } = useThemeToggle();
 
   return (
     <Button
@@ -47,7 +47,7 @@ export function ModeSwitcher({
       </svg>
       <span className="sr-only">Toggle theme</span>
     </Button>
-  )
+  );
 }
 
 export function DarkModeScript() {
@@ -83,5 +83,5 @@ export function DarkModeScript() {
           `,
       }}
     />
-  )
+  );
 }

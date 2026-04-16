@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Menu09Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import * as React from "react";
+import { Menu09Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
-import { cn } from "@/lib/utils"
-import { type Button } from "@workspace/ui/components/button"
+import { cn } from "@/lib/utils";
+import { type Button } from "@workspace/ui/components/button";
 import {
   Picker,
   PickerContent,
@@ -14,30 +14,30 @@ import {
   PickerSeparator,
   PickerShortcut,
   PickerTrigger,
-} from "@/app/create/components/picker"
-import { useActionMenuTrigger } from "@/app/create/hooks/use-action-menu"
-import { useHistory } from "@/app/create/hooks/use-history"
-import { useOpenPresetTrigger } from "@/app/create/hooks/use-open-preset"
-import { useRandom } from "@/app/create/hooks/use-random"
-import { useReset } from "@/app/create/hooks/use-reset"
-import { useThemeToggle } from "@/app/create/hooks/use-theme-toggle"
+} from "@/app/create/components/picker";
+import { useActionMenuTrigger } from "@/app/create/hooks/use-action-menu";
+import { useHistory } from "@/app/create/hooks/use-history";
+import { useOpenPresetTrigger } from "@/app/create/hooks/use-open-preset";
+import { useRandom } from "@/app/create/hooks/use-random";
+import { useReset } from "@/app/create/hooks/use-reset";
+import { useThemeToggle } from "@/app/create/hooks/use-theme-toggle";
 
-const APPLE_PLATFORM_REGEX = /Mac|iPhone|iPad|iPod/
+const APPLE_PLATFORM_REGEX = /Mac|iPhone|iPad|iPod/;
 
 export function MainMenu({ className }: React.ComponentProps<typeof Button>) {
-  const [isMac, setIsMac] = React.useState(false)
-  const { canGoBack, canGoForward, goBack, goForward } = useHistory()
-  const { openActionMenu } = useActionMenuTrigger()
-  const { openPreset } = useOpenPresetTrigger()
-  const { randomize } = useRandom()
-  const { toggleTheme } = useThemeToggle()
-  const { setShowResetDialog } = useReset()
+  const [isMac, setIsMac] = React.useState(false);
+  const { canGoBack, canGoForward, goBack, goForward } = useHistory();
+  const { openActionMenu } = useActionMenuTrigger();
+  const { openPreset } = useOpenPresetTrigger();
+  const { randomize } = useRandom();
+  const { toggleTheme } = useThemeToggle();
+  const { setShowResetDialog } = useReset();
 
   React.useEffect(() => {
-    const platform = navigator.platform
-    const userAgent = navigator.userAgent
-    setIsMac(APPLE_PLATFORM_REGEX.test(platform || userAgent))
-  }, [])
+    const platform = navigator.platform;
+    const userAgent = navigator.userAgent;
+    setIsMac(APPLE_PLATFORM_REGEX.test(platform || userAgent));
+  }, []);
 
   return (
     <React.Fragment>
@@ -45,7 +45,7 @@ export function MainMenu({ className }: React.ComponentProps<typeof Button>) {
         <PickerTrigger
           className={cn(
             "flex items-center justify-between gap-2 rounded-lg px-1.75 ring-1 ring-foreground/10 focus-visible:ring-1",
-            className
+            className,
           )}
         >
           <span className="font-medium">Menu</span>
@@ -73,8 +73,7 @@ export function MainMenu({ className }: React.ComponentProps<typeof Button>) {
               Undo <PickerShortcut>{isMac ? "⌘Z" : "Ctrl+Z"}</PickerShortcut>
             </PickerItem>
             <PickerItem onClick={goForward} disabled={!canGoForward}>
-              Redo{" "}
-              <PickerShortcut>{isMac ? "⇧⌘Z" : "Ctrl+Shift+Z"}</PickerShortcut>
+              Redo <PickerShortcut>{isMac ? "⇧⌘Z" : "Ctrl+Shift+Z"}</PickerShortcut>
             </PickerItem>
             <PickerSeparator />
             <PickerItem onClick={() => setShowResetDialog(true)}>
@@ -84,5 +83,5 @@ export function MainMenu({ className }: React.ComponentProps<typeof Button>) {
         </PickerContent>
       </Picker>
     </React.Fragment>
-  )
+  );
 }

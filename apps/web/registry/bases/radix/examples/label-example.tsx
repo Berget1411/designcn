@@ -1,12 +1,9 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Checkbox } from "@/registry/bases/radix/ui/checkbox"
-import { Field } from "@/registry/bases/radix/ui/field"
-import { Input } from "@/registry/bases/radix/ui/input"
-import { Label } from "@/registry/bases/radix/ui/label"
-import { Textarea } from "@/registry/bases/radix/ui/textarea"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Checkbox } from "@/registry/bases/radix/ui/checkbox";
+import { Field } from "@/registry/bases/radix/ui/field";
+import { Input } from "@/registry/bases/radix/ui/input";
+import { Label } from "@/registry/bases/radix/ui/label";
+import { Textarea } from "@/registry/bases/radix/ui/textarea";
 
 export default function LabelExample() {
   return (
@@ -16,7 +13,7 @@ export default function LabelExample() {
       <LabelDisabled />
       <LabelWithTextarea />
     </ExampleWrapper>
-  )
+  );
 }
 
 function LabelWithCheckbox() {
@@ -27,7 +24,7 @@ function LabelWithCheckbox() {
         <Label htmlFor="label-demo-terms">Accept terms and conditions</Label>
       </Field>
     </Example>
-  )
+  );
 }
 
 function LabelWithInput() {
@@ -38,7 +35,7 @@ function LabelWithInput() {
         <Input id="label-demo-username" placeholder="Username" />
       </Field>
     </Example>
-  )
+  );
 }
 
 function LabelDisabled() {
@@ -49,7 +46,7 @@ function LabelDisabled() {
         <Input id="label-demo-disabled" placeholder="Disabled" disabled />
       </Field>
     </Example>
-  )
+  );
 }
 
 function LabelWithTextarea() {
@@ -60,5 +57,5 @@ function LabelWithTextarea() {
         <Textarea id="label-demo-message" placeholder="Message" />
       </Field>
     </Example>
-  )
+  );
 }

@@ -1,21 +1,19 @@
-import { Suspense } from "react"
-import { type Metadata } from "next"
-import dynamic from "next/dynamic"
+import { Suspense } from "react";
+import { type Metadata } from "next";
+import dynamic from "next/dynamic";
 
-import { siteConfig } from "@/lib/config"
-import { absoluteUrl } from "@/lib/utils"
-import { Skeleton } from "@workspace/ui/components/skeleton"
-import { Customizer } from "@/app/create/components/customizer"
-import { PresetHandler } from "@/app/create/components/preset-handler"
-import { Preview } from "@/app/create/components/preview"
-import { getAllItems } from "@/app/create/lib/api"
+import { siteConfig } from "@/lib/config";
+import { absoluteUrl } from "@/lib/utils";
+import { Skeleton } from "@workspace/ui/components/skeleton";
+import { Customizer } from "@/app/create/components/customizer";
+import { PresetHandler } from "@/app/create/components/preset-handler";
+import { Preview } from "@/app/create/components/preview";
+import { getAllItems } from "@/app/create/lib/api";
 
 // Only shown on first visit (checks localStorage).
 const WelcomeDialog = dynamic(() =>
-  import("@/app/create/components/welcome-dialog").then(
-    (m) => m.WelcomeDialog
-  )
-)
+  import("@/app/create/components/welcome-dialog").then((m) => m.WelcomeDialog),
+);
 
 export const metadata: Metadata = {
   title: "New Project",
@@ -44,7 +42,7 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
     creator: "@shadcn",
   },
-}
+};
 
 export default function CreatePage() {
   return (
@@ -65,10 +63,10 @@ export default function CreatePage() {
       <PresetHandler />
       <WelcomeDialog />
     </div>
-  )
+  );
 }
 
 async function CustomizerLoader() {
-  const itemsByBase = await getAllItems()
-  return <Customizer itemsByBase={itemsByBase} />
+  const itemsByBase = await getAllItems();
+  return <Customizer itemsByBase={itemsByBase} />;
 }

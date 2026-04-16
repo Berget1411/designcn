@@ -1,14 +1,14 @@
-import type { JSX } from "react"
+import type { JSX } from "react";
 
-import { Button } from '@workspace/ui/components/button'
-import { cn } from "@workspace/ui/lib/utils"
+import { Button } from "@workspace/ui/components/button";
+import { cn } from "@workspace/ui/lib/utils";
 import {
   LaravelIcon,
   NextJSIcon,
   NodeJSIcon,
   ReactIcon,
   TailwindCSSIcon,
-} from "@/components/hero-01-icons"
+} from "@/components/hero-01-icons";
 
 export function Hero() {
   return (
@@ -141,21 +141,9 @@ export function Hero() {
             </g>
 
             <g>
-              <path
-                d="M260 0.5V80"
-                stroke="currentColor"
-                vectorEffect="non-scaling-stroke"
-              />
-              <path
-                d="M339.5 80.5H210"
-                stroke="currentColor"
-                vectorEffect="non-scaling-stroke"
-              />
-              <path
-                d="M210 210V0.5"
-                stroke="currentColor"
-                vectorEffect="non-scaling-stroke"
-              />
+              <path d="M260 0.5V80" stroke="currentColor" vectorEffect="non-scaling-stroke" />
+              <path d="M339.5 80.5H210" stroke="currentColor" vectorEffect="non-scaling-stroke" />
+              <path d="M210 210V0.5" stroke="currentColor" vectorEffect="non-scaling-stroke" />
             </g>
 
             <g>
@@ -205,23 +193,18 @@ export function Hero() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function MainContent({ className }: { className?: string }) {
   return (
-    <div
-      className={cn(
-        "flex flex-col justify-center overflow-hidden p-4 lg:p-8",
-        className
-      )}
-    >
+    <div className={cn("flex flex-col justify-center overflow-hidden p-4 lg:p-8", className)}>
       <h1 className="mb-4 font-heading text-[2.5rem] leading-none font-semibold tracking-tight text-foreground sm:mb-6 sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl">
-      The antidote to AI
+        The antidote to AI
       </h1>
 
       <p className="mb-6 text-base leading-normal! text-muted-foreground sm:mb-8 sm:text-xl sm:text-balance md:text-lg lg:text-xl">
-      Customize colors, typography, and layouts with a real-time preview. No signup required.
+        Customize colors, typography, and layouts with a real-time preview. No signup required.
       </p>
 
       <div className="mb-6 grid grid-cols-2 items-center gap-4 sm:mb-8 sm:flex">
@@ -246,7 +229,7 @@ function MainContent({ className }: { className?: string }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function TechItem({ icon, title }: { icon: JSX.Element; title: string }) {
@@ -255,5 +238,5 @@ function TechItem({ icon, title }: { icon: JSX.Element; title: string }) {
       {icon}
       <span className="text-sm font-medium whitespace-nowrap">{title}</span>
     </div>
-  )
+  );
 }

@@ -1,67 +1,67 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { IconCheck, IconCopy } from "@tabler/icons-react"
+import * as React from "react";
+import { IconCheck, IconCopy } from "@tabler/icons-react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@workspace/ui/components/button"
+import { cn } from "@/lib/utils";
+import { Button } from "@workspace/ui/components/button";
 
 type Event = {
-  name: string
-  properties?: Record<string, string>
-}
+  name: string;
+  properties?: Record<string, string>;
+};
 
 function legacyCopyToClipboard(value: string) {
-  const textArea = document.createElement("textarea")
-  textArea.value = value
-  textArea.setAttribute("readonly", "")
-  textArea.style.position = "fixed"
-  textArea.style.opacity = "0"
-  textArea.style.pointerEvents = "none"
+  const textArea = document.createElement("textarea");
+  textArea.value = value;
+  textArea.setAttribute("readonly", "");
+  textArea.style.position = "fixed";
+  textArea.style.opacity = "0";
+  textArea.style.pointerEvents = "none";
 
-  document.body.appendChild(textArea)
-  textArea.focus()
-  textArea.select()
-  textArea.setSelectionRange(0, value.length)
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  textArea.setSelectionRange(0, value.length);
 
-  let hasCopied = false
+  let hasCopied = false;
   try {
-    hasCopied = document.execCommand("copy")
+    hasCopied = document.execCommand("copy");
   } catch {
-    hasCopied = false
+    hasCopied = false;
   }
 
-  document.body.removeChild(textArea)
-  return hasCopied
+  document.body.removeChild(textArea);
+  return hasCopied;
 }
 
 export async function copyToClipboardWithMeta(value: string, _event?: Event) {
   if (typeof window === "undefined") {
-    return false
+    return false;
   }
 
   if (!value) {
-    return false
+    return false;
   }
 
-  let hasCopied = false
+  let hasCopied = false;
 
   if (navigator.clipboard?.writeText) {
     try {
-      await navigator.clipboard.writeText(value)
-      hasCopied = true
+      await navigator.clipboard.writeText(value);
+      hasCopied = true;
     } catch {
-      hasCopied = legacyCopyToClipboard(value)
+      hasCopied = legacyCopyToClipboard(value);
     }
   } else {
-    hasCopied = legacyCopyToClipboard(value)
+    hasCopied = legacyCopyToClipboard(value);
   }
 
   if (!hasCopied) {
-    return false
+    return false;
   }
 
-  return true
+  return true;
 }
 
 export function CopyButton({
@@ -71,19 +71,19 @@ export function CopyButton({
   event,
   ...props
 }: React.ComponentProps<typeof Button> & {
-  value: string
-  src?: string
-  event?: Event["name"]
-  tooltip?: string
+  value: string;
+  src?: string;
+  event?: Event["name"];
+  tooltip?: string;
 }) {
-  const [hasCopied, setHasCopied] = React.useState(false)
+  const [hasCopied, setHasCopied] = React.useState(false);
 
   React.useEffect(() => {
     if (hasCopied) {
-      const timer = setTimeout(() => setHasCopied(false), 2000)
-      return () => clearTimeout(timer)
+      const timer = setTimeout(() => setHasCopied(false), 2000);
+      return () => clearTimeout(timer);
     }
-  }, [hasCopied])
+  }, [hasCopied]);
 
   return (
     <Button
@@ -93,7 +93,7 @@ export function CopyButton({
       variant={variant}
       className={cn(
         "absolute top-3 right-2 z-10 size-7 bg-code hover:opacity-100 focus-visible:opacity-100",
-        className
+        className,
       )}
       onClick={async () => {
         const hasCopied = await copyToClipboardWithMeta(
@@ -105,11 +105,11 @@ export function CopyButton({
                   code: value,
                 },
               }
-            : undefined
-        )
+            : undefined,
+        );
 
         if (hasCopied) {
-          setHasCopied(true)
+          setHasCopied(true);
         }
       }}
       {...props}
@@ -117,5 +117,5 @@ export function CopyButton({
       <span className="sr-only">Copy</span>
       {hasCopied ? <IconCheck /> : <IconCopy />}
     </Button>
-  )
+  );
 }

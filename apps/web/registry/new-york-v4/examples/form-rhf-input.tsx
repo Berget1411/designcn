@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Controller, useForm } from "react-hook-form"
-import { toast } from "sonner"
-import * as z from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Card,
   CardContent,
@@ -13,26 +13,23 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/registry/new-york-v4/ui/field"
-import { Input } from "@/registry/new-york-v4/ui/input"
+} from "@/registry/new-york-v4/ui/field";
+import { Input } from "@/registry/new-york-v4/ui/input";
 
 const formSchema = z.object({
   username: z
     .string()
     .min(3, "Username must be at least 3 characters.")
     .max(10, "Username must be at most 10 characters.")
-    .regex(
-      /^[a-zA-Z0-9_]+$/,
-      "Username can only contain letters, numbers, and underscores."
-    ),
-})
+    .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores."),
+});
 
 export default function FormRhfInput() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,7 +37,7 @@ export default function FormRhfInput() {
     defaultValues: {
       username: "",
     },
-  })
+  });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     toast("You submitted the following values:", {
@@ -56,16 +53,14 @@ export default function FormRhfInput() {
       style: {
         "--border-radius": "calc(var(--radius)  + 4px)",
       } as React.CSSProperties,
-    })
+    });
   }
 
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>
         <CardTitle>Profile Settings</CardTitle>
-        <CardDescription>
-          Update your profile information below.
-        </CardDescription>
+        <CardDescription>Update your profile information below.</CardDescription>
       </CardHeader>
       <CardContent>
         <form id="form-rhf-input" onSubmit={form.handleSubmit(onSubmit)}>
@@ -75,9 +70,7 @@ export default function FormRhfInput() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-input-username">
-                    Username
-                  </FieldLabel>
+                  <FieldLabel htmlFor="form-rhf-input-username">Username</FieldLabel>
                   <Input
                     {...field}
                     id="form-rhf-input-username"
@@ -86,13 +79,10 @@ export default function FormRhfInput() {
                     autoComplete="username"
                   />
                   <FieldDescription>
-                    This is your public display name. Must be between 3 and 10
-                    characters. Must only contain letters, numbers, and
-                    underscores.
+                    This is your public display name. Must be between 3 and 10 characters. Must only
+                    contain letters, numbers, and underscores.
                   </FieldDescription>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />
@@ -110,5 +100,5 @@ export default function FormRhfInput() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

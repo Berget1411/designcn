@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { NavFavorites } from "@/registry/bases/base/blocks/sidebar-10/components/nav-favorites"
-import { NavMain } from "@/registry/bases/base/blocks/sidebar-10/components/nav-main"
-import { NavSecondary } from "@/registry/bases/base/blocks/sidebar-10/components/nav-secondary"
-import { NavWorkspaces } from "@/registry/bases/base/blocks/sidebar-10/components/nav-workspaces"
-import { TeamSwitcher } from "@/registry/bases/base/blocks/sidebar-10/components/team-switcher"
+import { NavFavorites } from "@/registry/bases/base/blocks/sidebar-10/components/nav-favorites";
+import { NavMain } from "@/registry/bases/base/blocks/sidebar-10/components/nav-main";
+import { NavSecondary } from "@/registry/bases/base/blocks/sidebar-10/components/nav-secondary";
+import { NavWorkspaces } from "@/registry/bases/base/blocks/sidebar-10/components/nav-workspaces";
+import { TeamSwitcher } from "@/registry/bases/base/blocks/sidebar-10/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
   SidebarRail,
-} from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 // This is sample data.
 const data = {
@@ -340,7 +340,7 @@ const data = {
       ],
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -356,5 +356,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

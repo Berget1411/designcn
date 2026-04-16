@@ -1,15 +1,12 @@
-import * as React from "react"
+import * as React from "react";
 
-import { Calendar } from "@/registry/bases/base/ui/calendar"
-import {
-  SidebarGroup,
-  SidebarGroupContent,
-} from "@/registry/bases/base/ui/sidebar"
+import { Calendar } from "@/registry/bases/base/ui/calendar";
+import { SidebarGroup, SidebarGroupContent } from "@/registry/bases/base/ui/sidebar";
 
 export function DatePicker() {
   const [date, setDate] = React.useState<Date | undefined>(
-    new Date(new Date().getFullYear(), new Date().getMonth(), 12)
-  )
+    new Date(new Date().getFullYear(), new Date().getMonth(), 12),
+  );
   return (
     <SidebarGroup className="px-0">
       <SidebarGroupContent>
@@ -22,5 +19,5 @@ export function DatePicker() {
         />
       </SidebarGroupContent>
     </SidebarGroup>
-  )
+  );
 }

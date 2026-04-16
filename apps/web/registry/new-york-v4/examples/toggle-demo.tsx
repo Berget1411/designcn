@@ -1,6 +1,6 @@
-import { BookmarkIcon } from "lucide-react"
+import { BookmarkIcon } from "lucide-react";
 
-import { Toggle } from "@/registry/new-york-v4/ui/toggle"
+import { Toggle } from "@/registry/new-york-v4/ui/toggle";
 
 export default function ToggleDemo() {
   return (
@@ -13,5 +13,5 @@ export default function ToggleDemo() {
       <BookmarkIcon />
       Bookmark
     </Toggle>
-  )
+  );
 }

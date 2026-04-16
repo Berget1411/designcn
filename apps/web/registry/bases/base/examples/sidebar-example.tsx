@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/registry/bases/base/ui/dropdown-menu"
+} from "@/registry/bases/base/ui/dropdown-menu";
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from "@/registry/bases/base/ui/item"
-import { Label } from "@/registry/bases/base/ui/label"
+} from "@/registry/bases/base/ui/item";
+import { Label } from "@/registry/bases/base/ui/label";
 import {
   Sidebar,
   SidebarContent,
@@ -31,8 +31,8 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function SidebarExample() {
   const data = {
@@ -164,9 +164,9 @@ export default function SidebarExample() {
         ],
       },
     ],
-  }
+  };
 
-  const [selectedVersion, setSelectedVersion] = React.useState(data.versions[0])
+  const [selectedVersion, setSelectedVersion] = React.useState(data.versions[0]);
 
   return (
     <SidebarProvider>
@@ -201,10 +201,7 @@ export default function SidebarExample() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   {data.versions.map((version) => (
-                    <DropdownMenuItem
-                      key={version}
-                      onSelect={() => setSelectedVersion(version)}
-                    >
+                    <DropdownMenuItem key={version} onSelect={() => setSelectedVersion(version)}>
                       v{version}{" "}
                       {version === selectedVersion && (
                         <IconPlaceholder
@@ -228,11 +225,7 @@ export default function SidebarExample() {
                 <Label htmlFor="search" className="sr-only">
                   Search
                 </Label>
-                <SidebarInput
-                  id="search"
-                  placeholder="Search the docs..."
-                  className="pl-8"
-                />
+                <SidebarInput id="search" placeholder="Search the docs..." className="pl-8" />
                 <IconPlaceholder
                   lucide="SearchIcon"
                   tabler="IconSearch"
@@ -282,5 +275,5 @@ export default function SidebarExample() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

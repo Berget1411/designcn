@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { CheckIcon } from "lucide-react"
-import { Controller, useForm, useWatch } from "react-hook-form"
-import { toast } from "sonner"
-import * as z from "zod"
+import * as React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CheckIcon } from "lucide-react";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Card,
   CardContent,
@@ -15,19 +15,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/registry/new-york-v4/ui/field"
+} from "@/registry/new-york-v4/ui/card";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/registry/new-york-v4/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@/registry/new-york-v4/ui/input-group"
-import { Progress } from "@/registry/new-york-v4/ui/progress"
+} from "@/registry/new-york-v4/ui/input-group";
+import { Progress } from "@/registry/new-york-v4/ui/progress";
 
 const passwordRequirements = [
   {
@@ -51,29 +46,20 @@ const passwordRequirements = [
     label: "One special character",
     test: (val: string) => /[!@#$%^&*(),.?":{}|<>]/.test(val),
   },
-]
+];
 
 const formSchema = z.object({
   password: z
     .string()
     .min(8, "Password must be at least 8 characters")
-    .refine(
-      (val) => /[a-z]/.test(val),
-      "Password must contain at least one lowercase letter"
-    )
-    .refine(
-      (val) => /[A-Z]/.test(val),
-      "Password must contain at least one uppercase letter"
-    )
-    .refine(
-      (val) => /\d/.test(val),
-      "Password must contain at least one number"
-    )
+    .refine((val) => /[a-z]/.test(val), "Password must contain at least one lowercase letter")
+    .refine((val) => /[A-Z]/.test(val), "Password must contain at least one uppercase letter")
+    .refine((val) => /\d/.test(val), "Password must contain at least one number")
     .refine(
       (val) => /[!@#$%^&*(),.?":{}|<>]/.test(val),
-      "Password must contain at least one special character"
+      "Password must contain at least one special character",
     ),
-})
+});
 
 export default function FormRhfPassword() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -81,30 +67,26 @@ export default function FormRhfPassword() {
     defaultValues: {
       password: "",
     },
-  })
+  });
 
   const password = useWatch({
     control: form.control,
     name: "password",
-  })
+  });
 
   // Calculate password strength.
-  const metRequirements = passwordRequirements.filter((req) =>
-    req.test(password || "")
-  )
-  const strengthPercentage =
-    (metRequirements.length / passwordRequirements.length) * 100
+  const metRequirements = passwordRequirements.filter((req) => req.test(password || ""));
+  const strengthPercentage = (metRequirements.length / passwordRequirements.length) * 100;
 
   // Determine strength level and color.
   const getStrengthColor = () => {
-    if (strengthPercentage === 0) return "bg-neutral-200"
-    if (strengthPercentage <= 40) return "bg-red-500"
-    if (strengthPercentage <= 80) return "bg-yellow-500"
-    return "bg-green-500"
-  }
+    if (strengthPercentage === 0) return "bg-neutral-200";
+    if (strengthPercentage <= 40) return "bg-red-500";
+    if (strengthPercentage <= 80) return "bg-yellow-500";
+    return "bg-green-500";
+  };
 
-  const allRequirementsMet =
-    metRequirements.length === passwordRequirements.length
+  const allRequirementsMet = metRequirements.length === passwordRequirements.length;
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     toast("You submitted the following values:", {
@@ -120,16 +102,14 @@ export default function FormRhfPassword() {
       style: {
         "--border-radius": "calc(var(--radius)  + 4px)",
       } as React.CSSProperties,
-    })
+    });
   }
 
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader className="border-b">
         <CardTitle>Create Password</CardTitle>
-        <CardDescription>
-          Choose a strong password to secure your account.
-        </CardDescription>
+        <CardDescription>Choose a strong password to secure your account.</CardDescription>
       </CardHeader>
       <CardContent>
         <form id="form-rhf-password" onSubmit={form.handleSubmit(onSubmit)}>
@@ -139,9 +119,7 @@ export default function FormRhfPassword() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-password-input">
-                    Password
-                  </FieldLabel>
+                  <FieldLabel htmlFor="form-rhf-password-input">Password</FieldLabel>
                   <InputGroup>
                     <InputGroupInput
                       {...field}
@@ -153,56 +131,36 @@ export default function FormRhfPassword() {
                     />
                     <InputGroupAddon align="inline-end">
                       <CheckIcon
-                        className={
-                          allRequirementsMet
-                            ? "text-green-500"
-                            : "text-muted-foreground"
-                        }
+                        className={allRequirementsMet ? "text-green-500" : "text-muted-foreground"}
                       />
                     </InputGroupAddon>
                   </InputGroup>
 
                   {/* Password strength meter. */}
                   <div className="space-y-2">
-                    <Progress
-                      value={strengthPercentage}
-                      className={getStrengthColor()}
-                    />
+                    <Progress value={strengthPercentage} className={getStrengthColor()} />
 
                     {/* Requirements list. */}
                     <div className="space-y-1.5">
                       {passwordRequirements.map((requirement) => {
-                        const isMet = requirement.test(password || "")
+                        const isMet = requirement.test(password || "");
                         return (
-                          <div
-                            key={requirement.id}
-                            className="flex items-center gap-2 text-sm"
-                          >
+                          <div key={requirement.id} className="flex items-center gap-2 text-sm">
                             <CheckIcon
                               className={
-                                isMet
-                                  ? "size-4 text-green-500"
-                                  : "size-4 text-muted-foreground"
+                                isMet ? "size-4 text-green-500" : "size-4 text-muted-foreground"
                               }
                             />
-                            <span
-                              className={
-                                isMet
-                                  ? "text-foreground"
-                                  : "text-muted-foreground"
-                              }
-                            >
+                            <span className={isMet ? "text-foreground" : "text-muted-foreground"}>
                               {requirement.label}
                             </span>
                           </div>
-                        )
+                        );
                       })}
                     </div>
                   </div>
 
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />
@@ -220,5 +178,5 @@ export default function FormRhfPassword() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

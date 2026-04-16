@@ -1,4 +1,4 @@
-import { Badge } from "@/registry/bases/radix/ui/badge"
+import { Badge } from "@/registry/bases/radix/ui/badge";
 import {
   Card,
   CardAction,
@@ -6,8 +6,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/card";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function FrontDoor() {
   return (
@@ -37,5 +37,5 @@ export function FrontDoor() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

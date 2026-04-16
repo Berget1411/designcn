@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { NavMain } from "@/registry/bases/radix/blocks/sidebar-08/components/nav-main"
-import { NavProjects } from "@/registry/bases/radix/blocks/sidebar-08/components/nav-projects"
-import { NavSecondary } from "@/registry/bases/radix/blocks/sidebar-08/components/nav-secondary"
-import { NavUser } from "@/registry/bases/radix/blocks/sidebar-08/components/nav-user"
+import { NavMain } from "@/registry/bases/radix/blocks/sidebar-08/components/nav-main";
+import { NavProjects } from "@/registry/bases/radix/blocks/sidebar-08/components/nav-projects";
+import { NavSecondary } from "@/registry/bases/radix/blocks/sidebar-08/components/nav-secondary";
+import { NavUser } from "@/registry/bases/radix/blocks/sidebar-08/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -14,8 +14,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/registry/bases/radix/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 const data = {
   user: {
@@ -211,7 +211,7 @@ const data = {
       ),
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -249,5 +249,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

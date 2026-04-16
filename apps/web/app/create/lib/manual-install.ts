@@ -2,8 +2,8 @@ import {
   buildRegistryBase,
   getInheritedHeadingFontValue,
   type DesignSystemConfig,
-} from "@/registry/config"
-import { type CustomThemeVars } from "@/app/create/lib/custom-theme-vars"
+} from "@/registry/config";
+import { type CustomThemeVars } from "@/app/create/lib/custom-theme-vars";
 
 export function buildManualComponentsJson(config: DesignSystemConfig) {
   return JSON.stringify(
@@ -24,30 +24,29 @@ export function buildManualComponentsJson(config: DesignSystemConfig) {
       },
     },
     null,
-    2
-  )
+    2,
+  );
 }
 
 export function buildManualGlobalsCss(
   config: DesignSystemConfig,
-  customThemeVars: CustomThemeVars = {}
+  customThemeVars: CustomThemeVars = {},
 ) {
-  const registryBase = buildRegistryBase(config, customThemeVars)
-  const normalizedFontHeading =
-    config.fontHeading === config.font ? "inherit" : config.fontHeading
+  const registryBase = buildRegistryBase(config, customThemeVars);
+  const normalizedFontHeading = config.fontHeading === config.font ? "inherit" : config.fontHeading;
 
   const lightVars = Object.entries(registryBase.cssVars?.light ?? {})
     .map(([key, value]) => `  --${key}: ${value};`)
-    .join("\n")
+    .join("\n");
 
   const darkVars = Object.entries(registryBase.cssVars?.dark ?? {})
     .map(([key, value]) => `  --${key}: ${value};`)
-    .join("\n")
+    .join("\n");
 
   const fontHeadingValue =
     normalizedFontHeading === "inherit"
       ? getInheritedHeadingFontValue(config.font)
-      : "var(--font-heading)"
+      : "var(--font-heading)";
 
   return [
     '@import "tailwindcss";',
@@ -115,5 +114,5 @@ export function buildManualGlobalsCss(
     "    @apply bg-background text-foreground;",
     "  }",
     "}",
-  ].join("\n")
+  ].join("\n");
 }

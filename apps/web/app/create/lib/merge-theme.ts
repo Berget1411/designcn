@@ -1,15 +1,13 @@
-import { registryItemSchema, type RegistryItem } from "shadcn/schema"
+import { registryItemSchema, type RegistryItem } from "shadcn/schema";
 
-import { BASE_COLORS, THEMES } from "@/registry/config"
+import { BASE_COLORS, THEMES } from "@/registry/config";
 
 export function buildTheme(baseColorName: string, themeName: string) {
-  const baseColor = BASE_COLORS.find((c) => c.name === baseColorName)
-  const theme = THEMES.find((t) => t.name === themeName)
+  const baseColor = BASE_COLORS.find((c) => c.name === baseColorName);
+  const theme = THEMES.find((t) => t.name === themeName);
 
   if (!baseColor || !theme) {
-    throw new Error(
-      `Base color "${baseColorName}" or theme "${themeName}" not found`
-    )
+    throw new Error(`Base color "${baseColorName}" or theme "${themeName}" not found`);
   }
 
   const mergedTheme: RegistryItem = {
@@ -26,7 +24,7 @@ export function buildTheme(baseColorName: string, themeName: string) {
         ...theme.cssVars?.dark,
       },
     },
-  }
+  };
 
-  return registryItemSchema.parse(mergedTheme)
+  return registryItemSchema.parse(mergedTheme);
 }

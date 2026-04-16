@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { ChevronRight } from "lucide-react"
+import * as React from "react";
+import { ChevronRight } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import {
   decodeCustomThemeVars,
   encodeCustomThemeVars,
   type ThemeVarMode,
-} from "@/app/create/lib/custom-theme-vars"
+} from "@/app/create/lib/custom-theme-vars";
 import {
   type DesignSystemSearchParams,
   useDesignSystemSearchParams,
-} from "@/app/create/lib/search-params"
-import { buildRegistryTheme } from "@/registry/config"
-import { Button } from "@workspace/ui/components/button"
+} from "@/app/create/lib/search-params";
+import { buildRegistryTheme } from "@/registry/config";
+import { Button } from "@workspace/ui/components/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@workspace/ui/components/collapsible"
-import { Input } from "@workspace/ui/components/input"
-import { Tabs, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
+} from "@workspace/ui/components/collapsible";
+import { Input } from "@workspace/ui/components/input";
+import { Tabs, TabsList, TabsTrigger } from "@workspace/ui/components/tabs";
 
 type ColorTokenKey =
   | "background"
@@ -55,16 +55,16 @@ type ColorTokenKey =
   | "sidebar-accent"
   | "sidebar-accent-foreground"
   | "sidebar-border"
-  | "sidebar-ring"
+  | "sidebar-ring";
 
 type ColorGroup = {
-  id: string
-  title: string
+  id: string;
+  title: string;
   tokens: Array<{
-    key: ColorTokenKey
-    label: string
-  }>
-}
+    key: ColorTokenKey;
+    label: string;
+  }>;
+};
 
 const COLOR_GROUPS: ColorGroup[] = [
   {
@@ -168,90 +168,86 @@ const COLOR_GROUPS: ColorGroup[] = [
       { key: "sidebar-ring", label: "Sidebar Ring" },
     ],
   },
-]
+];
 
-let colorProbe: HTMLDivElement | null = null
-const colorCache = new Map<string, string | null>()
+let colorProbe: HTMLDivElement | null = null;
+const colorCache = new Map<string, string | null>();
 
 function getColorProbe() {
   if (typeof document === "undefined") {
-    return null
+    return null;
   }
 
   if (!colorProbe) {
-    colorProbe = document.createElement("div")
-    colorProbe.setAttribute("aria-hidden", "true")
-    colorProbe.style.position = "fixed"
-    colorProbe.style.inset = "0"
-    colorProbe.style.opacity = "0"
-    colorProbe.style.pointerEvents = "none"
-    document.body.appendChild(colorProbe)
+    colorProbe = document.createElement("div");
+    colorProbe.setAttribute("aria-hidden", "true");
+    colorProbe.style.position = "fixed";
+    colorProbe.style.inset = "0";
+    colorProbe.style.opacity = "0";
+    colorProbe.style.pointerEvents = "none";
+    document.body.appendChild(colorProbe);
   }
 
-  return colorProbe
+  return colorProbe;
 }
 
 function rgbToHex(value: string) {
-  const match = value.match(
-    /rgba?\(\s*(\d{1,3})[\s,]+(\d{1,3})[\s,]+(\d{1,3})/i
-  )
+  const match = value.match(/rgba?\(\s*(\d{1,3})[\s,]+(\d{1,3})[\s,]+(\d{1,3})/i);
 
   if (!match) {
-    return null
+    return null;
   }
 
   return `#${match
     .slice(1, 4)
-    .map((channel) =>
-      Number(channel).toString(16).padStart(2, "0").toLowerCase()
-    )
-    .join("")}`
+    .map((channel) => Number(channel).toString(16).padStart(2, "0").toLowerCase())
+    .join("")}`;
 }
 
 function getColorInputValue(value: string) {
   if (!value) {
-    return null
+    return null;
   }
 
-  const cached = colorCache.get(value)
+  const cached = colorCache.get(value);
   if (cached !== undefined) {
-    return cached
+    return cached;
   }
 
   if (/^#[\da-f]{6}$/i.test(value)) {
-    const normalized = value.toLowerCase()
-    colorCache.set(value, normalized)
-    return normalized
+    const normalized = value.toLowerCase();
+    colorCache.set(value, normalized);
+    return normalized;
   }
 
   if (/^#[\da-f]{3}$/i.test(value)) {
-    const [, r, g, b] = value
-    const normalized = `#${r}${r}${g}${g}${b}${b}`.toLowerCase()
-    colorCache.set(value, normalized)
-    return normalized
+    const [, r, g, b] = value;
+    const normalized = `#${r}${r}${g}${g}${b}${b}`.toLowerCase();
+    colorCache.set(value, normalized);
+    return normalized;
   }
 
-  const probe = getColorProbe()
+  const probe = getColorProbe();
   if (!probe) {
-    return null
+    return null;
   }
 
-  probe.style.color = ""
-  probe.style.color = value
+  probe.style.color = "";
+  probe.style.color = value;
 
   if (!probe.style.color) {
-    colorCache.set(value, null)
-    return null
+    colorCache.set(value, null);
+    return null;
   }
 
-  const normalized = rgbToHex(getComputedStyle(probe).color)
-  colorCache.set(value, normalized)
+  const normalized = rgbToHex(getComputedStyle(probe).color);
+  colorCache.set(value, normalized);
 
-  return normalized
+  return normalized;
 }
 
 function isValidCssColor(value: string) {
-  return getColorInputValue(value) !== null
+  return getColorInputValue(value) !== null;
 }
 
 function ColorRow({
@@ -261,37 +257,37 @@ function ColorRow({
   onChange,
   onReset,
 }: {
-  label: string
-  value: string
-  isOverridden: boolean
-  onChange: (value: string) => void
-  onReset: () => void
+  label: string;
+  value: string;
+  isOverridden: boolean;
+  onChange: (value: string) => void;
+  onReset: () => void;
 }) {
-  const [inputValue, setInputValue] = React.useState(value)
-  const [isMounted, setIsMounted] = React.useState(false)
-  const colorInputRef = React.useRef<HTMLInputElement>(null)
+  const [inputValue, setInputValue] = React.useState(value);
+  const [isMounted, setIsMounted] = React.useState(false);
+  const colorInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
-    setIsMounted(true)
-  }, [])
+    setIsMounted(true);
+  }, []);
 
   React.useEffect(() => {
-    setInputValue(value)
-  }, [value])
+    setInputValue(value);
+  }, [value]);
 
   const nativeColorValue = React.useMemo(() => {
     if (!isMounted) {
-      return null
+      return null;
     }
 
-    return getColorInputValue(value)
-  }, [isMounted, value])
+    return getColorInputValue(value);
+  }, [isMounted, value]);
 
   return (
     <div
       className={cn(
         "flex items-center gap-2 rounded-lg px-1.5 py-1 transition-colors",
-        isOverridden && "bg-muted/40"
+        isOverridden && "bg-muted/40",
       )}
     >
       <button
@@ -317,23 +313,23 @@ function ColorRow({
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}
         onBlur={() => {
-          const trimmed = inputValue.trim()
+          const trimmed = inputValue.trim();
 
           if (!trimmed) {
-            onReset()
-            return
+            onReset();
+            return;
           }
 
           if (!isValidCssColor(trimmed)) {
-            setInputValue(value)
-            return
+            setInputValue(value);
+            return;
           }
 
-          onChange(trimmed)
+          onChange(trimmed);
         }}
         onKeyDown={(event) => {
           if (event.key === "Enter") {
-            event.currentTarget.blur()
+            event.currentTarget.blur();
           }
         }}
         className="h-7 w-34 font-mono text-xs"
@@ -345,7 +341,7 @@ function ColorRow({
         </Button>
       ) : null}
     </div>
-  )
+  );
 }
 
 function ColorGroupSection({
@@ -356,14 +352,14 @@ function ColorGroupSection({
   onTokenReset,
   defaultOpen = false,
 }: {
-  group: ColorGroup
-  styles: Record<string, string>
-  overrides: Record<string, string>
-  onTokenChange: (key: ColorTokenKey, value: string) => void
-  onTokenReset: (key: ColorTokenKey) => void
-  defaultOpen?: boolean
+  group: ColorGroup;
+  styles: Record<string, string>;
+  overrides: Record<string, string>;
+  onTokenChange: (key: ColorTokenKey, value: string) => void;
+  onTokenReset: (key: ColorTokenKey) => void;
+  defaultOpen?: boolean;
 }) {
-  const [open, setOpen] = React.useState(defaultOpen)
+  const [open, setOpen] = React.useState(defaultOpen);
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
@@ -373,9 +369,7 @@ function ColorGroupSection({
           className="flex w-full items-center justify-between rounded-lg px-1.5 py-1.5 text-left text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase transition-colors hover:bg-muted/50 hover:text-foreground"
         >
           <span>{group.title}</span>
-          <ChevronRight
-            className={cn("size-3.5 transition-transform", open && "rotate-90")}
-          />
+          <ChevronRight className={cn("size-3.5 transition-transform", open && "rotate-90")} />
         </button>
       </CollapsibleTrigger>
       <CollapsibleContent>
@@ -393,110 +387,103 @@ function ColorGroupSection({
         </div>
       </CollapsibleContent>
     </Collapsible>
-  )
+  );
 }
 
-export function AdvancedColorEditor({
-  params,
-}: {
-  params: DesignSystemSearchParams
-}) {
-  const [, setParams] = useDesignSystemSearchParams()
-  const [search, setSearch] = React.useState("")
-  const [mode, setMode] = React.useState<ThemeVarMode>("light")
+export function AdvancedColorEditor({ params }: { params: DesignSystemSearchParams }) {
+  const [, setParams] = useDesignSystemSearchParams();
+  const [search, setSearch] = React.useState("");
+  const [mode, setMode] = React.useState<ThemeVarMode>("light");
 
-  const effectiveRadius = params.style === "lyra" ? "none" : params.radius
+  const effectiveRadius = params.style === "lyra" ? "none" : params.radius;
   const registryTheme = React.useMemo(() => {
     return buildRegistryTheme({
       ...params,
       radius: effectiveRadius,
-    })
-  }, [effectiveRadius, params])
-  const customThemeVars = React.useMemo(
-    () => decodeCustomThemeVars(params.vars),
-    [params.vars]
-  )
+    });
+  }, [effectiveRadius, params]);
+  const customThemeVars = React.useMemo(() => decodeCustomThemeVars(params.vars), [params.vars]);
 
   const baseModeVars = React.useMemo(
     () => ({
       light: (registryTheme.cssVars?.light ?? {}) as Record<string, string>,
       dark: (registryTheme.cssVars?.dark ?? {}) as Record<string, string>,
     }),
-    [registryTheme.cssVars]
-  )
+    [registryTheme.cssVars],
+  );
 
   const activeStyles = React.useMemo(
     () => ({
       ...(baseModeVars[mode] ?? {}),
       ...(customThemeVars[mode] ?? {}),
     }),
-    [baseModeVars, customThemeVars, mode]
-  )
+    [baseModeVars, customThemeVars, mode],
+  );
 
-  const activeOverrides = customThemeVars[mode] ?? {}
-  const hasAnyOverrides = Boolean(customThemeVars.light || customThemeVars.dark)
+  const activeOverrides = customThemeVars[mode] ?? {};
+  const hasAnyOverrides = Boolean(customThemeVars.light || customThemeVars.dark);
 
   const setCustomVars = React.useCallback(
     (nextValue: ReturnType<typeof decodeCustomThemeVars>) => {
-      const encoded = encodeCustomThemeVars(nextValue)
+      const encoded = encodeCustomThemeVars(nextValue);
       setParams({
         custom: Boolean(encoded),
         vars: encoded,
-      })
+      });
     },
-    [setParams]
-  )
+    [setParams],
+  );
 
   const handleTokenChange = React.useCallback(
     (key: ColorTokenKey, value: string) => {
-      const trimmed = value.trim()
+      const trimmed = value.trim();
       const nextModeVars = {
         ...(customThemeVars[mode] ?? {}),
-      }
+      };
 
       if (!trimmed || trimmed === baseModeVars[mode][key]) {
-        delete nextModeVars[key]
+        delete nextModeVars[key];
       } else {
-        nextModeVars[key] = trimmed
+        nextModeVars[key] = trimmed;
       }
 
       setCustomVars({
         ...customThemeVars,
         [mode]: nextModeVars,
-      })
+      });
     },
-    [baseModeVars, customThemeVars, mode, setCustomVars]
-  )
+    [baseModeVars, customThemeVars, mode, setCustomVars],
+  );
 
   const handleTokenReset = React.useCallback(
     (key: ColorTokenKey) => {
       const nextModeVars = {
         ...(customThemeVars[mode] ?? {}),
-      }
+      };
 
-      delete nextModeVars[key]
+      delete nextModeVars[key];
 
       setCustomVars({
         ...customThemeVars,
         [mode]: nextModeVars,
-      })
+      });
     },
-    [customThemeVars, mode, setCustomVars]
-  )
+    [customThemeVars, mode, setCustomVars],
+  );
 
   const handleModeReset = React.useCallback(() => {
     setCustomVars({
       ...customThemeVars,
       [mode]: {},
-    })
-  }, [customThemeVars, mode, setCustomVars])
+    });
+  }, [customThemeVars, mode, setCustomVars]);
 
   const filteredGroups = React.useMemo(() => {
     if (!search.trim()) {
-      return COLOR_GROUPS
+      return COLOR_GROUPS;
     }
 
-    const query = search.trim().toLowerCase()
+    const query = search.trim().toLowerCase();
 
     return COLOR_GROUPS.map((group) => ({
       ...group,
@@ -505,10 +492,10 @@ export function AdvancedColorEditor({
           token.label.toLowerCase().includes(query) ||
           token.key.toLowerCase().includes(query) ||
           group.title.toLowerCase().includes(query)
-        )
+        );
       }),
-    })).filter((group) => group.tokens.length > 0)
-  }, [search])
+    })).filter((group) => group.tokens.length > 0);
+  }, [search]);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
@@ -565,9 +552,9 @@ export function AdvancedColorEditor({
         </div>
       </div>
       <p className="px-1 pt-3 text-[11px] text-muted-foreground">
-        Advanced variable edits apply to the current configuration and reset
-        when you switch presets, themes, or styles.
+        Advanced variable edits apply to the current configuration and reset when you switch
+        presets, themes, or styles.
       </p>
     </div>
-  )
+  );
 }

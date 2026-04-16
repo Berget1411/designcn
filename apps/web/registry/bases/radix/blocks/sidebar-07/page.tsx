@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/registry/bases/radix/blocks/sidebar-07/components/app-sidebar"
+import { AppSidebar } from "@/registry/bases/radix/blocks/sidebar-07/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,13 +6,9 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/registry/bases/radix/ui/breadcrumb"
-import { Separator } from "@/registry/bases/radix/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/registry/bases/radix/ui/sidebar"
+} from "@/registry/bases/radix/ui/breadcrumb";
+import { Separator } from "@/registry/bases/radix/ui/separator";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/registry/bases/radix/ui/sidebar";
 
 export default function Page() {
   return (
@@ -29,9 +25,7 @@ export default function Page() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Build Your Application
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href="#">Build Your Application</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
@@ -51,5 +45,5 @@ export default function Page() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

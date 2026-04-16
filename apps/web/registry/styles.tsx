@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 export const STYLES = [
   {
@@ -139,6 +139,6 @@ export const STYLES = [
       </svg>
     ),
   },
-] as const
+] as const;
 
-export type Style = (typeof STYLES)[number]
+export type Style = (typeof STYLES)[number];

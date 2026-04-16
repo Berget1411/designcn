@@ -1,11 +1,11 @@
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from "@/registry/new-york-v4/ui/item"
+} from "@/registry/new-york-v4/ui/item";
 
 export default function ItemVariant() {
   return (
@@ -13,9 +13,7 @@ export default function ItemVariant() {
       <Item>
         <ItemContent>
           <ItemTitle>Default Variant</ItemTitle>
-          <ItemDescription>
-            Standard styling with subtle background and borders.
-          </ItemDescription>
+          <ItemDescription>Standard styling with subtle background and borders.</ItemDescription>
         </ItemContent>
         <ItemActions>
           <Button variant="outline" size="sm">
@@ -50,5 +48,5 @@ export default function ItemVariant() {
         </ItemActions>
       </Item>
     </div>
-  )
+  );
 }

@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Controller, useForm } from "react-hook-form"
-import { toast } from "sonner"
-import * as z from "zod"
+import * as React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Card,
   CardContent,
@@ -14,22 +14,22 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/registry/new-york-v4/ui/field"
-import { Textarea } from "@/registry/new-york-v4/ui/textarea"
+} from "@/registry/new-york-v4/ui/field";
+import { Textarea } from "@/registry/new-york-v4/ui/textarea";
 
 const formSchema = z.object({
   about: z
     .string()
     .min(10, "Please provide at least 10 characters.")
     .max(200, "Please keep it under 200 characters."),
-})
+});
 
 export default function FormRhfTextarea() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -37,7 +37,7 @@ export default function FormRhfTextarea() {
     defaultValues: {
       about: "",
     },
-  })
+  });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     toast("You submitted the following values:", {
@@ -53,7 +53,7 @@ export default function FormRhfTextarea() {
       style: {
         "--border-radius": "calc(var(--radius)  + 4px)",
       } as React.CSSProperties,
-    })
+    });
   }
 
   return (
@@ -72,9 +72,7 @@ export default function FormRhfTextarea() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-textarea-about">
-                    More about you
-                  </FieldLabel>
+                  <FieldLabel htmlFor="form-rhf-textarea-about">More about you</FieldLabel>
                   <Textarea
                     {...field}
                     id="form-rhf-textarea-about"
@@ -83,12 +81,10 @@ export default function FormRhfTextarea() {
                     className="min-h-[120px]"
                   />
                   <FieldDescription>
-                    Tell us more about yourself. This will be used to help us
-                    personalize your experience.
+                    Tell us more about yourself. This will be used to help us personalize your
+                    experience.
                   </FieldDescription>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />
@@ -106,5 +102,5 @@ export default function FormRhfTextarea() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

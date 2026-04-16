@@ -1,17 +1,10 @@
-"use client"
+"use client";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
-import { Button } from "@/registry/bases/base/ui/button"
-import { Kbd } from "@/registry/bases/base/ui/kbd"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/bases/base/ui/tooltip"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
+import { Button } from "@/registry/bases/base/ui/button";
+import { Kbd } from "@/registry/bases/base/ui/kbd";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/bases/base/ui/tooltip";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function TooltipExample() {
   return (
@@ -25,7 +18,7 @@ export default function TooltipExample() {
       <TooltipOnLink />
       <TooltipFormatted />
     </ExampleWrapper>
-  )
+  );
 }
 
 function TooltipBasic() {
@@ -40,27 +33,16 @@ function TooltipBasic() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipSides() {
   return (
     <Example title="Sides">
       <div className="flex flex-wrap gap-2">
-        {(
-          [
-            "inline-start",
-            "left",
-            "top",
-            "bottom",
-            "right",
-            "inline-end",
-          ] as const
-        ).map((side) => (
+        {(["inline-start", "left", "top", "bottom", "right", "inline-end"] as const).map((side) => (
           <Tooltip key={side}>
-            <TooltipTrigger
-              render={<Button variant="outline" className="w-fit capitalize" />}
-            >
+            <TooltipTrigger render={<Button variant="outline" className="w-fit capitalize" />}>
               {side.replace("-", " ")}
             </TooltipTrigger>
             <TooltipContent side={side}>
@@ -70,7 +52,7 @@ function TooltipSides() {
         ))}
       </div>
     </Example>
-  )
+  );
 }
 
 function TooltipWithIcon() {
@@ -92,7 +74,7 @@ function TooltipWithIcon() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipLongContent() {
@@ -103,12 +85,12 @@ function TooltipLongContent() {
           Show Tooltip
         </TooltipTrigger>
         <TooltipContent>
-          To learn more about how this works, check out the docs. If you have
-          any questions, please reach out to us.
+          To learn more about how this works, check out the docs. If you have any questions, please
+          reach out to us.
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipDisabled() {
@@ -125,7 +107,7 @@ function TooltipDisabled() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipWithKeyboard() {
@@ -146,7 +128,7 @@ function TooltipWithKeyboard() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipOnLink() {
@@ -169,7 +151,7 @@ function TooltipOnLink() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipFormatted() {
@@ -187,5 +169,5 @@ function TooltipFormatted() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }

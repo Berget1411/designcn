@@ -1,7 +1,4 @@
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/registry/new-york-v4/ui/native-select"
+import { NativeSelect, NativeSelectOption } from "@/registry/new-york-v4/ui/native-select";
 
 export default function NativeSelectInvalid() {
   return (
@@ -12,5 +9,5 @@ export default function NativeSelectInvalid() {
       <NativeSelectOption value="viewer">Viewer</NativeSelectOption>
       <NativeSelectOption value="guest">Guest</NativeSelectOption>
     </NativeSelect>
-  )
+  );
 }

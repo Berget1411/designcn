@@ -1,17 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import {
-  Field,
-  FieldDescription,
-  FieldLabel,
-} from "@/registry/bases/radix/ui/field"
-import { Input } from "@/registry/bases/radix/ui/input"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Field, FieldDescription, FieldLabel } from "@/registry/bases/radix/ui/field";
+import { Input } from "@/registry/bases/radix/ui/input";
 import {
   Select,
   SelectContent,
@@ -19,12 +12,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/radix/ui/select"
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/registry/bases/radix/ui/toggle-group"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/select";
+import { ToggleGroup, ToggleGroupItem } from "@/registry/bases/radix/ui/toggle-group";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function ToggleGroupExample() {
   return (
@@ -45,7 +35,7 @@ export default function ToggleGroupExample() {
       <ToggleGroupVerticalWithSpacing />
       <ToggleGroupFontWeightSelector />
     </ExampleWrapper>
-  )
+  );
 }
 
 function ToggleGroupBasic() {
@@ -81,7 +71,7 @@ function ToggleGroupBasic() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupOutline() {
@@ -96,7 +86,7 @@ function ToggleGroupOutline() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupOutlineWithIcons() {
@@ -132,19 +122,14 @@ function ToggleGroupOutlineWithIcons() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupSizes() {
   return (
     <Example title="Sizes">
       <div className="flex flex-col gap-4">
-        <ToggleGroup
-          type="single"
-          size="sm"
-          defaultValue="top"
-          variant="outline"
-        >
+        <ToggleGroup type="single" size="sm" defaultValue="top" variant="outline">
           <ToggleGroupItem value="top" aria-label="Toggle top">
             Top
           </ToggleGroupItem>
@@ -174,19 +159,13 @@ function ToggleGroupSizes() {
         </ToggleGroup>
       </div>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupSpacing() {
   return (
     <Example title="With Spacing">
-      <ToggleGroup
-        type="single"
-        size="sm"
-        defaultValue="top"
-        variant="outline"
-        spacing={2}
-      >
+      <ToggleGroup type="single" size="sm" defaultValue="top" variant="outline" spacing={2}>
         <ToggleGroupItem value="top" aria-label="Toggle top">
           Top
         </ToggleGroupItem>
@@ -201,7 +180,7 @@ function ToggleGroupSpacing() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupWithIcons() {
@@ -255,7 +234,7 @@ function ToggleGroupWithIcons() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupFilter() {
@@ -276,19 +255,13 @@ function ToggleGroupFilter() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupDateRange() {
   return (
     <Example title="Date Range">
-      <ToggleGroup
-        type="single"
-        defaultValue="today"
-        variant="outline"
-        size="sm"
-        spacing={2}
-      >
+      <ToggleGroup type="single" defaultValue="today" variant="outline" size="sm" spacing={2}>
         <ToggleGroupItem value="today" aria-label="Today">
           Today
         </ToggleGroupItem>
@@ -303,18 +276,13 @@ function ToggleGroupDateRange() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupSort() {
   return (
     <Example title="Sort">
-      <ToggleGroup
-        type="single"
-        defaultValue="newest"
-        variant="outline"
-        size="sm"
-      >
+      <ToggleGroup type="single" defaultValue="newest" variant="outline" size="sm">
         <ToggleGroupItem value="newest" aria-label="Newest">
           <IconPlaceholder
             lucide="ArrowDownIcon"
@@ -350,7 +318,7 @@ function ToggleGroupSort() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupWithInputAndSelect() {
@@ -380,7 +348,7 @@ function ToggleGroupWithInputAndSelect() {
         </ToggleGroup>
       </div>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupVertical() {
@@ -416,7 +384,7 @@ function ToggleGroupVertical() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupVerticalOutline() {
@@ -443,18 +411,13 @@ function ToggleGroupVerticalOutline() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupVerticalOutlineWithIcons() {
   return (
     <Example title="Vertical Outline With Icons">
-      <ToggleGroup
-        variant="outline"
-        type="multiple"
-        orientation="vertical"
-        size="sm"
-      >
+      <ToggleGroup variant="outline" type="multiple" orientation="vertical" size="sm">
         <ToggleGroupItem value="bold" aria-label="Toggle bold">
           <IconPlaceholder
             lucide="BoldIcon"
@@ -484,11 +447,11 @@ function ToggleGroupVerticalOutlineWithIcons() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupFontWeightSelector() {
-  const [fontWeight, setFontWeight] = React.useState("normal")
+  const [fontWeight, setFontWeight] = React.useState("normal");
   return (
     <Example title="Font Weight Selector">
       <Field>
@@ -535,15 +498,12 @@ function ToggleGroupFontWeightSelector() {
           </ToggleGroupItem>
         </ToggleGroup>
         <FieldDescription>
-          Use{" "}
-          <code className="rounded-md bg-muted px-1 py-0.5 font-mono">
-            font-{fontWeight}
-          </code>{" "}
+          Use <code className="rounded-md bg-muted px-1 py-0.5 font-mono">font-{fontWeight}</code>{" "}
           to set the font weight.
         </FieldDescription>
       </Field>
     </Example>
-  )
+  );
 }
 
 function ToggleGroupVerticalWithSpacing() {
@@ -571,5 +531,5 @@ function ToggleGroupVerticalWithSpacing() {
         </ToggleGroupItem>
       </ToggleGroup>
     </Example>
-  )
+  );
 }

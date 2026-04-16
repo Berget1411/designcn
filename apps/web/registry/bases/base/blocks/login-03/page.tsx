@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { LoginForm } from "@/registry/bases/base/blocks/login-03/components/login-form"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { LoginForm } from "@/registry/bases/base/blocks/login-03/components/login-form";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function LoginPage() {
   return (
@@ -23,5 +23,5 @@ export default function LoginPage() {
         <LoginForm />
       </div>
     </div>
-  )
+  );
 }

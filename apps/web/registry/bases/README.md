@@ -2,8 +2,8 @@
 
 This folder holds **two parallel registries**:
 
-- **`base/`** — Base UI–backed components and blocks  
-- **`radix/`** — Radix-backed components and blocks  
+- **`base/`** — Base UI–backed components and blocks
+- **`radix/`** — Radix-backed components and blocks
 
 ## Keep them in sync
 

@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   Area,
   AreaChart,
@@ -20,12 +20,9 @@ import {
   RadialBar,
   RadialBarChart,
   XAxis,
-} from "recharts"
+} from "recharts";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
 import {
   Card,
   CardContent,
@@ -33,14 +30,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/base/ui/card"
+} from "@/registry/bases/base/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/registry/bases/base/ui/chart"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/chart";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 const areaChartData = [
   { month: "January", desktop: 186 },
@@ -49,14 +46,14 @@ const areaChartData = [
   { month: "April", desktop: 73 },
   { month: "May", desktop: 209 },
   { month: "June", desktop: 214 },
-]
+];
 
 const areaChartConfig = {
   desktop: {
     label: "Desktop",
     color: "var(--chart-1)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export default function ChartExample() {
   return (
@@ -68,7 +65,7 @@ export default function ChartExample() {
       <ChartRadialExample />
       <ChartRadarExample />
     </ExampleWrapper>
-  )
+  );
 }
 
 function ChartAreaExample() {
@@ -77,9 +74,7 @@ function ChartAreaExample() {
       <Card className="w-full">
         <CardHeader>
           <CardTitle>Area Chart</CardTitle>
-          <CardDescription>
-            Showing total visitors for the last 6 months
-          </CardDescription>
+          <CardDescription>Showing total visitors for the last 6 months</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={areaChartConfig}>
@@ -99,10 +94,7 @@ function ChartAreaExample() {
                 tickMargin={8}
                 tickFormatter={(value) => value.slice(0, 3)}
               />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="line" />}
-              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
               <Area
                 dataKey="desktop"
                 type="natural"
@@ -135,7 +127,7 @@ function ChartAreaExample() {
         </CardFooter>
       </Card>
     </Example>
-  )
+  );
 }
 
 const barChartData = [
@@ -145,7 +137,7 @@ const barChartData = [
   { month: "April", desktop: 73, mobile: 190 },
   { month: "May", desktop: 209, mobile: 130 },
   { month: "June", desktop: 214, mobile: 140 },
-]
+];
 
 const barChartConfig = {
   desktop: {
@@ -156,7 +148,7 @@ const barChartConfig = {
     label: "Mobile",
     color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 function ChartBarExample() {
   return (
@@ -177,10 +169,7 @@ function ChartBarExample() {
                 axisLine={false}
                 tickFormatter={(value) => value.slice(0, 3)}
               />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="dashed" />}
-              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dashed" />} />
               <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
               <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
             </BarChart>
@@ -204,7 +193,7 @@ function ChartBarExample() {
         </CardFooter>
       </Card>
     </Example>
-  )
+  );
 }
 
 const lineChartData = [
@@ -214,7 +203,7 @@ const lineChartData = [
   { month: "April", desktop: 73, mobile: 190 },
   { month: "May", desktop: 209, mobile: 130 },
   { month: "June", desktop: 214, mobile: 140 },
-]
+];
 
 const lineChartConfig = {
   desktop: {
@@ -225,7 +214,7 @@ const lineChartConfig = {
     label: "Mobile",
     color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 function ChartLineExample() {
   return (
@@ -293,7 +282,7 @@ function ChartLineExample() {
         </CardFooter>
       </Card>
     </Example>
-  )
+  );
 }
 
 const pieChartData = [
@@ -302,7 +291,7 @@ const pieChartData = [
   { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
   { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
   { browser: "other", visitors: 190, fill: "var(--color-other)" },
-]
+];
 
 const pieChartConfig = {
   visitors: {
@@ -328,12 +317,12 @@ const pieChartConfig = {
     label: "Other",
     color: "var(--chart-5)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 function ChartPieExample() {
   const totalVisitors = React.useMemo(() => {
-    return pieChartData.reduce((acc, curr) => acc + curr.visitors, 0)
-  }, [])
+    return pieChartData.reduce((acc, curr) => acc + curr.visitors, 0);
+  }, []);
 
   return (
     <Example title="Pie Chart">
@@ -343,15 +332,9 @@ function ChartPieExample() {
           <CardDescription>January - June 2024</CardDescription>
         </CardHeader>
         <CardContent className="flex-1 pb-0">
-          <ChartContainer
-            config={pieChartConfig}
-            className="mx-auto aspect-square max-h-[250px]"
-          >
+          <ChartContainer config={pieChartConfig} className="mx-auto aspect-square max-h-[250px]">
             <PieChart>
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
               <Pie
                 data={pieChartData}
                 dataKey="visitors"
@@ -384,7 +367,7 @@ function ChartPieExample() {
                             Visitors
                           </tspan>
                         </text>
-                      )
+                      );
                     }
                   }}
                 />
@@ -410,7 +393,7 @@ function ChartPieExample() {
         </CardFooter>
       </Card>
     </Example>
-  )
+  );
 }
 
 const radarChartData = [
@@ -420,7 +403,7 @@ const radarChartData = [
   { month: "April", desktop: 73, mobile: 190 },
   { month: "May", desktop: 209, mobile: 130 },
   { month: "June", desktop: 214, mobile: 140 },
-]
+];
 
 const radarChartConfig = {
   desktop: {
@@ -431,7 +414,7 @@ const radarChartConfig = {
     label: "Mobile",
     color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 function ChartRadarExample() {
   return (
@@ -439,27 +422,15 @@ function ChartRadarExample() {
       <Card className="w-full">
         <CardHeader className="items-center pb-4">
           <CardTitle>Radar Chart - Multiple</CardTitle>
-          <CardDescription>
-            Showing total visitors for the last 6 months
-          </CardDescription>
+          <CardDescription>Showing total visitors for the last 6 months</CardDescription>
         </CardHeader>
         <CardContent className="pb-0">
-          <ChartContainer
-            config={radarChartConfig}
-            className="mx-auto aspect-square max-h-[250px]"
-          >
+          <ChartContainer config={radarChartConfig} className="mx-auto aspect-square max-h-[250px]">
             <RadarChart data={radarChartData}>
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="line" />}
-              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
               <PolarAngleAxis dataKey="month" />
               <PolarGrid />
-              <Radar
-                dataKey="desktop"
-                fill="var(--color-desktop)"
-                fillOpacity={0.6}
-              />
+              <Radar dataKey="desktop" fill="var(--color-desktop)" fillOpacity={0.6} />
               <Radar dataKey="mobile" fill="var(--color-mobile)" />
             </RadarChart>
           </ChartContainer>
@@ -482,12 +453,10 @@ function ChartRadarExample() {
         </CardFooter>
       </Card>
     </Example>
-  )
+  );
 }
 
-const radialChartData = [
-  { browser: "safari", visitors: 1260, fill: "var(--color-safari)" },
-]
+const radialChartData = [{ browser: "safari", visitors: 1260, fill: "var(--color-safari)" }];
 
 const radialChartConfig = {
   visitors: {
@@ -497,7 +466,7 @@ const radialChartConfig = {
     label: "Safari",
     color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 function ChartRadialExample() {
   return (
@@ -512,12 +481,7 @@ function ChartRadialExample() {
             config={radialChartConfig}
             className="mx-auto aspect-square max-h-[210px]"
           >
-            <RadialBarChart
-              data={radialChartData}
-              endAngle={100}
-              innerRadius={64}
-              outerRadius={94}
-            >
+            <RadialBarChart data={radialChartData} endAngle={100} innerRadius={64} outerRadius={94}>
               <PolarGrid
                 gridType="circle"
                 radialLines={false}
@@ -552,7 +516,7 @@ function ChartRadialExample() {
                             Visitors
                           </tspan>
                         </text>
-                      )
+                      );
                     }
                   }}
                 />
@@ -578,5 +542,5 @@ function ChartRadialExample() {
         </CardFooter>
       </Card>
     </Example>
-  )
+  );
 }

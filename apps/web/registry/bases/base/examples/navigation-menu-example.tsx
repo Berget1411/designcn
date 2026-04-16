@@ -1,12 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
+import * as React from "react";
+import Link from "next/link";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,8 +12,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/registry/bases/base/ui/navigation-menu"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/navigation-menu";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -28,8 +25,7 @@ const components: { title: string; href: string; description: string }[] = [
   {
     title: "Hover Card",
     href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
+    description: "For sighted users to preview content available behind a link.",
   },
   {
     title: "Progress",
@@ -54,14 +50,14 @@ const components: { title: string; href: string; description: string }[] = [
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
-]
+];
 
 export default function NavigationMenuExample() {
   return (
     <ExampleWrapper className="lg:grid-cols-1">
       <NavigationMenuBasic />
     </ExampleWrapper>
-  )
+  );
 }
 
 function NavigationMenuBasic() {
@@ -90,11 +86,7 @@ function NavigationMenuBasic() {
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                 {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    href={component.href}
-                  >
+                  <ListItem key={component.title} title={component.title} href={component.href}>
                     {component.description}
                   </ListItem>
                 ))}
@@ -107,9 +99,7 @@ function NavigationMenuBasic() {
               <ul className="grid w-[200px]">
                 <li>
                   <NavigationMenuLink
-                    render={
-                      <Link href="#" className="flex-row items-center gap-2" />
-                    }
+                    render={<Link href="#" className="flex-row items-center gap-2" />}
                   >
                     <IconPlaceholder
                       lucide="CircleAlertIcon"
@@ -121,9 +111,7 @@ function NavigationMenuBasic() {
                     Backlog
                   </NavigationMenuLink>
                   <NavigationMenuLink
-                    render={
-                      <Link href="#" className="flex-row items-center gap-2" />
-                    }
+                    render={<Link href="#" className="flex-row items-center gap-2" />}
                   >
                     <IconPlaceholder
                       lucide="CircleAlertIcon"
@@ -135,9 +123,7 @@ function NavigationMenuBasic() {
                     To Do
                   </NavigationMenuLink>
                   <NavigationMenuLink
-                    render={
-                      <Link href="#" className="flex-row items-center gap-2" />
-                    }
+                    render={<Link href="#" className="flex-row items-center gap-2" />}
                   >
                     <IconPlaceholder
                       lucide="CircleAlertIcon"
@@ -163,7 +149,7 @@ function NavigationMenuBasic() {
         </NavigationMenuList>
       </NavigationMenu>
     </Example>
-  )
+  );
 }
 
 function ListItem({
@@ -181,5 +167,5 @@ function ListItem({
         </div>
       </NavigationMenuLink>
     </li>
-  )
+  );
 }

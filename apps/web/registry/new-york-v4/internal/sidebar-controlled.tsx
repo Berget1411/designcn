@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   FrameIcon,
   LifeBuoyIcon,
@@ -9,9 +9,9 @@ import {
   PanelLeftOpenIcon,
   PieChartIcon,
   SendIcon,
-} from "lucide-react"
+} from "lucide-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -23,7 +23,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@/registry/new-york-v4/ui/sidebar"
+} from "@/registry/new-york-v4/ui/sidebar";
 
 const projects = [
   {
@@ -51,10 +51,10 @@ const projects = [
     url: "#",
     icon: SendIcon,
   },
-]
+];
 
 export default function AppSidebar() {
-  const [open, setOpen] = React.useState(true)
+  const [open, setOpen] = React.useState(true);
 
   return (
     <SidebarProvider open={open} onOpenChange={setOpen}>
@@ -81,16 +81,12 @@ export default function AppSidebar() {
       </Sidebar>
       <SidebarInset>
         <header className="flex h-12 items-center justify-between px-4">
-          <Button
-            onClick={() => setOpen((open) => !open)}
-            size="sm"
-            variant="ghost"
-          >
+          <Button onClick={() => setOpen((open) => !open)} size="sm" variant="ghost">
             {open ? <PanelLeftCloseIcon /> : <PanelLeftOpenIcon />}
             <span>{open ? "Close" : "Open"} Sidebar</span>
           </Button>
         </header>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

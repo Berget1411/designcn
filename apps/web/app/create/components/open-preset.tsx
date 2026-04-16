@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Script from "next/script"
-import { useRouter } from "next/navigation"
+import * as React from "react";
+import Script from "next/script";
+import { useRouter } from "next/navigation";
 
-import { cn } from "@/lib/utils"
-import { useIsMobile } from "@/hooks/use-mobile"
-import { Button } from "@workspace/ui/components/button"
+import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { Button } from "@workspace/ui/components/button";
 import {
   Dialog,
   DialogClose,
@@ -16,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@workspace/ui/components/dialog"
+} from "@workspace/ui/components/dialog";
 import {
   Drawer,
   DrawerClose,
@@ -26,76 +26,71 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@workspace/ui/components/drawer"
-import { Field, FieldContent, FieldLabel } from "@workspace/ui/components/field"
-import { Input } from "@workspace/ui/components/input"
-import {
-  OPEN_PRESET_FORWARD_TYPE,
-  useOpenPreset,
-} from "@/app/create/hooks/use-open-preset"
-import { parseOpenConfigInput } from "@/app/create/lib/parse-open-config-input"
-import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
+} from "@workspace/ui/components/drawer";
+import { Field, FieldContent, FieldLabel } from "@workspace/ui/components/field";
+import { Input } from "@workspace/ui/components/input";
+import { OPEN_PRESET_FORWARD_TYPE, useOpenPreset } from "@/app/create/hooks/use-open-preset";
+import { parseOpenConfigInput } from "@/app/create/lib/parse-open-config-input";
+import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
 
-const PRESET_EXAMPLE = "b2D0wqNxT"
-const PRESET_TITLE = "Open Config"
+const PRESET_EXAMPLE = "b2D0wqNxT";
+const PRESET_TITLE = "Open Config";
 const PRESET_DESCRIPTION =
-  "Paste a create link, query string, or preset code to load a saved configuration."
+  "Paste a create link, query string, or preset code to load a saved configuration.";
 
 export function OpenPreset({
   className,
   label = "Open Config",
 }: React.ComponentProps<typeof Button> & {
-  label?: string
+  label?: string;
 }) {
-  const [input, setInput] = React.useState("")
-  const [, setParams] = useDesignSystemSearchParams()
-  const router = useRouter()
-  const isMobile = useIsMobile()
-  const { open, setOpen } = useOpenPreset()
+  const [input, setInput] = React.useState("");
+  const [, setParams] = useDesignSystemSearchParams();
+  const router = useRouter();
+  const isMobile = useIsMobile();
+  const { open, setOpen } = useOpenPreset();
 
-  const nextInput = React.useMemo(() => parseOpenConfigInput(input), [input])
-  const isInvalid = input.trim().length > 0 && nextInput === null
+  const nextInput = React.useMemo(() => parseOpenConfigInput(input), [input]);
+  const isInvalid = input.trim().length > 0 && nextInput === null;
 
   const handleOpenChange = React.useCallback(
     (nextOpen: boolean) => {
-      setOpen(nextOpen)
+      setOpen(nextOpen);
 
       if (!nextOpen) {
-        setInput("")
+        setInput("");
       }
     },
-    [setOpen]
-  )
+    [setOpen],
+  );
 
   const handleSubmit = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
+      event.preventDefault();
 
       if (!nextInput) {
-        return
+        return;
       }
 
       if (nextInput?.type === "preset") {
-        setParams({ preset: nextInput.preset })
+        setParams({ preset: nextInput.preset });
       } else if (nextInput?.type === "query") {
-        router.push(`/create?${nextInput.query}`)
+        router.push(`/create?${nextInput.query}`);
       } else {
-        return
+        return;
       }
 
-      handleOpenChange(false)
+      handleOpenChange(false);
     },
-    [handleOpenChange, nextInput, router, setParams]
-  )
+    [handleOpenChange, nextInput, router, setParams],
+  );
 
   const triggerClassName = cn(
     "touch-manipulation bg-transparent! px-2! py-0! text-sm! transition-none select-none hover:bg-muted! pointer-coarse:h-10!",
-    className
-  )
+    className,
+  );
 
-  const desktopTrigger = (
-    <Button variant="outline" className={triggerClassName} />
-  )
+  const desktopTrigger = <Button variant="outline" className={triggerClassName} />;
 
   const fields = (
     <Field data-invalid={isInvalid || undefined}>
@@ -116,7 +111,7 @@ export function OpenPreset({
         />
       </FieldContent>
     </Field>
-  )
+  );
 
   if (isMobile) {
     return (
@@ -146,7 +141,7 @@ export function OpenPreset({
           </form>
         </DrawerContent>
       </Drawer>
-    )
+    );
   }
 
   return (
@@ -160,9 +155,7 @@ export function OpenPreset({
           </DialogHeader>
           <div className="py-4">{fields}</div>
           <DialogFooter>
-            <DialogClose render={<Button variant="outline" type="button" />}>
-              Cancel
-            </DialogClose>
+            <DialogClose render={<Button variant="outline" type="button" />}>Cancel</DialogClose>
             <Button type="submit" disabled={!nextInput}>
               Open
             </Button>
@@ -170,7 +163,7 @@ export function OpenPreset({
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 export function OpenPresetScript() {
@@ -206,5 +199,5 @@ export function OpenPresetScript() {
           `,
       }}
     />
-  )
+  );
 }

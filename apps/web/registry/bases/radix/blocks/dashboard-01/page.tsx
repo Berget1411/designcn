@@ -1,14 +1,11 @@
-import { AppSidebar } from "@/registry/bases/radix/blocks/dashboard-01/components/app-sidebar"
-import { ChartAreaInteractive } from "@/registry/bases/radix/blocks/dashboard-01/components/chart-area-interactive"
-import { DataTable } from "@/registry/bases/radix/blocks/dashboard-01/components/data-table"
-import { SectionCards } from "@/registry/bases/radix/blocks/dashboard-01/components/section-cards"
-import { SiteHeader } from "@/registry/bases/radix/blocks/dashboard-01/components/site-header"
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/registry/bases/radix/ui/sidebar"
+import { AppSidebar } from "@/registry/bases/radix/blocks/dashboard-01/components/app-sidebar";
+import { ChartAreaInteractive } from "@/registry/bases/radix/blocks/dashboard-01/components/chart-area-interactive";
+import { DataTable } from "@/registry/bases/radix/blocks/dashboard-01/components/data-table";
+import { SectionCards } from "@/registry/bases/radix/blocks/dashboard-01/components/section-cards";
+import { SiteHeader } from "@/registry/bases/radix/blocks/dashboard-01/components/site-header";
+import { SidebarInset, SidebarProvider } from "@/registry/bases/radix/ui/sidebar";
 
-import data from "./data.json"
+import data from "./data.json";
 
 export default function Page() {
   return (
@@ -36,5 +33,5 @@ export default function Page() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

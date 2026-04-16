@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/registry/bases/base/ui/card"
-import { Skeleton } from "@/registry/bases/base/ui/skeleton"
+import { Card, CardContent } from "@/registry/bases/base/ui/card";
+import { Skeleton } from "@/registry/bases/base/ui/skeleton";
 
 export function SkeletonLoading() {
   return (
@@ -25,5 +25,5 @@ export function SkeletonLoading() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

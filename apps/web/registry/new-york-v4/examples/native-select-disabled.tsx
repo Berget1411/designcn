@@ -1,7 +1,4 @@
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/registry/new-york-v4/ui/native-select"
+import { NativeSelect, NativeSelectOption } from "@/registry/new-york-v4/ui/native-select";
 
 export default function NativeSelectDisabled() {
   return (
@@ -12,5 +9,5 @@ export default function NativeSelectDisabled() {
       <NativeSelectOption value="high">High</NativeSelectOption>
       <NativeSelectOption value="critical">Critical</NativeSelectOption>
     </NativeSelect>
-  )
+  );
 }

@@ -1,11 +1,4 @@
-import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react"
+import { Calculator, Calendar, CreditCard, Settings, Smile, User } from "lucide-react";
 
 import {
   Command,
@@ -16,7 +9,7 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@/registry/new-york-v4/ui/command"
+} from "@/registry/new-york-v4/ui/command";
 
 export default function CommandDemo() {
   return (
@@ -58,5 +51,5 @@ export default function CommandDemo() {
         </CommandGroup>
       </CommandList>
     </Command>
-  )
+  );
 }

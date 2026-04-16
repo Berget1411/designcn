@@ -1,11 +1,11 @@
 /* eslint-disable react/no-children-prop */
-"use client"
+"use client";
 
-import { useForm } from "@tanstack/react-form"
-import { toast } from "sonner"
-import * as z from "zod"
+import { useForm } from "@tanstack/react-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Card,
   CardContent,
@@ -13,7 +13,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   Field,
   FieldContent,
@@ -21,14 +21,14 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/registry/new-york-v4/ui/field"
-import { Switch } from "@/registry/new-york-v4/ui/switch"
+} from "@/registry/new-york-v4/ui/field";
+import { Switch } from "@/registry/new-york-v4/ui/switch";
 
 const formSchema = z.object({
   twoFactor: z.boolean().refine((val) => val === true, {
     message: "It is highly recommended to enable two-factor authentication.",
   }),
-})
+});
 
 export default function FormTanstackSwitch() {
   const form = useForm({
@@ -52,32 +52,29 @@ export default function FormTanstackSwitch() {
         style: {
           "--border-radius": "calc(var(--radius)  + 4px)",
         } as React.CSSProperties,
-      })
+      });
     },
-  })
+  });
 
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>
         <CardTitle>Security Settings</CardTitle>
-        <CardDescription>
-          Manage your account security preferences.
-        </CardDescription>
+        <CardDescription>Manage your account security preferences.</CardDescription>
       </CardHeader>
       <CardContent>
         <form
           id="form-tanstack-switch"
           onSubmit={(e) => {
-            e.preventDefault()
-            form.handleSubmit()
+            e.preventDefault();
+            form.handleSubmit();
           }}
         >
           <FieldGroup>
             <form.Field
               name="twoFactor"
               children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid
+                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field orientation="horizontal" data-invalid={isInvalid}>
                     <FieldContent>
@@ -85,12 +82,9 @@ export default function FormTanstackSwitch() {
                         Multi-factor authentication
                       </FieldLabel>
                       <FieldDescription>
-                        Enable multi-factor authentication to secure your
-                        account.
+                        Enable multi-factor authentication to secure your account.
                       </FieldDescription>
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
                     </FieldContent>
                     <Switch
                       id="form-tanstack-switch-twoFactor"
@@ -100,7 +94,7 @@ export default function FormTanstackSwitch() {
                       aria-invalid={isInvalid}
                     />
                   </Field>
-                )
+                );
               }}
             />
           </FieldGroup>
@@ -117,5 +111,5 @@ export default function FormTanstackSwitch() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

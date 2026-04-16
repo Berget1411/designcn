@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardContent,
@@ -8,9 +8,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
-import { Field, FieldGroup, FieldLabel } from "@/registry/bases/radix/ui/field"
-import { Input } from "@/registry/bases/radix/ui/input"
+} from "@/registry/bases/radix/ui/card";
+import { Field, FieldGroup, FieldLabel } from "@/registry/bases/radix/ui/field";
+import { Input } from "@/registry/bases/radix/ui/input";
 import {
   Select,
   SelectContent,
@@ -18,8 +18,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/radix/ui/select"
-import { Textarea } from "@/registry/bases/radix/ui/textarea"
+} from "@/registry/bases/radix/ui/select";
+import { Textarea } from "@/registry/bases/radix/ui/textarea";
 
 export function ReportBug() {
   return (
@@ -32,10 +32,7 @@ export function ReportBug() {
         <FieldGroup>
           <Field>
             <FieldLabel htmlFor="bug-title">Title</FieldLabel>
-            <Input
-              id="bug-title"
-              placeholder="Brief description of the issue"
-            />
+            <Input id="bug-title" placeholder="Brief description of the issue" />
           </Field>
           <div className="grid grid-cols-2 gap-3">
             <Field>
@@ -88,5 +85,5 @@ export function ReportBug() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

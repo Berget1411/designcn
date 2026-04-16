@@ -1,12 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Field, FieldLabel } from "@/registry/bases/radix/ui/field"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Field, FieldLabel } from "@/registry/bases/radix/ui/field";
 import {
   Item,
   ItemActions,
@@ -14,10 +11,10 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle,
-} from "@/registry/bases/radix/ui/item"
-import { Progress } from "@/registry/bases/radix/ui/progress"
-import { Slider } from "@/registry/bases/radix/ui/slider"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/item";
+import { Progress } from "@/registry/bases/radix/ui/progress";
+import { Slider } from "@/registry/bases/radix/ui/slider";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function ProgressExample() {
   return (
@@ -27,7 +24,7 @@ export default function ProgressExample() {
       <ProgressControlled />
       <FileUploadList />
     </ExampleWrapper>
-  )
+  );
 }
 
 function ProgressValues() {
@@ -41,7 +38,7 @@ function ProgressValues() {
         <Progress value={100} />
       </div>
     </Example>
-  )
+  );
 }
 
 function ProgressWithLabel() {
@@ -55,26 +52,20 @@ function ProgressWithLabel() {
         <Progress value={66} className="w-full" id="progress-upload" />
       </Field>
     </Example>
-  )
+  );
 }
 
 function ProgressControlled() {
-  const [value, setValue] = React.useState([50])
+  const [value, setValue] = React.useState([50]);
 
   return (
     <Example title="Controlled">
       <div className="flex w-full flex-col gap-4">
         <Progress value={value[0]} className="w-full" />
-        <Slider
-          value={value}
-          onValueChange={setValue}
-          min={0}
-          max={100}
-          step={1}
-        />
+        <Slider value={value} onValueChange={setValue} min={0} max={100} step={1} />
       </div>
     </Example>
-  )
+  );
 }
 
 function FileUploadList() {
@@ -105,8 +96,8 @@ function FileUploadList() {
         timeRemaining: "Complete",
       },
     ],
-    []
-  )
+    [],
+  );
 
   return (
     <Example title="File Upload List">
@@ -130,13 +121,11 @@ function FileUploadList() {
               <Progress value={file.progress} className="w-32" />
             </ItemContent>
             <ItemActions className="w-16 justify-end">
-              <span className="text-sm text-muted-foreground">
-                {file.timeRemaining}
-              </span>
+              <span className="text-sm text-muted-foreground">{file.timeRemaining}</span>
             </ItemActions>
           </Item>
         ))}
       </ItemGroup>
     </Example>
-  )
+  );
 }

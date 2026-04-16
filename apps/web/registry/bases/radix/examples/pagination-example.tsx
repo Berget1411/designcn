@@ -1,8 +1,5 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Field, FieldLabel } from "@/registry/bases/radix/ui/field"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Field, FieldLabel } from "@/registry/bases/radix/ui/field";
 import {
   Pagination,
   PaginationContent,
@@ -11,7 +8,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/registry/bases/radix/ui/pagination"
+} from "@/registry/bases/radix/ui/pagination";
 import {
   Select,
   SelectContent,
@@ -19,7 +16,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/radix/ui/select"
+} from "@/registry/bases/radix/ui/select";
 
 export default function PaginationExample() {
   return (
@@ -28,7 +25,7 @@ export default function PaginationExample() {
       <PaginationSimple />
       <PaginationIconsOnly />
     </ExampleWrapper>
-  )
+  );
 }
 
 function PaginationBasic() {
@@ -59,7 +56,7 @@ function PaginationBasic() {
         </PaginationContent>
       </Pagination>
     </Example>
-  )
+  );
 }
 
 function PaginationSimple() {
@@ -87,7 +84,7 @@ function PaginationSimple() {
         </PaginationContent>
       </Pagination>
     </Example>
-  )
+  );
 }
 
 function PaginationIconsOnly() {
@@ -122,5 +119,5 @@ function PaginationIconsOnly() {
         </Pagination>
       </div>
     </Example>
-  )
+  );
 }

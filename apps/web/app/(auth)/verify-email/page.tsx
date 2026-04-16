@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState } from 'react';
-import { sendVerificationEmail, useSession } from '@/lib/auth-client';
+import Link from "next/link";
+import { useState } from "react";
+import { sendVerificationEmail, useSession } from "@/lib/auth-client";
 
 export default function VerifyEmailPage() {
   const { data: session } = useSession();
@@ -12,7 +12,7 @@ export default function VerifyEmailPage() {
   async function handleResend() {
     if (!session?.user.email) return;
     setLoading(true);
-    await sendVerificationEmail({ email: session.user.email, callbackURL: '/' });
+    await sendVerificationEmail({ email: session.user.email, callbackURL: "/" });
     setSent(true);
     setLoading(false);
   }
@@ -21,7 +21,8 @@ export default function VerifyEmailPage() {
     <div className="w-full max-w-sm space-y-4 text-center">
       <h1 className="text-2xl font-semibold tracking-tight">Verify your email</h1>
       <p className="text-sm text-muted-foreground">
-        We sent a verification link to your email address. Check your inbox and click the link to continue.
+        We sent a verification link to your email address. Check your inbox and click the link to
+        continue.
       </p>
 
       {sent ? (
@@ -33,7 +34,7 @@ export default function VerifyEmailPage() {
           disabled={loading || !session}
           className="text-sm font-medium text-foreground hover:underline disabled:opacity-50"
         >
-          {loading ? 'Sending…' : 'Resend verification email'}
+          {loading ? "Sending…" : "Resend verification email"}
         </button>
       )}
 

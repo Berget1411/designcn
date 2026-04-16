@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/registry/new-york-v4/blocks/sidebar-02/components/app-sidebar"
+import { AppSidebar } from "@/registry/new-york-v4/blocks/sidebar-02/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,13 +6,9 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/registry/new-york-v4/ui/breadcrumb"
-import { Separator } from "@/registry/new-york-v4/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/registry/new-york-v4/ui/sidebar"
+} from "@/registry/new-york-v4/ui/breadcrumb";
+import { Separator } from "@/registry/new-york-v4/ui/separator";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/registry/new-york-v4/ui/sidebar";
 
 export default function Page() {
   return (
@@ -36,13 +32,10 @@ export default function Page() {
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
           {Array.from({ length: 24 }).map((_, index) => (
-            <div
-              key={index}
-              className="aspect-video h-12 w-full rounded-lg bg-muted/50"
-            />
+            <div key={index} className="aspect-video h-12 w-full rounded-lg bg-muted/50" />
           ))}
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

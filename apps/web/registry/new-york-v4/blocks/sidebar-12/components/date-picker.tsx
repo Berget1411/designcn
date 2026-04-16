@@ -1,8 +1,5 @@
-import { Calendar } from "@/registry/new-york-v4/ui/calendar"
-import {
-  SidebarGroup,
-  SidebarGroupContent,
-} from "@/registry/new-york-v4/ui/sidebar"
+import { Calendar } from "@/registry/new-york-v4/ui/calendar";
+import { SidebarGroup, SidebarGroupContent } from "@/registry/new-york-v4/ui/sidebar";
 
 export function DatePicker() {
   return (
@@ -11,5 +8,5 @@ export function DatePicker() {
         <Calendar className="[&_[role=gridcell]]:w-[33px] [&_[role=gridcell].bg-accent]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground" />
       </SidebarGroupContent>
     </SidebarGroup>
-  )
+  );
 }

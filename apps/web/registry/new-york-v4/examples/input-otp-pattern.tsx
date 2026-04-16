@@ -1,12 +1,8 @@
-"use client"
+"use client";
 
-import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
+import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/registry/new-york-v4/ui/input-otp"
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/registry/new-york-v4/ui/input-otp";
 
 export default function InputOTPPattern() {
   return (
@@ -20,5 +16,5 @@ export default function InputOTPPattern() {
         <InputOTPSlot index={5} />
       </InputOTPGroup>
     </InputOTP>
-  )
+  );
 }

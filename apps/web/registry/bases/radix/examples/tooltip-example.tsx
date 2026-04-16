@@ -1,17 +1,10 @@
-"use client"
+"use client";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Button } from "@/registry/bases/radix/ui/button"
-import { Kbd } from "@/registry/bases/radix/ui/kbd"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/bases/radix/ui/tooltip"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Button } from "@/registry/bases/radix/ui/button";
+import { Kbd } from "@/registry/bases/radix/ui/kbd";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/bases/radix/ui/tooltip";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function TooltipExample() {
   return (
@@ -25,7 +18,7 @@ export default function TooltipExample() {
       <TooltipOnLink />
       <TooltipFormatted />
     </ExampleWrapper>
-  )
+  );
 }
 
 function TooltipBasic() {
@@ -42,7 +35,7 @@ function TooltipBasic() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipSides() {
@@ -63,7 +56,7 @@ function TooltipSides() {
         ))}
       </div>
     </Example>
-  )
+  );
 }
 
 function TooltipWithIcon() {
@@ -87,7 +80,7 @@ function TooltipWithIcon() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipLongContent() {
@@ -100,12 +93,12 @@ function TooltipLongContent() {
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          To learn more about how this works, check out the docs. If you have
-          any questions, please reach out to us.
+          To learn more about how this works, check out the docs. If you have any questions, please
+          reach out to us.
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipDisabled() {
@@ -124,7 +117,7 @@ function TooltipDisabled() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipWithKeyboard() {
@@ -147,7 +140,7 @@ function TooltipWithKeyboard() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipOnLink() {
@@ -168,7 +161,7 @@ function TooltipOnLink() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function TooltipFormatted() {
@@ -188,5 +181,5 @@ function TooltipFormatted() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }

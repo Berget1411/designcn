@@ -1,14 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { toast } from "sonner"
+import * as React from "react";
+import { toast } from "sonner";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Button } from "@/registry/bases/radix/ui/button"
-import { Card, CardContent, CardFooter } from "@/registry/bases/radix/ui/card"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Button } from "@/registry/bases/radix/ui/button";
+import { Card, CardContent, CardFooter } from "@/registry/bases/radix/ui/card";
 import {
   Combobox,
   ComboboxChip,
@@ -26,7 +23,7 @@ import {
   ComboboxTrigger,
   ComboboxValue,
   useComboboxAnchor,
-} from "@/registry/bases/radix/ui/combobox"
+} from "@/registry/bases/radix/ui/combobox";
 import {
   Dialog,
   DialogContent,
@@ -35,26 +32,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/bases/radix/ui/dialog"
+} from "@/registry/bases/radix/ui/dialog";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/registry/bases/radix/ui/field"
-import { Input } from "@/registry/bases/radix/ui/input"
+} from "@/registry/bases/radix/ui/field";
+import { Input } from "@/registry/bases/radix/ui/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@/registry/bases/radix/ui/input-group"
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemTitle,
-} from "@/registry/bases/radix/ui/item"
+} from "@/registry/bases/radix/ui/input-group";
+import { Item, ItemContent, ItemDescription, ItemTitle } from "@/registry/bases/radix/ui/item";
 import {
   Select,
   SelectContent,
@@ -62,8 +54,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/radix/ui/select"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/select";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function ComboboxExample() {
   return (
@@ -88,16 +80,10 @@ export default function ComboboxExample() {
       <ComboboxWithOtherInputs />
       <ComboboxDisabledItems />
     </ExampleWrapper>
-  )
+  );
 }
 
-const frameworks = [
-  "Next.js",
-  "SvelteKit",
-  "Nuxt.js",
-  "Remix",
-  "Astro",
-] as const
+const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"] as const;
 
 const countries = [
   { code: "", value: "", continent: "", label: "Select country" },
@@ -508,7 +494,7 @@ const countries = [
   { code: "ye", value: "yemen", label: "Yemen", continent: "Asia" },
   { code: "zm", value: "zambia", label: "Zambia", continent: "Africa" },
   { code: "zw", value: "zimbabwe", label: "Zimbabwe", continent: "Africa" },
-]
+];
 
 const timezones = [
   {
@@ -544,7 +530,7 @@ const timezones = [
       "(GMT+9) Seoul",
     ],
   },
-] as const
+] as const;
 
 function ComboboxBasic() {
   return (
@@ -563,7 +549,7 @@ function ComboboxBasic() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxDisabled() {
@@ -583,10 +569,10 @@ function ComboboxDisabled() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
-const disabledFrameworks = ["Nuxt.js", "Remix"]
+const disabledFrameworks = ["Nuxt.js", "Remix"];
 
 function ComboboxDisabledItems() {
   return (
@@ -597,11 +583,7 @@ function ComboboxDisabledItems() {
           <ComboboxEmpty>No items found.</ComboboxEmpty>
           <ComboboxList>
             {(item) => (
-              <ComboboxItem
-                key={item}
-                value={item}
-                disabled={disabledFrameworks.includes(item)}
-              >
+              <ComboboxItem key={item} value={item} disabled={disabledFrameworks.includes(item)}>
                 {item}
               </ComboboxItem>
             )}
@@ -609,7 +591,7 @@ function ComboboxDisabledItems() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxInvalid() {
@@ -630,9 +612,7 @@ function ComboboxInvalid() {
           </ComboboxContent>
         </Combobox>
         <Field data-invalid>
-          <FieldLabel htmlFor="combobox-framework-invalid">
-            Framework
-          </FieldLabel>
+          <FieldLabel htmlFor="combobox-framework-invalid">Framework</FieldLabel>
           <Combobox items={frameworks}>
             <ComboboxInput
               id="combobox-framework-invalid"
@@ -655,7 +635,7 @@ function ComboboxInvalid() {
         </Field>
       </div>
     </Example>
-  )
+  );
 }
 
 function ComboboxWithClear() {
@@ -675,7 +655,7 @@ function ComboboxWithClear() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxWithGroups() {
@@ -702,7 +682,7 @@ function ComboboxWithGroups() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxWithGroupsAndSeparator() {
@@ -730,26 +710,22 @@ function ComboboxWithGroupsAndSeparator() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxWithForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.target as HTMLFormElement)
-    const framework = formData.get("framework") as string
-    toast(`You selected ${framework} as your framework.`)
-  }
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const framework = formData.get("framework") as string;
+    toast(`You selected ${framework} as your framework.`);
+  };
 
   return (
     <Example title="Form with Combobox">
       <Card className="w-full max-w-sm" size="sm">
         <CardContent>
-          <form
-            id="form-with-combobox"
-            className="w-full"
-            onSubmit={handleSubmit}
-          >
+          <form id="form-with-combobox" className="w-full" onSubmit={handleSubmit}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="framework">Framework</FieldLabel>
@@ -782,10 +758,10 @@ function ComboboxWithForm() {
         </CardFooter>
       </Card>
     </Example>
-  )
+  );
 }
 
-const largeListItems = Array.from({ length: 100 }, (_, i) => `Item ${i + 1}`)
+const largeListItems = Array.from({ length: 100 }, (_, i) => `Item ${i + 1}`);
 
 function ComboboxLargeList() {
   return (
@@ -804,7 +780,7 @@ function ComboboxLargeList() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxAutoHighlight() {
@@ -824,7 +800,7 @@ function ComboboxAutoHighlight() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboxboxInputAddon() {
@@ -861,7 +837,7 @@ function ComboxboxInputAddon() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxInPopup() {
@@ -869,12 +845,7 @@ function ComboboxInPopup() {
     <Example title="Combobox in Popup">
       <Combobox items={countries} defaultValue={countries[0]}>
         <ComboboxTrigger
-          render={
-            <Button
-              variant="outline"
-              className="w-64 justify-between font-normal"
-            />
-          }
+          render={<Button variant="outline" className="w-64 justify-between font-normal" />}
         >
           <ComboboxValue />
         </ComboboxTrigger>
@@ -891,20 +862,15 @@ function ComboboxInPopup() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxMultiple() {
-  const anchor = useComboboxAnchor()
+  const anchor = useComboboxAnchor();
 
   return (
     <Example title="Combobox Multiple">
-      <Combobox
-        multiple
-        autoHighlight
-        items={frameworks}
-        defaultValue={[frameworks[0]]}
-      >
+      <Combobox multiple autoHighlight items={frameworks} defaultValue={[frameworks[0]]}>
         <ComboboxChips ref={anchor}>
           <ComboboxValue>
             {(values) => (
@@ -929,11 +895,11 @@ function ComboboxMultiple() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxMultipleDisabled() {
-  const anchor = useComboboxAnchor()
+  const anchor = useComboboxAnchor();
 
   return (
     <Example title="Combobox Multiple Disabled">
@@ -968,12 +934,12 @@ function ComboboxMultipleDisabled() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxMultipleInvalid() {
-  const anchor1 = useComboboxAnchor()
-  const anchor2 = useComboboxAnchor()
+  const anchor1 = useComboboxAnchor();
+  const anchor2 = useComboboxAnchor();
 
   return (
     <Example title="Combobox Multiple Invalid">
@@ -1008,9 +974,7 @@ function ComboboxMultipleInvalid() {
           </ComboboxContent>
         </Combobox>
         <Field data-invalid>
-          <FieldLabel htmlFor="combobox-multiple-invalid">
-            Frameworks
-          </FieldLabel>
+          <FieldLabel htmlFor="combobox-multiple-invalid">Frameworks</FieldLabel>
           <Combobox
             multiple
             autoHighlight
@@ -1024,10 +988,7 @@ function ComboboxMultipleInvalid() {
                     {values.map((value: string) => (
                       <ComboboxChip key={value}>{value}</ComboboxChip>
                     ))}
-                    <ComboboxChipsInput
-                      id="combobox-multiple-invalid"
-                      aria-invalid
-                    />
+                    <ComboboxChipsInput id="combobox-multiple-invalid" aria-invalid />
                   </React.Fragment>
                 )}
               </ComboboxValue>
@@ -1043,18 +1004,16 @@ function ComboboxMultipleInvalid() {
               </ComboboxList>
             </ComboboxContent>
           </Combobox>
-          <FieldDescription>
-            Please select at least one framework.
-          </FieldDescription>
+          <FieldDescription>Please select at least one framework.</FieldDescription>
           <FieldError errors={[{ message: "This field is required." }]} />
         </Field>
       </div>
     </Example>
-  )
+  );
 }
 
 function ComboboxMultipleNoRemove() {
-  const anchor = useComboboxAnchor()
+  const anchor = useComboboxAnchor();
 
   return (
     <Example title="Combobox Multiple (No Remove)">
@@ -1090,7 +1049,7 @@ function ComboboxMultipleNoRemove() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxWithCustomItems() {
@@ -1098,9 +1057,7 @@ function ComboboxWithCustomItems() {
     <Example title="With Custom Item Rendering">
       <Combobox
         items={countries.filter((country) => country.code !== "")}
-        itemToStringValue={(country: (typeof countries)[number]) =>
-          country.label
-        }
+        itemToStringValue={(country: (typeof countries)[number]) => country.label}
       >
         <ComboboxInput placeholder="Search countries..." />
         <ComboboxContent>
@@ -1110,9 +1067,7 @@ function ComboboxWithCustomItems() {
               <ComboboxItem key={country.code} value={country}>
                 <Item size="xs" className="p-0">
                   <ItemContent>
-                    <ItemTitle className="whitespace-nowrap">
-                      {country.label}
-                    </ItemTitle>
+                    <ItemTitle className="whitespace-nowrap">{country.label}</ItemTitle>
                     <ItemDescription>
                       {country.continent} ({country.code})
                     </ItemDescription>
@@ -1124,11 +1079,11 @@ function ComboboxWithCustomItems() {
         </ComboboxContent>
       </Combobox>
     </Example>
-  )
+  );
 }
 
 function ComboboxInDialog() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
 
   return (
     <Example title="Combobox in Dialog">
@@ -1148,10 +1103,7 @@ function ComboboxInDialog() {
               Framework
             </FieldLabel>
             <Combobox items={frameworks}>
-              <ComboboxInput
-                id="framework-dialog"
-                placeholder="Select a framework"
-              />
+              <ComboboxInput id="framework-dialog" placeholder="Select a framework" />
               <ComboboxContent>
                 <ComboboxEmpty>No items found.</ComboboxEmpty>
                 <ComboboxList>
@@ -1165,18 +1117,14 @@ function ComboboxInDialog() {
             </Combobox>
           </Field>
           <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setOpen(false)}
-            >
+            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
               Cancel
             </Button>
             <Button
               type="button"
               onClick={() => {
-                toast("Framework selected.")
-                setOpen(false)
+                toast("Framework selected.");
+                setOpen(false);
               }}
             >
               Confirm
@@ -1185,7 +1133,7 @@ function ComboboxInDialog() {
         </DialogContent>
       </Dialog>
     </Example>
-  )
+  );
 }
 
 function ComboboxWithOtherInputs() {
@@ -1218,10 +1166,7 @@ function ComboboxWithOtherInputs() {
           </SelectGroup>
         </SelectContent>
       </Select>
-      <Button
-        variant="outline"
-        className="w-52 justify-between font-normal text-muted-foreground"
-      >
+      <Button variant="outline" className="w-52 justify-between font-normal text-muted-foreground">
         Select a framework
         <IconPlaceholder
           lucide="ChevronDownIcon"
@@ -1245,5 +1190,5 @@ function ComboboxWithOtherInputs() {
         </InputGroupAddon>
       </InputGroup>
     </Example>
-  )
+  );
 }

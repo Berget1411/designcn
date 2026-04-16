@@ -1,11 +1,8 @@
-"use client"
+"use client";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
-import { Button, buttonVariants } from "@/registry/bases/base/ui/button"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
+import { Button, buttonVariants } from "@/registry/bases/base/ui/button";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function ButtonExample() {
   return (
@@ -17,7 +14,7 @@ export default function ButtonExample() {
       <ButtonInvalidStates />
       <ButtonExamples />
     </ExampleWrapper>
-  )
+  );
 }
 
 function ButtonVariantsAndSizes() {
@@ -86,7 +83,7 @@ function ButtonVariantsAndSizes() {
         </Button>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonIconRight() {
@@ -364,7 +361,7 @@ function ButtonIconRight() {
         </Button>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonIconLeft() {
@@ -643,7 +640,7 @@ function ButtonIconLeft() {
         </Button>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonIconOnly() {
@@ -874,7 +871,7 @@ function ButtonIconOnly() {
         </Button>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonExamples() {
@@ -913,7 +910,7 @@ function ButtonExamples() {
         </a>
       </div>
     </Example>
-  )
+  );
 }
 
 function ButtonInvalidStates() {
@@ -998,5 +995,5 @@ function ButtonInvalidStates() {
         </Button>
       </div>
     </Example>
-  )
+  );
 }

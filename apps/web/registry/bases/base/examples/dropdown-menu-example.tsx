@@ -1,17 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/registry/bases/base/ui/avatar"
-import { Button } from "@/registry/bases/base/ui/button"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
+import { Avatar, AvatarFallback, AvatarImage } from "@/registry/bases/base/ui/avatar";
+import { Button } from "@/registry/bases/base/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -19,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/bases/base/ui/dialog"
+} from "@/registry/bases/base/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -36,8 +29,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/registry/bases/base/ui/dropdown-menu"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/dropdown-menu";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function DropdownMenuExample() {
   return (
@@ -57,16 +50,14 @@ export default function DropdownMenuExample() {
       <DropdownMenuInDialog />
       <DropdownMenuWithInset />
     </ExampleWrapper>
-  )
+  );
 }
 
 function DropdownMenuBasic() {
   return (
     <Example title="Basic">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Open
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -83,27 +74,16 @@ function DropdownMenuBasic() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuSides() {
   return (
     <Example title="Sides" containerClassName="col-span-2">
       <div className="flex flex-wrap justify-center gap-2">
-        {(
-          [
-            "inline-start",
-            "left",
-            "top",
-            "bottom",
-            "right",
-            "inline-end",
-          ] as const
-        ).map((side) => (
+        {(["inline-start", "left", "top", "bottom", "right", "inline-end"] as const).map((side) => (
           <DropdownMenu key={side}>
-            <DropdownMenuTrigger
-              render={<Button variant="outline" className="w-fit capitalize" />}
-            >
+            <DropdownMenuTrigger render={<Button variant="outline" className="w-fit capitalize" />}>
               {side.replace("-", " ")}
             </DropdownMenuTrigger>
             <DropdownMenuContent side={side}>
@@ -117,16 +97,14 @@ function DropdownMenuSides() {
         ))}
       </div>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuWithIcons() {
   return (
     <Example title="With Icons">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Open
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -174,16 +152,14 @@ function DropdownMenuWithIcons() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuWithShortcuts() {
   return (
     <Example title="With Shortcuts">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Open
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -214,16 +190,14 @@ function DropdownMenuWithShortcuts() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuWithSubmenu() {
   return (
     <Example title="With Submenu">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Open
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -248,29 +222,24 @@ function DropdownMenuWithSubmenu() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuWithCheckboxes() {
-  const [showStatusBar, setShowStatusBar] = React.useState(true)
-  const [showActivityBar, setShowActivityBar] = React.useState(false)
-  const [showPanel, setShowPanel] = React.useState(false)
+  const [showStatusBar, setShowStatusBar] = React.useState(true);
+  const [showActivityBar, setShowActivityBar] = React.useState(false);
+  const [showPanel, setShowPanel] = React.useState(false);
 
   return (
     <Example title="With Checkboxes">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Checkboxes
         </DropdownMenuTrigger>
         <DropdownMenuContent className="min-w-40">
           <DropdownMenuGroup>
             <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-            <DropdownMenuCheckboxItem
-              checked={showStatusBar}
-              onCheckedChange={setShowStatusBar}
-            >
+            <DropdownMenuCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
               <IconPlaceholder
                 lucide="LayoutIcon"
                 tabler="IconLayout"
@@ -294,10 +263,7 @@ function DropdownMenuWithCheckboxes() {
               />
               Activity Bar
             </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              checked={showPanel}
-              onCheckedChange={setShowPanel}
-            >
+            <DropdownMenuCheckboxItem checked={showPanel} onCheckedChange={setShowPanel}>
               <IconPlaceholder
                 lucide="PanelLeftIcon"
                 tabler="IconLayoutSidebar"
@@ -311,27 +277,22 @@ function DropdownMenuWithCheckboxes() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuWithRadio() {
-  const [position, setPosition] = React.useState("bottom")
+  const [position, setPosition] = React.useState("bottom");
 
   return (
     <Example title="With Radio Group">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Radio Group
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuGroup>
             <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
-            <DropdownMenuRadioGroup
-              value={position}
-              onValueChange={setPosition}
-            >
+            <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
               <DropdownMenuRadioItem value="top">
                 <IconPlaceholder
                   lucide="ArrowUpIcon"
@@ -367,7 +328,7 @@ function DropdownMenuWithRadio() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuWithCheckboxesIcons() {
@@ -375,14 +336,12 @@ function DropdownMenuWithCheckboxesIcons() {
     email: true,
     sms: false,
     push: true,
-  })
+  });
 
   return (
     <Example title="Checkboxes with Icons">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Notifications
         </DropdownMenuTrigger>
         <DropdownMenuContent className="min-w-56">
@@ -437,27 +396,22 @@ function DropdownMenuWithCheckboxesIcons() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuWithRadioIcons() {
-  const [paymentMethod, setPaymentMethod] = React.useState("card")
+  const [paymentMethod, setPaymentMethod] = React.useState("card");
 
   return (
     <Example title="Radio with Icons">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Payment Method
         </DropdownMenuTrigger>
         <DropdownMenuContent className="min-w-56">
           <DropdownMenuGroup>
             <DropdownMenuLabel>Select Payment Method</DropdownMenuLabel>
-            <DropdownMenuRadioGroup
-              value={paymentMethod}
-              onValueChange={setPaymentMethod}
-            >
+            <DropdownMenuRadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
               <DropdownMenuRadioItem value="card">
                 <IconPlaceholder
                   lucide="CreditCardIcon"
@@ -493,16 +447,14 @@ function DropdownMenuWithRadioIcons() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuWithDestructive() {
   return (
     <Example title="With Destructive Items">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Actions
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -550,7 +502,7 @@ function DropdownMenuWithDestructive() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuWithAvatar() {
@@ -600,7 +552,7 @@ function DropdownMenuWithAvatar() {
         Sign Out
       </DropdownMenuItem>
     </>
-  )
+  );
 
   return (
     <Example title="With Avatar">
@@ -608,10 +560,7 @@ function DropdownMenuWithAvatar() {
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
-              <Button
-                variant="outline"
-                className="h-12 justify-start px-2 md:max-w-[200px]"
-              />
+              <Button variant="outline" className="h-12 justify-start px-2 md:max-w-[200px]" />
             }
           >
             <Avatar>
@@ -620,9 +569,7 @@ function DropdownMenuWithAvatar() {
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-semibold">shadcn</span>
-              <span className="truncate text-xs text-muted-foreground">
-                shadcn@example.com
-              </span>
+              <span className="truncate text-xs text-muted-foreground">shadcn@example.com</span>
             </div>
             <IconPlaceholder
               lucide="ChevronsUpDownIcon"
@@ -639,9 +586,7 @@ function DropdownMenuWithAvatar() {
         </DropdownMenu>
         <DropdownMenu>
           <DropdownMenuTrigger
-            render={
-              <Button variant="ghost" size="icon" className="rounded-full" />
-            }
+            render={<Button variant="ghost" size="icon" className="rounded-full" />}
           >
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" alt="shadcn" />
@@ -654,27 +599,21 @@ function DropdownMenuWithAvatar() {
         </DropdownMenu>
       </div>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuInDialog() {
   return (
     <Example title="In Dialog">
       <Dialog>
-        <DialogTrigger render={<Button variant="outline" />}>
-          Open Dialog
-        </DialogTrigger>
+        <DialogTrigger render={<Button variant="outline" />}>Open Dialog</DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Dropdown Menu Example</DialogTitle>
-            <DialogDescription>
-              Click the button below to see the dropdown menu.
-            </DialogDescription>
+            <DialogDescription>Click the button below to see the dropdown menu.</DialogDescription>
           </DialogHeader>
           <DropdownMenu>
-            <DropdownMenuTrigger
-              render={<Button variant="outline" className="w-fit" />}
-            >
+            <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
               Open Menu
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -737,20 +676,18 @@ function DropdownMenuInDialog() {
         </DialogContent>
       </Dialog>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuWithInset() {
-  const [showBookmarks, setShowBookmarks] = React.useState(true)
-  const [showUrls, setShowUrls] = React.useState(false)
-  const [theme, setTheme] = React.useState("system")
+  const [showBookmarks, setShowBookmarks] = React.useState(true);
+  const [showUrls, setShowUrls] = React.useState(false);
+  const [theme, setTheme] = React.useState("system");
 
   return (
     <Example title="With Inset">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Open
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-44">
@@ -788,11 +725,7 @@ function DropdownMenuWithInset() {
             >
               Bookmarks
             </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              inset
-              checked={showUrls}
-              onCheckedChange={setShowUrls}
-            >
+            <DropdownMenuCheckboxItem inset checked={showUrls} onCheckedChange={setShowUrls}>
               Full URLs
             </DropdownMenuCheckboxItem>
           </DropdownMenuGroup>
@@ -826,19 +759,17 @@ function DropdownMenuWithInset() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }
 
 function DropdownMenuComplex() {
-  const [showSidebar, setShowSidebar] = React.useState(true)
-  const [showStatusBar, setShowStatusBar] = React.useState(false)
+  const [showSidebar, setShowSidebar] = React.useState(true);
+  const [showStatusBar, setShowStatusBar] = React.useState(false);
 
   return (
     <Example title="Complex">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          render={<Button variant="outline" className="w-fit" />}
-        >
+        <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
           Complex Menu
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
@@ -881,10 +812,7 @@ function DropdownMenuComplex() {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuLabel>View</DropdownMenuLabel>
-            <DropdownMenuCheckboxItem
-              checked={showSidebar}
-              onCheckedChange={setShowSidebar}
-            >
+            <DropdownMenuCheckboxItem checked={showSidebar} onCheckedChange={setShowSidebar}>
               <IconPlaceholder
                 lucide="PanelLeftIcon"
                 tabler="IconLayoutSidebar"
@@ -894,10 +822,7 @@ function DropdownMenuComplex() {
               />
               Sidebar
             </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              checked={showStatusBar}
-              onCheckedChange={setShowStatusBar}
-            >
+            <DropdownMenuCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
               <IconPlaceholder
                 lucide="LayoutIcon"
                 tabler="IconLayout"
@@ -989,5 +914,5 @@ function DropdownMenuComplex() {
         </DropdownMenuContent>
       </DropdownMenu>
     </Example>
-  )
+  );
 }

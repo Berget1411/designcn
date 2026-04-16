@@ -1,15 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { useMounted } from "@/hooks/use-mounted"
-import { BASE_COLORS, type BaseColorName } from "@/registry/config"
-import { cssColorToHex } from "@/app/create/lib/color-utils"
-import {
-  decodeCustomThemeVars,
-  encodeCustomThemeVars,
-} from "@/app/create/lib/custom-theme-vars"
-import { LockButton } from "@/app/create/components/lock-button"
+import { useMounted } from "@/hooks/use-mounted";
+import { BASE_COLORS, type BaseColorName } from "@/registry/config";
+import { cssColorToHex } from "@/app/create/lib/color-utils";
+import { decodeCustomThemeVars, encodeCustomThemeVars } from "@/app/create/lib/custom-theme-vars";
+import { LockButton } from "@/app/create/components/lock-button";
 import {
   Picker,
   PickerContent,
@@ -19,38 +16,34 @@ import {
   PickerRadioItem,
   PickerSeparator,
   PickerTrigger,
-} from "@/app/create/components/picker"
-import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
+} from "@/app/create/components/picker";
+import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
 
 export function BaseColorPicker({
   isMobile,
   anchorRef,
 }: {
-  isMobile: boolean
-  anchorRef: React.RefObject<HTMLDivElement | null>
+  isMobile: boolean;
+  anchorRef: React.RefObject<HTMLDivElement | null>;
 }) {
-  const mounted = useMounted()
-  const [params, setParams] = useDesignSystemSearchParams()
-  const colorInputRef = React.useRef<HTMLInputElement>(null)
+  const mounted = useMounted();
+  const [params, setParams] = useDesignSystemSearchParams();
+  const colorInputRef = React.useRef<HTMLInputElement>(null);
 
   const currentBaseColor = React.useMemo(
     () => BASE_COLORS.find((baseColor) => baseColor.name === params.baseColor),
-    [params.baseColor]
-  )
+    [params.baseColor],
+  );
 
-  const customVars = React.useMemo(
-    () => decodeCustomThemeVars(params.vars),
-    [params.vars]
-  )
+  const customVars = React.useMemo(() => decodeCustomThemeVars(params.vars), [params.vars]);
 
   const displayColor =
-    customVars?.dark?.["muted-foreground"] ??
-    currentBaseColor?.cssVars?.dark?.["muted-foreground"]
+    customVars?.dark?.["muted-foreground"] ?? currentBaseColor?.cssVars?.dark?.["muted-foreground"];
 
   const nativeColorValue = React.useMemo(() => {
-    if (!mounted || !displayColor) return "#000000"
-    return cssColorToHex(displayColor) ?? "#000000"
-  }, [mounted, displayColor])
+    if (!mounted || !displayColor) return "#000000";
+    return cssColorToHex(displayColor) ?? "#000000";
+  }, [mounted, displayColor]);
 
   const handleColorPick = React.useCallback(
     (hex: string) => {
@@ -64,12 +57,12 @@ export function BaseColorPicker({
           ...(customVars.dark ?? {}),
           "muted-foreground": hex,
         },
-      }
-      const encoded = encodeCustomThemeVars(next)
-      setParams({ custom: Boolean(encoded), vars: encoded })
+      };
+      const encoded = encodeCustomThemeVars(next);
+      setParams({ custom: Boolean(encoded), vars: encoded });
     },
-    [customVars, setParams]
-  )
+    [customVars, setParams],
+  );
 
   return (
     <div className="group/picker relative">
@@ -93,8 +86,8 @@ export function BaseColorPicker({
                 }
                 className="absolute top-1/2 right-4 size-4 -translate-y-1/2 rounded-full bg-(--color) select-none md:right-2.5 cursor-pointer hover:ring-2 hover:ring-foreground/30 transition-shadow"
                 onClick={(e) => {
-                  e.stopPropagation()
-                  colorInputRef.current?.click()
+                  e.stopPropagation();
+                  colorInputRef.current?.click();
                 }}
                 aria-label="Pick custom base color"
               />
@@ -118,7 +111,7 @@ export function BaseColorPicker({
           <PickerRadioGroup
             value={currentBaseColor?.name}
             onValueChange={(value) => {
-              setParams({ baseColor: value as BaseColorName })
+              setParams({ baseColor: value as BaseColorName });
             }}
           >
             <PickerGroup>
@@ -135,18 +128,11 @@ export function BaseColorPicker({
           </PickerRadioGroup>
           <PickerSeparator />
           <PickerGroup>
-            <PickerItem
-              onClick={() => colorInputRef.current?.click()}
-            >
-              Custom Color…
-            </PickerItem>
+            <PickerItem onClick={() => colorInputRef.current?.click()}>Custom Color…</PickerItem>
           </PickerGroup>
         </PickerContent>
       </Picker>
-      <LockButton
-        param="baseColor"
-        className="absolute top-1/2 right-8 -translate-y-1/2"
-      />
+      <LockButton param="baseColor" className="absolute top-1/2 right-8 -translate-y-1/2" />
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 
 import {
   Item,
@@ -7,7 +7,7 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle,
-} from "@/registry/new-york-v4/ui/item"
+} from "@/registry/new-york-v4/ui/item";
 
 const music = [
   {
@@ -28,7 +28,7 @@ const music = [
     album: "Binary Beats",
     duration: "3:30",
   },
-]
+];
 
 export default function ItemImage() {
   return (
@@ -48,8 +48,7 @@ export default function ItemImage() {
               </ItemMedia>
               <ItemContent>
                 <ItemTitle className="line-clamp-1">
-                  {song.title} -{" "}
-                  <span className="text-muted-foreground">{song.album}</span>
+                  {song.title} - <span className="text-muted-foreground">{song.album}</span>
                 </ItemTitle>
                 <ItemDescription>{song.artist}</ItemDescription>
               </ItemContent>
@@ -61,5 +60,5 @@ export default function ItemImage() {
         ))}
       </ItemGroup>
     </div>
-  )
+  );
 }

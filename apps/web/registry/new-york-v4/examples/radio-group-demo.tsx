@@ -1,8 +1,5 @@
-import { Label } from "@/registry/new-york-v4/ui/label"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/new-york-v4/ui/radio-group"
+import { Label } from "@/registry/new-york-v4/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/registry/new-york-v4/ui/radio-group";
 
 export default function RadioGroupDemo() {
   return (
@@ -20,5 +17,5 @@ export default function RadioGroupDemo() {
         <Label htmlFor="r3">Compact</Label>
       </div>
     </RadioGroup>
-  )
+  );
 }

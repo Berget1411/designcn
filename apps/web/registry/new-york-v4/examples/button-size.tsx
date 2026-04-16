@@ -1,6 +1,6 @@
-import { ArrowUpRightIcon } from "lucide-react"
+import { ArrowUpRightIcon } from "lucide-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 
 export default function ButtonSize() {
   return (
@@ -28,5 +28,5 @@ export default function ButtonSize() {
         </Button>
       </div>
     </div>
-  )
+  );
 }

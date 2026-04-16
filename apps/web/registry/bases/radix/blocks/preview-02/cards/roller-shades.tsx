@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   Card,
@@ -9,18 +9,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
-import { Slider } from "@/registry/bases/radix/ui/slider"
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/registry/bases/radix/ui/toggle-group"
+} from "@/registry/bases/radix/ui/card";
+import { Slider } from "@/registry/bases/radix/ui/slider";
+import { ToggleGroup, ToggleGroupItem } from "@/registry/bases/radix/ui/toggle-group";
 
 export function RollerShades() {
-  const [position, setPosition] = React.useState([50])
+  const [position, setPosition] = React.useState([50]);
 
-  const preset =
-    position[0] <= 10 ? "open" : position[0] >= 90 ? "closed" : "half"
+  const preset = position[0] <= 10 ? "open" : position[0] >= 90 ? "closed" : "half";
 
   return (
     <Card>
@@ -39,12 +35,7 @@ export function RollerShades() {
           <span className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
             Open
           </span>
-          <Slider
-            value={position}
-            onValueChange={setPosition}
-            max={100}
-            className="flex-1"
-          />
+          <Slider value={position} onValueChange={setPosition} max={100} className="flex-1" />
           <span className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
             Close
           </span>
@@ -55,9 +46,9 @@ export function RollerShades() {
           type="single"
           value={preset}
           onValueChange={(value) => {
-            if (value === "open") setPosition([0])
-            if (value === "half") setPosition([50])
-            if (value === "closed") setPosition([100])
+            if (value === "open") setPosition([0]);
+            if (value === "half") setPosition([50]);
+            if (value === "closed") setPosition([100]);
           }}
           variant="outline"
           spacing={1}
@@ -75,5 +66,5 @@ export function RollerShades() {
         </ToggleGroup>
       </CardFooter>
     </Card>
-  )
+  );
 }

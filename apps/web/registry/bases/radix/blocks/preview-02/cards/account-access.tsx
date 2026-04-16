@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardContent,
@@ -8,42 +8,34 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
-import { Field, FieldGroup, FieldLabel } from "@/registry/bases/radix/ui/field"
-import { Input } from "@/registry/bases/radix/ui/input"
+} from "@/registry/bases/radix/ui/card";
+import { Field, FieldGroup, FieldLabel } from "@/registry/bases/radix/ui/field";
+import { Input } from "@/registry/bases/radix/ui/input";
 import {
   Item,
   ItemContent,
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/registry/bases/radix/ui/item"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/item";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function AccountAccess() {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Account Access</CardTitle>
-        <CardDescription>
-          Update your credentials or re-authenticate.
-        </CardDescription>
+        <CardDescription>Update your credentials or re-authenticate.</CardDescription>
       </CardHeader>
       <CardContent>
         <FieldGroup>
           <Field>
             <FieldLabel htmlFor="email-address">Email Address</FieldLabel>
-            <Input
-              id="email-address"
-              type="email"
-              defaultValue="artist@studio.inc"
-            />
+            <Input id="email-address" type="email" defaultValue="artist@studio.inc" />
           </Field>
           <Field>
             <div className="flex items-center justify-between">
-              <FieldLabel htmlFor="current-password">
-                Current Password
-              </FieldLabel>
+              <FieldLabel htmlFor="current-password">Current Password</FieldLabel>
               <a
                 href="#"
                 className="text-xs font-medium tracking-wider text-muted-foreground uppercase hover:text-foreground"
@@ -51,11 +43,7 @@ export function AccountAccess() {
                 Forgot?
               </a>
             </div>
-            <Input
-              id="current-password"
-              type="password"
-              defaultValue="password123"
-            />
+            <Input id="current-password" type="password" defaultValue="password123" />
           </Field>
         </FieldGroup>
       </CardContent>
@@ -100,5 +88,5 @@ export function AccountAccess() {
         </Item>
       </CardFooter>
     </Card>
-  )
+  );
 }

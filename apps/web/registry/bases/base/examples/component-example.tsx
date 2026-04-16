@@ -1,11 +1,8 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,9 +14,9 @@ import {
   AlertDialogMedia,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/registry/bases/base/ui/alert-dialog"
-import { Badge } from "@/registry/bases/base/ui/badge"
-import { Button } from "@/registry/bases/base/ui/button"
+} from "@/registry/bases/base/ui/alert-dialog";
+import { Badge } from "@/registry/bases/base/ui/badge";
+import { Button } from "@/registry/bases/base/ui/button";
 import {
   Card,
   CardAction,
@@ -28,7 +25,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/base/ui/card"
+} from "@/registry/bases/base/ui/card";
 import {
   Combobox,
   ComboboxContent,
@@ -36,7 +33,7 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@/registry/bases/base/ui/combobox"
+} from "@/registry/bases/base/ui/combobox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -53,9 +50,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/registry/bases/base/ui/dropdown-menu"
-import { Field, FieldGroup, FieldLabel } from "@/registry/bases/base/ui/field"
-import { Input } from "@/registry/bases/base/ui/input"
+} from "@/registry/bases/base/ui/dropdown-menu";
+import { Field, FieldGroup, FieldLabel } from "@/registry/bases/base/ui/field";
+import { Input } from "@/registry/bases/base/ui/input";
 import {
   Select,
   SelectContent,
@@ -63,9 +60,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/base/ui/select"
-import { Textarea } from "@/registry/bases/base/ui/textarea"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/select";
+import { Textarea } from "@/registry/bases/base/ui/textarea";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function ComponentExample() {
   return (
@@ -73,7 +70,7 @@ export function ComponentExample() {
       <CardExample />
       <FormExample />
     </ExampleWrapper>
-  )
+  );
 }
 
 function CardExample() {
@@ -90,9 +87,8 @@ function CardExample() {
         <CardHeader>
           <CardTitle>Observability Plus is replacing Monitoring</CardTitle>
           <CardDescription>
-            Switch to the improved way to explore your data, with natural
-            language. Monitoring will no longer be available on the Pro plan in
-            November, 2025
+            Switch to the improved way to explore your data, with natural language. Monitoring will
+            no longer be available on the Pro plan in November, 2025
           </CardDescription>
         </CardHeader>
         <CardFooter>
@@ -121,8 +117,7 @@ function CardExample() {
                 </AlertDialogMedia>
                 <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Do you want to allow the USB accessory to connect to this
-                  device?
+                  Do you want to allow the USB accessory to connect to this device?
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
@@ -137,31 +132,25 @@ function CardExample() {
         </CardFooter>
       </Card>
     </Example>
-  )
+  );
 }
 
-const frameworks = [
-  "Next.js",
-  "SvelteKit",
-  "Nuxt.js",
-  "Remix",
-  "Astro",
-] as const
+const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"] as const;
 
 const roleItems = [
   { label: "Developer", value: "developer" },
   { label: "Designer", value: "designer" },
   { label: "Manager", value: "manager" },
   { label: "Other", value: "other" },
-]
+];
 
 function FormExample() {
   const [notifications, setNotifications] = React.useState({
     email: true,
     sms: false,
     push: true,
-  })
-  const [theme, setTheme] = React.useState("light")
+  });
+  const [theme, setTheme] = React.useState("light");
 
   return (
     <Example title="Form">
@@ -171,9 +160,7 @@ function FormExample() {
           <CardDescription>Please fill in your details below</CardDescription>
           <CardAction>
             <DropdownMenu>
-              <DropdownMenuTrigger
-                render={<Button variant="ghost" size="icon" />}
-              >
+              <DropdownMenuTrigger render={<Button variant="ghost" size="icon" />}>
                 <IconPlaceholder
                   lucide="MoreVerticalIcon"
                   tabler="IconDotsVertical"
@@ -374,10 +361,7 @@ function FormExample() {
                       <DropdownMenuSubContent>
                         <DropdownMenuGroup>
                           <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-                          <DropdownMenuRadioGroup
-                            value={theme}
-                            onValueChange={setTheme}
-                          >
+                          <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
                             <DropdownMenuRadioItem value="light">
                               <IconPlaceholder
                                 lucide="SunIcon"
@@ -487,9 +471,7 @@ function FormExample() {
                             <DropdownMenuPortal>
                               <DropdownMenuSubContent>
                                 <DropdownMenuGroup>
-                                  <DropdownMenuLabel>
-                                    Notification Types
-                                  </DropdownMenuLabel>
+                                  <DropdownMenuLabel>Notification Types</DropdownMenuLabel>
                                   <DropdownMenuCheckboxItem
                                     checked={notifications.push}
                                     onCheckedChange={(checked) =>
@@ -595,11 +577,7 @@ function FormExample() {
               <div className="grid grid-cols-2 gap-4">
                 <Field>
                   <FieldLabel htmlFor="small-form-name">Name</FieldLabel>
-                  <Input
-                    id="small-form-name"
-                    placeholder="Enter your name"
-                    required
-                  />
+                  <Input id="small-form-name" placeholder="Enter your name" required />
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="small-form-role">Role</FieldLabel>
@@ -620,9 +598,7 @@ function FormExample() {
                 </Field>
               </div>
               <Field>
-                <FieldLabel htmlFor="small-form-framework">
-                  Framework
-                </FieldLabel>
+                <FieldLabel htmlFor="small-form-framework">Framework</FieldLabel>
                 <Combobox items={frameworks}>
                   <ComboboxInput
                     id="small-form-framework"
@@ -643,10 +619,7 @@ function FormExample() {
               </Field>
               <Field>
                 <FieldLabel htmlFor="small-form-comments">Comments</FieldLabel>
-                <Textarea
-                  id="small-form-comments"
-                  placeholder="Add any additional comments"
-                />
+                <Textarea id="small-form-comments" placeholder="Add any additional comments" />
               </Field>
               <Field orientation="horizontal">
                 <Button type="submit">Submit</Button>
@@ -659,5 +632,5 @@ function FormExample() {
         </CardContent>
       </Card>
     </Example>
-  )
+  );
 }

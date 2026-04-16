@@ -1,12 +1,8 @@
-"use client"
+"use client";
 
-import { Label } from "@/registry/bases/base/ui/label"
-import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarInput,
-} from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { Label } from "@/registry/bases/base/ui/label";
+import { SidebarGroup, SidebarGroupContent, SidebarInput } from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function SearchForm({ ...props }: React.ComponentProps<"form">) {
   return (
@@ -16,11 +12,7 @@ export function SearchForm({ ...props }: React.ComponentProps<"form">) {
           <Label htmlFor="search" className="sr-only">
             Search
           </Label>
-          <SidebarInput
-            id="search"
-            placeholder="Search the docs..."
-            className="pl-8"
-          />
+          <SidebarInput id="search" placeholder="Search the docs..." className="pl-8" />
           <IconPlaceholder
             lucide="SearchIcon"
             tabler="IconSearch"
@@ -32,5 +24,5 @@ export function SearchForm({ ...props }: React.ComponentProps<"form">) {
         </SidebarGroupContent>
       </SidebarGroup>
     </form>
-  )
+  );
 }

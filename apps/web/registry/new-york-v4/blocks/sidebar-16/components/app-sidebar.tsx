@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   BookOpen,
   Bot,
@@ -12,12 +12,12 @@ import {
   Send,
   Settings2,
   SquareTerminal,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "@/registry/new-york-v4/blocks/sidebar-16/components/nav-main"
-import { NavProjects } from "@/registry/new-york-v4/blocks/sidebar-16/components/nav-projects"
-import { NavSecondary } from "@/registry/new-york-v4/blocks/sidebar-16/components/nav-secondary"
-import { NavUser } from "@/registry/new-york-v4/blocks/sidebar-16/components/nav-user"
+import { NavMain } from "@/registry/new-york-v4/blocks/sidebar-16/components/nav-main";
+import { NavProjects } from "@/registry/new-york-v4/blocks/sidebar-16/components/nav-projects";
+import { NavSecondary } from "@/registry/new-york-v4/blocks/sidebar-16/components/nav-secondary";
+import { NavUser } from "@/registry/new-york-v4/blocks/sidebar-16/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -26,7 +26,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/registry/new-york-v4/ui/sidebar"
+} from "@/registry/new-york-v4/ui/sidebar";
 
 const data = {
   user: {
@@ -150,14 +150,11 @@ const data = {
       icon: Map,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar
-      className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
-      {...props}
-    >
+    <Sidebar className="top-(--header-height) h-[calc(100svh-var(--header-height))]!" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -184,5 +181,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

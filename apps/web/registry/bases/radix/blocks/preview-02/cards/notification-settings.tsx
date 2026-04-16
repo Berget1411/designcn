@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardContent,
@@ -10,15 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
-import { Checkbox } from "@/registry/bases/radix/ui/checkbox"
+} from "@/registry/bases/radix/ui/card";
+import { Checkbox } from "@/registry/bases/radix/ui/checkbox";
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/registry/bases/radix/ui/field"
+} from "@/registry/bases/radix/ui/field";
 
 const NOTIFICATIONS = [
   {
@@ -45,31 +45,29 @@ const NOTIFICATIONS = [
     description: "Daily portfolio summary and price alerts.",
     defaultChecked: false,
   },
-]
+];
 
 export function NotificationSettings() {
   const [checked, setChecked] = React.useState<Record<string, boolean>>(
-    Object.fromEntries(NOTIFICATIONS.map((n) => [n.id, n.defaultChecked]))
-  )
+    Object.fromEntries(NOTIFICATIONS.map((n) => [n.id, n.defaultChecked])),
+  );
 
-  const allChecked = NOTIFICATIONS.every((n) => checked[n.id])
-  const someChecked = NOTIFICATIONS.some((n) => checked[n.id]) && !allChecked
+  const allChecked = NOTIFICATIONS.every((n) => checked[n.id]);
+  const someChecked = NOTIFICATIONS.some((n) => checked[n.id]) && !allChecked;
 
   const handleSelectAll = (value: boolean) => {
-    setChecked(Object.fromEntries(NOTIFICATIONS.map((n) => [n.id, value])))
-  }
+    setChecked(Object.fromEntries(NOTIFICATIONS.map((n) => [n.id, value])));
+  };
 
   const handleToggle = (id: string, value: boolean) => {
-    setChecked((prev) => ({ ...prev, [id]: value }))
-  }
+    setChecked((prev) => ({ ...prev, [id]: value }));
+  };
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Notifications</CardTitle>
-        <CardDescription>
-          Choose what you want to be notified about.
-        </CardDescription>
+        <CardDescription>Choose what you want to be notified about.</CardDescription>
       </CardHeader>
       <CardContent>
         <FieldGroup>
@@ -102,5 +100,5 @@ export function NotificationSettings() {
         <Button className="w-full">Save Preferences</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

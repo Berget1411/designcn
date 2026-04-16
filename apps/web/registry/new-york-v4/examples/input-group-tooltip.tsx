@@ -1,16 +1,12 @@
-import { HelpCircle, InfoIcon } from "lucide-react"
+import { HelpCircle, InfoIcon } from "lucide-react";
 
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@/registry/new-york-v4/ui/input-group"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/new-york-v4/ui/tooltip"
+} from "@/registry/new-york-v4/ui/input-group";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/new-york-v4/ui/tooltip";
 
 export default function InputGroupTooltip() {
   return (
@@ -20,11 +16,7 @@ export default function InputGroupTooltip() {
         <InputGroupAddon align="inline-end">
           <Tooltip>
             <TooltipTrigger asChild>
-              <InputGroupButton
-                variant="ghost"
-                aria-label="Info"
-                size="icon-xs"
-              >
+              <InputGroupButton variant="ghost" aria-label="Info" size="icon-xs">
                 <InfoIcon />
               </InputGroupButton>
             </TooltipTrigger>
@@ -39,11 +31,7 @@ export default function InputGroupTooltip() {
         <InputGroupAddon align="inline-end">
           <Tooltip>
             <TooltipTrigger asChild>
-              <InputGroupButton
-                variant="ghost"
-                aria-label="Help"
-                size="icon-xs"
-              >
+              <InputGroupButton variant="ghost" aria-label="Help" size="icon-xs">
                 <HelpCircle />
               </InputGroupButton>
             </TooltipTrigger>
@@ -58,11 +46,7 @@ export default function InputGroupTooltip() {
         <Tooltip>
           <TooltipTrigger asChild>
             <InputGroupAddon>
-              <InputGroupButton
-                variant="ghost"
-                aria-label="Help"
-                size="icon-xs"
-              >
+              <InputGroupButton variant="ghost" aria-label="Help" size="icon-xs">
                 <HelpCircle />
               </InputGroupButton>
             </InputGroupAddon>
@@ -73,5 +57,5 @@ export default function InputGroupTooltip() {
         </Tooltip>
       </InputGroup>
     </div>
-  )
+  );
 }

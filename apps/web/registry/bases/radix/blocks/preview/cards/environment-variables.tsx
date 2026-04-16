@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
+} from "@/registry/bases/radix/ui/card";
 
 export function EnvironmentVariables() {
   return (
@@ -39,5 +39,5 @@ export function EnvironmentVariables() {
         <Button className="ml-auto">Deploy</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

@@ -1,16 +1,12 @@
-import { AppSidebar } from "@/registry/bases/radix/blocks/sidebar-12/components/app-sidebar"
+import { AppSidebar } from "@/registry/bases/radix/blocks/sidebar-12/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
-} from "@/registry/bases/radix/ui/breadcrumb"
-import { Separator } from "@/registry/bases/radix/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/registry/bases/radix/ui/sidebar"
+} from "@/registry/bases/radix/ui/breadcrumb";
+import { Separator } from "@/registry/bases/radix/ui/separator";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/registry/bases/radix/ui/sidebar";
 
 export default function Page() {
   return (
@@ -40,5 +36,5 @@ export default function Page() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

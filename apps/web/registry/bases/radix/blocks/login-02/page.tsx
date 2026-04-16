@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { LoginForm } from "@/registry/bases/radix/blocks/login-02/components/login-form"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { LoginForm } from "@/registry/bases/radix/blocks/login-02/components/login-form";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function LoginPage() {
   return (
@@ -36,5 +36,5 @@ export default function LoginPage() {
         />
       </div>
     </div>
-  )
+  );
 }

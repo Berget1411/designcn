@@ -1,4 +1,4 @@
-import { type Registry } from "shadcn/schema"
+import { type Registry } from "shadcn/schema";
 
 export const blocks: Registry["items"] = [
   {
@@ -92,13 +92,7 @@ export const blocks: Registry["items"] = [
     name: "sidebar-01",
     type: "registry:block",
     description: "A simple sidebar with navigation grouped by section.",
-    registryDependencies: [
-      "sidebar",
-      "breadcrumb",
-      "separator",
-      "label",
-      "dropdown-menu",
-    ],
+    registryDependencies: ["sidebar", "breadcrumb", "separator", "label", "dropdown-menu"],
     files: [
       {
         path: "blocks/sidebar-01/page.tsx",
@@ -124,13 +118,7 @@ export const blocks: Registry["items"] = [
     name: "sidebar-02",
     description: "A sidebar with collapsible sections.",
     type: "registry:block",
-    registryDependencies: [
-      "sidebar",
-      "breadcrumb",
-      "separator",
-      "label",
-      "dropdown-menu",
-    ],
+    registryDependencies: ["sidebar", "breadcrumb", "separator", "label", "dropdown-menu"],
     files: [
       {
         path: "blocks/sidebar-02/page.tsx",
@@ -192,13 +180,7 @@ export const blocks: Registry["items"] = [
     name: "sidebar-05",
     description: "A sidebar with collapsible submenus.",
     type: "registry:block",
-    registryDependencies: [
-      "sidebar",
-      "breadcrumb",
-      "separator",
-      "label",
-      "collapsible",
-    ],
+    registryDependencies: ["sidebar", "breadcrumb", "separator", "label", "collapsible"],
     files: [
       {
         path: "blocks/sidebar-05/page.tsx",
@@ -220,13 +202,7 @@ export const blocks: Registry["items"] = [
     name: "sidebar-06",
     description: "A sidebar with submenus as dropdowns.",
     type: "registry:block",
-    registryDependencies: [
-      "sidebar",
-      "breadcrumb",
-      "separator",
-      "card",
-      "dropdown-menu",
-    ],
+    registryDependencies: ["sidebar", "breadcrumb", "separator", "card", "dropdown-menu"],
     files: [
       {
         path: "blocks/sidebar-06/page.tsx",
@@ -796,4 +772,4 @@ export const blocks: Registry["items"] = [
     ],
     categories: ["authentication", "signup"],
   },
-]
+];

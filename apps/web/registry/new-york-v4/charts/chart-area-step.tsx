@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { Activity, TrendingUp } from "lucide-react"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { Activity, TrendingUp } from "lucide-react";
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 import {
   Card,
@@ -10,15 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/registry/new-york-v4/ui/chart"
+} from "@/registry/new-york-v4/ui/chart";
 
-export const description = "A step area chart"
+export const description = "A step area chart";
 
 const chartData = [
   { month: "January", desktop: 186 },
@@ -27,7 +27,7 @@ const chartData = [
   { month: "April", desktop: 73 },
   { month: "May", desktop: 209 },
   { month: "June", desktop: 214 },
-]
+];
 
 const chartConfig = {
   desktop: {
@@ -35,16 +35,14 @@ const chartConfig = {
     color: "var(--chart-1)",
     icon: Activity,
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function ChartAreaStep() {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Area Chart - Step</CardTitle>
-        <CardDescription>
-          Showing total visitors for the last 6 months
-        </CardDescription>
+        <CardDescription>Showing total visitors for the last 6 months</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -64,10 +62,7 @@ export function ChartAreaStep() {
               tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             <Area
               dataKey="desktop"
               type="step"
@@ -91,5 +86,5 @@ export function ChartAreaStep() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

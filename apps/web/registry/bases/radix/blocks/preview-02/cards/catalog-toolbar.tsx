@@ -1,16 +1,13 @@
-"use client"
+"use client";
 
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@/registry/bases/radix/ui/input-group"
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/registry/bases/radix/ui/toggle-group"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/input-group";
+import { ToggleGroup, ToggleGroupItem } from "@/registry/bases/radix/ui/toggle-group";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function CatalogToolbar() {
   return (
@@ -43,5 +40,5 @@ export function CatalogToolbar() {
         <ToggleGroupItem value="top-earners">Top Earners</ToggleGroupItem>
       </ToggleGroup>
     </div>
-  )
+  );
 }

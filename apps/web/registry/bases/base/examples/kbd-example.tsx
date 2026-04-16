@@ -1,20 +1,9 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
-import { Button } from "@/registry/bases/base/ui/button"
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/registry/bases/base/ui/input-group"
-import { Kbd, KbdGroup } from "@/registry/bases/base/ui/kbd"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/bases/base/ui/tooltip"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
+import { Button } from "@/registry/bases/base/ui/button";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/registry/bases/base/ui/input-group";
+import { Kbd, KbdGroup } from "@/registry/bases/base/ui/kbd";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/bases/base/ui/tooltip";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function KbdExample() {
   return (
@@ -29,7 +18,7 @@ export default function KbdExample() {
       <KbdInTooltip />
       <KbdWithSamp />
     </ExampleWrapper>
-  )
+  );
 }
 
 function KbdBasic() {
@@ -41,7 +30,7 @@ function KbdBasic() {
         <Kbd>Ctrl + B</Kbd>
       </div>
     </Example>
-  )
+  );
 }
 
 function KbdModifierKeys() {
@@ -52,7 +41,7 @@ function KbdModifierKeys() {
         <Kbd>C</Kbd>
       </div>
     </Example>
-  )
+  );
 }
 
 function KbdGroupExample() {
@@ -64,7 +53,7 @@ function KbdGroupExample() {
         <Kbd>P</Kbd>
       </KbdGroup>
     </Example>
-  )
+  );
 }
 
 function KbdArrowKeys() {
@@ -77,7 +66,7 @@ function KbdArrowKeys() {
         <Kbd>→</Kbd>
       </div>
     </Example>
-  )
+  );
 }
 
 function KbdWithIcons() {
@@ -113,7 +102,7 @@ function KbdWithIcons() {
         </Kbd>
       </KbdGroup>
     </Example>
-  )
+  );
 }
 
 function KbdWithIconsAndText() {
@@ -142,7 +131,7 @@ function KbdWithIconsAndText() {
         </Kbd>
       </KbdGroup>
     </Example>
-  )
+  );
 }
 
 function KbdInInputGroup() {
@@ -155,7 +144,7 @@ function KbdInInputGroup() {
         </InputGroupAddon>
       </InputGroup>
     </Example>
-  )
+  );
 }
 
 function KbdInTooltip() {
@@ -178,7 +167,7 @@ function KbdInTooltip() {
         </TooltipContent>
       </Tooltip>
     </Example>
-  )
+  );
 }
 
 function KbdWithSamp() {
@@ -188,5 +177,5 @@ function KbdWithSamp() {
         <samp>File</samp>
       </Kbd>
     </Example>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import { encodePreset, type PresetConfig } from "shadcn/preset"
+import { encodePreset, type PresetConfig } from "shadcn/preset";
 
-import { type DesignSystemConfig } from "@/registry/config"
+import { type DesignSystemConfig } from "@/registry/config";
 
 type PresetCodeConfig = Pick<
   DesignSystemConfig,
@@ -14,7 +14,7 @@ type PresetCodeConfig = Pick<
   | "radius"
   | "menuAccent"
   | "menuColor"
->
+>;
 
 export function getPresetCode(config: PresetCodeConfig) {
   const presetConfig: Partial<PresetConfig> = {
@@ -28,7 +28,7 @@ export function getPresetCode(config: PresetCodeConfig) {
     radius: config.radius as PresetConfig["radius"],
     menuAccent: config.menuAccent as PresetConfig["menuAccent"],
     menuColor: config.menuColor as PresetConfig["menuColor"],
-  }
+  };
 
-  return encodePreset(presetConfig)
+  return encodePreset(presetConfig);
 }

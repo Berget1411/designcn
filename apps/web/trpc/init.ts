@@ -1,13 +1,11 @@
-import { initTRPC } from '@trpc/server';
+import { initTRPC } from "@trpc/server";
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   // const user = await auth(opts.headers);
-  return { userId: 'user_123' };
+  return { userId: "user_123" };
 };
 
-const t = initTRPC
-  .context<Awaited<ReturnType<typeof createTRPCContext>>>()
-  .create();
+const t = initTRPC.context<Awaited<ReturnType<typeof createTRPCContext>>>().create();
 
 export const createTRPCRouter = t.router;
 export const createCallerFactory = t.createCallerFactory;

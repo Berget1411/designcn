@@ -1,4 +1,4 @@
-import { type Registry } from "shadcn/schema"
+import { type Registry } from "shadcn/schema";
 
 export const examples: Registry["items"] = [
   {
@@ -146,14 +146,7 @@ export const examples: Registry["items"] = [
     name: "card-example",
     title: "Card",
     type: "registry:example",
-    registryDependencies: [
-      "avatar",
-      "button",
-      "card",
-      "field",
-      "input",
-      "example",
-    ],
+    registryDependencies: ["avatar", "button", "card", "field", "input", "example"],
     files: [
       {
         path: "examples/card-example.tsx",
@@ -201,15 +194,7 @@ export const examples: Registry["items"] = [
     name: "collapsible-example",
     title: "Collapsible",
     type: "registry:example",
-    registryDependencies: [
-      "button",
-      "card",
-      "collapsible",
-      "field",
-      "input",
-      "tabs",
-      "example",
-    ],
+    registryDependencies: ["button", "card", "collapsible", "field", "input", "tabs", "example"],
     files: [
       {
         path: "examples/collapsible-example.tsx",
@@ -307,13 +292,7 @@ export const examples: Registry["items"] = [
     name: "dropdown-menu-example",
     title: "Dropdown Menu",
     type: "registry:example",
-    registryDependencies: [
-      "avatar",
-      "button",
-      "dialog",
-      "dropdown-menu",
-      "example",
-    ],
+    registryDependencies: ["avatar", "button", "dialog", "dropdown-menu", "example"],
     files: [
       {
         path: "examples/dropdown-menu-example.tsx",
@@ -374,14 +353,7 @@ export const examples: Registry["items"] = [
     name: "input-example",
     title: "Input",
     type: "registry:example",
-    registryDependencies: [
-      "button",
-      "field",
-      "input",
-      "native-select",
-      "select",
-      "example",
-    ],
+    registryDependencies: ["button", "field", "input", "native-select", "select", "example"],
     files: [
       {
         path: "examples/input-example.tsx",
@@ -443,13 +415,7 @@ export const examples: Registry["items"] = [
     name: "kbd-example",
     title: "Kbd",
     type: "registry:example",
-    registryDependencies: [
-      "button",
-      "input-group",
-      "kbd",
-      "tooltip",
-      "example",
-    ],
+    registryDependencies: ["button", "input-group", "kbd", "tooltip", "example"],
     files: [
       {
         path: "examples/kbd-example.tsx",
@@ -461,14 +427,7 @@ export const examples: Registry["items"] = [
     name: "label-example",
     title: "Label",
     type: "registry:example",
-    registryDependencies: [
-      "checkbox",
-      "field",
-      "input",
-      "label",
-      "textarea",
-      "example",
-    ],
+    registryDependencies: ["checkbox", "field", "input", "label", "textarea", "example"],
     files: [
       {
         path: "examples/label-example.tsx",
@@ -528,14 +487,7 @@ export const examples: Registry["items"] = [
     name: "popover-example",
     title: "Popover",
     type: "registry:example",
-    registryDependencies: [
-      "button",
-      "dialog",
-      "field",
-      "input",
-      "popover",
-      "example",
-    ],
+    registryDependencies: ["button", "dialog", "field", "input", "popover", "example"],
     files: [
       {
         path: "examples/popover-example.tsx",
@@ -640,14 +592,7 @@ export const examples: Registry["items"] = [
     name: "sidebar-example",
     title: "Sidebar",
     type: "registry:example",
-    registryDependencies: [
-      "button",
-      "dropdown-menu",
-      "item",
-      "label",
-      "sidebar",
-      "example",
-    ],
+    registryDependencies: ["button", "dropdown-menu", "item", "label", "sidebar", "example"],
     files: [
       {
         path: "examples/sidebar-example.tsx",
@@ -779,14 +724,7 @@ export const examples: Registry["items"] = [
     name: "table-example",
     title: "Table",
     type: "registry:example",
-    registryDependencies: [
-      "button",
-      "dropdown-menu",
-      "input",
-      "select",
-      "table",
-      "example",
-    ],
+    registryDependencies: ["button", "dropdown-menu", "input", "select", "table", "example"],
     files: [
       {
         path: "examples/table-example.tsx",
@@ -905,4 +843,4 @@ export const examples: Registry["items"] = [
       },
     ],
   },
-]
+];

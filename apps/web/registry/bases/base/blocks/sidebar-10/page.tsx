@@ -1,17 +1,13 @@
-import { AppSidebar } from "@/registry/bases/base/blocks/sidebar-10/components/app-sidebar"
-import { NavActions } from "@/registry/bases/base/blocks/sidebar-10/components/nav-actions"
+import { AppSidebar } from "@/registry/bases/base/blocks/sidebar-10/components/app-sidebar";
+import { NavActions } from "@/registry/bases/base/blocks/sidebar-10/components/nav-actions";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
-} from "@/registry/bases/base/ui/breadcrumb"
-import { Separator } from "@/registry/bases/base/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/registry/bases/base/ui/sidebar"
+} from "@/registry/bases/base/ui/breadcrumb";
+import { Separator } from "@/registry/bases/base/ui/separator";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/registry/bases/base/ui/sidebar";
 
 export default function Page() {
   return (
@@ -45,5 +41,5 @@ export default function Page() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

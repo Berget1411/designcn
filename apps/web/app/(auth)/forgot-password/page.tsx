@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { forgetPassword } from '@/lib/auth-client';
+import { useState } from "react";
+import Link from "next/link";
+import { forgetPassword } from "@/lib/auth-client";
 
 export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     const { error } = await forgetPassword({
       email,
-      redirectTo: '/reset-password',
+      redirectTo: "/reset-password",
     });
 
     if (error) {
-      setError(error.message ?? 'Something went wrong');
+      setError(error.message ?? "Something went wrong");
       setLoading(false);
     } else {
       setDone(true);
@@ -53,12 +53,12 @@ export default function ForgotPasswordPage() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
-            {error}
-          </p>
+          <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>
         )}
         <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-medium">Email</label>
+          <label htmlFor="email" className="text-sm font-medium">
+            Email
+          </label>
           <input
             id="email"
             type="email"
@@ -75,7 +75,7 @@ export default function ForgotPasswordPage() {
           disabled={loading}
           className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
         >
-          {loading ? 'Sending…' : 'Send reset link'}
+          {loading ? "Sending…" : "Send reset link"}
         </button>
       </form>
 

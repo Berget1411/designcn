@@ -1,14 +1,14 @@
 /* eslint-disable react/no-children-prop */
-"use client"
+"use client";
 
-import * as React from "react"
-import { useForm } from "@tanstack/react-form"
-import { toast } from "sonner"
-import * as z from "zod"
+import * as React from "react";
+import { useForm } from "@tanstack/react-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Card, CardContent, CardFooter } from "@/registry/new-york-v4/ui/card"
-import { Checkbox } from "@/registry/new-york-v4/ui/checkbox"
+import { Button } from "@/registry/new-york-v4/ui/button";
+import { Card, CardContent, CardFooter } from "@/registry/new-york-v4/ui/card";
+import { Checkbox } from "@/registry/new-york-v4/ui/checkbox";
 import {
   Field,
   FieldContent,
@@ -20,19 +20,16 @@ import {
   FieldSeparator,
   FieldSet,
   FieldTitle,
-} from "@/registry/new-york-v4/ui/field"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/new-york-v4/ui/radio-group"
+} from "@/registry/new-york-v4/ui/field";
+import { RadioGroup, RadioGroupItem } from "@/registry/new-york-v4/ui/radio-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/new-york-v4/ui/select"
-import { Switch } from "@/registry/new-york-v4/ui/switch"
+} from "@/registry/new-york-v4/ui/select";
+import { Switch } from "@/registry/new-york-v4/ui/switch";
 
 const addons = [
   {
@@ -50,7 +47,7 @@ const addons = [
     title: "Priority Support",
     description: "24/7 premium customer support",
   },
-] as const
+] as const;
 
 const formSchema = z.object({
   plan: z
@@ -70,14 +67,11 @@ const formSchema = z.object({
     .array(z.string())
     .min(1, "Please select at least one add-on")
     .max(3, "You can select up to 3 add-ons")
-    .refine(
-      (value) => value.every((addon) => addons.some((a) => a.id === addon)),
-      {
-        message: "You selected an invalid add-on",
-      }
-    ),
+    .refine((value) => value.every((addon) => addons.some((a) => a.id === addon)), {
+      message: "You selected an invalid add-on",
+    }),
   emailNotifications: z.boolean(),
-})
+});
 
 export default function FormTanstackComplex() {
   const form = useForm({
@@ -104,9 +98,9 @@ export default function FormTanstackComplex() {
         style: {
           "--border-radius": "calc(var(--radius)  + 4px)",
         } as React.CSSProperties,
-      })
+      });
     },
-  })
+  });
 
   return (
     <Card className="w-full max-w-sm">
@@ -114,77 +108,53 @@ export default function FormTanstackComplex() {
         <form
           id="subscription-form"
           onSubmit={(e) => {
-            e.preventDefault()
-            form.handleSubmit()
+            e.preventDefault();
+            form.handleSubmit();
           }}
         >
           <FieldGroup>
             <form.Field
               name="plan"
               children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid
+                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <FieldSet>
                     <FieldLegend>Subscription Plan</FieldLegend>
-                    <FieldDescription>
-                      Choose your subscription plan.
-                    </FieldDescription>
+                    <FieldDescription>Choose your subscription plan.</FieldDescription>
                     <RadioGroup
                       name={field.name}
                       value={field.state.value}
                       onValueChange={field.handleChange}
                     >
                       <FieldLabel htmlFor="basic">
-                        <Field
-                          orientation="horizontal"
-                          data-invalid={isInvalid}
-                        >
+                        <Field orientation="horizontal" data-invalid={isInvalid}>
                           <FieldContent>
                             <FieldTitle>Basic</FieldTitle>
-                            <FieldDescription>
-                              For individuals and small teams
-                            </FieldDescription>
+                            <FieldDescription>For individuals and small teams</FieldDescription>
                           </FieldContent>
-                          <RadioGroupItem
-                            value="basic"
-                            id="basic"
-                            aria-invalid={isInvalid}
-                          />
+                          <RadioGroupItem value="basic" id="basic" aria-invalid={isInvalid} />
                         </Field>
                       </FieldLabel>
                       <FieldLabel htmlFor="pro">
-                        <Field
-                          orientation="horizontal"
-                          data-invalid={isInvalid}
-                        >
+                        <Field orientation="horizontal" data-invalid={isInvalid}>
                           <FieldContent>
                             <FieldTitle>Pro</FieldTitle>
-                            <FieldDescription>
-                              For businesses with higher demands
-                            </FieldDescription>
+                            <FieldDescription>For businesses with higher demands</FieldDescription>
                           </FieldContent>
-                          <RadioGroupItem
-                            value="pro"
-                            id="pro"
-                            aria-invalid={isInvalid}
-                          />
+                          <RadioGroupItem value="pro" id="pro" aria-invalid={isInvalid} />
                         </Field>
                       </FieldLabel>
                     </RadioGroup>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                   </FieldSet>
-                )
+                );
               }}
             />
             <FieldSeparator />
             <form.Field
               name="billingPeriod"
               children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid
+                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
                     <FieldLabel htmlFor={field.name}>Billing Period</FieldLabel>
@@ -202,14 +172,10 @@ export default function FormTanstackComplex() {
                         <SelectItem value="yearly">Yearly</SelectItem>
                       </SelectContent>
                     </Select>
-                    <FieldDescription>
-                      Choose how often you want to be billed.
-                    </FieldDescription>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
+                    <FieldDescription>Choose how often you want to be billed.</FieldDescription>
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                   </Field>
-                )
+                );
               }}
             />
             <FieldSeparator />
@@ -217,8 +183,7 @@ export default function FormTanstackComplex() {
               name="addons"
               mode="array"
               children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid
+                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <FieldSet>
                     <FieldLegend>Add-ons</FieldLegend>
@@ -227,11 +192,7 @@ export default function FormTanstackComplex() {
                     </FieldDescription>
                     <FieldGroup data-slot="checkbox-group">
                       {addons.map((addon) => (
-                        <Field
-                          key={addon.id}
-                          orientation="horizontal"
-                          data-invalid={isInvalid}
-                        >
+                        <Field key={addon.id} orientation="horizontal" data-invalid={isInvalid}>
                           <Checkbox
                             id={addon.id}
                             name={field.name}
@@ -239,47 +200,36 @@ export default function FormTanstackComplex() {
                             checked={field.state.value.includes(addon.id)}
                             onCheckedChange={(checked) => {
                               if (checked) {
-                                field.pushValue(addon.id)
+                                field.pushValue(addon.id);
                               } else {
-                                const index = field.state.value.indexOf(
-                                  addon.id
-                                )
+                                const index = field.state.value.indexOf(addon.id);
                                 if (index > -1) {
-                                  field.removeValue(index)
+                                  field.removeValue(index);
                                 }
                               }
                             }}
                           />
                           <FieldContent>
-                            <FieldLabel htmlFor={addon.id}>
-                              {addon.title}
-                            </FieldLabel>
-                            <FieldDescription>
-                              {addon.description}
-                            </FieldDescription>
+                            <FieldLabel htmlFor={addon.id}>{addon.title}</FieldLabel>
+                            <FieldDescription>{addon.description}</FieldDescription>
                           </FieldContent>
                         </Field>
                       ))}
                     </FieldGroup>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                   </FieldSet>
-                )
+                );
               }}
             />
             <FieldSeparator />
             <form.Field
               name="emailNotifications"
               children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid
+                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field orientation="horizontal" data-invalid={isInvalid}>
                     <FieldContent>
-                      <FieldLabel htmlFor={field.name}>
-                        Email Notifications
-                      </FieldLabel>
+                      <FieldLabel htmlFor={field.name}>Email Notifications</FieldLabel>
                       <FieldDescription>
                         Receive email updates about your subscription
                       </FieldDescription>
@@ -291,11 +241,9 @@ export default function FormTanstackComplex() {
                       onCheckedChange={field.handleChange}
                       aria-invalid={isInvalid}
                     />
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                   </Field>
-                )
+                );
               }}
             />
           </FieldGroup>
@@ -309,5 +257,5 @@ export default function FormTanstackComplex() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

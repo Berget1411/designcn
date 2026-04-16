@@ -1,12 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/bases/radix/ui/dialog"
+} from "@/registry/bases/radix/ui/dialog";
 import {
   Menubar,
   MenubarCheckboxItem,
@@ -31,8 +28,8 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "@/registry/bases/radix/ui/menubar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/menubar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function MenubarExample() {
   return (
@@ -49,7 +46,7 @@ export default function MenubarExample() {
       <MenubarInDialog />
       <MenubarWithInset />
     </ExampleWrapper>
-  )
+  );
 }
 
 function MenubarBasic() {
@@ -97,7 +94,7 @@ function MenubarBasic() {
         </MenubarMenu>
       </Menubar>
     </Example>
-  )
+  );
 }
 
 function MenubarWithSubmenu() {
@@ -157,7 +154,7 @@ function MenubarWithSubmenu() {
         </MenubarMenu>
       </Menubar>
     </Example>
-  )
+  );
 }
 
 function MenubarWithCheckboxes() {
@@ -168,12 +165,8 @@ function MenubarWithCheckboxes() {
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent className="w-64">
             <MenubarGroup>
-              <MenubarCheckboxItem>
-                Always Show Bookmarks Bar
-              </MenubarCheckboxItem>
-              <MenubarCheckboxItem checked>
-                Always Show Full URLs
-              </MenubarCheckboxItem>
+              <MenubarCheckboxItem>Always Show Bookmarks Bar</MenubarCheckboxItem>
+              <MenubarCheckboxItem checked>Always Show Full URLs</MenubarCheckboxItem>
             </MenubarGroup>
             <MenubarSeparator />
             <MenubarGroup>
@@ -196,12 +189,12 @@ function MenubarWithCheckboxes() {
         </MenubarMenu>
       </Menubar>
     </Example>
-  )
+  );
 }
 
 function MenubarWithRadio() {
-  const [user, setUser] = React.useState("benoit")
-  const [theme, setTheme] = React.useState("system")
+  const [user, setUser] = React.useState("benoit");
+  const [theme, setTheme] = React.useState("system");
 
   return (
     <Example title="With Radio">
@@ -233,7 +226,7 @@ function MenubarWithRadio() {
         </MenubarMenu>
       </Menubar>
     </Example>
-  )
+  );
 }
 
 function MenubarWithIcons() {
@@ -320,7 +313,7 @@ function MenubarWithIcons() {
         </MenubarMenu>
       </Menubar>
     </Example>
-  )
+  );
 }
 
 function MenubarWithShortcuts() {
@@ -370,7 +363,7 @@ function MenubarWithShortcuts() {
         </MenubarMenu>
       </Menubar>
     </Example>
-  )
+  );
 }
 
 function MenubarFormat() {
@@ -433,7 +426,7 @@ function MenubarFormat() {
         </MenubarMenu>
       </Menubar>
     </Example>
-  )
+  );
 }
 
 function MenubarInsert() {
@@ -516,7 +509,7 @@ function MenubarInsert() {
         </MenubarMenu>
       </Menubar>
     </Example>
-  )
+  );
 }
 
 function MenubarDestructive() {
@@ -618,7 +611,7 @@ function MenubarDestructive() {
         </MenubarMenu>
       </Menubar>
     </Example>
-  )
+  );
 }
 
 function MenubarInDialog() {
@@ -631,9 +624,7 @@ function MenubarInDialog() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Menubar Example</DialogTitle>
-            <DialogDescription>
-              Use the menubar below to see the menu options.
-            </DialogDescription>
+            <DialogDescription>Use the menubar below to see the menu options.</DialogDescription>
           </DialogHeader>
           <Menubar>
             <MenubarMenu>
@@ -718,13 +709,13 @@ function MenubarInDialog() {
         </DialogContent>
       </Dialog>
     </Example>
-  )
+  );
 }
 
 function MenubarWithInset() {
-  const [showBookmarks, setShowBookmarks] = React.useState(true)
-  const [showUrls, setShowUrls] = React.useState(false)
-  const [theme, setTheme] = React.useState("system")
+  const [showBookmarks, setShowBookmarks] = React.useState(true);
+  const [showUrls, setShowUrls] = React.useState(false);
+  const [theme, setTheme] = React.useState("system");
 
   return (
     <Example title="With Inset">
@@ -759,18 +750,10 @@ function MenubarWithInset() {
             <MenubarSeparator />
             <MenubarGroup>
               <MenubarLabel inset>Appearance</MenubarLabel>
-              <MenubarCheckboxItem
-                inset
-                checked={showBookmarks}
-                onCheckedChange={setShowBookmarks}
-              >
+              <MenubarCheckboxItem inset checked={showBookmarks} onCheckedChange={setShowBookmarks}>
                 Bookmarks
               </MenubarCheckboxItem>
-              <MenubarCheckboxItem
-                inset
-                checked={showUrls}
-                onCheckedChange={setShowUrls}
-              >
+              <MenubarCheckboxItem inset checked={showUrls} onCheckedChange={setShowUrls}>
                 Full URLs
               </MenubarCheckboxItem>
             </MenubarGroup>
@@ -803,5 +786,5 @@ function MenubarWithInset() {
         </MenubarMenu>
       </Menubar>
     </Example>
-  )
+  );
 }

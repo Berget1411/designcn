@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
+import { TrendingUp } from "lucide-react";
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
 
 import {
   Card,
@@ -10,15 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/registry/new-york-v4/ui/chart"
+} from "@/registry/new-york-v4/ui/chart";
 
-export const description = "A radar chart with lines only"
+export const description = "A radar chart with lines only";
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 160 },
@@ -27,7 +27,7 @@ const chartData = [
   { month: "April", desktop: 173, mobile: 160 },
   { month: "May", desktop: 160, mobile: 190 },
   { month: "June", desktop: 174, mobile: 204 },
-]
+];
 
 const chartConfig = {
   desktop: {
@@ -38,27 +38,19 @@ const chartConfig = {
     label: "Mobile",
     color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function ChartRadarLinesOnly() {
   return (
     <Card>
       <CardHeader className="items-center pb-4">
         <CardTitle>Radar Chart - Lines Only</CardTitle>
-        <CardDescription>
-          Showing total visitors for the last 6 months
-        </CardDescription>
+        <CardDescription>Showing total visitors for the last 6 months</CardDescription>
       </CardHeader>
       <CardContent className="pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
+        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
           <RadarChart data={chartData}>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
             <PolarAngleAxis dataKey="month" />
             <PolarGrid radialLines={false} />
             <Radar
@@ -87,5 +79,5 @@ export function ChartRadarLinesOnly() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

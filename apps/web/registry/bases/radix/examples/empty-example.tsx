@@ -1,8 +1,5 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -10,14 +7,14 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/registry/bases/radix/ui/empty"
+} from "@/registry/bases/radix/ui/empty";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@/registry/bases/radix/ui/input-group"
-import { Kbd } from "@/registry/bases/radix/ui/kbd"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/input-group";
+import { Kbd } from "@/registry/bases/radix/ui/kbd";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function EmptyExample() {
   return (
@@ -29,7 +26,7 @@ export default function EmptyExample() {
       <EmptyWithMutedBackgroundAlt />
       <EmptyInCard />
     </ExampleWrapper>
-  )
+  );
 }
 
 function EmptyBasic() {
@@ -39,8 +36,7 @@ function EmptyBasic() {
         <EmptyHeader>
           <EmptyTitle>No projects yet</EmptyTitle>
           <EmptyDescription>
-            You haven&apos;t created any projects yet. Get started by creating
-            your first project.
+            You haven&apos;t created any projects yet. Get started by creating your first project.
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
@@ -65,7 +61,7 @@ function EmptyBasic() {
         </EmptyContent>
       </Empty>
     </Example>
-  )
+  );
 }
 
 function EmptyWithMutedBackground() {
@@ -95,7 +91,7 @@ function EmptyWithMutedBackground() {
         </EmptyContent>
       </Empty>
     </Example>
-  )
+  );
 }
 
 function EmptyWithBorder() {
@@ -105,8 +101,8 @@ function EmptyWithBorder() {
         <EmptyHeader>
           <EmptyTitle>404 - Not Found</EmptyTitle>
           <EmptyDescription>
-            The page you&apos;re looking for doesn&apos;t exist. Try searching
-            for what you need below.
+            The page you&apos;re looking for doesn&apos;t exist. Try searching for what you need
+            below.
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
@@ -131,7 +127,7 @@ function EmptyWithBorder() {
         </EmptyContent>
       </Empty>
     </Example>
-  )
+  );
 }
 
 function EmptyWithIcon() {
@@ -150,8 +146,7 @@ function EmptyWithIcon() {
           </EmptyMedia>
           <EmptyTitle>Nothing to see here</EmptyTitle>
           <EmptyDescription>
-            No posts have been created yet. Get started by{" "}
-            <a href="#">creating your first post</a>.
+            No posts have been created yet. Get started by <a href="#">creating your first post</a>.
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
@@ -169,7 +164,7 @@ function EmptyWithIcon() {
         </EmptyContent>
       </Empty>
     </Example>
-  )
+  );
 }
 
 function EmptyWithMutedBackgroundAlt() {
@@ -179,8 +174,8 @@ function EmptyWithMutedBackgroundAlt() {
         <EmptyHeader>
           <EmptyTitle>404 - Not Found</EmptyTitle>
           <EmptyDescription>
-            The page you&apos;re looking for doesn&apos;t exist. Try searching
-            for what you need below.
+            The page you&apos;re looking for doesn&apos;t exist. Try searching for what you need
+            below.
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
@@ -205,7 +200,7 @@ function EmptyWithMutedBackgroundAlt() {
         </EmptyContent>
       </Empty>
     </Example>
-  )
+  );
 }
 
 function EmptyInCard() {
@@ -224,8 +219,7 @@ function EmptyInCard() {
           </EmptyMedia>
           <EmptyTitle>No projects yet</EmptyTitle>
           <EmptyDescription>
-            You haven&apos;t created any projects yet. Get started by creating
-            your first project.
+            You haven&apos;t created any projects yet. Get started by creating your first project.
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
@@ -250,5 +244,5 @@ function EmptyInCard() {
         </EmptyContent>
       </Empty>
     </Example>
-  )
+  );
 }

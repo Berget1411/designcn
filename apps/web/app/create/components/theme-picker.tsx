@@ -1,15 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { useMounted } from "@/hooks/use-mounted"
-import { BASE_COLORS, type Theme, type ThemeName } from "@/registry/config"
-import { cssColorToHex } from "@/app/create/lib/color-utils"
-import {
-  decodeCustomThemeVars,
-  encodeCustomThemeVars,
-} from "@/app/create/lib/custom-theme-vars"
-import { LockButton } from "@/app/create/components/lock-button"
+import { useMounted } from "@/hooks/use-mounted";
+import { BASE_COLORS, type Theme, type ThemeName } from "@/registry/config";
+import { cssColorToHex } from "@/app/create/lib/color-utils";
+import { decodeCustomThemeVars, encodeCustomThemeVars } from "@/app/create/lib/custom-theme-vars";
+import { LockButton } from "@/app/create/components/lock-button";
 import {
   Picker,
   PickerContent,
@@ -19,8 +16,8 @@ import {
   PickerRadioItem,
   PickerSeparator,
   PickerTrigger,
-} from "@/app/create/components/picker"
-import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
+} from "@/app/create/components/picker";
+import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
 
 export function ThemePicker({
   themes,
@@ -28,40 +25,36 @@ export function ThemePicker({
   anchorRef,
   onAdvanced,
 }: {
-  themes: readonly Theme[]
-  isMobile: boolean
-  anchorRef: React.RefObject<HTMLDivElement | null>
-  onAdvanced?: () => void
+  themes: readonly Theme[];
+  isMobile: boolean;
+  anchorRef: React.RefObject<HTMLDivElement | null>;
+  onAdvanced?: () => void;
 }) {
-  const mounted = useMounted()
-  const [params, setParams] = useDesignSystemSearchParams()
-  const colorInputRef = React.useRef<HTMLInputElement>(null)
+  const mounted = useMounted();
+  const [params, setParams] = useDesignSystemSearchParams();
+  const colorInputRef = React.useRef<HTMLInputElement>(null);
 
   const currentTheme = React.useMemo(
     () => themes.find((theme) => theme.name === params.theme),
-    [themes, params.theme]
-  )
+    [themes, params.theme],
+  );
 
   const currentThemeIsBaseColor = React.useMemo(
     () => BASE_COLORS.find((baseColor) => baseColor.name === params.theme),
-    [params.theme]
-  )
+    [params.theme],
+  );
 
-  const customVars = React.useMemo(
-    () => decodeCustomThemeVars(params.vars),
-    [params.vars]
-  )
+  const customVars = React.useMemo(() => decodeCustomThemeVars(params.vars), [params.vars]);
 
-  const themeColorVar = currentThemeIsBaseColor ? "muted-foreground" : "primary"
+  const themeColorVar = currentThemeIsBaseColor ? "muted-foreground" : "primary";
 
   const displayColor =
-    customVars?.dark?.[themeColorVar] ??
-    currentTheme?.cssVars?.dark?.[themeColorVar]
+    customVars?.dark?.[themeColorVar] ?? currentTheme?.cssVars?.dark?.[themeColorVar];
 
   const nativeColorValue = React.useMemo(() => {
-    if (!mounted || !displayColor) return "#000000"
-    return cssColorToHex(displayColor) ?? "#000000"
-  }, [mounted, displayColor])
+    if (!mounted || !displayColor) return "#000000";
+    return cssColorToHex(displayColor) ?? "#000000";
+  }, [mounted, displayColor]);
 
   const handleColorPick = React.useCallback(
     (hex: string) => {
@@ -75,18 +68,18 @@ export function ThemePicker({
           ...(customVars.dark ?? {}),
           [themeColorVar]: hex,
         },
-      }
-      const encoded = encodeCustomThemeVars(next)
-      setParams({ custom: Boolean(encoded), vars: encoded })
+      };
+      const encoded = encodeCustomThemeVars(next);
+      setParams({ custom: Boolean(encoded), vars: encoded });
     },
-    [customVars, themeColorVar, setParams]
-  )
+    [customVars, themeColorVar, setParams],
+  );
 
   React.useEffect(() => {
     if (!currentTheme && themes.length > 0) {
-      setParams({ theme: themes[0].name })
+      setParams({ theme: themes[0].name });
     }
-  }, [currentTheme, themes, setParams])
+  }, [currentTheme, themes, setParams]);
 
   return (
     <div className="group/picker relative">
@@ -110,8 +103,8 @@ export function ThemePicker({
                 }
                 className="absolute top-1/2 right-4 size-4 -translate-y-1/2 rounded-full bg-(--color) select-none md:right-2.5 cursor-pointer hover:ring-2 hover:ring-foreground/30 transition-shadow"
                 onClick={(e) => {
-                  e.stopPropagation()
-                  colorInputRef.current?.click()
+                  e.stopPropagation();
+                  colorInputRef.current?.click();
                 }}
                 aria-label="Pick custom theme color"
               />
@@ -136,60 +129,40 @@ export function ThemePicker({
           <PickerRadioGroup
             value={currentTheme?.name}
             onValueChange={(value) => {
-              setParams({ theme: value as ThemeName })
+              setParams({ theme: value as ThemeName });
             }}
           >
             <PickerGroup>
               {themes
-                .filter((theme) =>
-                  BASE_COLORS.find((baseColor) => baseColor.name === theme.name)
-                )
+                .filter((theme) => BASE_COLORS.find((baseColor) => baseColor.name === theme.name))
                 .map((theme) => {
                   return (
-                    <PickerRadioItem
-                      key={theme.name}
-                      value={theme.name}
-                      closeOnClick={isMobile}
-                    >
+                    <PickerRadioItem key={theme.name} value={theme.name} closeOnClick={isMobile}>
                       {theme.title}
                     </PickerRadioItem>
-                  )
+                  );
                 })}
             </PickerGroup>
             <PickerSeparator />
             <PickerGroup>
               {themes
-                .filter(
-                  (theme) =>
-                    !BASE_COLORS.find(
-                      (baseColor) => baseColor.name === theme.name
-                    )
-                )
+                .filter((theme) => !BASE_COLORS.find((baseColor) => baseColor.name === theme.name))
                 .map((theme) => {
                   return (
-                    <PickerRadioItem
-                      key={theme.name}
-                      value={theme.name}
-                      closeOnClick={isMobile}
-                    >
+                    <PickerRadioItem key={theme.name} value={theme.name} closeOnClick={isMobile}>
                       {theme.title}
                     </PickerRadioItem>
-                  )
+                  );
                 })}
             </PickerGroup>
           </PickerRadioGroup>
           <PickerSeparator />
           <PickerGroup>
-            <PickerItem onClick={() => onAdvanced?.()}>
-              Customize Colors…
-            </PickerItem>
+            <PickerItem onClick={() => onAdvanced?.()}>Customize Colors…</PickerItem>
           </PickerGroup>
         </PickerContent>
       </Picker>
-      <LockButton
-        param="theme"
-        className="absolute top-1/2 right-8 -translate-y-1/2"
-      />
+      <LockButton param="theme" className="absolute top-1/2 right-8 -translate-y-1/2" />
     </div>
-  )
+  );
 }

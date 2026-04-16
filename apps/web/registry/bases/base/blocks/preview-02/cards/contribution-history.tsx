@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { Bar, BarChart, XAxis } from "recharts"
+import { Bar, BarChart, XAxis } from "recharts";
 
-import { Badge } from "@/registry/bases/base/ui/badge"
-import { Button } from "@/registry/bases/base/ui/button"
+import { Badge } from "@/registry/bases/base/ui/badge";
+import { Button } from "@/registry/bases/base/ui/button";
 import {
   Card,
   CardAction,
@@ -12,18 +12,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/base/ui/card"
+} from "@/registry/bases/base/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/registry/bases/base/ui/chart"
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-} from "@/registry/bases/base/ui/item"
+} from "@/registry/bases/base/ui/chart";
+import { Item, ItemContent, ItemDescription } from "@/registry/bases/base/ui/item";
 
 const chartData = [
   { month: "Dec", amount: 800 },
@@ -32,14 +28,14 @@ const chartData = [
   { month: "Mar", amount: 1300 },
   { month: "Apr", amount: 750 },
   { month: "May", amount: 1400 },
-]
+];
 
 const chartConfig = {
   amount: {
     label: "Contribution",
     color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function ContributionHistory() {
   return (
@@ -58,12 +54,7 @@ export function ContributionHistory() {
             data={chartData}
             margin={{ left: 0, right: 0, top: 8, bottom: 0 }}
           >
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={8}
-              axisLine={false}
-            />
+            <XAxis dataKey="month" tickLine={false} tickMargin={8} axisLine={false} />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel className="min-w-40" />}
@@ -84,12 +75,8 @@ export function ContributionHistory() {
               <ItemDescription className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
                 Upcoming
               </ItemDescription>
-              <span className="cn-font-heading text-lg font-semibold">
-                May 25, 2024
-              </span>
-              <span className="text-sm text-muted-foreground">
-                $1,000 scheduled
-              </span>
+              <span className="cn-font-heading text-lg font-semibold">May 25, 2024</span>
+              <span className="text-sm text-muted-foreground">$1,000 scheduled</span>
             </ItemContent>
           </Item>
           <Item variant="muted" className="flex-col items-stretch">
@@ -97,17 +84,13 @@ export function ContributionHistory() {
               <ItemDescription className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
                 Auto-Save Plan
               </ItemDescription>
-              <span className="cn-font-heading text-lg font-semibold">
-                Accelerated
-              </span>
-              <span className="text-sm text-muted-foreground">
-                Recurring weekly
-              </span>
+              <span className="cn-font-heading text-lg font-semibold">Accelerated</span>
+              <span className="text-sm text-muted-foreground">Recurring weekly</span>
             </ItemContent>
           </Item>
         </div>
         <Button className="w-full">View Full Report</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

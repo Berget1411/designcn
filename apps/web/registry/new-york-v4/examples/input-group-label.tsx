@@ -1,17 +1,13 @@
-import { InfoIcon } from "lucide-react"
+import { InfoIcon } from "lucide-react";
 
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@/registry/new-york-v4/ui/input-group"
-import { Label } from "@/registry/new-york-v4/ui/label"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/new-york-v4/ui/tooltip"
+} from "@/registry/new-york-v4/ui/input-group";
+import { Label } from "@/registry/new-york-v4/ui/label";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/new-york-v4/ui/tooltip";
 
 export default function InputGroupLabel() {
   return (
@@ -46,5 +42,5 @@ export default function InputGroupLabel() {
         </InputGroupAddon>
       </InputGroup>
     </div>
-  )
+  );
 }

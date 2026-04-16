@@ -1,23 +1,15 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/bases/radix/ui/dropdown-menu"
-import { Input } from "@/registry/bases/radix/ui/input"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/registry/bases/radix/ui/tabs"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/dropdown-menu";
+import { Input } from "@/registry/bases/radix/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/bases/radix/ui/tabs";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function TabsExample() {
   return (
@@ -36,7 +28,7 @@ export default function TabsExample() {
       <TabsVertical />
       <TabsWithInputAndButton />
     </ExampleWrapper>
-  )
+  );
 }
 
 function TabsBasic() {
@@ -49,7 +41,7 @@ function TabsBasic() {
         </TabsList>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsLine() {
@@ -63,7 +55,7 @@ function TabsLine() {
         </TabsList>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsVariantsComparison() {
@@ -84,7 +76,7 @@ function TabsVariantsComparison() {
         </Tabs>
       </div>
     </Example>
-  )
+  );
 }
 
 function TabsDisabled() {
@@ -99,7 +91,7 @@ function TabsDisabled() {
         </TabsList>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsWithIcons() {
@@ -132,7 +124,7 @@ function TabsWithIcons() {
         </TabsList>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsIconOnly() {
@@ -170,7 +162,7 @@ function TabsIconOnly() {
         </TabsList>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsMultiple() {
@@ -185,7 +177,7 @@ function TabsMultiple() {
         </TabsList>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsWithContent() {
@@ -210,7 +202,7 @@ function TabsWithContent() {
         </div>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsLineWithContent() {
@@ -235,7 +227,7 @@ function TabsLineWithContent() {
         </div>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsLineDisabled() {
@@ -251,7 +243,7 @@ function TabsLineDisabled() {
         </TabsList>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsWithDropdown() {
@@ -293,13 +285,11 @@ function TabsWithDropdown() {
           <TabsContent value="analytics">
             Detailed analytics and insights about your data.
           </TabsContent>
-          <TabsContent value="reports">
-            Generate and view custom reports.
-          </TabsContent>
+          <TabsContent value="reports">Generate and view custom reports.</TabsContent>
         </div>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsVertical() {
@@ -316,18 +306,17 @@ function TabsVertical() {
             Manage your account preferences and profile information.
           </TabsContent>
           <TabsContent value="password">
-            Update your password to keep your account secure. Use a strong
-            password with a mix of letters, numbers, and symbols.
+            Update your password to keep your account secure. Use a strong password with a mix of
+            letters, numbers, and symbols.
           </TabsContent>
           <TabsContent value="notifications">
-            Configure how you receive notifications and alerts. Choose which
-            types of notifications you want to receive and how you want to
-            receive them.
+            Configure how you receive notifications and alerts. Choose which types of notifications
+            you want to receive and how you want to receive them.
           </TabsContent>
         </div>
       </Tabs>
     </Example>
-  )
+  );
 }
 
 function TabsWithInputAndButton() {
@@ -351,11 +340,9 @@ function TabsWithInputAndButton() {
           <TabsContent value="analytics">
             Detailed analytics and insights about your data.
           </TabsContent>
-          <TabsContent value="reports">
-            Generate and view custom reports.
-          </TabsContent>
+          <TabsContent value="reports">Generate and view custom reports.</TabsContent>
         </div>
       </Tabs>
     </Example>
-  )
+  );
 }

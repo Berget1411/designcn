@@ -1,7 +1,4 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
 import {
   Field,
   FieldContent,
@@ -9,11 +6,8 @@ import {
   FieldLabel,
   FieldLegend,
   FieldSet,
-} from "@/registry/bases/radix/ui/field"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/bases/radix/ui/radio-group"
+} from "@/registry/bases/radix/ui/field";
+import { RadioGroup, RadioGroupItem } from "@/registry/bases/radix/ui/radio-group";
 
 export default function RadioGroupExample() {
   return (
@@ -25,7 +19,7 @@ export default function RadioGroupExample() {
       <RadioGroupDisabled />
       <RadioGroupInvalid />
     </ExampleWrapper>
-  )
+  );
 }
 
 function RadioGroupBasic() {
@@ -52,7 +46,7 @@ function RadioGroupBasic() {
         </Field>
       </RadioGroup>
     </Example>
-  )
+  );
 }
 
 function RadioGroupWithDescriptions() {
@@ -63,9 +57,7 @@ function RadioGroupWithDescriptions() {
           <Field orientation="horizontal">
             <FieldContent>
               <div className="font-medium">Plus</div>
-              <FieldDescription>
-                For individuals and small teams
-              </FieldDescription>
+              <FieldDescription>For individuals and small teams</FieldDescription>
             </FieldContent>
             <RadioGroupItem value="plus" id="plus-plan" />
           </Field>
@@ -83,16 +75,14 @@ function RadioGroupWithDescriptions() {
           <Field orientation="horizontal">
             <FieldContent>
               <div className="font-medium">Enterprise</div>
-              <FieldDescription>
-                For large teams and enterprises
-              </FieldDescription>
+              <FieldDescription>For large teams and enterprises</FieldDescription>
             </FieldContent>
             <RadioGroupItem value="enterprise" id="enterprise-plan" />
           </Field>
         </FieldLabel>
       </RadioGroup>
     </Example>
-  )
+  );
 }
 
 function RadioGroupWithFieldSet() {
@@ -100,9 +90,7 @@ function RadioGroupWithFieldSet() {
     <Example title="With FieldSet">
       <FieldSet>
         <FieldLegend>Battery Level</FieldLegend>
-        <FieldDescription>
-          Choose your preferred battery level.
-        </FieldDescription>
+        <FieldDescription>Choose your preferred battery level.</FieldDescription>
         <RadioGroup defaultValue="medium">
           <Field orientation="horizontal">
             <RadioGroupItem value="high" id="battery-high" />
@@ -125,7 +113,7 @@ function RadioGroupWithFieldSet() {
         </RadioGroup>
       </FieldSet>
     </Example>
-  )
+  );
 }
 
 function RadioGroupGrid() {
@@ -158,7 +146,7 @@ function RadioGroupGrid() {
         </FieldLabel>
       </RadioGroup>
     </Example>
-  )
+  );
 }
 
 function RadioGroupDisabled() {
@@ -185,7 +173,7 @@ function RadioGroupDisabled() {
         </Field>
       </RadioGroup>
     </Example>
-  )
+  );
 }
 
 function RadioGroupInvalid() {
@@ -193,9 +181,7 @@ function RadioGroupInvalid() {
     <Example title="Invalid">
       <FieldSet>
         <FieldLegend>Notification Preferences</FieldLegend>
-        <FieldDescription>
-          Choose how you want to receive notifications.
-        </FieldDescription>
+        <FieldDescription>Choose how you want to receive notifications.</FieldDescription>
         <RadioGroup defaultValue="email">
           <Field orientation="horizontal" data-invalid>
             <RadioGroupItem value="email" id="invalid-email" aria-invalid />
@@ -218,5 +204,5 @@ function RadioGroupInvalid() {
         </RadioGroup>
       </FieldSet>
     </Example>
-  )
+  );
 }

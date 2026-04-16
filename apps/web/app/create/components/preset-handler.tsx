@@ -1,38 +1,38 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { generateRandomPreset, isPresetCode } from "shadcn/preset"
+import * as React from "react";
+import { useRouter } from "next/navigation";
+import { generateRandomPreset, isPresetCode } from "shadcn/preset";
 
-import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
+import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
 
 export function PresetHandler() {
-  const router = useRouter()
-  const [params, setParams] = useDesignSystemSearchParams()
-  const hasConverted = React.useRef(false)
+  const router = useRouter();
+  const [params, setParams] = useDesignSystemSearchParams();
+  const hasConverted = React.useRef(false);
 
   React.useEffect(() => {
     if (params.preset === "random") {
-      router.replace(`/create?preset=${generateRandomPreset()}`)
+      router.replace(`/create?preset=${generateRandomPreset()}`);
     }
-  }, [params.preset, router])
+  }, [params.preset, router]);
 
   React.useEffect(() => {
     if (hasConverted.current) {
-      return
+      return;
     }
-    hasConverted.current = true
+    hasConverted.current = true;
 
     if (!params.preset || params.preset === "random") {
-      return
+      return;
     }
 
     if (isPresetCode(params.preset)) {
-      return
+      return;
     }
 
-    setParams({ base: params.base })
-  }, [params.preset, params.base, setParams])
+    setParams({ base: params.base });
+  }, [params.preset, params.base, setParams]);
 
-  return null
+  return null;
 }

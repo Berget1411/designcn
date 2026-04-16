@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { SignupForm } from "@/registry/bases/radix/blocks/signup-03/components/signup-form"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { SignupForm } from "@/registry/bases/radix/blocks/signup-03/components/signup-form";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function SignupPage() {
   return (
@@ -23,5 +23,5 @@ export default function SignupPage() {
         <SignupForm />
       </div>
     </div>
-  )
+  );
 }

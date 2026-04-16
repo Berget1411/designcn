@@ -1,12 +1,8 @@
-import { Header } from '@/components/header';
-import { GitHubStarsCount } from '@/components/github-stars/github-stars-count';
-import { Suspense } from 'react';
+import { Header } from "@/components/header";
+import { GitHubStarsCount } from "@/components/github-stars/github-stars-count";
+import { Suspense } from "react";
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header

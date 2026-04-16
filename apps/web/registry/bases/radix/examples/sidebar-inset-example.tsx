@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/registry/bases/radix/ui/collapsible"
+} from "@/registry/bases/radix/ui/collapsible";
 import {
   Sidebar,
   SidebarContent,
@@ -24,8 +24,8 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/registry/bases/radix/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function SidebarInsetExample() {
   const data = {
@@ -195,7 +195,7 @@ export default function SidebarInsetExample() {
         ),
       },
     ],
-  }
+  };
 
   return (
     <SidebarProvider>
@@ -205,17 +205,9 @@ export default function SidebarInsetExample() {
             <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
             <SidebarMenu>
               {data.navMain.map((item) => (
-                <Collapsible
-                  key={item.title}
-                  asChild
-                  defaultOpen={item.isActive}
-                >
+                <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
                   <SidebarMenuItem>
-                    <SidebarMenuButton
-                      asChild
-                      tooltip={item.title}
-                      isActive={item.isActive}
-                    >
+                    <SidebarMenuButton asChild tooltip={item.title} isActive={item.isActive}>
                       <a href={item.url}>
                         {item.icon}
                         <span>{item.title}</span>
@@ -288,5 +280,5 @@ export default function SidebarInsetExample() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/registry/bases/base/ui/collapsible"
+} from "@/registry/bases/base/ui/collapsible";
 import {
   Sidebar,
   SidebarContent,
@@ -24,8 +24,8 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function SidebarInsetExample() {
   const data = {
@@ -195,7 +195,7 @@ export default function SidebarInsetExample() {
         ),
       },
     ],
-  }
+  };
 
   return (
     <SidebarProvider>
@@ -210,19 +210,14 @@ export default function SidebarInsetExample() {
                   defaultOpen={item.isActive}
                   render={<SidebarMenuItem />}
                 >
-                  <SidebarMenuButton
-                    render={<a href={item.url} />}
-                    isActive={item.isActive}
-                  >
+                  <SidebarMenuButton render={<a href={item.url} />} isActive={item.isActive}>
                     {item.icon}
                     <span>{item.title}</span>
                   </SidebarMenuButton>
                   {item.items?.length ? (
                     <>
                       <CollapsibleTrigger
-                        render={
-                          <SidebarMenuAction className="data-open:rotate-90" />
-                        }
+                        render={<SidebarMenuAction className="data-open:rotate-90" />}
                       >
                         <IconPlaceholder
                           lucide="ChevronRightIcon"
@@ -237,9 +232,7 @@ export default function SidebarInsetExample() {
                         <SidebarMenuSub>
                           {item.items.map((subItem) => (
                             <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton
-                                render={<a href={subItem.url} />}
-                              >
+                              <SidebarMenuSubButton render={<a href={subItem.url} />}>
                                 {subItem.title}
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
@@ -283,5 +276,5 @@ export default function SidebarInsetExample() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

@@ -1,17 +1,13 @@
-import { SidebarLeft } from "@/registry/bases/radix/blocks/sidebar-15/components/sidebar-left"
-import { SidebarRight } from "@/registry/bases/radix/blocks/sidebar-15/components/sidebar-right"
+import { SidebarLeft } from "@/registry/bases/radix/blocks/sidebar-15/components/sidebar-left";
+import { SidebarRight } from "@/registry/bases/radix/blocks/sidebar-15/components/sidebar-right";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
-} from "@/registry/bases/radix/ui/breadcrumb"
-import { Separator } from "@/registry/bases/radix/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/registry/bases/radix/ui/sidebar"
+} from "@/registry/bases/radix/ui/breadcrumb";
+import { Separator } from "@/registry/bases/radix/ui/separator";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/registry/bases/radix/ui/sidebar";
 
 export default function Page() {
   return (
@@ -43,5 +39,5 @@ export default function Page() {
       </SidebarInset>
       <SidebarRight />
     </SidebarProvider>
-  )
+  );
 }

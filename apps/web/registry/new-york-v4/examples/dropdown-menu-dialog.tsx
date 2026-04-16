@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { MoreHorizontalIcon } from "lucide-react"
+import { useState } from "react";
+import { MoreHorizontalIcon } from "lucide-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -12,7 +12,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/registry/new-york-v4/ui/dialog"
+} from "@/registry/new-york-v4/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,15 +20,15 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/registry/new-york-v4/ui/dropdown-menu"
-import { Field, FieldGroup, FieldLabel } from "@/registry/new-york-v4/ui/field"
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Label } from "@/registry/new-york-v4/ui/label"
-import { Textarea } from "@/registry/new-york-v4/ui/textarea"
+} from "@/registry/new-york-v4/ui/dropdown-menu";
+import { Field, FieldGroup, FieldLabel } from "@/registry/new-york-v4/ui/field";
+import { Input } from "@/registry/new-york-v4/ui/input";
+import { Label } from "@/registry/new-york-v4/ui/label";
+import { Textarea } from "@/registry/new-york-v4/ui/textarea";
 
 export default function DropdownMenuDialog() {
-  const [showNewDialog, setShowNewDialog] = useState(false)
-  const [showShareDialog, setShowShareDialog] = useState(false)
+  const [showNewDialog, setShowNewDialog] = useState(false);
+  const [showShareDialog, setShowShareDialog] = useState(false);
 
   return (
     <>
@@ -41,12 +41,8 @@ export default function DropdownMenuDialog() {
         <DropdownMenuContent className="w-40" align="end">
           <DropdownMenuLabel>File Actions</DropdownMenuLabel>
           <DropdownMenuGroup>
-            <DropdownMenuItem onSelect={() => setShowNewDialog(true)}>
-              New File...
-            </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => setShowShareDialog(true)}>
-              Share...
-            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => setShowNewDialog(true)}>New File...</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => setShowShareDialog(true)}>Share...</DropdownMenuItem>
             <DropdownMenuItem disabled>Download</DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
@@ -56,8 +52,7 @@ export default function DropdownMenuDialog() {
           <DialogHeader>
             <DialogTitle>Create New File</DialogTitle>
             <DialogDescription>
-              Provide a name for your new file. Click create when you&apos;re
-              done.
+              Provide a name for your new file. Click create when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
           <FieldGroup className="pb-3">
@@ -95,11 +90,7 @@ export default function DropdownMenuDialog() {
             </Field>
             <Field>
               <FieldLabel htmlFor="message">Message (Optional)</FieldLabel>
-              <Textarea
-                id="message"
-                name="message"
-                placeholder="Check out this file"
-              />
+              <Textarea id="message" name="message" placeholder="Check out this file" />
             </Field>
           </FieldGroup>
           <DialogFooter>
@@ -111,5 +102,5 @@ export default function DropdownMenuDialog() {
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }

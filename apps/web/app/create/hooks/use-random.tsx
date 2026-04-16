@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   BASE_COLORS,
@@ -11,120 +11,107 @@ import {
   RADII,
   STYLES,
   type FontHeadingValue,
-} from "@/registry/config"
-import { useLocks } from "@/app/create/hooks/use-locks"
-import { FONTS } from "@/app/create/lib/fonts"
+} from "@/registry/config";
+import { useLocks } from "@/app/create/hooks/use-locks";
+import { FONTS } from "@/app/create/lib/fonts";
 import {
   applyBias,
   RANDOMIZE_BIASES,
   type RandomizeContext,
-} from "@/app/create/lib/randomize-biases"
+} from "@/app/create/lib/randomize-biases";
 import {
   isTranslucentMenuColor,
   useDesignSystemSearchParams,
-} from "@/app/create/lib/search-params"
+} from "@/app/create/lib/search-params";
 
 function randomItem<T>(array: readonly T[]): T {
-  return array[Math.floor(Math.random() * array.length)]
+  return array[Math.floor(Math.random() * array.length)];
 }
 
 export function useRandom() {
-  const { locks } = useLocks()
-  const [params, setParams] = useDesignSystemSearchParams()
+  const { locks } = useLocks();
+  const [params, setParams] = useDesignSystemSearchParams();
 
-  const paramsRef = React.useRef(params)
+  const paramsRef = React.useRef(params);
   React.useEffect(() => {
-    paramsRef.current = params
-  }, [params])
+    paramsRef.current = params;
+  }, [params]);
 
   const randomize = React.useCallback(() => {
-    const selectedStyle = locks.has("style")
-      ? paramsRef.current.style
-      : randomItem(STYLES).name
+    const selectedStyle = locks.has("style") ? paramsRef.current.style : randomItem(STYLES).name;
 
     const context: RandomizeContext = {
       style: selectedStyle,
-    }
+    };
 
-    const availableBaseColors = applyBias(
-      BASE_COLORS,
-      context,
-      RANDOMIZE_BIASES.baseColors
-    )
+    const availableBaseColors = applyBias(BASE_COLORS, context, RANDOMIZE_BIASES.baseColors);
     const baseColor = locks.has("baseColor")
       ? paramsRef.current.baseColor
-      : randomItem(availableBaseColors).name
-    context.baseColor = baseColor
+      : randomItem(availableBaseColors).name;
+    context.baseColor = baseColor;
 
-    const availableThemes = getThemesForBaseColor(baseColor)
-    const availableFonts = applyBias(FONTS, context, RANDOMIZE_BIASES.fonts)
-    const availableRadii = applyBias(RADII, context, RANDOMIZE_BIASES.radius)
+    const availableThemes = getThemesForBaseColor(baseColor);
+    const availableFonts = applyBias(FONTS, context, RANDOMIZE_BIASES.fonts);
+    const availableRadii = applyBias(RADII, context, RANDOMIZE_BIASES.radius);
 
     const selectedTheme = locks.has("theme")
       ? paramsRef.current.theme
-      : randomItem(availableThemes).name
-    context.theme = selectedTheme
+      : randomItem(availableThemes).name;
+    context.theme = selectedTheme;
 
     const availableChartColors = applyBias(
       getThemesForBaseColor(baseColor),
       context,
-      RANDOMIZE_BIASES.chartColors
-    )
+      RANDOMIZE_BIASES.chartColors,
+    );
     const selectedChartColor = locks.has("chartColor")
       ? paramsRef.current.chartColor
-      : randomItem(availableChartColors).name
-    context.chartColor = selectedChartColor
+      : randomItem(availableChartColors).name;
+    context.chartColor = selectedChartColor;
     const selectedFont = locks.has("font")
       ? paramsRef.current.font
-      : randomItem(availableFonts).value
-    context.font = selectedFont
+      : randomItem(availableFonts).value;
+    context.font = selectedFont;
 
     // Pick heading font: ~70% inherit, ~30% distinct with cross-category contrast.
-    let selectedFontHeading: FontHeadingValue
+    let selectedFontHeading: FontHeadingValue;
     if (locks.has("fontHeading")) {
-      selectedFontHeading = paramsRef.current.fontHeading
+      selectedFontHeading = paramsRef.current.fontHeading;
     } else if (Math.random() < 0.7) {
-      selectedFontHeading = "inherit"
+      selectedFontHeading = "inherit";
     } else {
-      const bodyType = availableFonts.find(
-        (f) => f.value === selectedFont
-      )?.type
+      const bodyType = availableFonts.find((f) => f.value === selectedFont)?.type;
       const contrastFonts = availableFonts.filter(
-        (f) => f.type !== bodyType && f.value !== selectedFont
-      )
+        (f) => f.type !== bodyType && f.value !== selectedFont,
+      );
       selectedFontHeading = (
-        contrastFonts.length > 0
-          ? randomItem(contrastFonts)
-          : randomItem(availableFonts)
-      ).value as FontHeadingValue
+        contrastFonts.length > 0 ? randomItem(contrastFonts) : randomItem(availableFonts)
+      ).value as FontHeadingValue;
     }
     const selectedRadius = locks.has("radius")
       ? paramsRef.current.radius
-      : randomItem(availableRadii).name
+      : randomItem(availableRadii).name;
     const selectedIconLibrary = locks.has("iconLibrary")
       ? paramsRef.current.iconLibrary
-      : randomItem(Object.values(iconLibraries)).name
-    const lockedMenuAccent = locks.has("menuAccent")
-      ? paramsRef.current.menuAccent
-      : undefined
+      : randomItem(Object.values(iconLibraries)).name;
+    const lockedMenuAccent = locks.has("menuAccent") ? paramsRef.current.menuAccent : undefined;
     const availableMenuColors =
       !locks.has("menuColor") && lockedMenuAccent === "bold"
         ? MENU_COLORS.filter((menuColor) => {
-            return !isTranslucentMenuColor(menuColor.value)
+            return !isTranslucentMenuColor(menuColor.value);
           })
-        : MENU_COLORS
+        : MENU_COLORS;
     const selectedMenuColor = locks.has("menuColor")
       ? paramsRef.current.menuColor
-      : randomItem(availableMenuColors).value
+      : randomItem(availableMenuColors).value;
     const selectedMenuAccent =
       locks.has("menuAccent") || isTranslucentMenuColor(selectedMenuColor)
-        ? paramsRef.current.menuAccent === "bold" &&
-          isTranslucentMenuColor(selectedMenuColor)
+        ? paramsRef.current.menuAccent === "bold" && isTranslucentMenuColor(selectedMenuColor)
           ? "subtle"
           : paramsRef.current.menuAccent
-        : randomItem(MENU_ACCENTS).value
+        : randomItem(MENU_ACCENTS).value;
 
-    context.radius = selectedRadius
+    context.radius = selectedRadius;
 
     const nextParams = {
       style: selectedStyle,
@@ -137,22 +124,22 @@ export function useRandom() {
       menuAccent: selectedMenuAccent,
       menuColor: selectedMenuColor,
       radius: selectedRadius,
-    }
+    };
 
     // Keep the ref in sync so rapid repeats use the latest randomized state
     // even before the URL state finishes committing.
     paramsRef.current = {
       ...paramsRef.current,
       ...nextParams,
-    }
+    };
 
-    setParams(nextParams)
-  }, [setParams, locks])
+    setParams(nextParams);
+  }, [setParams, locks]);
 
-  const randomizeRef = React.useRef(randomize)
+  const randomizeRef = React.useRef(randomize);
   React.useEffect(() => {
-    randomizeRef.current = randomize
-  }, [randomize])
+    randomizeRef.current = randomize;
+  }, [randomize]);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -163,19 +150,19 @@ export function useRandom() {
           e.target instanceof HTMLTextAreaElement ||
           e.target instanceof HTMLSelectElement
         ) {
-          return
+          return;
         }
 
-        e.preventDefault()
-        randomizeRef.current()
+        e.preventDefault();
+        randomizeRef.current();
       }
-    }
+    };
 
-    document.addEventListener("keydown", down)
+    document.addEventListener("keydown", down);
     return () => {
-      document.removeEventListener("keydown", down)
-    }
-  }, [])
+      document.removeEventListener("keydown", down);
+    };
+  }, []);
 
-  return { randomize }
+  return { randomize };
 }

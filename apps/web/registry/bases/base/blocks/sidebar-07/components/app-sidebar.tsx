@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { NavMain } from "@/registry/bases/base/blocks/sidebar-07/components/nav-main"
-import { NavProjects } from "@/registry/bases/base/blocks/sidebar-07/components/nav-projects"
-import { NavUser } from "@/registry/bases/base/blocks/sidebar-07/components/nav-user"
-import { TeamSwitcher } from "@/registry/bases/base/blocks/sidebar-07/components/team-switcher"
+import { NavMain } from "@/registry/bases/base/blocks/sidebar-07/components/nav-main";
+import { NavProjects } from "@/registry/bases/base/blocks/sidebar-07/components/nav-projects";
+import { NavUser } from "@/registry/bases/base/blocks/sidebar-07/components/nav-user";
+import { TeamSwitcher } from "@/registry/bases/base/blocks/sidebar-07/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 // This is sample data.
 const data = {
@@ -223,7 +223,7 @@ const data = {
       ),
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -240,5 +240,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

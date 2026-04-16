@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Label } from "@/registry/bases/base/ui/label"
-import { SidebarInput } from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { Label } from "@/registry/bases/base/ui/label";
+import { SidebarInput } from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function SearchForm({ ...props }: React.ComponentProps<"form">) {
   return (
@@ -11,11 +11,7 @@ export function SearchForm({ ...props }: React.ComponentProps<"form">) {
         <Label htmlFor="search" className="sr-only">
           Search
         </Label>
-        <SidebarInput
-          id="search"
-          placeholder="Type to search..."
-          className="h-8 pl-7"
-        />
+        <SidebarInput id="search" placeholder="Type to search..." className="h-8 pl-7" />
         <IconPlaceholder
           lucide="SearchIcon"
           tabler="IconSearch"
@@ -26,5 +22,5 @@ export function SearchForm({ ...props }: React.ComponentProps<"form">) {
         />
       </div>
     </form>
-  )
+  );
 }

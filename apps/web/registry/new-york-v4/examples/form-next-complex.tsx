@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Form from "next/form"
-import { toast } from "sonner"
+import * as React from "react";
+import Form from "next/form";
+import { toast } from "sonner";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Card, CardContent, CardFooter } from "@/registry/new-york-v4/ui/card"
-import { Checkbox } from "@/registry/new-york-v4/ui/checkbox"
+import { Button } from "@/registry/new-york-v4/ui/button";
+import { Card, CardContent, CardFooter } from "@/registry/new-york-v4/ui/card";
+import { Checkbox } from "@/registry/new-york-v4/ui/checkbox";
 import {
   Field,
   FieldContent,
@@ -18,46 +18,43 @@ import {
   FieldSeparator,
   FieldSet,
   FieldTitle,
-} from "@/registry/new-york-v4/ui/field"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/new-york-v4/ui/radio-group"
+} from "@/registry/new-york-v4/ui/field";
+import { RadioGroup, RadioGroupItem } from "@/registry/new-york-v4/ui/radio-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/new-york-v4/ui/select"
-import { Spinner } from "@/registry/new-york-v4/ui/spinner"
-import { Switch } from "@/registry/new-york-v4/ui/switch"
+} from "@/registry/new-york-v4/ui/select";
+import { Spinner } from "@/registry/new-york-v4/ui/spinner";
+import { Switch } from "@/registry/new-york-v4/ui/switch";
 
-import { complexFormAction } from "./form-next-complex-action"
-import { addons, type FormState } from "./form-next-complex-schema"
+import { complexFormAction } from "./form-next-complex-action";
+import { addons, type FormState } from "./form-next-complex-schema";
 
 export default function FormNextComplex() {
-  const [formState, formAction, pending] = React.useActionState<
-    FormState,
-    FormData
-  >(complexFormAction, {
-    values: {
-      plan: "basic",
-      billingPeriod: "monthly",
-      addons: [],
-      emailNotifications: false,
+  const [formState, formAction, pending] = React.useActionState<FormState, FormData>(
+    complexFormAction,
+    {
+      values: {
+        plan: "basic",
+        billingPeriod: "monthly",
+        addons: [],
+        emailNotifications: false,
+      },
+      errors: null,
+      success: false,
     },
-    errors: null,
-    success: false,
-  })
+  );
 
   React.useEffect(() => {
     if (formState.success) {
       toast.success("Preferences saved", {
         description: "Your subscription plan has been updated.",
-      })
+      });
     }
-  }, [formState.success])
+  }, [formState.success]);
 
   return (
     <Card className="w-full max-w-sm">
@@ -66,9 +63,7 @@ export default function FormNextComplex() {
           <FieldGroup>
             <FieldSet data-invalid={!!formState.errors?.plan?.length}>
               <FieldLegend>Subscription Plan</FieldLegend>
-              <FieldDescription>
-                Choose your subscription plan.
-              </FieldDescription>
+              <FieldDescription>Choose your subscription plan.</FieldDescription>
               <RadioGroup
                 name="plan"
                 defaultValue={formState.values.plan}
@@ -79,9 +74,7 @@ export default function FormNextComplex() {
                   <Field orientation="horizontal">
                     <FieldContent>
                       <FieldTitle>Basic</FieldTitle>
-                      <FieldDescription>
-                        For individuals and small teams
-                      </FieldDescription>
+                      <FieldDescription>For individuals and small teams</FieldDescription>
                     </FieldContent>
                     <RadioGroupItem value="basic" id="basic" />
                   </Field>
@@ -90,17 +83,13 @@ export default function FormNextComplex() {
                   <Field orientation="horizontal">
                     <FieldContent>
                       <FieldTitle>Pro</FieldTitle>
-                      <FieldDescription>
-                        For businesses with higher demands
-                      </FieldDescription>
+                      <FieldDescription>For businesses with higher demands</FieldDescription>
                     </FieldContent>
                     <RadioGroupItem value="pro" id="pro" />
                   </Field>
                 </FieldLabel>
               </RadioGroup>
-              {formState.errors?.plan && (
-                <FieldError>{formState.errors.plan[0]}</FieldError>
-              )}
+              {formState.errors?.plan && <FieldError>{formState.errors.plan[0]}</FieldError>}
             </FieldSet>
             <FieldSeparator />
             <Field data-invalid={!!formState.errors?.billingPeriod?.length}>
@@ -119,9 +108,7 @@ export default function FormNextComplex() {
                   <SelectItem value="yearly">Yearly</SelectItem>
                 </SelectContent>
               </Select>
-              <FieldDescription>
-                Choose how often you want to be billed.
-              </FieldDescription>
+              <FieldDescription>Choose how often you want to be billed.</FieldDescription>
               {formState.errors?.billingPeriod && (
                 <FieldError>{formState.errors.billingPeriod[0]}</FieldError>
               )}
@@ -143,9 +130,7 @@ export default function FormNextComplex() {
                       id={addon.id}
                       name="addons"
                       value={addon.id}
-                      defaultChecked={formState.values.addons.includes(
-                        addon.id
-                      )}
+                      defaultChecked={formState.values.addons.includes(addon.id)}
                       disabled={pending}
                       aria-invalid={!!formState.errors?.addons?.length}
                     />
@@ -156,19 +141,13 @@ export default function FormNextComplex() {
                   </Field>
                 ))}
               </FieldGroup>
-              {formState.errors?.addons && (
-                <FieldError>{formState.errors.addons[0]}</FieldError>
-              )}
+              {formState.errors?.addons && <FieldError>{formState.errors.addons[0]}</FieldError>}
             </FieldSet>
             <FieldSeparator />
             <Field orientation="horizontal">
               <FieldContent>
-                <FieldLabel htmlFor="emailNotifications">
-                  Email Notifications
-                </FieldLabel>
-                <FieldDescription>
-                  Receive email updates about your subscription
-                </FieldDescription>
+                <FieldLabel htmlFor="emailNotifications">Email Notifications</FieldLabel>
+                <FieldDescription>Receive email updates about your subscription</FieldDescription>
               </FieldContent>
               <Switch
                 id="emailNotifications"
@@ -190,5 +169,5 @@ export default function FormNextComplex() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

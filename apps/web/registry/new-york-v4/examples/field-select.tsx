@@ -1,15 +1,11 @@
-import {
-  Field,
-  FieldDescription,
-  FieldLabel,
-} from "@/registry/new-york-v4/ui/field"
+import { Field, FieldDescription, FieldLabel } from "@/registry/new-york-v4/ui/field";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/new-york-v4/ui/select"
+} from "@/registry/new-york-v4/ui/select";
 
 export default function FieldSelect() {
   return (
@@ -31,10 +27,8 @@ export default function FieldSelect() {
             <SelectItem value="operations">Operations</SelectItem>
           </SelectContent>
         </Select>
-        <FieldDescription>
-          Select your department or area of work.
-        </FieldDescription>
+        <FieldDescription>Select your department or area of work.</FieldDescription>
       </Field>
     </div>
-  )
+  );
 }

@@ -1,12 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
+import * as React from "react";
+import Link from "next/link";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,8 +12,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/registry/bases/radix/ui/navigation-menu"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/navigation-menu";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -28,8 +25,7 @@ const components: { title: string; href: string; description: string }[] = [
   {
     title: "Hover Card",
     href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
+    description: "For sighted users to preview content available behind a link.",
   },
   {
     title: "Progress",
@@ -54,7 +50,7 @@ const components: { title: string; href: string; description: string }[] = [
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
-]
+];
 
 export default function NavigationMenuExample() {
   return (
@@ -62,7 +58,7 @@ export default function NavigationMenuExample() {
       <NavigationMenuWithViewport />
       <NavigationMenuWithoutViewport />
     </ExampleWrapper>
-  )
+  );
 }
 
 function NavigationMenuWithViewport() {
@@ -91,11 +87,7 @@ function NavigationMenuWithViewport() {
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-1 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                 {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    href={component.href}
-                  >
+                  <ListItem key={component.title} title={component.title} href={component.href}>
                     {component.description}
                   </ListItem>
                 ))}
@@ -103,17 +95,14 @@ function NavigationMenuWithViewport() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
-            >
+            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
               <Link href="/docs">Documentation</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
     </Example>
-  )
+  );
 }
 
 function NavigationMenuWithoutViewport() {
@@ -122,10 +111,7 @@ function NavigationMenuWithoutViewport() {
       <NavigationMenu viewport={false}>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
-            >
+            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
               <Link href="/docs">Documentation</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
@@ -148,9 +134,7 @@ function NavigationMenuWithoutViewport() {
                     <Link href="#">
                       <div className="flex flex-col">
                         <div className="font-medium">Documentation</div>
-                        <div className="text-muted-foreground">
-                          Learn how to use the library.
-                        </div>
+                        <div className="text-muted-foreground">Learn how to use the library.</div>
                       </div>
                     </Link>
                   </NavigationMenuLink>
@@ -158,9 +142,7 @@ function NavigationMenuWithoutViewport() {
                     <Link href="#">
                       <div className="flex flex-col">
                         <div className="font-medium">Blog</div>
-                        <div className="text-muted-foreground">
-                          Read our latest blog posts.
-                        </div>
+                        <div className="text-muted-foreground">Read our latest blog posts.</div>
                       </div>
                     </Link>
                   </NavigationMenuLink>
@@ -234,7 +216,7 @@ function NavigationMenuWithoutViewport() {
         </NavigationMenuList>
       </NavigationMenu>
     </Example>
-  )
+  );
 }
 
 function ListItem({
@@ -254,5 +236,5 @@ function ListItem({
         </Link>
       </NavigationMenuLink>
     </li>
-  )
+  );
 }

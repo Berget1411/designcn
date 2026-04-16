@@ -5,17 +5,15 @@ import {
   FieldLabel,
   FieldLegend,
   FieldSet,
-} from "@/registry/new-york-v4/ui/field"
-import { Input } from "@/registry/new-york-v4/ui/input"
+} from "@/registry/new-york-v4/ui/field";
+import { Input } from "@/registry/new-york-v4/ui/input";
 
 export default function FieldFieldset() {
   return (
     <div className="w-full max-w-md space-y-6">
       <FieldSet>
         <FieldLegend>Address Information</FieldLegend>
-        <FieldDescription>
-          We need your address to deliver your order.
-        </FieldDescription>
+        <FieldDescription>We need your address to deliver your order.</FieldDescription>
         <FieldGroup>
           <Field>
             <FieldLabel htmlFor="street">Street Address</FieldLabel>
@@ -34,5 +32,5 @@ export default function FieldFieldset() {
         </FieldGroup>
       </FieldSet>
     </div>
-  )
+  );
 }

@@ -1,124 +1,120 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Suspense } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import * as React from "react";
+import { Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type HistoryContextValue = {
-  canGoBack: boolean
-  canGoForward: boolean
-  goBack: () => void
-  goForward: () => void
-}
+  canGoBack: boolean;
+  canGoForward: boolean;
+  goBack: () => void;
+  goForward: () => void;
+};
 
-const HistoryContext = React.createContext<HistoryContextValue | null>(null)
+const HistoryContext = React.createContext<HistoryContextValue | null>(null);
 
 // Reads useSearchParams() in its own Suspense boundary so the
 // provider never blanks out children while search params resolve.
-function PresetSync({
-  onPresetChange,
-}: {
-  onPresetChange: (preset: string) => void
-}) {
-  const searchParams = useSearchParams()
-  const preset = searchParams.get("preset") ?? ""
+function PresetSync({ onPresetChange }: { onPresetChange: (preset: string) => void }) {
+  const searchParams = useSearchParams();
+  const preset = searchParams.get("preset") ?? "";
 
   React.useEffect(() => {
-    onPresetChange(preset)
-  }, [preset, onPresetChange])
+    onPresetChange(preset);
+  }, [preset, onPresetChange]);
 
-  return null
+  return null;
 }
 
 export function HistoryProvider({ children }: { children: React.ReactNode }) {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [preset, setPreset] = React.useState("")
+  const [preset, setPreset] = React.useState("");
 
-  const entriesRef = React.useRef<string[]>([preset])
-  const indexRef = React.useRef(0)
-  const maxIndexRef = React.useRef(0)
-  const isNavigatingRef = React.useRef(false)
+  const entriesRef = React.useRef<string[]>([preset]);
+  const indexRef = React.useRef(0);
+  const maxIndexRef = React.useRef(0);
+  const isNavigatingRef = React.useRef(false);
 
-  const [index, setIndex] = React.useState(0)
-  const [maxIndex, setMaxIndex] = React.useState(0)
+  const [index, setIndex] = React.useState(0);
+  const [maxIndex, setMaxIndex] = React.useState(0);
 
   const onPresetChange = React.useCallback((nextPreset: string) => {
-    setPreset(nextPreset)
-  }, [])
+    setPreset(nextPreset);
+  }, []);
 
   React.useEffect(() => {
     if (isNavigatingRef.current) {
-      isNavigatingRef.current = false
-      return
+      isNavigatingRef.current = false;
+      return;
     }
 
     if (preset === entriesRef.current[indexRef.current]) {
-      return
+      return;
     }
 
-    const nextEntries = entriesRef.current.slice(0, indexRef.current + 1)
-    nextEntries.push(preset)
-    entriesRef.current = nextEntries
+    const nextEntries = entriesRef.current.slice(0, indexRef.current + 1);
+    nextEntries.push(preset);
+    entriesRef.current = nextEntries;
 
-    const nextIndex = nextEntries.length - 1
-    indexRef.current = nextIndex
-    maxIndexRef.current = nextIndex
-    setIndex(nextIndex)
-    setMaxIndex(nextIndex)
-  }, [preset])
+    const nextIndex = nextEntries.length - 1;
+    indexRef.current = nextIndex;
+    maxIndexRef.current = nextIndex;
+    setIndex(nextIndex);
+    setMaxIndex(nextIndex);
+  }, [preset]);
 
-  const canGoBack = index > 0
-  const canGoForward = index < maxIndex
+  const canGoBack = index > 0;
+  const canGoForward = index < maxIndex;
 
   const goBack = React.useCallback(() => {
     if (indexRef.current <= 0) {
-      return
+      return;
     }
 
-    isNavigatingRef.current = true
-    const nextIndex = indexRef.current - 1
-    indexRef.current = nextIndex
-    setIndex(nextIndex)
+    isNavigatingRef.current = true;
+    const nextIndex = indexRef.current - 1;
+    indexRef.current = nextIndex;
+    setIndex(nextIndex);
 
-    const targetPreset = entriesRef.current[nextIndex]
-    const params = new URLSearchParams(window.location.search)
+    const targetPreset = entriesRef.current[nextIndex];
+    const params = new URLSearchParams(window.location.search);
     if (targetPreset) {
-      params.set("preset", targetPreset)
+      params.set("preset", targetPreset);
     } else {
-      params.delete("preset")
+      params.delete("preset");
     }
-    const pathname = window.location.pathname
-    const query = params.toString()
-    router.replace(query ? `${pathname}?${query}` : pathname)
-  }, [router])
+    const pathname = window.location.pathname;
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname);
+  }, [router]);
 
   const goForward = React.useCallback(() => {
     if (indexRef.current >= maxIndexRef.current) {
-      return
+      return;
     }
 
-    isNavigatingRef.current = true
-    const nextIndex = indexRef.current + 1
-    indexRef.current = nextIndex
-    setIndex(nextIndex)
+    isNavigatingRef.current = true;
+    const nextIndex = indexRef.current + 1;
+    indexRef.current = nextIndex;
+    setIndex(nextIndex);
 
-    const targetPreset = entriesRef.current[nextIndex]
-    const params = new URLSearchParams(window.location.search)
+    const targetPreset = entriesRef.current[nextIndex];
+    const params = new URLSearchParams(window.location.search);
     if (targetPreset) {
-      params.set("preset", targetPreset)
+      params.set("preset", targetPreset);
     } else {
-      params.delete("preset")
+      params.delete("preset");
     }
-    const pathname = window.location.pathname
-    const query = params.toString()
-    router.replace(query ? `${pathname}?${query}` : pathname)
-  }, [router])
+    const pathname = window.location.pathname;
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname);
+  }, [router]);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (!e.metaKey && !e.ctrlKey) {
-        return
+        return;
       }
 
       if (
@@ -127,34 +123,34 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
         e.target instanceof HTMLTextAreaElement ||
         e.target instanceof HTMLSelectElement
       ) {
-        return
+        return;
       }
 
-      const key = e.key.toLowerCase()
+      const key = e.key.toLowerCase();
 
       if ((key === "z" && e.shiftKey) || (key === "y" && e.ctrlKey)) {
-        e.preventDefault()
-        goForward()
-        return
+        e.preventDefault();
+        goForward();
+        return;
       }
 
       if (key === "z") {
-        e.preventDefault()
-        goBack()
+        e.preventDefault();
+        goBack();
       }
-    }
+    };
 
-    document.addEventListener("keydown", down)
+    document.addEventListener("keydown", down);
 
     return () => {
-      document.removeEventListener("keydown", down)
-    }
-  }, [goBack, goForward])
+      document.removeEventListener("keydown", down);
+    };
+  }, [goBack, goForward]);
 
   const value = React.useMemo(
     () => ({ canGoBack, canGoForward, goBack, goForward }),
-    [canGoBack, canGoForward, goBack, goForward]
-  )
+    [canGoBack, canGoForward, goBack, goForward],
+  );
 
   return (
     <HistoryContext value={value}>
@@ -163,13 +159,13 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
       </Suspense>
       {children}
     </HistoryContext>
-  )
+  );
 }
 
 export function useHistory() {
-  const context = React.useContext(HistoryContext)
+  const context = React.useContext(HistoryContext);
   if (!context) {
-    throw new Error("useHistory must be used within HistoryProvider")
+    throw new Error("useHistory must be used within HistoryProvider");
   }
-  return context
+  return context;
 }

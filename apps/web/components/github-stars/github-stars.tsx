@@ -1,28 +1,20 @@
-import { Button } from "@workspace/ui/components/button"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@workspace/ui/components/tooltip"
+import { Button } from "@workspace/ui/components/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@workspace/ui/components/tooltip";
 
 export type GitHubStarsProps = {
   /** GitHub repository in `owner/repo` format. */
-  repo: string
+  repo: string;
   /** Number of stars to display. */
-  stargazersCount: number
+  stargazersCount: number;
   /**
    * Optional locales for number formatting.
    * See [MDN - Intl - locales argument](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument).
    * @defaultValue "en-US"
    */
-  locales?: Intl.LocalesArgument
-}
+  locales?: Intl.LocalesArgument;
+};
 
-export function GitHubStars({
-  repo,
-  stargazersCount,
-  locales = "en-US",
-}: GitHubStarsProps) {
+export function GitHubStars({ repo, stargazersCount, locales = "en-US" }: GitHubStarsProps) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -50,5 +42,5 @@ export function GitHubStars({
         {new Intl.NumberFormat(locales).format(stargazersCount)} stars
       </TooltipContent>
     </Tooltip>
-  )
+  );
 }

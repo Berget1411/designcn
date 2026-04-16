@@ -1,7 +1,4 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,8 +10,8 @@ import {
   AlertDialogMedia,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/registry/bases/radix/ui/alert-dialog"
-import { Button } from "@/registry/bases/radix/ui/button"
+} from "@/registry/bases/radix/ui/alert-dialog";
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -23,8 +20,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/bases/radix/ui/dialog"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/dialog";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function AlertDialogExample() {
   return (
@@ -36,7 +33,7 @@ export default function AlertDialogExample() {
       <AlertDialogDestructive />
       <AlertDialogInDialog />
     </ExampleWrapper>
-  )
+  );
 }
 
 function AlertDialogBasic() {
@@ -50,8 +47,8 @@ function AlertDialogBasic() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              This action cannot be undone. This will permanently delete your account and remove
+              your data from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -61,7 +58,7 @@ function AlertDialogBasic() {
         </AlertDialogContent>
       </AlertDialog>
     </Example>
-  )
+  );
 }
 
 function AlertDialogSmall() {
@@ -85,7 +82,7 @@ function AlertDialogSmall() {
         </AlertDialogContent>
       </AlertDialog>
     </Example>
-  )
+  );
 }
 
 function AlertDialogWithMedia() {
@@ -108,8 +105,7 @@ function AlertDialogWithMedia() {
             </AlertDialogMedia>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will permanently delete your account and remove your data
-              from our servers.
+              This will permanently delete your account and remove your data from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -119,7 +115,7 @@ function AlertDialogWithMedia() {
         </AlertDialogContent>
       </AlertDialog>
     </Example>
-  )
+  );
 }
 
 function AlertDialogSmallWithMedia() {
@@ -152,7 +148,7 @@ function AlertDialogSmallWithMedia() {
         </AlertDialogContent>
       </AlertDialog>
     </Example>
-  )
+  );
 }
 
 function AlertDialogDestructive() {
@@ -175,9 +171,8 @@ function AlertDialogDestructive() {
             </AlertDialogMedia>
             <AlertDialogTitle>Delete chat?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will permanently delete this chat conversation. View{" "}
-              <a href="#">Settings</a> delete any memories saved during this
-              chat.
+              This will permanently delete this chat conversation. View <a href="#">Settings</a>{" "}
+              delete any memories saved during this chat.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -187,7 +182,7 @@ function AlertDialogDestructive() {
         </AlertDialogContent>
       </AlertDialog>
     </Example>
-  )
+  );
 }
 
 function AlertDialogInDialog() {
@@ -200,9 +195,7 @@ function AlertDialogInDialog() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Alert Dialog Example</DialogTitle>
-            <DialogDescription>
-              Click the button below to open an alert dialog.
-            </DialogDescription>
+            <DialogDescription>Click the button below to open an alert dialog.</DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <AlertDialog>
@@ -213,8 +206,8 @@ function AlertDialogInDialog() {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
+                    This action cannot be undone. This will permanently delete your account and
+                    remove your data from our servers.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -227,5 +220,5 @@ function AlertDialogInDialog() {
         </DialogContent>
       </Dialog>
     </Example>
-  )
+  );
 }

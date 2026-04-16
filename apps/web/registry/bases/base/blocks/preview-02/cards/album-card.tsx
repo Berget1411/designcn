@@ -1,12 +1,12 @@
-import { Badge } from "@/registry/bases/base/ui/badge"
+import { Badge } from "@/registry/bases/base/ui/badge";
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardTitle,
-} from "@/registry/bases/base/ui/card"
-import { Separator } from "@/registry/bases/base/ui/separator"
+} from "@/registry/bases/base/ui/card";
+import { Separator } from "@/registry/bases/base/ui/separator";
 
 export function AlbumCard() {
   return (
@@ -31,9 +31,7 @@ export function AlbumCard() {
         <Separator />
         <div className="grid w-full grid-cols-2 gap-4">
           <div className="flex flex-col gap-0.5">
-            <span className="text-xs tracking-wider text-muted-foreground uppercase">
-              Tracks
-            </span>
+            <span className="text-xs tracking-wider text-muted-foreground uppercase">Tracks</span>
             <span className="text-lg font-medium tabular-nums">6 Tracks</span>
           </div>
           <div className="flex flex-col gap-0.5">
@@ -45,5 +43,5 @@ export function AlbumCard() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

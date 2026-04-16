@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vitest";
 
-import { resolvePresetOverrides } from "./preset-query"
+import { resolvePresetOverrides } from "./preset-query";
 
 describe("resolvePresetOverrides", () => {
   it("prefers explicit fontHeading and chartColor query params", () => {
@@ -10,25 +10,25 @@ describe("resolvePresetOverrides", () => {
         theme: "neutral",
         chartColor: "blue",
         fontHeading: "inherit",
-      }
-    )
+      },
+    );
 
     expect(overrides).toEqual({
       fontHeading: "playfair-display",
       chartColor: "emerald",
-    })
-  })
+    });
+  });
 
   it("falls back to decoded preset values when no overrides are present", () => {
     const overrides = resolvePresetOverrides(new URLSearchParams(), {
       theme: "neutral",
       chartColor: "blue",
       fontHeading: "inherit",
-    })
+    });
 
     expect(overrides).toEqual({
       fontHeading: "inherit",
       chartColor: "blue",
-    })
-  })
-})
+    });
+  });
+});

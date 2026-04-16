@@ -1,4 +1,4 @@
-import { Checkbox } from "@/registry/new-york-v4/ui/checkbox"
+import { Checkbox } from "@/registry/new-york-v4/ui/checkbox";
 import {
   Field,
   FieldDescription,
@@ -6,7 +6,7 @@ import {
   FieldLabel,
   FieldSeparator,
   FieldSet,
-} from "@/registry/new-york-v4/ui/field"
+} from "@/registry/new-york-v4/ui/field";
 
 export default function FieldGroupExample() {
   return (
@@ -15,8 +15,8 @@ export default function FieldGroupExample() {
         <FieldSet>
           <FieldLabel>Responses</FieldLabel>
           <FieldDescription>
-            Get notified when ChatGPT responds to requests that take time, like
-            research or image generation.
+            Get notified when ChatGPT responds to requests that take time, like research or image
+            generation.
           </FieldDescription>
           <FieldGroup data-slot="checkbox-group">
             <Field orientation="horizontal">
@@ -31,8 +31,7 @@ export default function FieldGroupExample() {
         <FieldSet>
           <FieldLabel>Tasks</FieldLabel>
           <FieldDescription>
-            Get notified when tasks you&apos;ve created have updates.{" "}
-            <a href="#">Manage tasks</a>
+            Get notified when tasks you&apos;ve created have updates. <a href="#">Manage tasks</a>
           </FieldDescription>
           <FieldGroup data-slot="checkbox-group">
             <Field orientation="horizontal">
@@ -51,5 +50,5 @@ export default function FieldGroupExample() {
         </FieldSet>
       </FieldGroup>
     </div>
-  )
+  );
 }

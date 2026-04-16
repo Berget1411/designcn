@@ -1,39 +1,31 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import {
-  Alert,
-  AlertAction,
-  AlertDescription,
-  AlertTitle,
-} from "@/registry/bases/radix/ui/alert"
-import { Badge } from "@/registry/bases/radix/ui/badge"
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Alert, AlertAction, AlertDescription, AlertTitle } from "@/registry/bases/radix/ui/alert";
+import { Badge } from "@/registry/bases/radix/ui/badge";
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
-import { Input } from "@/registry/bases/radix/ui/input"
+} from "@/registry/bases/radix/ui/card";
+import { Input } from "@/registry/bases/radix/ui/input";
 import {
   Item,
   ItemContent,
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/registry/bases/radix/ui/item"
-import { Label } from "@/registry/bases/radix/ui/label"
+} from "@/registry/bases/radix/ui/item";
+import { Label } from "@/registry/bases/radix/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/radix/ui/select"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/select";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function AlertExample() {
   return (
@@ -44,7 +36,7 @@ export default function AlertExample() {
       <AlertExample4 />
       <AlertExample5 />
     </ExampleWrapper>
-  )
+  );
 }
 
 function AlertExample1() {
@@ -56,18 +48,14 @@ function AlertExample1() {
         </Alert>
         <Alert>
           <AlertTitle>Success! Your changes have been saved.</AlertTitle>
-          <AlertDescription>
-            This is an alert with title and description.
-          </AlertDescription>
+          <AlertDescription>This is an alert with title and description.</AlertDescription>
         </Alert>
         <Alert>
-          <AlertDescription>
-            This one has a description only. No title. No icon.
-          </AlertDescription>
+          <AlertDescription>This one has a description only. No title. No icon.</AlertDescription>
         </Alert>
       </div>
     </Example>
-  )
+  );
 }
 
 function AlertExample2() {
@@ -95,8 +83,8 @@ function AlertExample2() {
             remixicon="RiErrorWarningLine"
           />
           <AlertDescription>
-            This one has an icon and a description only. No title.{" "}
-            <a href="#">But it has a link</a> and a <a href="#">second link</a>.
+            This one has an icon and a description only. No title. <a href="#">But it has a link</a>{" "}
+            and a <a href="#">second link</a>.
           </AlertDescription>
         </Alert>
 
@@ -109,9 +97,7 @@ function AlertExample2() {
             remixicon="RiErrorWarningLine"
           />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
-          <AlertDescription>
-            This is an alert with icon, title and description.
-          </AlertDescription>
+          <AlertDescription>This is an alert with icon, title and description.</AlertDescription>
         </Alert>
         <Alert>
           <IconPlaceholder
@@ -122,9 +108,8 @@ function AlertExample2() {
             remixicon="RiErrorWarningLine"
           />
           <AlertTitle>
-            This is a very long alert title that demonstrates how the component
-            handles extended text content and potentially wraps across multiple
-            lines
+            This is a very long alert title that demonstrates how the component handles extended
+            text content and potentially wraps across multiple lines
           </AlertTitle>
         </Alert>
         <Alert>
@@ -136,9 +121,8 @@ function AlertExample2() {
             remixicon="RiErrorWarningLine"
           />
           <AlertDescription>
-            This is a very long alert description that demonstrates how the
-            component handles extended text content and potentially wraps across
-            multiple lines
+            This is a very long alert description that demonstrates how the component handles
+            extended text content and potentially wraps across multiple lines
           </AlertDescription>
         </Alert>
         <Alert>
@@ -150,22 +134,21 @@ function AlertExample2() {
             remixicon="RiErrorWarningLine"
           />
           <AlertTitle>
-            This is an extremely long alert title that spans multiple lines to
-            demonstrate how the component handles very lengthy headings while
-            maintaining readability and proper text wrapping behavior
+            This is an extremely long alert title that spans multiple lines to demonstrate how the
+            component handles very lengthy headings while maintaining readability and proper text
+            wrapping behavior
           </AlertTitle>
           <AlertDescription>
-            This is an equally long description that contains detailed
-            information about the alert. It shows how the component can
-            accommodate extensive content while preserving proper spacing,
-            alignment, and readability across different screen sizes and
-            viewport widths. This helps ensure the user experience remains
-            consistent regardless of the content length.
+            This is an equally long description that contains detailed information about the alert.
+            It shows how the component can accommodate extensive content while preserving proper
+            spacing, alignment, and readability across different screen sizes and viewport widths.
+            This helps ensure the user experience remains consistent regardless of the content
+            length.
           </AlertDescription>
         </Alert>
       </div>
     </Example>
-  )
+  );
 }
 
 function AlertExample3() {
@@ -181,9 +164,7 @@ function AlertExample3() {
             remixicon="RiErrorWarningLine"
           />
           <AlertTitle>Something went wrong!</AlertTitle>
-          <AlertDescription>
-            Your session has expired. Please log in again.
-          </AlertDescription>
+          <AlertDescription>Your session has expired. Please log in again.</AlertDescription>
         </Alert>
         <Alert variant="destructive">
           <IconPlaceholder
@@ -196,8 +177,7 @@ function AlertExample3() {
           <AlertTitle>Unable to process your payment.</AlertTitle>
           <AlertDescription>
             <p>
-              Please verify your <a href="#">billing information</a> and try
-              again.
+              Please verify your <a href="#">billing information</a> and try again.
             </p>
             <ul className="list-inside list-disc">
               <li>Check your card details</li>
@@ -208,7 +188,7 @@ function AlertExample3() {
         </Alert>
       </div>
     </Example>
-  )
+  );
 }
 
 function AlertExample4() {
@@ -238,8 +218,8 @@ function AlertExample4() {
           />
           <AlertTitle>The selected emails have been marked as spam.</AlertTitle>
           <AlertDescription>
-            This is a very long alert title that demonstrates how the component
-            handles extended text content.
+            This is a very long alert title that demonstrates how the component handles extended
+            text content.
           </AlertDescription>
           <AlertAction>
             <Badge variant="secondary">Badge</Badge>
@@ -247,7 +227,7 @@ function AlertExample4() {
         </Alert>
       </div>
     </Example>
-  )
+  );
 }
 
 function AlertExample5() {
@@ -266,12 +246,8 @@ function AlertExample5() {
               phosphor="WarningCircleIcon"
               remixicon="RiErrorWarningLine"
             />
-            <AlertTitle>
-              You have reached the limit of 3 free projects.
-            </AlertTitle>
-            <AlertDescription>
-              Upgrade to Pro to create unlimited projects.
-            </AlertDescription>
+            <AlertTitle>You have reached the limit of 3 free projects.</AlertTitle>
+            <AlertDescription>Upgrade to Pro to create unlimited projects.</AlertDescription>
           </Alert>
           <div className="flex flex-col gap-2">
             <Label htmlFor="project-name">Name</Label>
@@ -312,5 +288,5 @@ function AlertExample5() {
         </CardFooter>
       </Card>
     </Example>
-  )
+  );
 }

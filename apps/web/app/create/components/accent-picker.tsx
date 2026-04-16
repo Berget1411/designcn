@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { MENU_ACCENTS, type MenuAccentValue } from "@/registry/config"
-import { LockButton } from "@/app/create/components/lock-button"
+import { MENU_ACCENTS, type MenuAccentValue } from "@/registry/config";
+import { LockButton } from "@/app/create/components/lock-button";
 import {
   Picker,
   PickerContent,
@@ -9,21 +9,19 @@ import {
   PickerRadioGroup,
   PickerRadioItem,
   PickerTrigger,
-} from "@/app/create/components/picker"
-import { useDesignSystemSearchParams } from "@/app/create/lib/search-params"
+} from "@/app/create/components/picker";
+import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
 
 export function MenuAccentPicker({
   isMobile,
   anchorRef,
 }: {
-  isMobile: boolean
-  anchorRef: React.RefObject<HTMLDivElement | null>
+  isMobile: boolean;
+  anchorRef: React.RefObject<HTMLDivElement | null>;
 }) {
-  const [params, setParams] = useDesignSystemSearchParams()
+  const [params, setParams] = useDesignSystemSearchParams();
 
-  const currentAccent = MENU_ACCENTS.find(
-    (accent) => accent.value === params.menuAccent
-  )
+  const currentAccent = MENU_ACCENTS.find((accent) => accent.value === params.menuAccent);
 
   return (
     <div className="group/picker relative pr-3 md:pr-0">
@@ -31,9 +29,7 @@ export function MenuAccentPicker({
         <PickerTrigger>
           <div className="flex flex-col justify-start text-left">
             <div className="text-xs text-muted-foreground">Menu Accent</div>
-            <div className="text-sm font-medium text-foreground">
-              {currentAccent?.label}
-            </div>
+            <div className="text-sm font-medium text-foreground">{currentAccent?.label}</div>
           </div>
           <div className="pointer-events-none absolute top-1/2 right-4 flex size-4 -translate-y-1/2 items-center justify-center text-base text-foreground select-none md:right-2.5">
             <svg
@@ -73,7 +69,7 @@ export function MenuAccentPicker({
           <PickerRadioGroup
             value={currentAccent?.value}
             onValueChange={(value) => {
-              setParams({ menuAccent: value as MenuAccentValue })
+              setParams({ menuAccent: value as MenuAccentValue });
             }}
           >
             <PickerGroup>
@@ -95,10 +91,7 @@ export function MenuAccentPicker({
           </PickerRadioGroup>
         </PickerContent>
       </Picker>
-      <LockButton
-        param="menuAccent"
-        className="absolute top-1/2 right-8 -translate-y-1/2"
-      />
+      <LockButton param="menuAccent" className="absolute top-1/2 right-8 -translate-y-1/2" />
     </div>
-  )
+  );
 }

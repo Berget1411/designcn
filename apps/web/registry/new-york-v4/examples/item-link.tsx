@@ -1,4 +1,4 @@
-import { ChevronRightIcon, ExternalLinkIcon } from "lucide-react"
+import { ChevronRightIcon, ExternalLinkIcon } from "lucide-react";
 
 import {
   Item,
@@ -6,7 +6,7 @@ import {
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from "@/registry/new-york-v4/ui/item"
+} from "@/registry/new-york-v4/ui/item";
 
 export default function ItemLink() {
   return (
@@ -15,9 +15,7 @@ export default function ItemLink() {
         <a href="#">
           <ItemContent>
             <ItemTitle>Visit our documentation</ItemTitle>
-            <ItemDescription>
-              Learn how to get started with our components.
-            </ItemDescription>
+            <ItemDescription>Learn how to get started with our components.</ItemDescription>
           </ItemContent>
           <ItemActions>
             <ChevronRightIcon className="size-4" />
@@ -28,9 +26,7 @@ export default function ItemLink() {
         <a href="#" target="_blank" rel="noopener noreferrer">
           <ItemContent>
             <ItemTitle>External resource</ItemTitle>
-            <ItemDescription>
-              Opens in a new tab with security attributes.
-            </ItemDescription>
+            <ItemDescription>Opens in a new tab with security attributes.</ItemDescription>
           </ItemContent>
           <ItemActions>
             <ExternalLinkIcon className="size-4" />
@@ -38,5 +34,5 @@ export default function ItemLink() {
         </a>
       </Item>
     </div>
-  )
+  );
 }

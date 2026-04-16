@@ -1,4 +1,4 @@
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardAction,
@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
+} from "@/registry/bases/radix/ui/card";
 import {
   Field,
   FieldContent,
@@ -15,7 +15,7 @@ import {
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-} from "@/registry/bases/radix/ui/field"
+} from "@/registry/bases/radix/ui/field";
 import {
   Select,
   SelectContent,
@@ -23,18 +23,16 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/radix/ui/select"
-import { Switch } from "@/registry/bases/radix/ui/switch"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/select";
+import { Switch } from "@/registry/bases/radix/ui/switch";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function Preferences() {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Preferences</CardTitle>
-        <CardDescription>
-          Manage your account settings and notifications.
-        </CardDescription>
+        <CardDescription>Manage your account settings and notifications.</CardDescription>
         <CardAction>
           <Button variant="ghost" size="icon-sm" className="bg-muted">
             <IconPlaceholder
@@ -57,9 +55,7 @@ export function Preferences() {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="usd">
-                    USD — United States Dollar
-                  </SelectItem>
+                  <SelectItem value="usd">USD — United States Dollar</SelectItem>
                   <SelectItem value="eur">EUR — Euro</SelectItem>
                   <SelectItem value="gbp">GBP — British Pound</SelectItem>
                   <SelectItem value="jpy">JPY — Japanese Yen</SelectItem>
@@ -70,12 +66,9 @@ export function Preferences() {
           <FieldSeparator className="-my-4" />
           <Field orientation="horizontal">
             <FieldContent>
-              <FieldLabel htmlFor="public-statistics">
-                Public Statistics
-              </FieldLabel>
+              <FieldLabel htmlFor="public-statistics">Public Statistics</FieldLabel>
               <FieldDescription>
-                Allow others to see your total stream count and listening
-                activity
+                Allow others to see your total stream count and listening activity
               </FieldDescription>
             </FieldContent>
             <Switch id="public-statistics" defaultChecked />
@@ -83,12 +76,8 @@ export function Preferences() {
           <FieldSeparator className="-my-4" />
           <Field orientation="horizontal">
             <FieldContent>
-              <FieldLabel htmlFor="email-notifications">
-                Email Notifications
-              </FieldLabel>
-              <FieldDescription>
-                Monthly royalty reports and distribution updates
-              </FieldDescription>
+              <FieldLabel htmlFor="email-notifications">Email Notifications</FieldLabel>
+              <FieldDescription>Monthly royalty reports and distribution updates</FieldDescription>
             </FieldContent>
             <Switch id="email-notifications" defaultChecked />
           </Field>
@@ -99,5 +88,5 @@ export function Preferences() {
         <Button className="ml-auto">Save Preferences</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

@@ -23,131 +23,131 @@ import {
   Roboto_Slab,
   Source_Sans_3,
   Space_Grotesk,
-} from "next/font/google"
+} from "next/font/google";
 
-import { FONT_DEFINITIONS, type FontName } from "@/lib/font-definitions"
+import { FONT_DEFINITIONS, type FontName } from "@/lib/font-definitions";
 
-type PreviewFont = ReturnType<typeof Inter>
+type PreviewFont = ReturnType<typeof Inter>;
 
 const geistSans = Geist({
   subsets: ["latin"],
   variable: "--font-geist-sans",
-})
+});
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-})
+});
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
   variable: "--font-noto-sans",
-})
+});
 
 const nunitoSans = Nunito_Sans({
   subsets: ["latin"],
   variable: "--font-nunito-sans",
-})
+});
 
 const figtree = Figtree({
   subsets: ["latin"],
   variable: "--font-figtree",
-})
+});
 
 const roboto = Roboto({
   subsets: ["latin"],
   variable: "--font-roboto",
-})
+});
 
 const raleway = Raleway({
   subsets: ["latin"],
   variable: "--font-raleway",
-})
+});
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
-})
+});
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
   variable: "--font-public-sans",
-})
+});
 
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
-})
+});
 
 const oxanium = Oxanium({
   subsets: ["latin"],
   variable: "--font-oxanium",
-})
+});
 
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
-})
+});
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
-})
+});
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
-})
+});
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
   variable: "--font-ibm-plex-sans",
-})
+});
 
 const sourceSans3 = Source_Sans_3({
   subsets: ["latin"],
   variable: "--font-source-sans-3",
-})
+});
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
   variable: "--font-instrument-sans",
-})
+});
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
-})
+});
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-geist-mono",
-})
+});
 
 const notoSerif = Noto_Serif({
   subsets: ["latin"],
   variable: "--font-noto-serif",
-})
+});
 
 const robotoSlab = Roboto_Slab({
   subsets: ["latin"],
   variable: "--font-roboto-slab",
-})
+});
 
 const merriweather = Merriweather({
   subsets: ["latin"],
   variable: "--font-merriweather",
-})
+});
 
 const lora = Lora({
   subsets: ["latin"],
   variable: "--font-lora",
-})
+});
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair-display",
-})
+});
 
 const PREVIEW_FONTS = {
   geist: geistSans,
@@ -174,13 +174,13 @@ const PREVIEW_FONTS = {
   merriweather,
   lora,
   "playfair-display": playfairDisplay,
-} satisfies Record<FontName, PreviewFont>
+} satisfies Record<FontName, PreviewFont>;
 
 function createFontOption(name: FontName) {
-  const definition = FONT_DEFINITIONS.find((font) => font.name === name)
+  const definition = FONT_DEFINITIONS.find((font) => font.name === name);
 
   if (!definition) {
-    throw new Error(`Unknown font definition: ${name}`)
+    throw new Error(`Unknown font definition: ${name}`);
   }
 
   return {
@@ -188,7 +188,7 @@ function createFontOption(name: FontName) {
     value: definition.name,
     font: PREVIEW_FONTS[name],
     type: definition.type,
-  } as const
+  } as const;
 }
 
 export const FONTS = [
@@ -216,9 +216,9 @@ export const FONTS = [
   createFontOption("merriweather"),
   createFontOption("lora"),
   createFontOption("playfair-display"),
-] as const
+] as const;
 
-export type Font = (typeof FONTS)[number]
+export type Font = (typeof FONTS)[number];
 
 export const FONT_HEADING_OPTIONS = [
   {
@@ -228,6 +228,6 @@ export const FONT_HEADING_OPTIONS = [
     type: "default",
   },
   ...FONTS,
-] as const
+] as const;
 
-export type FontHeadingOption = (typeof FONT_HEADING_OPTIONS)[number]
+export type FontHeadingOption = (typeof FONT_HEADING_OPTIONS)[number];

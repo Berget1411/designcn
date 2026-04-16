@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Controller, useForm } from "react-hook-form"
-import { toast } from "sonner"
-import * as z from "zod"
+import * as React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Card,
   CardContent,
@@ -14,7 +14,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   Field,
   FieldContent,
@@ -22,14 +22,14 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/registry/new-york-v4/ui/field"
-import { Switch } from "@/registry/new-york-v4/ui/switch"
+} from "@/registry/new-york-v4/ui/field";
+import { Switch } from "@/registry/new-york-v4/ui/switch";
 
 const formSchema = z.object({
   twoFactor: z.boolean().refine((val) => val === true, {
     message: "It is highly recommended to enable two-factor authentication.",
   }),
-})
+});
 
 export default function FormRhfSwitch() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -37,7 +37,7 @@ export default function FormRhfSwitch() {
     defaultValues: {
       twoFactor: false,
     },
-  })
+  });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     toast("You submitted the following values:", {
@@ -53,16 +53,14 @@ export default function FormRhfSwitch() {
       style: {
         "--border-radius": "calc(var(--radius)  + 4px)",
       } as React.CSSProperties,
-    })
+    });
   }
 
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>
         <CardTitle>Security Settings</CardTitle>
-        <CardDescription>
-          Manage your account security preferences.
-        </CardDescription>
+        <CardDescription>Manage your account security preferences.</CardDescription>
       </CardHeader>
       <CardContent>
         <form id="form-rhf-switch" onSubmit={form.handleSubmit(onSubmit)}>
@@ -71,10 +69,7 @@ export default function FormRhfSwitch() {
               name="twoFactor"
               control={form.control}
               render={({ field, fieldState }) => (
-                <Field
-                  orientation="horizontal"
-                  data-invalid={fieldState.invalid}
-                >
+                <Field orientation="horizontal" data-invalid={fieldState.invalid}>
                   <FieldContent>
                     <FieldLabel htmlFor="form-rhf-switch-twoFactor">
                       Multi-factor authentication
@@ -82,9 +77,7 @@ export default function FormRhfSwitch() {
                     <FieldDescription>
                       Enable multi-factor authentication to secure your account.
                     </FieldDescription>
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                   </FieldContent>
                   <Switch
                     id="form-rhf-switch-twoFactor"
@@ -110,5 +103,5 @@ export default function FormRhfSwitch() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

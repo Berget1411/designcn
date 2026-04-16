@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { type IconLibraryName } from "shadcn/icons"
+import { type IconLibraryName } from "shadcn/icons";
 
-import { Card, CardContent } from "@/registry/bases/base/ui/card"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { Card, CardContent } from "@/registry/bases/base/ui/card";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 const PREVIEW_ICONS = [
   {
@@ -118,7 +118,7 @@ const PREVIEW_ICONS = [
     phosphor: "GearIcon",
     remixicon: "RiSettingsLine",
   },
-] satisfies Record<IconLibraryName, string>[]
+] satisfies Record<IconLibraryName, string>[];
 
 export function IconPreviewGrid() {
   return (
@@ -142,5 +142,5 @@ export function IconPreviewGrid() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

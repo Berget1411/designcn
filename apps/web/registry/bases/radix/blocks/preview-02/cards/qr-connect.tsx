@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import QRCode from "react-qr-code"
+import QRCode from "react-qr-code";
 
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardContent,
@@ -10,18 +10,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
+} from "@/registry/bases/radix/ui/card";
 
 export function QrConnect() {
   return (
     <Card>
       <CardContent className="flex justify-center pt-6">
         <div className="rounded-xl border bg-white p-4">
-          <QRCode
-            value="https://ledger.app/connect/jd-4829"
-            size={160}
-            level="M"
-          />
+          <QRCode value="https://ledger.app/connect/jd-4829" size={160} level="M" />
         </div>
       </CardContent>
       <CardHeader className="text-center">
@@ -36,5 +32,5 @@ export function QrConnect() {
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

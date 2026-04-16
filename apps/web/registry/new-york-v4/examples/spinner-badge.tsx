@@ -1,5 +1,5 @@
-import { Badge } from "@/registry/new-york-v4/ui/badge"
-import { Spinner } from "@/registry/new-york-v4/ui/spinner"
+import { Badge } from "@/registry/new-york-v4/ui/badge";
+import { Spinner } from "@/registry/new-york-v4/ui/spinner";
 
 export default function SpinnerBadge() {
   return (
@@ -17,5 +17,5 @@ export default function SpinnerBadge() {
         Processing
       </Badge>
     </div>
-  )
+  );
 }

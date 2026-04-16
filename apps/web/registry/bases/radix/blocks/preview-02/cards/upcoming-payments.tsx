@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { Badge } from "@/registry/bases/radix/ui/badge"
-import { Calendar } from "@/registry/bases/radix/ui/calendar"
+import { Badge } from "@/registry/bases/radix/ui/badge";
+import { Calendar } from "@/registry/bases/radix/ui/calendar";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
+} from "@/registry/bases/radix/ui/card";
 import {
   Item,
   ItemContent,
@@ -18,18 +18,16 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle,
-} from "@/registry/bases/radix/ui/item"
+} from "@/registry/bases/radix/ui/item";
 
 export function UpcomingPayments() {
-  const [date, setDate] = React.useState<Date | undefined>(new Date())
+  const [date, setDate] = React.useState<Date | undefined>(new Date());
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Upcoming Payments</CardTitle>
-        <CardDescription>
-          Select a date to view scheduled payments.
-        </CardDescription>
+        <CardDescription>Select a date to view scheduled payments.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <Item variant="outline" className="justify-center">
@@ -65,5 +63,5 @@ export function UpcomingPayments() {
         </ItemGroup>
       </CardContent>
     </Card>
-  )
+  );
 }

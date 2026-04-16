@@ -1,13 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/registry/bases/radix/ui/avatar"
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/registry/bases/radix/ui/avatar";
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardAction,
@@ -15,7 +11,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
+} from "@/registry/bases/radix/ui/card";
 import {
   Combobox,
   ComboboxChip,
@@ -27,34 +23,20 @@ import {
   ComboboxList,
   ComboboxValue,
   useComboboxAnchor,
-} from "@/registry/bases/radix/ui/combobox"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/bases/radix/ui/tooltip"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/combobox";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/bases/radix/ui/tooltip";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 // Users available for assignment.
-const users = [
-  "shadcn",
-  "maxleiter",
-  "evilrabbit",
-  "pranathip",
-  "jorgezreik",
-  "shuding",
-  "rauchg",
-]
+const users = ["shadcn", "maxleiter", "evilrabbit", "pranathip", "jorgezreik", "shuding", "rauchg"];
 
 export function AssignIssue() {
-  const anchor = useComboboxAnchor()
+  const anchor = useComboboxAnchor();
   return (
     <Card className="w-full max-w-sm" size="sm">
       <CardHeader className="border-b">
         <CardTitle className="text-sm">Assign Issue</CardTitle>
-        <CardDescription className="text-sm">
-          Select users to assign to this issue.
-        </CardDescription>
+        <CardDescription className="text-sm">Select users to assign to this issue.</CardDescription>
         <CardAction>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -73,12 +55,7 @@ export function AssignIssue() {
         </CardAction>
       </CardHeader>
       <CardContent>
-        <Combobox
-          multiple
-          autoHighlight
-          items={users}
-          defaultValue={[users[0]]}
-        >
+        <Combobox multiple autoHighlight items={users} defaultValue={[users[0]]}>
           <ComboboxChips ref={anchor}>
             <ComboboxValue>
               {(values) => (
@@ -86,19 +63,14 @@ export function AssignIssue() {
                   {values.map((username: string) => (
                     <ComboboxChip key={username}>
                       <Avatar className="size-4">
-                        <AvatarImage
-                          src={`https://github.com/${username}.png`}
-                          alt={username}
-                        />
+                        <AvatarImage src={`https://github.com/${username}.png`} alt={username} />
                         <AvatarFallback>{username.charAt(0)}</AvatarFallback>
                       </Avatar>
                       {username}
                     </ComboboxChip>
                   ))}
                   <ComboboxChipsInput
-                    placeholder={
-                      values.length > 0 ? undefined : "Select a item..."
-                    }
+                    placeholder={values.length > 0 ? undefined : "Select a item..."}
                   />
                 </React.Fragment>
               )}
@@ -110,10 +82,7 @@ export function AssignIssue() {
               {(username: string) => (
                 <ComboboxItem key={username} value={username}>
                   <Avatar className="size-5">
-                    <AvatarImage
-                      src={`https://github.com/${username}.png`}
-                      alt={username}
-                    />
+                    <AvatarImage src={`https://github.com/${username}.png`} alt={username} />
                     <AvatarFallback>{username.charAt(0)}</AvatarFallback>
                   </Avatar>
                   {username}
@@ -124,5 +93,5 @@ export function AssignIssue() {
         </Combobox>
       </CardContent>
     </Card>
-  )
+  );
 }

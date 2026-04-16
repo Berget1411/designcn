@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useSession, signOut } from '@/lib/auth-client';
-import { ThemeSwitcher } from '@/components/theme-switcher/theme-switcher';
-import { Avatar, AvatarFallback, AvatarImage } from '@workspace/ui/components/avatar';
-import { Button } from '@workspace/ui/components/button';
+import Link from "next/link";
+import { useSession, signOut } from "@/lib/auth-client";
+import { ThemeSwitcher } from "@/components/theme-switcher/theme-switcher";
+import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar";
+import { Button } from "@workspace/ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,19 +12,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@workspace/ui/components/dropdown-menu';
+} from "@workspace/ui/components/dropdown-menu";
 
 export function Header({ stars }: { stars?: React.ReactNode }) {
   const { data: session } = useSession();
 
   function getInitials(name?: string | null, email?: string | null) {
     if (name) {
-      const parts = name.trim().split(' ');
+      const parts = name.trim().split(" ");
       return parts.length >= 2
-        ? ((parts[0]?.[0] ?? '') + (parts[parts.length - 1]?.[0] ?? '')).toUpperCase()
-        : (parts[0] ?? '').slice(0, 2).toUpperCase();
+        ? ((parts[0]?.[0] ?? "") + (parts[parts.length - 1]?.[0] ?? "")).toUpperCase()
+        : (parts[0] ?? "").slice(0, 2).toUpperCase();
     }
-    return email?.[0]?.toUpperCase() ?? '?';
+    return email?.[0]?.toUpperCase() ?? "?";
   }
 
   return (
@@ -42,7 +42,10 @@ export function Header({ stars }: { stars?: React.ReactNode }) {
               <DropdownMenuTrigger asChild>
                 <button className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                   <Avatar size="sm">
-                    <AvatarImage src={session.user.image ?? undefined} alt={session.user.name ?? 'User'} />
+                    <AvatarImage
+                      src={session.user.image ?? undefined}
+                      alt={session.user.name ?? "User"}
+                    />
                     <AvatarFallback className="text-xs">
                       {getInitials(session.user.name, session.user.email)}
                     </AvatarFallback>
@@ -63,7 +66,13 @@ export function Header({ stars }: { stars?: React.ReactNode }) {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onSelect={() =>
-                    signOut({ fetchOptions: { onSuccess: () => { window.location.href = '/'; } } })
+                    signOut({
+                      fetchOptions: {
+                        onSuccess: () => {
+                          window.location.href = "/";
+                        },
+                      },
+                    })
                   }
                 >
                   Sign out

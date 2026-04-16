@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 export function PreviewStyle() {
   return (
@@ -6,11 +6,11 @@ export function PreviewStyle() {
       html {
         -ms-overflow-style: none;
         scrollbar-width: none;
-
+      
         &::-webkit-scrollbar {
           display: none;
         }
       }
     `}</style>
-  )
+  );
 }

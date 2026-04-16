@@ -1,11 +1,8 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
 import {
   Item,
   ItemActions,
@@ -13,14 +10,10 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle,
-} from "@/registry/bases/base/ui/item"
-import {
-  Progress,
-  ProgressLabel,
-  ProgressValue,
-} from "@/registry/bases/base/ui/progress"
-import { Slider } from "@/registry/bases/base/ui/slider"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/item";
+import { Progress, ProgressLabel, ProgressValue } from "@/registry/bases/base/ui/progress";
+import { Slider } from "@/registry/bases/base/ui/slider";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function ProgressExample() {
   return (
@@ -30,7 +23,7 @@ export default function ProgressExample() {
       <ProgressControlled />
       <FileUploadList />
     </ExampleWrapper>
-  )
+  );
 }
 
 function ProgressValues() {
@@ -44,7 +37,7 @@ function ProgressValues() {
         <Progress value={100} />
       </div>
     </Example>
-  )
+  );
 }
 
 function ProgressWithLabel() {
@@ -55,11 +48,11 @@ function ProgressWithLabel() {
         <ProgressValue />
       </Progress>
     </Example>
-  )
+  );
 }
 
 function ProgressControlled() {
-  const [value, setValue] = React.useState(50)
+  const [value, setValue] = React.useState(50);
 
   return (
     <Example title="Controlled">
@@ -74,7 +67,7 @@ function ProgressControlled() {
         />
       </div>
     </Example>
-  )
+  );
 }
 
 function FileUploadList() {
@@ -105,8 +98,8 @@ function FileUploadList() {
         timeRemaining: "Complete",
       },
     ],
-    []
-  )
+    [],
+  );
 
   return (
     <Example title="File Upload List">
@@ -130,13 +123,11 @@ function FileUploadList() {
               <Progress value={file.progress} className="w-32" />
             </ItemContent>
             <ItemActions className="w-16 justify-end">
-              <span className="text-sm text-muted-foreground">
-                {file.timeRemaining}
-              </span>
+              <span className="text-sm text-muted-foreground">{file.timeRemaining}</span>
             </ItemActions>
           </Item>
         ))}
       </ItemGroup>
     </Example>
-  )
+  );
 }

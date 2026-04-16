@@ -1,4 +1,4 @@
-import { type RegistryItem } from "shadcn/schema"
+import { type RegistryItem } from "shadcn/schema";
 
 export const THEMES: RegistryItem[] = [
   {
@@ -1081,6 +1081,6 @@ export const THEMES: RegistryItem[] = [
       },
     },
   },
-] as const satisfies RegistryItem[]
+] as const satisfies RegistryItem[];
 
-export type Theme = (typeof THEMES)[number]
+export type Theme = (typeof THEMES)[number];

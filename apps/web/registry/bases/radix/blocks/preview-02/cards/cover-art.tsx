@@ -1,13 +1,8 @@
-import { Button } from "@/registry/bases/radix/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-} from "@/registry/bases/radix/ui/card"
-import { Item } from "@/registry/bases/radix/ui/item"
-import { Label } from "@/registry/bases/radix/ui/label"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { Button } from "@/registry/bases/radix/ui/button";
+import { Card, CardContent, CardDescription, CardFooter } from "@/registry/bases/radix/ui/card";
+import { Item } from "@/registry/bases/radix/ui/item";
+import { Label } from "@/registry/bases/radix/ui/label";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function CoverArt() {
   return (
@@ -34,12 +29,7 @@ export function CoverArt() {
             />
           </label>
         </Item>
-        <input
-          id="cover-art"
-          type="file"
-          accept="image/jpeg,image/png"
-          className="sr-only"
-        />
+        <input id="cover-art" type="file" accept="image/jpeg,image/png" className="sr-only" />
       </CardContent>
       <CardFooter className="flex-col gap-2">
         <Button variant="secondary" className="w-full" asChild>
@@ -54,5 +44,5 @@ export function CoverArt() {
         </CardDescription>
       </CardFooter>
     </Card>
-  )
+  );
 }

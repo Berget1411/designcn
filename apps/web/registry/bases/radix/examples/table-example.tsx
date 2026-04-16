@@ -1,16 +1,13 @@
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/radix/components/example"
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Example, ExampleWrapper } from "@/registry/bases/radix/components/example";
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/bases/radix/ui/dropdown-menu"
-import { Input } from "@/registry/bases/radix/ui/input"
+} from "@/registry/bases/radix/ui/dropdown-menu";
+import { Input } from "@/registry/bases/radix/ui/input";
 import {
   Select,
   SelectContent,
@@ -18,7 +15,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/radix/ui/select"
+} from "@/registry/bases/radix/ui/select";
 import {
   Table,
   TableBody,
@@ -28,8 +25,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/bases/radix/ui/table"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/table";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 const invoices = [
   {
@@ -74,7 +71,7 @@ const invoices = [
     totalAmount: "$300.00",
     paymentMethod: "Credit Card",
   },
-]
+];
 
 export default function TableExample() {
   return (
@@ -87,7 +84,7 @@ export default function TableExample() {
       <TableWithSelect />
       <TableWithInput />
     </ExampleWrapper>
-  )
+  );
 }
 
 function TableBasic() {
@@ -109,15 +106,13 @@ function TableBasic() {
               <TableCell className="font-medium">{invoice.invoice}</TableCell>
               <TableCell>{invoice.paymentStatus}</TableCell>
               <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">
-                {invoice.totalAmount}
-              </TableCell>
+              <TableCell className="text-right">{invoice.totalAmount}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </Example>
-  )
+  );
 }
 
 function TableWithFooter() {
@@ -139,9 +134,7 @@ function TableWithFooter() {
               <TableCell className="font-medium">{invoice.invoice}</TableCell>
               <TableCell>{invoice.paymentStatus}</TableCell>
               <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">
-                {invoice.totalAmount}
-              </TableCell>
+              <TableCell className="text-right">{invoice.totalAmount}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -153,7 +146,7 @@ function TableWithFooter() {
         </TableFooter>
       </Table>
     </Example>
-  )
+  );
 }
 
 function TableSimple() {
@@ -186,7 +179,7 @@ function TableSimple() {
         </TableBody>
       </Table>
     </Example>
-  )
+  );
 }
 
 function TableWithBadges() {
@@ -243,7 +236,7 @@ function TableWithBadges() {
         </TableBody>
       </Table>
     </Example>
-  )
+  );
 }
 
 function TableWithActions() {
@@ -279,9 +272,7 @@ function TableWithActions() {
                   <DropdownMenuItem>Edit</DropdownMenuItem>
                   <DropdownMenuItem>Duplicate</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem variant="destructive">
-                    Delete
-                  </DropdownMenuItem>
+                  <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
@@ -307,9 +298,7 @@ function TableWithActions() {
                   <DropdownMenuItem>Edit</DropdownMenuItem>
                   <DropdownMenuItem>Duplicate</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem variant="destructive">
-                    Delete
-                  </DropdownMenuItem>
+                  <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
@@ -335,9 +324,7 @@ function TableWithActions() {
                   <DropdownMenuItem>Edit</DropdownMenuItem>
                   <DropdownMenuItem>Duplicate</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem variant="destructive">
-                    Delete
-                  </DropdownMenuItem>
+                  <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
@@ -345,7 +332,7 @@ function TableWithActions() {
         </TableBody>
       </Table>
     </Example>
-  )
+  );
 }
 
 function TableWithSelect() {
@@ -420,7 +407,7 @@ function TableWithSelect() {
         </TableBody>
       </Table>
     </Example>
-  )
+  );
 }
 
 function TableWithInput() {
@@ -438,41 +425,26 @@ function TableWithInput() {
           <TableRow>
             <TableCell className="font-medium">Wireless Mouse</TableCell>
             <TableCell>
-              <Input
-                type="number"
-                defaultValue="1"
-                className="h-8 w-20"
-                min="0"
-              />
+              <Input type="number" defaultValue="1" className="h-8 w-20" min="0" />
             </TableCell>
             <TableCell>$29.99</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-medium">Mechanical Keyboard</TableCell>
             <TableCell>
-              <Input
-                type="number"
-                defaultValue="2"
-                className="h-8 w-20"
-                min="0"
-              />
+              <Input type="number" defaultValue="2" className="h-8 w-20" min="0" />
             </TableCell>
             <TableCell>$129.99</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-medium">USB-C Hub</TableCell>
             <TableCell>
-              <Input
-                type="number"
-                defaultValue="1"
-                className="h-8 w-20"
-                min="0"
-              />
+              <Input type="number" defaultValue="1" className="h-8 w-20" min="0" />
             </TableCell>
             <TableCell>$49.99</TableCell>
           </TableRow>
         </TableBody>
       </Table>
     </Example>
-  )
+  );
 }

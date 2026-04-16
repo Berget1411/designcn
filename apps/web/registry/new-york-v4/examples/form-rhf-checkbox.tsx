@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Controller, useForm } from "react-hook-form"
-import { toast } from "sonner"
-import * as z from "zod"
+import * as React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Card,
   CardContent,
@@ -14,8 +14,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
-import { Checkbox } from "@/registry/new-york-v4/ui/checkbox"
+} from "@/registry/new-york-v4/ui/card";
+import { Checkbox } from "@/registry/new-york-v4/ui/checkbox";
 import {
   Field,
   FieldDescription,
@@ -25,7 +25,7 @@ import {
   FieldLegend,
   FieldSeparator,
   FieldSet,
-} from "@/registry/new-york-v4/ui/field"
+} from "@/registry/new-york-v4/ui/field";
 
 const tasks = [
   {
@@ -36,20 +36,17 @@ const tasks = [
     id: "email",
     label: "Email notifications",
   },
-] as const
+] as const;
 
 const formSchema = z.object({
   responses: z.boolean(),
   tasks: z
     .array(z.string())
     .min(1, "Please select at least one notification type.")
-    .refine(
-      (value) => value.every((task) => tasks.some((t) => t.id === task)),
-      {
-        message: "Invalid notification type selected.",
-      }
-    ),
-})
+    .refine((value) => value.every((task) => tasks.some((t) => t.id === task)), {
+      message: "Invalid notification type selected.",
+    }),
+});
 
 export default function FormRhfCheckbox() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,7 +55,7 @@ export default function FormRhfCheckbox() {
       responses: true,
       tasks: [],
     },
-  })
+  });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     toast("You submitted the following values:", {
@@ -74,7 +71,7 @@ export default function FormRhfCheckbox() {
       style: {
         "--border-radius": "calc(var(--radius)  + 4px)",
       } as React.CSSProperties,
-    })
+    });
   }
 
   return (
@@ -94,8 +91,7 @@ export default function FormRhfCheckbox() {
                   <FieldSet data-invalid={fieldState.invalid}>
                     <FieldLegend variant="label">Responses</FieldLegend>
                     <FieldDescription>
-                      Get notified for requests that take time, like research or
-                      image generation.
+                      Get notified for requests that take time, like research or image generation.
                     </FieldDescription>
                     <FieldGroup data-slot="checkbox-group">
                       <Field orientation="horizontal">
@@ -106,18 +102,13 @@ export default function FormRhfCheckbox() {
                           onCheckedChange={field.onChange}
                           disabled
                         />
-                        <FieldLabel
-                          htmlFor="form-rhf-checkbox-responses"
-                          className="font-normal"
-                        >
+                        <FieldLabel htmlFor="form-rhf-checkbox-responses" className="font-normal">
                           Push notifications
                         </FieldLabel>
                       </Field>
                     </FieldGroup>
                   </FieldSet>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </div>
               )}
             />
@@ -147,10 +138,8 @@ export default function FormRhfCheckbox() {
                             onCheckedChange={(checked) => {
                               const newValue = checked
                                 ? [...field.value, task.id]
-                                : field.value.filter(
-                                    (value) => value !== task.id
-                                  )
-                              field.onChange(newValue)
+                                : field.value.filter((value) => value !== task.id);
+                              field.onChange(newValue);
                             }}
                           />
                           <FieldLabel
@@ -163,9 +152,7 @@ export default function FormRhfCheckbox() {
                       ))}
                     </FieldGroup>
                   </FieldSet>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </FieldGroup>
               )}
             />
@@ -183,5 +170,5 @@ export default function FormRhfCheckbox() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

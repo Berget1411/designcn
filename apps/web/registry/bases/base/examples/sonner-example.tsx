@@ -1,12 +1,9 @@
-"use client"
+"use client";
 
-import { toast } from "sonner"
+import { toast } from "sonner";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
-import { Button } from "@/registry/bases/base/ui/button"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
+import { Button } from "@/registry/bases/base/ui/button";
 
 export default function SonnerExample() {
   return (
@@ -14,21 +11,17 @@ export default function SonnerExample() {
       <SonnerBasic />
       <SonnerWithDescription />
     </ExampleWrapper>
-  )
+  );
 }
 
 function SonnerBasic() {
   return (
     <Example title="Basic" className="items-center justify-center">
-      <Button
-        onClick={() => toast("Event has been created")}
-        variant="outline"
-        className="w-fit"
-      >
+      <Button onClick={() => toast("Event has been created")} variant="outline" className="w-fit">
         Show Toast
       </Button>
     </Example>
-  )
+  );
 }
 
 function SonnerWithDescription() {
@@ -46,5 +39,5 @@ function SonnerWithDescription() {
         Show Toast
       </Button>
     </Example>
-  )
+  );
 }

@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { NavDocuments } from "@/registry/bases/radix/blocks/dashboard-01/components/nav-documents"
-import { NavMain } from "@/registry/bases/radix/blocks/dashboard-01/components/nav-main"
-import { NavSecondary } from "@/registry/bases/radix/blocks/dashboard-01/components/nav-secondary"
-import { NavUser } from "@/registry/bases/radix/blocks/dashboard-01/components/nav-user"
+import { NavDocuments } from "@/registry/bases/radix/blocks/dashboard-01/components/nav-documents";
+import { NavMain } from "@/registry/bases/radix/blocks/dashboard-01/components/nav-main";
+import { NavSecondary } from "@/registry/bases/radix/blocks/dashboard-01/components/nav-secondary";
+import { NavUser } from "@/registry/bases/radix/blocks/dashboard-01/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -14,8 +14,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/registry/bases/radix/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 const data = {
   user: {
@@ -244,7 +244,7 @@ const data = {
       ),
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -252,10 +252,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
-            >
+            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
               <a href="#">
                 <IconPlaceholder
                   lucide="CommandIcon"
@@ -280,5 +277,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

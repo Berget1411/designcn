@@ -1,27 +1,22 @@
-"use client"
+"use client";
 
-import { Button } from "@/registry/bases/base/ui/button"
+import { Button } from "@/registry/bases/base/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/base/ui/card"
+} from "@/registry/bases/base/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/registry/bases/base/ui/dropdown-menu"
-import { Field } from "@/registry/bases/base/ui/field"
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemTitle,
-} from "@/registry/bases/base/ui/item"
+} from "@/registry/bases/base/ui/dropdown-menu";
+import { Field } from "@/registry/bases/base/ui/field";
+import { Item, ItemContent, ItemDescription, ItemTitle } from "@/registry/bases/base/ui/item";
 import {
   Sidebar,
   SidebarContent,
@@ -36,8 +31,8 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function SidebarFloatingExample() {
   const data = {
@@ -168,7 +163,7 @@ export default function SidebarFloatingExample() {
         ],
       },
     ],
-  }
+  };
 
   return (
     <SidebarProvider className="bg-background">
@@ -212,10 +207,7 @@ export default function SidebarFloatingExample() {
                       <DropdownMenuContent side="right" align="start">
                         <DropdownMenuGroup>
                           {item.items.map((subItem) => (
-                            <DropdownMenuItem
-                              render={<a href={subItem.url} />}
-                              key={subItem.title}
-                            >
+                            <DropdownMenuItem render={<a href={subItem.url} />} key={subItem.title}>
                               {subItem.title}
                             </DropdownMenuItem>
                           ))}
@@ -232,9 +224,7 @@ export default function SidebarFloatingExample() {
           <SidebarGroup>
             <Card size="sm" className="-mx-2">
               <CardHeader>
-                <CardTitle className="text-sm">
-                  Subscribe to our newsletter
-                </CardTitle>
+                <CardTitle className="text-sm">Subscribe to our newsletter</CardTitle>
                 <CardDescription>
                   Opt-in to receive updates and news about the sidebar.
                 </CardDescription>
@@ -271,5 +261,5 @@ export default function SidebarFloatingExample() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import { IconCloud } from "@tabler/icons-react"
+import { IconCloud } from "@tabler/icons-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -8,7 +8,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/registry/new-york-v4/ui/empty"
+} from "@/registry/new-york-v4/ui/empty";
 
 export default function EmptyOutline() {
   return (
@@ -28,5 +28,5 @@ export default function EmptyOutline() {
         </Button>
       </EmptyContent>
     </Empty>
-  )
+  );
 }

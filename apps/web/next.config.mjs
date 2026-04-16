@@ -1,4 +1,4 @@
-import path from "path"
+import path from "path";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -13,6 +13,6 @@ const nextConfig = {
   turbopack: {
     root: path.resolve(import.meta.dirname, "../.."),
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

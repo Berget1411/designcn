@@ -1,9 +1,4 @@
-import {
-  IconBookmark,
-  IconHeart,
-  IconInbox,
-  IconStar,
-} from "@tabler/icons-react"
+import { IconBookmark, IconHeart, IconInbox, IconStar } from "@tabler/icons-react";
 
 import {
   Empty,
@@ -11,7 +6,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/registry/new-york-v4/ui/empty"
+} from "@/registry/new-york-v4/ui/empty";
 
 export default function EmptyIcon() {
   return (
@@ -22,9 +17,7 @@ export default function EmptyIcon() {
             <IconInbox />
           </EmptyMedia>
           <EmptyTitle>No messages</EmptyTitle>
-          <EmptyDescription>
-            Your inbox is empty. New messages will appear here.
-          </EmptyDescription>
+          <EmptyDescription>Your inbox is empty. New messages will appear here.</EmptyDescription>
         </EmptyHeader>
       </Empty>
 
@@ -34,9 +27,7 @@ export default function EmptyIcon() {
             <IconStar />
           </EmptyMedia>
           <EmptyTitle>No favorites</EmptyTitle>
-          <EmptyDescription>
-            Items you mark as favorites will appear here.
-          </EmptyDescription>
+          <EmptyDescription>Items you mark as favorites will appear here.</EmptyDescription>
         </EmptyHeader>
       </Empty>
 
@@ -46,9 +37,7 @@ export default function EmptyIcon() {
             <IconHeart />
           </EmptyMedia>
           <EmptyTitle>No likes yet</EmptyTitle>
-          <EmptyDescription>
-            Content you like will be saved here for easy access.
-          </EmptyDescription>
+          <EmptyDescription>Content you like will be saved here for easy access.</EmptyDescription>
         </EmptyHeader>
       </Empty>
 
@@ -58,11 +47,9 @@ export default function EmptyIcon() {
             <IconBookmark />
           </EmptyMedia>
           <EmptyTitle>No bookmarks</EmptyTitle>
-          <EmptyDescription>
-            Save interesting content by bookmarking it.
-          </EmptyDescription>
+          <EmptyDescription>Save interesting content by bookmarking it.</EmptyDescription>
         </EmptyHeader>
       </Empty>
     </div>
-  )
+  );
 }

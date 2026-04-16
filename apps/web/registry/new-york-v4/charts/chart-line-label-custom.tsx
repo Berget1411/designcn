@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import { CartesianGrid, LabelList, Line, LineChart } from "recharts"
+import { TrendingUp } from "lucide-react";
+import { CartesianGrid, LabelList, Line, LineChart } from "recharts";
 
 import {
   Card,
@@ -10,15 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/registry/new-york-v4/ui/chart"
+} from "@/registry/new-york-v4/ui/chart";
 
-export const description = "A line chart with a custom label"
+export const description = "A line chart with a custom label";
 
 const chartData = [
   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
@@ -26,7 +26,7 @@ const chartData = [
   { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
   { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
   { browser: "other", visitors: 90, fill: "var(--color-other)" },
-]
+];
 
 const chartConfig = {
   visitors: {
@@ -53,7 +53,7 @@ const chartConfig = {
     label: "Other",
     color: "var(--chart-5)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function ChartLineLabelCustom() {
   return (
@@ -76,13 +76,7 @@ export function ChartLineLabelCustom() {
             <CartesianGrid vertical={false} />
             <ChartTooltip
               cursor={false}
-              content={
-                <ChartTooltipContent
-                  indicator="line"
-                  nameKey="visitors"
-                  hideLabel
-                />
-              }
+              content={<ChartTooltipContent indicator="line" nameKey="visitors" hideLabel />}
             />
             <Line
               dataKey="visitors"
@@ -102,9 +96,7 @@ export function ChartLineLabelCustom() {
                 className="fill-foreground"
                 fontSize={12}
                 dataKey="browser"
-                formatter={(value) =>
-                  chartConfig[value as keyof typeof chartConfig]?.label
-                }
+                formatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
               />
             </Line>
           </LineChart>
@@ -119,5 +111,5 @@ export function ChartLineLabelCustom() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

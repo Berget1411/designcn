@@ -1,9 +1,6 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import {
-  Example,
-  ExampleWrapper,
-} from "@/registry/bases/base/components/example"
+import { Example, ExampleWrapper } from "@/registry/bases/base/components/example";
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -12,14 +9,14 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/registry/bases/base/ui/breadcrumb"
-import { Button } from "@/registry/bases/base/ui/button"
+} from "@/registry/bases/base/ui/breadcrumb";
+import { Button } from "@/registry/bases/base/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/registry/bases/base/ui/dropdown-menu"
+} from "@/registry/bases/base/ui/dropdown-menu";
 
 export default function BreadcrumbExample() {
   return (
@@ -28,7 +25,7 @@ export default function BreadcrumbExample() {
       <BreadcrumbWithDropdown />
       <BreadcrumbWithLink />
     </ExampleWrapper>
-  )
+  );
 }
 
 function BreadcrumbBasic() {
@@ -50,7 +47,7 @@ function BreadcrumbBasic() {
         </BreadcrumbList>
       </Breadcrumb>
     </Example>
-  )
+  );
 }
 
 function BreadcrumbWithDropdown() {
@@ -64,9 +61,7 @@ function BreadcrumbWithDropdown() {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <DropdownMenu>
-              <DropdownMenuTrigger
-                render={<Button size="icon-sm" variant="ghost" />}
-              >
+              <DropdownMenuTrigger render={<Button size="icon-sm" variant="ghost" />}>
                 <BreadcrumbEllipsis />
                 <span className="sr-only">Toggle menu</span>
               </DropdownMenuTrigger>
@@ -88,7 +83,7 @@ function BreadcrumbWithDropdown() {
         </BreadcrumbList>
       </Breadcrumb>
     </Example>
-  )
+  );
 }
 
 function BreadcrumbWithLink() {
@@ -114,5 +109,5 @@ function BreadcrumbWithLink() {
         </BreadcrumbList>
       </Breadcrumb>
     </Example>
-  )
+  );
 }

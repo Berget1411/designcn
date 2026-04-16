@@ -1,5 +1,5 @@
-import { Button } from "@/registry/bases/base/ui/button"
-import { Card, CardContent } from "@/registry/bases/base/ui/card"
+import { Button } from "@/registry/bases/base/ui/button";
+import { Card, CardContent } from "@/registry/bases/base/ui/card";
 import {
   Empty,
   EmptyContent,
@@ -7,8 +7,8 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/registry/bases/base/ui/empty"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/empty";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function EmptyExploreCatalog() {
   return (
@@ -27,8 +27,7 @@ export function EmptyExploreCatalog() {
           <EmptyHeader>
             <EmptyTitle>Explore Catalog</EmptyTitle>
             <EmptyDescription>
-              Check your ISRC codes, metadata, and visual assets before going
-              live.
+              Check your ISRC codes, metadata, and visual assets before going live.
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
@@ -37,5 +36,5 @@ export function EmptyExploreCatalog() {
         </Empty>
       </CardContent>
     </Card>
-  )
+  );
 }

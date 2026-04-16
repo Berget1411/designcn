@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { Button } from "@/registry/bases/radix/ui/button"
+import { Button } from "@/registry/bases/radix/ui/button";
 import {
   Card,
   CardAction,
@@ -11,13 +11,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/radix/ui/card"
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "@/registry/bases/radix/ui/field"
+} from "@/registry/bases/radix/ui/card";
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/registry/bases/radix/ui/field";
 import {
   Select,
   SelectContent,
@@ -25,13 +20,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/bases/radix/ui/select"
-import { Slider } from "@/registry/bases/radix/ui/slider"
-import { Textarea } from "@/registry/bases/radix/ui/textarea"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/select";
+import { Slider } from "@/registry/bases/radix/ui/slider";
+import { Textarea } from "@/registry/bases/radix/ui/textarea";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function PayoutThreshold() {
-  const [amount, setAmount] = React.useState([2500])
+  const [amount, setAmount] = React.useState([2500]);
 
   return (
     <Card>
@@ -55,18 +50,14 @@ export function PayoutThreshold() {
       <CardContent>
         <FieldGroup>
           <Field>
-            <FieldLabel htmlFor="preferred-currency">
-              Preferred Currency
-            </FieldLabel>
+            <FieldLabel htmlFor="preferred-currency">Preferred Currency</FieldLabel>
             <Select defaultValue="usd">
               <SelectTrigger id="preferred-currency" className="w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="usd">
-                    USD — United States Dollar
-                  </SelectItem>
+                  <SelectItem value="usd">USD — United States Dollar</SelectItem>
                   <SelectItem value="eur">EUR — Euro</SelectItem>
                   <SelectItem value="gbp">GBP — British Pound</SelectItem>
                   <SelectItem value="jpy">JPY — Japanese Yen</SelectItem>
@@ -76,12 +67,8 @@ export function PayoutThreshold() {
           </Field>
           <Field>
             <div className="flex items-baseline justify-between">
-              <FieldLabel htmlFor="min-payout">
-                Minimum Payout Amount
-              </FieldLabel>
-              <span className="text-2xl font-semibold tabular-nums">
-                ${amount[0].toFixed(2)}
-              </span>
+              <FieldLabel htmlFor="min-payout">Minimum Payout Amount</FieldLabel>
+              <span className="text-2xl font-semibold tabular-nums">${amount[0].toFixed(2)}</span>
             </div>
             <Slider
               id="min-payout"
@@ -110,5 +97,5 @@ export function PayoutThreshold() {
         <Button className="w-full">Save Threshold</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

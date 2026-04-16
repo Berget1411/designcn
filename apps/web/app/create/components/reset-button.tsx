@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   AlertDialog,
@@ -9,11 +9,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@workspace/ui/components/alert-dialog"
-import { useReset } from "@/app/create/hooks/use-reset"
+} from "@workspace/ui/components/alert-dialog";
+import { useReset } from "@/app/create/hooks/use-reset";
 
 export function ResetDialog() {
-  const { showResetDialog, setShowResetDialog, confirmReset } = useReset()
+  const { showResetDialog, setShowResetDialog, confirmReset } = useReset();
 
   return (
     <AlertDialog open={showResetDialog} onOpenChange={setShowResetDialog}>
@@ -30,5 +30,5 @@ export function ResetDialog() {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }

@@ -1,18 +1,14 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/registry/bases/base/ui/avatar"
-import { Button } from "@/registry/bases/base/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/registry/bases/base/ui/avatar";
+import { Button } from "@/registry/bases/base/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/registry/bases/base/ui/collapsible"
+} from "@/registry/bases/base/ui/collapsible";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,14 +17,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/bases/base/ui/dropdown-menu"
+} from "@/registry/bases/base/ui/dropdown-menu";
 import {
   Item,
   ItemContent,
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/registry/bases/base/ui/item"
+} from "@/registry/bases/base/ui/item";
 import {
   Sidebar,
   SidebarContent,
@@ -46,8 +42,8 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/registry/bases/base/ui/sidebar"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/sidebar";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export default function SidebarIconExample() {
   const data = {
@@ -230,9 +226,9 @@ export default function SidebarIconExample() {
         ),
       },
     ],
-  }
+  };
 
-  const [activeTeam, setActiveTeam] = React.useState(data.teams[0])
+  const [activeTeam, setActiveTeam] = React.useState(data.teams[0]);
 
   return (
     <SidebarProvider>
@@ -249,16 +245,8 @@ export default function SidebarIconExample() {
                     />
                   }
                 >
-                  <Button
-                    size="icon-sm"
-                    render={<span />}
-                    nativeButton={false}
-                    className="size-8"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 256 256"
-                    >
+                  <Button size="icon-sm" render={<span />} nativeButton={false} className="size-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
                       <rect width="256" height="256" fill="none"></rect>
                       <line
                         x1="208"
@@ -285,9 +273,7 @@ export default function SidebarIconExample() {
                     </svg>
                   </Button>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium">
-                      {activeTeam.name}
-                    </span>
+                    <span className="truncate font-medium">{activeTeam.name}</span>
                     <span className="truncate text-xs">{activeTeam.plan}</span>
                   </div>
                   <IconPlaceholder
@@ -304,10 +290,7 @@ export default function SidebarIconExample() {
                   </DropdownMenuGroup>
                   <DropdownMenuGroup>
                     {data.teams.map((team) => (
-                      <DropdownMenuItem
-                        key={team.name}
-                        onClick={() => setActiveTeam(team)}
-                      >
+                      <DropdownMenuItem key={team.name} onClick={() => setActiveTeam(team)}>
                         {team.name}
                       </DropdownMenuItem>
                     ))}
@@ -328,9 +311,7 @@ export default function SidebarIconExample() {
                   className="group/collapsible"
                 >
                   <SidebarMenuItem>
-                    <CollapsibleTrigger
-                      render={<SidebarMenuButton tooltip={item.title} />}
-                    >
+                    <CollapsibleTrigger render={<SidebarMenuButton tooltip={item.title} />}>
                       {item.icon}
                       <span>{item.title}</span>
                       <IconPlaceholder
@@ -346,9 +327,7 @@ export default function SidebarIconExample() {
                       <SidebarMenuSub>
                         {item.items?.map((subItem) => (
                           <SidebarMenuSubItem key={subItem.title}>
-                            <SidebarMenuSubButton
-                              render={<a href={subItem.url} />}
-                            >
+                            <SidebarMenuSubButton render={<a href={subItem.url} />}>
                               {subItem.title}
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
@@ -391,9 +370,7 @@ export default function SidebarIconExample() {
                     <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium">
-                      {data.user.name}
-                    </span>
+                    <span className="truncate font-medium">{data.user.name}</span>
                     <span className="truncate text-xs">{data.user.email}</span>
                   </div>
                   <IconPlaceholder
@@ -410,10 +387,7 @@ export default function SidebarIconExample() {
                       <Item size="xs">
                         <ItemMedia>
                           <Avatar>
-                            <AvatarImage
-                              src={data.user.avatar}
-                              alt={data.user.name}
-                            />
+                            <AvatarImage src={data.user.avatar} alt={data.user.name} />
                             <AvatarFallback>CN</AvatarFallback>
                           </Avatar>
                         </ItemMedia>
@@ -457,5 +431,5 @@ export default function SidebarIconExample() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

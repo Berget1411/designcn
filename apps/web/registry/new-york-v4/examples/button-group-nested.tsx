@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react"
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { ButtonGroup } from "@/registry/new-york-v4/ui/button-group"
+import { Button } from "@/registry/new-york-v4/ui/button";
+import { ButtonGroup } from "@/registry/new-york-v4/ui/button-group";
 
 export default function ButtonGroupNested() {
   return (
@@ -34,5 +34,5 @@ export default function ButtonGroupNested() {
         </Button>
       </ButtonGroup>
     </ButtonGroup>
-  )
+  );
 }

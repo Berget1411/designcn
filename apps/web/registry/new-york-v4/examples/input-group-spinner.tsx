@@ -1,12 +1,12 @@
-import { LoaderIcon } from "lucide-react"
+import { LoaderIcon } from "lucide-react";
 
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
-} from "@/registry/new-york-v4/ui/input-group"
-import { Spinner } from "@/registry/new-york-v4/ui/spinner"
+} from "@/registry/new-york-v4/ui/input-group";
+import { Spinner } from "@/registry/new-york-v4/ui/spinner";
 
 export default function InputGroupSpinner() {
   return (
@@ -36,11 +36,9 @@ export default function InputGroupSpinner() {
           <LoaderIcon className="animate-spin" />
         </InputGroupAddon>
         <InputGroupAddon align="inline-end">
-          <InputGroupText className="text-muted-foreground">
-            Please wait...
-          </InputGroupText>
+          <InputGroupText className="text-muted-foreground">Please wait...</InputGroupText>
         </InputGroupAddon>
       </InputGroup>
     </div>
-  )
+  );
 }

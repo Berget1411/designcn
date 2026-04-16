@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import type { DropdownMenu as DropdownMenuPrimitive } from "radix-ui"
+import * as React from "react";
+import type { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
 
-import { Button } from "@/registry/new-york-v4/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -11,16 +11,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/new-york-v4/ui/dropdown-menu"
+} from "@/registry/new-york-v4/ui/dropdown-menu";
 
-type Checked = React.ComponentProps<
-  typeof DropdownMenuPrimitive.CheckboxItem
->["checked"]
+type Checked = React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>["checked"];
 
 export default function DropdownMenuCheckboxes() {
-  const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true)
-  const [showActivityBar, setShowActivityBar] = React.useState<Checked>(false)
-  const [showPanel, setShowPanel] = React.useState<Checked>(false)
+  const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true);
+  const [showActivityBar, setShowActivityBar] = React.useState<Checked>(false);
+  const [showPanel, setShowPanel] = React.useState<Checked>(false);
 
   return (
     <DropdownMenu>
@@ -30,10 +28,7 @@ export default function DropdownMenuCheckboxes() {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Appearance</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem
-          checked={showStatusBar}
-          onCheckedChange={setShowStatusBar}
-        >
+        <DropdownMenuCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
           Status Bar
         </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
@@ -43,13 +38,10 @@ export default function DropdownMenuCheckboxes() {
         >
           Activity Bar
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem
-          checked={showPanel}
-          onCheckedChange={setShowPanel}
-        >
+        <DropdownMenuCheckboxItem checked={showPanel} onCheckedChange={setShowPanel}>
           Panel
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

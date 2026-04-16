@@ -1,14 +1,14 @@
-import { registryItemSchema, type Registry } from "shadcn/schema"
-import { z } from "zod"
+import { registryItemSchema, type Registry } from "shadcn/schema";
+import { z } from "zod";
 
-import { themes } from "../_legacy-themes"
-import { blocks } from "./blocks/_registry"
-import { charts } from "./charts/_registry"
-import { examples } from "./examples/_registry"
-import { hooks } from "./hooks/_registry"
-import { internal } from "./internal/_registry"
-import { lib } from "./lib/_registry"
-import { ui } from "./ui/_registry"
+import { themes } from "../_legacy-themes";
+import { blocks } from "./blocks/_registry";
+import { charts } from "./charts/_registry";
+import { examples } from "./examples/_registry";
+import { hooks } from "./hooks/_registry";
+import { internal } from "./internal/_registry";
+import { lib } from "./lib/_registry";
+import { ui } from "./ui/_registry";
 
 const DEPRECATED_ITEMS = [
   "toast",
@@ -17,7 +17,7 @@ const DEPRECATED_ITEMS = [
   "toast-simple",
   "toast-with-action",
   "toast-with-title",
-]
+];
 
 // Shared between index and style for backward compatibility.
 const NEW_YORK_V4_STYLE = {
@@ -39,7 +39,7 @@ const NEW_YORK_V4_STYLE = {
   },
   cssVars: {},
   files: [],
-}
+};
 
 export const registry = {
   name: "shadcn/ui",
@@ -63,7 +63,7 @@ export const registry = {
       ...examples,
       ...internal,
     ].filter((item) => {
-      return !DEPRECATED_ITEMS.includes(item.name)
-    })
+      return !DEPRECATED_ITEMS.includes(item.name);
+    }),
   ),
-} satisfies Registry
+} satisfies Registry;

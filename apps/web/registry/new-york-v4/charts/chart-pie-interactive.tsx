@@ -1,11 +1,8 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Label, Pie, PieChart, Sector } from "recharts"
-import type {
-  PieSectorDataItem,
-  PieSectorShapeProps,
-} from "recharts/types/polar/Pie"
+import * as React from "react";
+import { Label, Pie, PieChart, Sector } from "recharts";
+import type { PieSectorDataItem, PieSectorShapeProps } from "recharts/types/polar/Pie";
 
 import {
   Card,
@@ -13,23 +10,23 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
+} from "@/registry/new-york-v4/ui/card";
 import {
   ChartContainer,
   ChartStyle,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/registry/new-york-v4/ui/chart"
+} from "@/registry/new-york-v4/ui/chart";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/registry/new-york-v4/ui/select"
+} from "@/registry/new-york-v4/ui/select";
 
-export const description = "An interactive pie chart"
+export const description = "An interactive pie chart";
 
 const desktopData = [
   { month: "january", desktop: 186, fill: "var(--color-january)" },
@@ -37,7 +34,7 @@ const desktopData = [
   { month: "march", desktop: 237, fill: "var(--color-march)" },
   { month: "april", desktop: 173, fill: "var(--color-april)" },
   { month: "may", desktop: 209, fill: "var(--color-may)" },
-]
+];
 
 const chartConfig = {
   visitors: {
@@ -69,17 +66,17 @@ const chartConfig = {
     label: "May",
     color: "var(--chart-5)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function ChartPieInteractive() {
-  const id = "pie-interactive"
-  const [activeMonth, setActiveMonth] = React.useState(desktopData[0].month)
+  const id = "pie-interactive";
+  const [activeMonth, setActiveMonth] = React.useState(desktopData[0].month);
 
   const activeIndex = React.useMemo(
     () => desktopData.findIndex((item) => item.month === activeMonth),
-    [activeMonth]
-  )
-  const months = React.useMemo(() => desktopData.map((item) => item.month), [])
+    [activeMonth],
+  );
+  const months = React.useMemo(() => desktopData.map((item) => item.month), []);
 
   const renderPieShape = React.useCallback(
     ({ index, outerRadius = 0, ...props }: PieSectorShapeProps) => {
@@ -87,19 +84,15 @@ export function ChartPieInteractive() {
         return (
           <g>
             <Sector {...props} outerRadius={outerRadius + 10} />
-            <Sector
-              {...props}
-              outerRadius={outerRadius + 25}
-              innerRadius={outerRadius + 12}
-            />
+            <Sector {...props} outerRadius={outerRadius + 25} innerRadius={outerRadius + 12} />
           </g>
-        )
+        );
       }
 
-      return <Sector {...props} outerRadius={outerRadius} />
+      return <Sector {...props} outerRadius={outerRadius} />;
     },
-    [activeIndex]
-  )
+    [activeIndex],
+  );
 
   return (
     <Card data-chart={id} className="flex flex-col">
@@ -118,18 +111,14 @@ export function ChartPieInteractive() {
           </SelectTrigger>
           <SelectContent align="end" className="rounded-xl">
             {months.map((key) => {
-              const config = chartConfig[key as keyof typeof chartConfig]
+              const config = chartConfig[key as keyof typeof chartConfig];
 
               if (!config) {
-                return null
+                return null;
               }
 
               return (
-                <SelectItem
-                  key={key}
-                  value={key}
-                  className="rounded-lg [&_span]:flex"
-                >
+                <SelectItem key={key} value={key} className="rounded-lg [&_span]:flex">
                   <div className="flex items-center gap-2 text-xs">
                     <span
                       className="flex h-3 w-3 shrink-0 rounded-xs"
@@ -140,7 +129,7 @@ export function ChartPieInteractive() {
                     {config?.label}
                   </div>
                 </SelectItem>
-              )
+              );
             })}
           </SelectContent>
         </Select>
@@ -152,10 +141,7 @@ export function ChartPieInteractive() {
           className="mx-auto aspect-square w-full max-w-[300px]"
         >
           <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             <Pie
               data={desktopData}
               dataKey="desktop"
@@ -189,7 +175,7 @@ export function ChartPieInteractive() {
                           Visitors
                         </tspan>
                       </text>
-                    )
+                    );
                   }
                 }}
               />
@@ -198,5 +184,5 @@ export function ChartPieInteractive() {
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

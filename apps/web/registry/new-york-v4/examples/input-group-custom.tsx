@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import TextareaAutosize from "react-textarea-autosize"
+import TextareaAutosize from "react-textarea-autosize";
 
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
-} from "@/registry/new-york-v4/ui/input-group"
+} from "@/registry/new-york-v4/ui/input-group";
 
 export default function InputGroupCustom() {
   return (
@@ -24,5 +24,5 @@ export default function InputGroupCustom() {
         </InputGroupAddon>
       </InputGroup>
     </div>
-  )
+  );
 }

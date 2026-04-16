@@ -1,4 +1,4 @@
-import { type Registry } from "shadcn/schema"
+import { type Registry } from "shadcn/schema";
 
 export const examples: Registry["items"] = [
   {
@@ -953,14 +953,7 @@ export const examples: Registry["items"] = [
   {
     name: "form-next-demo",
     type: "registry:example",
-    registryDependencies: [
-      "field",
-      "input",
-      "textarea",
-      "button",
-      "card",
-      "spinner",
-    ],
+    registryDependencies: ["field", "input", "textarea", "button", "card", "spinner"],
     files: [
       {
         path: "examples/form-next-demo.tsx",
@@ -1110,13 +1103,7 @@ export const examples: Registry["items"] = [
   {
     name: "form-rhf-password",
     type: "registry:example",
-    registryDependencies: [
-      "field",
-      "input-group",
-      "progress",
-      "button",
-      "card",
-    ],
+    registryDependencies: ["field", "input-group", "progress", "button", "card"],
     files: [
       {
         path: "examples/form-rhf-password.tsx",
@@ -1288,13 +1275,7 @@ export const examples: Registry["items"] = [
   {
     name: "dropdown-menu-dialog",
     type: "registry:example",
-    registryDependencies: [
-      "dropdown-menu",
-      "dialog",
-      "button",
-      "input",
-      "label",
-    ],
+    registryDependencies: ["dropdown-menu", "dialog", "button", "input", "label"],
     files: [
       {
         path: "examples/dropdown-menu-dialog.tsx",
@@ -1492,13 +1473,7 @@ export const examples: Registry["items"] = [
   {
     name: "input-group-custom",
     type: "registry:example",
-    registryDependencies: [
-      "input-group",
-      "badge",
-      "progress",
-      "dropdown-menu",
-      "tooltip",
-    ],
+    registryDependencies: ["input-group", "badge", "progress", "dropdown-menu", "tooltip"],
     files: [
       {
         path: "examples/input-group-custom.tsx",
@@ -2648,4 +2623,4 @@ export const examples: Registry["items"] = [
       mobile: "component",
     },
   },
-]
+];

@@ -1,13 +1,7 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import {
-  Label,
-  PolarGrid,
-  PolarRadiusAxis,
-  RadialBar,
-  RadialBarChart,
-} from "recharts"
+import { TrendingUp } from "lucide-react";
+import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
 import {
   Card,
@@ -16,17 +10,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york-v4/ui/card"
-import {
-  ChartContainer,
-  type ChartConfig,
-} from "@/registry/new-york-v4/ui/chart"
+} from "@/registry/new-york-v4/ui/card";
+import { ChartContainer, type ChartConfig } from "@/registry/new-york-v4/ui/chart";
 
-export const description = "A radial chart with a custom shape"
+export const description = "A radial chart with a custom shape";
 
-const chartData = [
-  { browser: "safari", visitors: 1260, fill: "var(--color-safari)" },
-]
+const chartData = [{ browser: "safari", visitors: 1260, fill: "var(--color-safari)" }];
 
 const chartConfig = {
   visitors: {
@@ -36,7 +25,7 @@ const chartConfig = {
     label: "Safari",
     color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function ChartRadialShape() {
   return (
@@ -46,16 +35,8 @@ export function ChartRadialShape() {
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
-          <RadialBarChart
-            data={chartData}
-            endAngle={100}
-            innerRadius={65}
-            outerRadius={95}
-          >
+        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
+          <RadialBarChart data={chartData} endAngle={100} innerRadius={65} outerRadius={95}>
             <PolarGrid
               gridType="circle"
               radialLines={false}
@@ -90,7 +71,7 @@ export function ChartRadialShape() {
                           Visitors
                         </tspan>
                       </text>
-                    )
+                    );
                   }
                 }}
               />
@@ -107,5 +88,5 @@ export function ChartRadialShape() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

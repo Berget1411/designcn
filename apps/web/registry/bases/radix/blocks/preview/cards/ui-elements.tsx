@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   AlertDialog,
@@ -12,12 +12,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/registry/bases/radix/ui/alert-dialog"
-import { Badge } from "@/registry/bases/radix/ui/badge"
-import { Button } from "@/registry/bases/radix/ui/button"
-import { ButtonGroup } from "@/registry/bases/radix/ui/button-group"
-import { Card, CardContent } from "@/registry/bases/radix/ui/card"
-import { Checkbox } from "@/registry/bases/radix/ui/checkbox"
+} from "@/registry/bases/radix/ui/alert-dialog";
+import { Badge } from "@/registry/bases/radix/ui/badge";
+import { Button } from "@/registry/bases/radix/ui/button";
+import { ButtonGroup } from "@/registry/bases/radix/ui/button-group";
+import { Card, CardContent } from "@/registry/bases/radix/ui/card";
+import { Checkbox } from "@/registry/bases/radix/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,42 +26,36 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/bases/radix/ui/dropdown-menu"
-import { Field, FieldGroup } from "@/registry/bases/radix/ui/field"
+} from "@/registry/bases/radix/ui/dropdown-menu";
+import { Field, FieldGroup } from "@/registry/bases/radix/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
-} from "@/registry/bases/radix/ui/input-group"
+} from "@/registry/bases/radix/ui/input-group";
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from "@/registry/bases/radix/ui/item"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/bases/radix/ui/radio-group"
-import { Slider } from "@/registry/bases/radix/ui/slider"
-import { Switch } from "@/registry/bases/radix/ui/switch"
-import { Textarea } from "@/registry/bases/radix/ui/textarea"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/radix/ui/item";
+import { RadioGroup, RadioGroupItem } from "@/registry/bases/radix/ui/radio-group";
+import { Slider } from "@/registry/bases/radix/ui/slider";
+import { Switch } from "@/registry/bases/radix/ui/switch";
+import { Textarea } from "@/registry/bases/radix/ui/textarea";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function UIElements() {
-  const [sliderValue, setSliderValue] = React.useState<number[]>([500])
-  const handleSliderValueChange = React.useCallback(
-    (value: number | readonly number[]) => {
-      if (typeof value === "number") {
-        setSliderValue([value])
-      } else {
-        setSliderValue([...value])
-      }
-    },
-    []
-  )
+  const [sliderValue, setSliderValue] = React.useState<number[]>([500]);
+  const handleSliderValueChange = React.useCallback((value: number | readonly number[]) => {
+    if (typeof value === "number") {
+      setSliderValue([value]);
+    } else {
+      setSliderValue([...value]);
+    }
+  }, []);
 
   return (
     <Card className="w-full">
@@ -144,8 +138,7 @@ export function UIElements() {
               <AlertDialogHeader>
                 <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Do you want to allow the USB accessory to connect to this
-                  device and your data?
+                  Do you want to allow the USB accessory to connect to this device and your data?
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
@@ -184,9 +177,7 @@ export function UIElements() {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <DropdownMenuItem variant="destructive">
-                    Delete Conversation
-                  </DropdownMenuItem>
+                  <DropdownMenuItem variant="destructive">Delete Conversation</DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -195,5 +186,5 @@ export function UIElements() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

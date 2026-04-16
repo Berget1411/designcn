@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 export type LockableParam =
   | "style"
@@ -12,53 +12,50 @@ export type LockableParam =
   | "fontHeading"
   | "menuAccent"
   | "menuColor"
-  | "radius"
+  | "radius";
 
 type LocksContextValue = {
-  locks: Set<LockableParam>
-  isLocked: (param: LockableParam) => boolean
-  toggleLock: (param: LockableParam) => void
-}
+  locks: Set<LockableParam>;
+  isLocked: (param: LockableParam) => boolean;
+  toggleLock: (param: LockableParam) => void;
+};
 
-const LocksContext = React.createContext<LocksContextValue | null>(null)
+const LocksContext = React.createContext<LocksContextValue | null>(null);
 
 export function LocksProvider({ children }: { children: React.ReactNode }) {
-  const [locks, setLocks] = React.useState<Set<LockableParam>>(new Set())
-  const locksRef = React.useRef(locks)
+  const [locks, setLocks] = React.useState<Set<LockableParam>>(new Set());
+  const locksRef = React.useRef(locks);
   React.useEffect(() => {
-    locksRef.current = locks
-  }, [locks])
+    locksRef.current = locks;
+  }, [locks]);
 
   // Stable callback — reads from ref so it doesn't change on every lock toggle.
-  const isLocked = React.useCallback(
-    (param: LockableParam) => locksRef.current.has(param),
-    []
-  )
+  const isLocked = React.useCallback((param: LockableParam) => locksRef.current.has(param), []);
 
   const toggleLock = React.useCallback((param: LockableParam) => {
     setLocks((prev) => {
-      const next = new Set(prev)
+      const next = new Set(prev);
       if (next.has(param)) {
-        next.delete(param)
+        next.delete(param);
       } else {
-        next.add(param)
+        next.add(param);
       }
-      return next
-    })
-  }, [])
+      return next;
+    });
+  }, []);
 
   const value = React.useMemo(
     () => ({ locks, isLocked, toggleLock }),
-    [locks, isLocked, toggleLock]
-  )
+    [locks, isLocked, toggleLock],
+  );
 
-  return <LocksContext value={value}>{children}</LocksContext>
+  return <LocksContext value={value}>{children}</LocksContext>;
 }
 
 export function useLocks() {
-  const context = React.useContext(LocksContext)
+  const context = React.useContext(LocksContext);
   if (!context) {
-    throw new Error("useLocks must be used within LocksProvider")
+    throw new Error("useLocks must be used within LocksProvider");
   }
-  return context
+  return context;
 }

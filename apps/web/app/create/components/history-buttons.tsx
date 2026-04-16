@@ -1,42 +1,30 @@
-"use client"
+"use client";
 
-import Script from "next/script"
-import { Redo02Icon, Undo02Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import Script from "next/script";
+import { Redo02Icon, Undo02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
-import { Button } from "@workspace/ui/components/button"
-import { useHistory } from "@/app/create/hooks/use-history"
+import { Button } from "@workspace/ui/components/button";
+import { useHistory } from "@/app/create/hooks/use-history";
 
-export const UNDO_FORWARD_TYPE = "undo-forward"
-export const REDO_FORWARD_TYPE = "redo-forward"
+export const UNDO_FORWARD_TYPE = "undo-forward";
+export const REDO_FORWARD_TYPE = "redo-forward";
 
 export function HistoryButtons() {
-  const { canGoBack, canGoForward, goBack, goForward } = useHistory()
+  const { canGoBack, canGoForward, goBack, goForward } = useHistory();
 
   return (
     <div className="flex items-center gap-1">
-      <Button
-        variant="ghost"
-        size="icon"
-        title="Undo"
-        disabled={!canGoBack}
-        onClick={goBack}
-      >
+      <Button variant="ghost" size="icon" title="Undo" disabled={!canGoBack} onClick={goBack}>
         <HugeiconsIcon icon={Undo02Icon} />
         <span className="sr-only">Undo</span>
       </Button>
-      <Button
-        variant="ghost"
-        size="icon"
-        title="Redo"
-        disabled={!canGoForward}
-        onClick={goForward}
-      >
+      <Button variant="ghost" size="icon" title="Redo" disabled={!canGoForward} onClick={goForward}>
         <HugeiconsIcon icon={Redo02Icon} />
         <span className="sr-only">Redo</span>
       </Button>
     </div>
-  )
+  );
 }
 
 export function HistoryScript() {
@@ -74,5 +62,5 @@ export function HistoryScript() {
           `,
       }}
     />
-  )
+  );
 }

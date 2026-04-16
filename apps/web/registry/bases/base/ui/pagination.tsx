@@ -1,8 +1,8 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/registry/bases/base/lib/utils"
-import { Button } from "@/registry/bases/base/ui/button"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+import { cn } from "@/registry/bases/base/lib/utils";
+import { Button } from "@/registry/bases/base/ui/button";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -10,43 +10,32 @@ function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
       role="navigation"
       aria-label="pagination"
       data-slot="pagination"
-      className={cn(
-        "cn-pagination mx-auto flex w-full justify-center",
-        className
-      )}
+      className={cn("cn-pagination mx-auto flex w-full justify-center", className)}
       {...props}
     />
-  )
+  );
 }
 
-function PaginationContent({
-  className,
-  ...props
-}: React.ComponentProps<"ul">) {
+function PaginationContent({ className, ...props }: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="pagination-content"
       className={cn("cn-pagination-content flex items-center", className)}
       {...props}
     />
-  )
+  );
 }
 
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
-  return <li data-slot="pagination-item" {...props} />
+  return <li data-slot="pagination-item" {...props} />;
 }
 
 type PaginationLinkProps = {
-  isActive?: boolean
+  isActive?: boolean;
 } & Pick<React.ComponentProps<typeof Button>, "size"> &
-  React.ComponentProps<"a">
+  React.ComponentProps<"a">;
 
-function PaginationLink({
-  className,
-  isActive,
-  size = "icon",
-  ...props
-}: PaginationLinkProps) {
+function PaginationLink({ className, isActive, size = "icon", ...props }: PaginationLinkProps) {
   return (
     <Button
       variant={isActive ? "outline" : "ghost"}
@@ -62,7 +51,7 @@ function PaginationLink({
         />
       }
     />
-  )
+  );
 }
 
 function PaginationPrevious({
@@ -86,11 +75,9 @@ function PaginationPrevious({
         data-icon="inline-start"
         className="cn-rtl-flip"
       />
-      <span className="cn-pagination-previous-text hidden sm:block">
-        {text}
-      </span>
+      <span className="cn-pagination-previous-text hidden sm:block">{text}</span>
     </PaginationLink>
-  )
+  );
 }
 
 function PaginationNext({
@@ -116,21 +103,15 @@ function PaginationNext({
         className="cn-rtl-flip"
       />
     </PaginationLink>
-  )
+  );
 }
 
-function PaginationEllipsis({
-  className,
-  ...props
-}: React.ComponentProps<"span">) {
+function PaginationEllipsis({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn(
-        "cn-pagination-ellipsis flex items-center justify-center",
-        className
-      )}
+      className={cn("cn-pagination-ellipsis flex items-center justify-center", className)}
       {...props}
     >
       <IconPlaceholder
@@ -142,7 +123,7 @@ function PaginationEllipsis({
       />
       <span className="sr-only">More pages</span>
     </span>
-  )
+  );
 }
 
 export {
@@ -153,4 +134,4 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-}
+};

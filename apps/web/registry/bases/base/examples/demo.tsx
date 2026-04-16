@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   AlertDialog,
@@ -12,18 +12,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/registry/bases/base/ui/alert-dialog"
-import { Badge } from "@/registry/bases/base/ui/badge"
-import { Button } from "@/registry/bases/base/ui/button"
-import { ButtonGroup } from "@/registry/bases/base/ui/button-group"
+} from "@/registry/bases/base/ui/alert-dialog";
+import { Badge } from "@/registry/bases/base/ui/badge";
+import { Button } from "@/registry/bases/base/ui/button";
+import { ButtonGroup } from "@/registry/bases/base/ui/button-group";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/bases/base/ui/card"
-import { Checkbox } from "@/registry/bases/base/ui/checkbox"
+} from "@/registry/bases/base/ui/card";
+import { Checkbox } from "@/registry/bases/base/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,42 +32,36 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/registry/bases/base/ui/dropdown-menu"
-import { Field, FieldGroup } from "@/registry/bases/base/ui/field"
+} from "@/registry/bases/base/ui/dropdown-menu";
+import { Field, FieldGroup } from "@/registry/bases/base/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
-} from "@/registry/bases/base/ui/input-group"
+} from "@/registry/bases/base/ui/input-group";
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from "@/registry/bases/base/ui/item"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/registry/bases/base/ui/radio-group"
-import { Slider } from "@/registry/bases/base/ui/slider"
-import { Switch } from "@/registry/bases/base/ui/switch"
-import { Textarea } from "@/registry/bases/base/ui/textarea"
-import { IconPlaceholder } from "@/app/create/components/icon-placeholder"
+} from "@/registry/bases/base/ui/item";
+import { RadioGroup, RadioGroupItem } from "@/registry/bases/base/ui/radio-group";
+import { Slider } from "@/registry/bases/base/ui/slider";
+import { Switch } from "@/registry/bases/base/ui/switch";
+import { Textarea } from "@/registry/bases/base/ui/textarea";
+import { IconPlaceholder } from "@/app/create/components/icon-placeholder";
 
 export function Demo() {
-  const [sliderValue, setSliderValue] = React.useState<number[]>([500])
-  const handleSliderValueChange = React.useCallback(
-    (value: number | readonly number[]) => {
-      if (typeof value === "number") {
-        setSliderValue([value])
-      } else {
-        setSliderValue([...value])
-      }
-    },
-    []
-  )
+  const [sliderValue, setSliderValue] = React.useState<number[]>([500]);
+  const handleSliderValueChange = React.useCallback((value: number | readonly number[]) => {
+    if (typeof value === "number") {
+      setSliderValue([value]);
+    } else {
+      setSliderValue([...value]);
+    }
+  }, []);
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center bg-muted p-4 sm:p-6 lg:p-12 dark:bg-background">
@@ -77,8 +71,8 @@ export function Demo() {
             <CardHeader>
               <CardTitle>Style Overview</CardTitle>
               <CardDescription className="line-clamp-2">
-                Designers love packing quirky glyphs into test phrases. This is
-                a preview of the typography styles.
+                Designers love packing quirky glyphs into test phrases. This is a preview of the
+                typography styles.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -97,10 +91,7 @@ export function Demo() {
                   "--chart-4",
                   "--chart-5",
                 ].map((variant) => (
-                  <div
-                    key={variant}
-                    className="flex flex-col flex-wrap items-center gap-2"
-                  >
+                  <div key={variant} className="flex flex-col flex-wrap items-center gap-2">
                     <div
                       className="relative aspect-square w-full rounded-lg bg-(--color) after:absolute after:inset-0 after:rounded-lg after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten"
                       style={
@@ -328,10 +319,7 @@ export function Demo() {
                   <Badge variant="secondary">Secondary</Badge>
                   <Badge variant="outline">Outline</Badge>
                 </div>
-                <RadioGroup
-                  defaultValue="apple"
-                  className="ml-auto flex w-fit gap-3"
-                >
+                <RadioGroup defaultValue="apple" className="ml-auto flex w-fit gap-3">
                   <RadioGroupItem value="apple" />
                   <RadioGroupItem value="banana" />
                 </RadioGroup>
@@ -348,12 +336,10 @@ export function Demo() {
                   </AlertDialogTrigger>
                   <AlertDialogContent size="sm">
                     <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Allow accessory to connect?
-                      </AlertDialogTitle>
+                      <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
                       <AlertDialogDescription>
-                        Do you want to allow the USB accessory to connect to
-                        this device and your data?
+                        Do you want to allow the USB accessory to connect to this device and your
+                        data?
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -365,9 +351,7 @@ export function Demo() {
                 <ButtonGroup>
                   <Button variant="outline">Button Group</Button>
                   <DropdownMenu>
-                    <DropdownMenuTrigger
-                      render={<Button variant="outline" size="icon" />}
-                    >
+                    <DropdownMenuTrigger render={<Button variant="outline" size="icon" />}>
                       <IconPlaceholder
                         lucide="ChevronUpIcon"
                         tabler="IconChevronUp"
@@ -376,11 +360,7 @@ export function Demo() {
                         remixicon="RiArrowUpSLine"
                       />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      align="end"
-                      side="top"
-                      className="w-fit"
-                    >
+                    <DropdownMenuContent align="end" side="top" className="w-fit">
                       <DropdownMenuGroup>
                         <DropdownMenuLabel>Quick Actions</DropdownMenuLabel>
                         <DropdownMenuItem>Mute Conversation</DropdownMenuItem>
@@ -410,5 +390,5 @@ export function Demo() {
         </div>
       </div>
     </div>
-  )
+  );
 }

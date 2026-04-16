@@ -1,5 +1,5 @@
-import { Button } from "@/registry/bases/radix/ui/button"
-import { Card, CardContent } from "@/registry/bases/radix/ui/card"
+import { Button } from "@/registry/bases/radix/ui/button";
+import { Card, CardContent } from "@/registry/bases/radix/ui/card";
 import {
   Empty,
   EmptyContent,
@@ -7,8 +7,8 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/registry/bases/radix/ui/empty"
-import { Spinner } from "@/registry/bases/radix/ui/spinner"
+} from "@/registry/bases/radix/ui/empty";
+import { Spinner } from "@/registry/bases/radix/ui/spinner";
 
 export function SyncingState() {
   return (
@@ -21,8 +21,7 @@ export function SyncingState() {
             </EmptyMedia>
             <EmptyTitle>Syncing your accounts</EmptyTitle>
             <EmptyDescription>
-              We&apos;re pulling in your latest transactions. This usually takes
-              a few seconds.
+              We&apos;re pulling in your latest transactions. This usually takes a few seconds.
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
@@ -31,5 +30,5 @@ export function SyncingState() {
         </Empty>
       </CardContent>
     </Card>
-  )
+  );
 }
