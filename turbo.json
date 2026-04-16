@@ -6,7 +6,8 @@
     "NEXT_PUBLIC_APP_URL",
     "OPENAI_API_KEY",
     "ANTHROPIC_API_KEY",
-    "GOOGLE_GENERATIVE_AI_API_KEY"
+    "GOOGLE_GENERATIVE_AI_API_KEY",
+    "NEXT_PUBLIC_MASTRA_API_URL"
   ],
   "tasks": {
     "build": {

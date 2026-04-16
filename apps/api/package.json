@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@mastra/ai-sdk": "^1.4.0",
     "@mastra/core": "latest",
     "zod": "^3.25.0"
   },

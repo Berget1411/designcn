@@ -30,6 +30,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSavePreset } from "@/app/create/hooks/use-save-preset";
 import { usePresetCode } from "@/app/create/hooks/use-design-system";
 import { useDesignSystemSearchParams } from "@/app/create/lib/search-params";
+import { PublishPresetDialog } from "@/app/(main)/community/components/publish-preset-dialog";
 
 const SAVE_TITLE = "Save Preset";
 const SAVE_DESCRIPTION = "Give your current configuration a name to save it for later.";
@@ -44,10 +45,17 @@ export function SavePresetDialog() {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
 
+  // Publish flow state
+  const [publishOpen, setPublishOpen] = React.useState(false);
+  const [lastSavedId, setLastSavedId] = React.useState<string | null>(null);
+  const [lastSavedName, setLastSavedName] = React.useState("");
+
   const saveMutation = useMutation(
     trpc.presets.save.mutationOptions({
-      onSuccess: () => {
+      onSuccess: (data) => {
         void queryClient.invalidateQueries({ queryKey: trpc.presets.list.queryKey() });
+        setLastSavedId(data?.id ?? null);
+        setLastSavedName(name.trim());
         setOpen(false);
         setName("");
       },
@@ -111,57 +119,96 @@ export function SavePresetDialog() {
     </p>
   );
 
+  // Show publish prompt after successful save
+  React.useEffect(() => {
+    if (lastSavedId && !open && !publishOpen) {
+      // Small delay so dialog close animation finishes
+      const timer = setTimeout(() => {
+        setPublishOpen(true);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [lastSavedId, open, publishOpen]);
+
   if (isMobile) {
     return (
-      <Drawer open={open} onOpenChange={handleOpenChange}>
-        <DrawerContent className="dark rounded-t-2xl!">
-          <DrawerHeader>
-            <DrawerTitle className="text-xl">{SAVE_TITLE}</DrawerTitle>
-            <DrawerDescription>{SAVE_DESCRIPTION}</DrawerDescription>
-          </DrawerHeader>
-          <form onSubmit={handleSubmit}>
-            <div className="px-4 py-2">{fields}</div>
-            <DrawerFooter>
-              {isAuthenticated && (
-                <Button type="submit" className="h-10" disabled={!canSubmit}>
-                  {saveMutation.isPending ? "Saving..." : "Save"}
-                </Button>
-              )}
-              <DrawerClose asChild>
-                <Button variant="outline" type="button" className="h-10">
-                  Cancel
-                </Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </form>
-        </DrawerContent>
-      </Drawer>
+      <>
+        <Drawer open={open} onOpenChange={handleOpenChange}>
+          <DrawerContent className="dark rounded-t-2xl!">
+            <DrawerHeader>
+              <DrawerTitle className="text-xl">{SAVE_TITLE}</DrawerTitle>
+              <DrawerDescription>{SAVE_DESCRIPTION}</DrawerDescription>
+            </DrawerHeader>
+            <form onSubmit={handleSubmit}>
+              <div className="px-4 py-2">{fields}</div>
+              <DrawerFooter>
+                {isAuthenticated && (
+                  <Button type="submit" className="h-10" disabled={!canSubmit}>
+                    {saveMutation.isPending ? "Saving..." : "Save"}
+                  </Button>
+                )}
+                <DrawerClose asChild>
+                  <Button variant="outline" type="button" className="h-10">
+                    Cancel
+                  </Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </form>
+          </DrawerContent>
+        </Drawer>
+        {lastSavedId && (
+          <PublishPresetDialog
+            open={publishOpen}
+            onOpenChange={(o) => {
+              setPublishOpen(o);
+              if (!o) setLastSavedId(null);
+            }}
+            savedPresetId={lastSavedId}
+            defaultTitle={lastSavedName}
+            onSuccess={() => setLastSavedId(null)}
+          />
+        )}
+      </>
     );
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="dark">
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            <DialogTitle>{SAVE_TITLE}</DialogTitle>
-            <DialogDescription>{SAVE_DESCRIPTION}</DialogDescription>
-          </DialogHeader>
-          <div className="py-4">{fields}</div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline" type="button">
-                Cancel
-              </Button>
-            </DialogClose>
-            {isAuthenticated && (
-              <Button type="submit" disabled={!canSubmit}>
-                {saveMutation.isPending ? "Saving..." : "Save"}
-              </Button>
-            )}
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+    <>
+      <Dialog open={open} onOpenChange={handleOpenChange}>
+        <DialogContent className="dark">
+          <form onSubmit={handleSubmit}>
+            <DialogHeader>
+              <DialogTitle>{SAVE_TITLE}</DialogTitle>
+              <DialogDescription>{SAVE_DESCRIPTION}</DialogDescription>
+            </DialogHeader>
+            <div className="py-4">{fields}</div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline" type="button">
+                  Cancel
+                </Button>
+              </DialogClose>
+              {isAuthenticated && (
+                <Button type="submit" disabled={!canSubmit}>
+                  {saveMutation.isPending ? "Saving..." : "Save"}
+                </Button>
+              )}
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+      {lastSavedId && (
+        <PublishPresetDialog
+          open={publishOpen}
+          onOpenChange={(o) => {
+            setPublishOpen(o);
+            if (!o) setLastSavedId(null);
+          }}
+          savedPresetId={lastSavedId}
+          defaultTitle={lastSavedName}
+          onSuccess={() => setLastSavedId(null)}
+        />
+      )}
+    </>
   );
 }

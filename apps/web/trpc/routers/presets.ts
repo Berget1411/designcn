@@ -2,22 +2,34 @@ import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { db } from "@/db";
-import { savedPreset } from "@/db/schema";
+import { communityPreset, savedPreset } from "@/db/schema";
 import { authedProcedure, createTRPCRouter } from "../init";
 
 export const presetsRouter = createTRPCRouter({
   list: authedProcedure.query(async ({ ctx }) => {
-    return db
+    const rows = await db
       .select({
         id: savedPreset.id,
         name: savedPreset.name,
         presetCode: savedPreset.presetCode,
         base: savedPreset.base,
         createdAt: savedPreset.createdAt,
+        communityPresetId: communityPreset.id,
       })
       .from(savedPreset)
+      .leftJoin(communityPreset, eq(savedPreset.id, communityPreset.savedPresetId))
       .where(eq(savedPreset.userId, ctx.userId))
       .orderBy(desc(savedPreset.createdAt));
+
+    return rows.map((row) => ({
+      id: row.id,
+      name: row.name,
+      presetCode: row.presetCode,
+      base: row.base,
+      createdAt: row.createdAt,
+      isPublished: !!row.communityPresetId,
+      communityPresetId: row.communityPresetId,
+    }));
   }),
 
   save: authedProcedure

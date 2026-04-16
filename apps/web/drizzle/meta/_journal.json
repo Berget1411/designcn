@@ -8,6 +8,13 @@
       "when": 1776368287008,
       "tag": "0000_flowery_talkback",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1776370263550,
+      "tag": "0001_narrow_mad_thinker",
+      "breakpoints": true
     }
   ]
 }
