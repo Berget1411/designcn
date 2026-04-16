@@ -217,7 +217,7 @@ function MainContent({ className }: { className?: string }) {
       )}
     >
       <h1 className="mb-4 font-heading text-[2.5rem] leading-none font-semibold tracking-tight text-foreground sm:mb-6 sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl">
-      Design Your Perfect shadcn/ui Theme
+      The antidote to AI
       </h1>
 
       <p className="mb-6 text-base leading-normal! text-muted-foreground sm:mb-8 sm:text-xl sm:text-balance md:text-lg lg:text-xl">
