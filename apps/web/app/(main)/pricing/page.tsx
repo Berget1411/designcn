@@ -2,8 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { CheckIcon } from "lucide-react";
-import { authClient, useSession } from "@/lib/auth-client";
-import { useSubscription } from "@/hooks/use-subscription";
+import { authClient, useSession, useSubscription } from "@/lib/auth-client";
 import { Badge } from "@workspace/ui/components/badge";
 import { Button } from "@workspace/ui/components/button";
 import { Skeleton } from "@workspace/ui/components/skeleton";

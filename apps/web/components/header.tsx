@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSession, signOut, authClient } from "@/lib/auth-client";
-import { useSubscription } from "@/hooks/use-subscription";
+import { useSession, signOut, authClient, useSubscription } from "@/lib/auth-client";
 import { ThemeSwitcher } from "@/components/theme-switcher/theme-switcher";
 import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar";
 import { Badge } from "@workspace/ui/components/badge";

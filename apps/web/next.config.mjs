@@ -2,7 +2,7 @@ import path from "path";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@workspace/ui"],
+  transpilePackages: ["@workspace/auth", "@workspace/ui"],
   devIndicators: false,
   typescript: {
     ignoreBuildErrors: true,

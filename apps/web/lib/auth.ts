@@ -1,22 +1,12 @@
-import { betterAuth } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { createAuth } from "@workspace/auth/server";
 import { nextCookies } from "better-auth/next-js";
-import { polar, checkout, portal, webhooks } from "@polar-sh/better-auth";
-import { Polar } from "@polar-sh/sdk";
 import { db } from "@/db";
 import * as schema from "@/db/auth-schema";
 
-const polarClient = new Polar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
-  server: "sandbox",
-});
-
-export const auth = betterAuth({
-  baseURL: process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL,
-  database: drizzleAdapter(db, {
-    provider: "pg",
-    schema,
-  }),
+export const auth = createAuth({
+  baseURL: process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL!,
+  secret: process.env.BETTER_AUTH_SECRET,
+  database: { db, schema },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
@@ -41,28 +31,14 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     },
   },
+  polar: {
+    accessToken: process.env.POLAR_ACCESS_TOKEN!,
+    server: "sandbox",
+    productId: process.env.POLAR_PRO_PRODUCT_ID!,
+    successUrl: process.env.POLAR_SUCCESS_URL!,
+    webhookSecret: process.env.POLAR_WEBHOOK_SECRET!,
+  },
   plugins: [
-    polar({
-      client: polarClient,
-      createCustomerOnSignUp: true,
-      enableCustomerPortal: true,
-      use: [
-        checkout({
-          products: [
-            {
-              productId: process.env.POLAR_PRO_PRODUCT_ID!,
-              slug: "pro",
-            },
-          ],
-          successUrl: process.env.POLAR_SUCCESS_URL!,
-          authenticatedUsersOnly: true,
-        }),
-        portal(),
-        webhooks({
-          secret: process.env.POLAR_WEBHOOK_SECRET!,
-        }),
-      ],
-    }),
     nextCookies(), // must be last
   ],
 });

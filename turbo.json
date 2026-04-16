@@ -21,7 +21,11 @@
         "GOOGLE_CLIENT_ID",
         "GOOGLE_CLIENT_SECRET",
         "GITHUB_CLIENT_ID",
-        "GITHUB_CLIENT_SECRET"
+        "GITHUB_CLIENT_SECRET",
+        "POLAR_ACCESS_TOKEN",
+        "POLAR_PRO_PRODUCT_ID",
+        "POLAR_SUCCESS_URL",
+        "POLAR_WEBHOOK_SECRET"
       ]
     },
     "typecheck": {
@@ -37,7 +41,11 @@
         "GOOGLE_CLIENT_ID",
         "GOOGLE_CLIENT_SECRET",
         "GITHUB_CLIENT_ID",
-        "GITHUB_CLIENT_SECRET"
+        "GITHUB_CLIENT_SECRET",
+        "POLAR_ACCESS_TOKEN",
+        "POLAR_PRO_PRODUCT_ID",
+        "POLAR_SUCCESS_URL",
+        "POLAR_WEBHOOK_SECRET"
       ]
     }
   }
