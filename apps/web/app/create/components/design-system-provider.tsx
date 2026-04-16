@@ -8,6 +8,7 @@ import {
   type DesignSystemConfig,
 } from "@/registry/config"
 import { useIframeMessageListener } from "@/app/create/hooks/use-iframe-sync"
+import { decodeCustomThemeVars } from "@/app/create/lib/custom-theme-vars"
 import { FONTS } from "@/app/create/lib/fonts"
 import {
   useDesignSystemSearchParams,
@@ -74,8 +75,13 @@ export function DesignSystemProvider({
     menuAccent,
     menuColor,
     radius,
+    vars,
   } = searchParams
   const effectiveRadius = style === "lyra" ? "none" : radius
+  const customThemeVars = React.useMemo(
+    () => decodeCustomThemeVars(vars),
+    [vars]
+  )
   const selectedFont = React.useMemo(
     () => FONTS.find((fontOption) => fontOption.value === font),
     [font]
@@ -207,9 +213,18 @@ export function DesignSystemProvider({
       styleElement.id = THEME_STYLE_ELEMENT_ID
       document.head.appendChild(styleElement)
     }
-
-    styleElement.textContent = buildThemeCssText(registryTheme.cssVars)
-  }, [registryTheme])
+    styleElement.textContent = buildThemeCssText({
+      ...registryTheme.cssVars,
+      light: {
+        ...(registryTheme.cssVars.light ?? {}),
+        ...(customThemeVars.light ?? {}),
+      },
+      dark: {
+        ...(registryTheme.cssVars.dark ?? {}),
+        ...(customThemeVars.dark ?? {}),
+      },
+    })
+  }, [customThemeVars.dark, customThemeVars.light, registryTheme])
 
   // Handle menu color inversion by adding/removing dark class to elements with cn-menu-target.
   // useLayoutEffect to apply classes synchronously before paint, avoiding flash.

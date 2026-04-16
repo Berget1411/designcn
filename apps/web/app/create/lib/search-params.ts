@@ -77,6 +77,7 @@ const designSystemSearchParams = {
   radius: parseAsStringLiteral<RadiusValue>(
     RADII.map((r) => r.name)
   ).withDefault("default"),
+  vars: parseAsString,
   template: parseAsStringLiteral([
     "next",
     "next-monorepo",
@@ -128,6 +129,7 @@ const NON_DESIGN_SYSTEM_KEYS = [
   "rtl",
   "size",
   "custom",
+  "vars",
 ] as const
 
 export const loadDesignSystemSearchParams = createLoader(
@@ -226,6 +228,7 @@ function resolvePresetParams(
         rtl: rawParams.rtl,
         size: rawParams.size,
         custom: rawParams.custom,
+        vars: rawParams.vars,
       })
     }
   }
@@ -272,8 +275,20 @@ export function useDesignSystemSearchParams(options: Options = {}) {
       const hasDesignSystemUpdate = DESIGN_SYSTEM_KEYS.some(
         (key) => key in resolvedUpdates
       )
+      const hasPresetUpdate = "preset" in resolvedUpdates
 
       if (!hasDesignSystemUpdate) {
+        if (hasPresetUpdate) {
+          return rawSetParams(
+            {
+              ...resolvedUpdates,
+              custom: false,
+              vars: null,
+            } as RawSetParamsInput,
+            setOptions
+          )
+        }
+
         // No design system change, pass through directly.
         return rawSetParams(resolvedUpdates as RawSetParamsInput, setOptions)
       }
@@ -287,14 +302,33 @@ export function useDesignSystemSearchParams(options: Options = {}) {
       // Cast needed: merged values may include null from nuqs resets,
       // but encodePreset handles missing values by falling back to defaults.
       const code = getPresetCode(merged)
+      const nextVars =
+        "vars" in resolvedUpdates
+          ? ((resolvedUpdates as Partial<DesignSystemSearchParams>).vars ??
+            null)
+          : null
+      const nextCustom =
+        "custom" in resolvedUpdates
+          ? Boolean(
+              (resolvedUpdates as Partial<DesignSystemSearchParams>).custom
+            )
+          : Boolean(nextVars)
       // Build update: set preset, clear individual DS params from URL.
-      const rawUpdate: Record<string, unknown> = { preset: code }
+      const rawUpdate: Record<string, unknown> = {
+        preset: code,
+        custom: nextCustom,
+        vars: nextVars,
+      }
       for (const key of DESIGN_SYSTEM_KEYS) {
         rawUpdate[key] = null
       }
 
       // Pass through non-DS params that were explicitly in the update.
       for (const key of NON_DESIGN_SYSTEM_KEYS) {
+        if (key === "custom" || key === "vars") {
+          continue
+        }
+
         if (key in resolvedUpdates) {
           rawUpdate[key] = (resolvedUpdates as Record<string, unknown>)[key]
         }
