@@ -9,6 +9,7 @@ import {
   Picker,
   PickerContent,
   PickerGroup,
+  PickerItem,
   PickerRadioGroup,
   PickerRadioItem,
   PickerSeparator,
@@ -20,10 +21,12 @@ export function ThemePicker({
   themes,
   isMobile,
   anchorRef,
+  onAdvanced,
 }: {
   themes: readonly Theme[]
   isMobile: boolean
   anchorRef: React.RefObject<HTMLDivElement | null>
+  onAdvanced?: () => void
 }) {
   const mounted = useMounted()
   const [params, setParams] = useDesignSystemSearchParams()
@@ -55,7 +58,8 @@ export function ThemePicker({
             </div>
           </div>
           {mounted && (
-            <div
+            <button
+              type="button"
               style={
                 {
                   "--color":
@@ -64,7 +68,12 @@ export function ThemePicker({
                     ],
                 } as React.CSSProperties
               }
-              className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 rounded-full bg-(--color) select-none md:right-2.5"
+              className="absolute top-1/2 right-4 size-4 -translate-y-1/2 rounded-full bg-(--color) select-none md:right-2.5 cursor-pointer hover:ring-2 hover:ring-foreground/30 transition-shadow"
+              onClick={(e) => {
+                e.stopPropagation()
+                onAdvanced?.()
+              }}
+              aria-label="Open advanced color editor"
             />
           )}
         </PickerTrigger>
@@ -119,6 +128,12 @@ export function ThemePicker({
                 })}
             </PickerGroup>
           </PickerRadioGroup>
+          <PickerSeparator />
+          <PickerGroup>
+            <PickerItem onClick={() => onAdvanced?.()}>
+              Customize Colors…
+            </PickerItem>
+          </PickerGroup>
         </PickerContent>
       </Picker>
       <LockButton

@@ -136,6 +136,7 @@ export function Customizer({
               themes={availableThemes}
               isMobile={isMobile}
               anchorRef={anchorRef}
+              onAdvanced={() => setAdvanced(true)}
             />
             <ChartColorPicker isMobile={isMobile} anchorRef={anchorRef} />
             <FieldSeparator className="hidden md:block" />
