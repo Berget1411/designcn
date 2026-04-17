@@ -40,7 +40,6 @@
         "@hookform/resolvers": "^3.10.0",
         "@hugeicons/core-free-icons": "^1.2.1",
         "@hugeicons/react": "^1.1.1",
-        "@neondatabase/serverless": "^1.0.2",
         "@phosphor-icons/react": "^2.1.10",
         "@remixicon/react": "^4.7.0",
         "@tabler/icons-react": "^3.31.0",
@@ -51,6 +50,7 @@
         "@trpc/server": "^11.16.0",
         "@trpc/tanstack-react-query": "^11.16.0",
         "@workspace/auth": "workspace:*",
+        "@workspace/db": "workspace:*",
         "@workspace/ui": "workspace:*",
         "better-auth": "^1.6.5",
         "change-case": "^5.4.4",
@@ -103,6 +103,21 @@
       },
       "peerDependencies": {
         "react": "^19.0.0",
+      },
+    },
+    "packages/db": {
+      "name": "@workspace/db",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neondatabase/serverless": "^1.0.2",
+        "drizzle-orm": "^0.45.2",
+      },
+      "devDependencies": {
+        "@workspace/typescript-config": "workspace:*",
+        "dotenv": "^17.4.2",
+        "drizzle-kit": "^0.31.10",
+        "pg": "^8.20.0",
+        "typescript": "^5.9.3",
       },
     },
     "packages/typescript-config": {
@@ -1082,6 +1097,8 @@
     "@workflow/serde": ["@workflow/serde@4.1.0-beta.2", "", {}, "sha512-8kkeoQKLDaKXefjV5dbhBj2aErfKp1Mc4pb6tj8144cF+Em5SPbyMbyLCHp+BVrFfFVCBluCtMx+jjvaFVZGww=="],
 
     "@workspace/auth": ["@workspace/auth@workspace:packages/auth"],
+
+    "@workspace/db": ["@workspace/db@workspace:packages/db"],
 
     "@workspace/typescript-config": ["@workspace/typescript-config@workspace:packages/typescript-config"],
 

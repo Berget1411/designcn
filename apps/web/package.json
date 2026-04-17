@@ -8,11 +8,11 @@
     "build": "bun --bun next build",
     "start": "bun --bun next start",
     "typecheck": "tsc --noEmit",
-    "db:generate": "bun --bun drizzle-kit generate",
-    "db:migrate": "bun --bun drizzle-kit migrate",
-    "db:push": "bun --bun drizzle-kit push",
-    "db:studio": "bun --bun drizzle-kit studio",
-    "db:auth-generate": "bun --bun better-auth generate --output db/auth-schema.ts"
+    "db:generate": "bun --bun drizzle-kit generate --config ../../packages/db/drizzle.config.ts",
+    "db:migrate": "bun --bun drizzle-kit migrate --config ../../packages/db/drizzle.config.ts",
+    "db:push": "bun --bun drizzle-kit push --config ../../packages/db/drizzle.config.ts",
+    "db:studio": "bun --bun drizzle-kit studio --config ../../packages/db/drizzle.config.ts",
+    "db:auth-generate": "bun --bun better-auth generate --output ../../packages/db/src/auth-schema.ts"
   },
   "dependencies": {
     "@ai-sdk/react": "^3.0.169",
@@ -24,7 +24,6 @@
     "@hookform/resolvers": "^3.10.0",
     "@hugeicons/core-free-icons": "^1.2.1",
     "@hugeicons/react": "^1.1.1",
-    "@neondatabase/serverless": "^1.0.2",
     "@phosphor-icons/react": "^2.1.10",
     "@remixicon/react": "^4.7.0",
     "@tabler/icons-react": "^3.31.0",
@@ -35,6 +34,7 @@
     "@trpc/server": "^11.16.0",
     "@trpc/tanstack-react-query": "^11.16.0",
     "@workspace/auth": "workspace:*",
+    "@workspace/db": "workspace:*",
     "@workspace/ui": "workspace:*",
     "better-auth": "^1.6.5",
     "change-case": "^5.4.4",

@@ -3,7 +3,7 @@ import { neon } from "@neondatabase/serverless";
 import * as authSchema from "./auth-schema";
 import * as appSchema from "./schema";
 
-const schema = { ...authSchema, ...appSchema };
+export const schema = { ...authSchema, ...appSchema };
 
 type DrizzleDb = ReturnType<typeof drizzle<typeof schema>>;
 

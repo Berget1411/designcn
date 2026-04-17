@@ -1,9 +1,9 @@
 import { and, count, desc, eq, gt, inArray, sql, asc } from "drizzle-orm";
 import { z } from "zod";
 
-import { db } from "@/db";
-import { user } from "@/db/auth-schema";
-import { communityPreset, communityPresetTag, presetLike, savedPreset } from "@/db/schema";
+import { db } from "@workspace/db";
+import { user } from "@workspace/db/auth-schema";
+import { communityPreset, communityPresetTag, presetLike, savedPreset } from "@workspace/db/schema";
 import { authedProcedure, baseProcedure, createTRPCRouter } from "../init";
 import {
   COMMUNITY_PAGE_SIZE,

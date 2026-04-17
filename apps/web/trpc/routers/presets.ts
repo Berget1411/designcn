@@ -1,8 +1,8 @@
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 
-import { db } from "@/db";
-import { communityPreset, savedPreset } from "@/db/schema";
+import { db } from "@workspace/db";
+import { communityPreset, savedPreset } from "@workspace/db/schema";
 import { authedProcedure, createTRPCRouter } from "../init";
 
 export const presetsRouter = createTRPCRouter({

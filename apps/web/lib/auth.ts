@@ -1,7 +1,7 @@
 import { createAuth } from "@workspace/auth/server";
 import { nextCookies } from "better-auth/next-js";
-import { db } from "@/db";
-import * as schema from "@/db/auth-schema";
+import { db } from "@workspace/db";
+import * as schema from "@workspace/db/auth-schema";
 
 export const auth = createAuth({
   baseURL: process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL!,
