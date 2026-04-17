@@ -37,7 +37,7 @@ import { memo, useCallback, useMemo, useState } from "react";
 
 const PRESET_REGEX = /```designcn-preset\s*\n([\s\S]*?)\n```/;
 
-function extractPresetFromText(text: string): {
+export function extractPresetFromText(text: string): {
   config: DesignSystemConfig | null;
   customVars: CustomThemeVars | null;
   before: string;

@@ -13,6 +13,9 @@
     "check": "oxlint && oxfmt --write",
     "prepare": "husky"
   },
+  "dependencies": {
+    "@mastra/mcp": "^1.5.0"
+  },
   "devDependencies": {
     "@workspace/typescript-config": "workspace:*",
     "api": "workspace:*",

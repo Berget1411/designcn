@@ -38,6 +38,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@workspace/ui/component
 import {
   AlertCircleIcon,
   ChevronDownIcon,
+  GlobeIcon,
   HeartIcon,
   ListOrderedIcon,
   LockIcon,
@@ -48,10 +49,11 @@ import {
   XIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { decodePreset } from "shadcn/preset";
 import { toast } from "sonner";
-import { ChatMessage, type PaletteColors } from "./chat-message";
+import { ChatMessage, extractPresetFromText, type PaletteColors } from "./chat-message";
+import { PresetPreviewPanel } from "./preset-preview";
 
 const MASTRA_URL = process.env.NEXT_PUBLIC_MASTRA_API_URL ?? "http://localhost:4111";
 
@@ -249,6 +251,37 @@ function AiChatInner() {
   const activeChat = isPlanMode ? plannerChat : presetChat;
   const { messages, sendMessage, status, stop, error, clearError } = activeChat;
 
+  // Track whether user manually dismissed the preview panel
+  const [previewDismissed, setPreviewDismissed] = useState(false);
+
+  // Derive latest preset from messages (last assistant message with a preset block)
+  const latestPreset = useMemo(() => {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      const msg = messages[i];
+      if (msg?.role !== "assistant") continue;
+      const text = msg.parts
+        .filter(
+          (p): p is Extract<(typeof msg.parts)[number], { type: "text" }> => p.type === "text",
+        )
+        .map((p) => p.text)
+        .join("");
+      const { config, customVars } = extractPresetFromText(text);
+      if (config) return { config, customVars };
+    }
+    return null;
+  }, [messages]);
+
+  // Show panel when new preset appears (reset dismissed state)
+  const prevPresetRef = useRef(latestPreset);
+  useEffect(() => {
+    if (latestPreset && latestPreset !== prevPresetRef.current) {
+      setPreviewDismissed(false);
+    }
+    prevPresetRef.current = latestPreset;
+  }, [latestPreset]);
+
+  const showPreviewPanel = !!latestPreset && !previewDismissed && status !== "streaming";
+
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
       if (!message.text.trim() && message.files.length === 0) return;
@@ -326,228 +359,249 @@ function AiChatInner() {
   const showLimitError = error && isUsageLimitError(error);
 
   return (
-    <div className="relative flex size-full flex-col divide-y overflow-hidden">
-      <Conversation>
-        <ConversationContent>
-          {isEmpty && !showAuthError && !showLimitError ? (
-            <ConversationEmptyState
-              title={isPlanMode ? "Let's build your design system" : "What can I help you theme?"}
-              description={
-                isHydrating
-                  ? ""
-                  : isAuthed
-                    ? isPlanMode
-                      ? "I'll learn about your brand, then guide you through each design decision"
-                      : "Describe your ideal design system, upload a reference image, or pick a quick style"
-                    : "Sign in to start creating themes"
-              }
-              icon={
-                isHydrating ? (
-                  <SparklesIcon className="size-8 animate-pulse opacity-50" />
-                ) : isAuthed ? (
-                  isPlanMode ? (
-                    <ListOrderedIcon className="size-8" />
+    <div className="relative flex size-full overflow-hidden">
+      {/* Chat column */}
+      <div
+        className={`flex flex-col divide-y overflow-hidden transition-all ${showPreviewPanel ? "w-1/2" : "w-full"}`}
+      >
+        <Conversation>
+          <ConversationContent>
+            {isEmpty && !showAuthError && !showLimitError ? (
+              <ConversationEmptyState
+                title={isPlanMode ? "Let's build your design system" : "What can I help you theme?"}
+                description={
+                  isHydrating
+                    ? ""
+                    : isAuthed
+                      ? isPlanMode
+                        ? "I'll learn about your brand, then guide you through each design decision"
+                        : "Describe your ideal design system, upload a reference image, or pick a quick style"
+                      : "Sign in to start creating themes"
+                }
+                icon={
+                  isHydrating ? (
+                    <SparklesIcon className="size-8 animate-pulse opacity-50" />
+                  ) : isAuthed ? (
+                    isPlanMode ? (
+                      <ListOrderedIcon className="size-8" />
+                    ) : (
+                      <SparklesIcon className="size-8" />
+                    )
                   ) : (
-                    <SparklesIcon className="size-8" />
+                    <LockIcon className="size-8" />
                   )
-                ) : (
-                  <LockIcon className="size-8" />
-                )
-              }
-            />
-          ) : (
-            <>
-              {messages.map((msg) => (
-                <ChatMessage
-                  key={msg.id}
-                  message={msg}
-                  isStreaming={status === "streaming" && msg === messages.at(-1)}
-                  onApplyPalette={handleApplyPalette}
-                />
-              ))}
-              {showAuthError && (
-                <div className="mx-auto flex max-w-md items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm">
-                  <AlertCircleIcon className="mt-0.5 size-4 shrink-0 text-destructive" />
-                  <div className="space-y-1">
-                    <p className="font-medium text-destructive">Sign in required</p>
-                    <p className="text-muted-foreground">
-                      Your session has expired or you are not signed in.{" "}
-                      <Link
-                        href="/sign-in"
-                        className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
-                      >
-                        Sign in
-                      </Link>{" "}
-                      to continue chatting.
-                    </p>
-                  </div>
-                </div>
-              )}
-              {showLimitError && (
-                <div className="mx-auto flex max-w-md items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 text-sm">
-                  <SparklesIcon className="mt-0.5 size-4 shrink-0 text-amber-500" />
-                  <div className="space-y-1">
-                    <p className="font-medium text-amber-600 dark:text-amber-400">
-                      Message limit reached
-                    </p>
-                    <p className="text-muted-foreground">
-                      You've used all {FREE_MESSAGE_LIMIT} free messages this month.{" "}
-                      <Link
-                        href="/pricing"
-                        className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
-                      >
-                        Upgrade to Pro
-                      </Link>{" "}
-                      for unlimited AI messages.
-                    </p>
-                  </div>
-                </div>
-              )}
-              {error && !showAuthError && !showLimitError && (
-                <div className="mx-auto flex max-w-md items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm">
-                  <AlertCircleIcon className="mt-0.5 size-4 shrink-0 text-destructive" />
-                  <div className="space-y-1">
-                    <p className="font-medium text-destructive">Something went wrong</p>
-                    <p className="text-muted-foreground">{error.message}</p>
-                  </div>
-                </div>
-              )}
-            </>
-          )}
-        </ConversationContent>
-        <ConversationScrollButton />
-      </Conversation>
-
-      <div className="grid shrink-0 gap-4 pt-4">
-        {isEmpty && isAuthed && !isHydrating && !isLimitReached && (
-          <Suggestions className="px-4">
-            {isPlanMode ? (
-              PLAN_SUGGESTIONS.map((s) => (
-                <Suggestion key={s} suggestion={s} onClick={handleSuggestionClick} />
-              ))
+                }
+              />
             ) : (
               <>
-                <FromImageSuggestion />
-                {TEXT_SUGGESTIONS.map((s) => (
-                  <Suggestion key={s} suggestion={s} onClick={handleSuggestionClick} />
+                {messages.map((msg) => (
+                  <ChatMessage
+                    key={msg.id}
+                    message={msg}
+                    isStreaming={status === "streaming" && msg === messages.at(-1)}
+                    onApplyPalette={handleApplyPalette}
+                  />
                 ))}
+                {showAuthError && (
+                  <div className="mx-auto flex max-w-md items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm">
+                    <AlertCircleIcon className="mt-0.5 size-4 shrink-0 text-destructive" />
+                    <div className="space-y-1">
+                      <p className="font-medium text-destructive">Sign in required</p>
+                      <p className="text-muted-foreground">
+                        Your session has expired or you are not signed in.{" "}
+                        <Link
+                          href="/sign-in"
+                          className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
+                        >
+                          Sign in
+                        </Link>{" "}
+                        to continue chatting.
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {showLimitError && (
+                  <div className="mx-auto flex max-w-md items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 text-sm">
+                    <SparklesIcon className="mt-0.5 size-4 shrink-0 text-amber-500" />
+                    <div className="space-y-1">
+                      <p className="font-medium text-amber-600 dark:text-amber-400">
+                        Message limit reached
+                      </p>
+                      <p className="text-muted-foreground">
+                        You've used all {FREE_MESSAGE_LIMIT} free messages this month.{" "}
+                        <Link
+                          href="/pricing"
+                          className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
+                        >
+                          Upgrade to Pro
+                        </Link>{" "}
+                        for unlimited AI messages.
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {error && !showAuthError && !showLimitError && (
+                  <div className="mx-auto flex max-w-md items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm">
+                    <AlertCircleIcon className="mt-0.5 size-4 shrink-0 text-destructive" />
+                    <div className="space-y-1">
+                      <p className="font-medium text-destructive">Something went wrong</p>
+                      <p className="text-muted-foreground">{error.message}</p>
+                    </div>
+                  </div>
+                )}
               </>
             )}
-          </Suggestions>
-        )}
+          </ConversationContent>
+          <ConversationScrollButton />
+        </Conversation>
 
-        <div className="w-full px-4 pb-4">
-          {isHydrating ? (
-            <PromptInput onSubmit={handleSubmit}>
-              <PromptInputBody>
-                <PromptInputTextarea placeholder="Loading..." disabled />
-              </PromptInputBody>
-              <PromptInputFooter>
-                <PromptInputSubmit status={status} onStop={stop} disabled />
-              </PromptInputFooter>
-            </PromptInput>
-          ) : !isAuthed ? (
-            <div className="flex items-center justify-center gap-2 rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
-              <LockIcon className="size-4" />
-              <span>
-                <Link
-                  href="/sign-in"
-                  className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
-                >
-                  Sign in
-                </Link>{" "}
-                to use the AI theme generator
-              </span>
-            </div>
-          ) : isLimitReached ? (
-            <div className="flex items-center justify-center gap-2 rounded-lg border border-dashed border-amber-500/30 p-4 text-sm text-muted-foreground">
-              <SparklesIcon className="size-4 text-amber-500" />
-              <span>
-                No messages remaining.{" "}
-                <Link
-                  href="/pricing"
-                  className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
-                >
-                  Upgrade to Pro
-                </Link>{" "}
-                for unlimited access
-              </span>
-            </div>
-          ) : (
-            <PromptInput
-              onSubmit={handleSubmit}
-              accept="image/*"
-              maxFiles={3}
-              maxFileSize={4 * 1024 * 1024}
-              onError={(err) => toast.error(err.message)}
-            >
-              <PromptInputHeader>
-                <InputAttachmentPreviews />
-                {colorPalette && (
-                  <ColorPalettePill palette={colorPalette} onRemove={() => setColorPalette(null)} />
-                )}
-              </PromptInputHeader>
-              <PromptInputBody>
-                <PromptInputTextarea placeholder="Describe your ideal theme..." />
-              </PromptInputBody>
-              <PromptInputFooter>
-                <div className="flex items-center gap-2">
-                  <PromptInputActionMenu>
-                    <PromptInputActionMenuTrigger />
-                    <PromptInputActionMenuContent>
-                      <PromptInputActionAddAttachments label="Upload image" />
-                    </PromptInputActionMenuContent>
-                  </PromptInputActionMenu>
-
-                  <PlanModeToggle
-                    active={isPlanMode}
-                    onToggle={() => setIsPlanMode((prev) => !prev)}
-                  />
-
-                  <ColorPalettePicker value={colorPalette} onChange={setColorPalette} />
-
-                  <PresetSelector
-                    open={presetMenuOpen}
-                    onOpenChange={setPresetMenuOpen}
-                    value={selectedPresetKey}
-                    onChange={setSelectedPresetKey}
-                    savedPresets={savedPresets}
-                    likedPresets={likedPresets}
-                  />
-                </div>
-
-                <div className="flex items-center gap-2">
-                  {isPro ? (
-                    <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <SparklesIcon className="size-3" />
-                      Pro — unlimited
-                    </span>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <div className="flex h-1.5 w-20 overflow-hidden rounded-full bg-muted">
-                        <div
-                          className={`h-full rounded-full transition-all ${
-                            remaining <= 1
-                              ? "bg-destructive"
-                              : remaining <= 2
-                                ? "bg-amber-500"
-                                : "bg-foreground/60"
-                          }`}
-                          style={{ width: `${(remaining / FREE_MESSAGE_LIMIT) * 100}%` }}
-                        />
-                      </div>
-                      <span className="text-xs text-muted-foreground">
-                        {remaining}/{FREE_MESSAGE_LIMIT} left
-                      </span>
-                    </div>
-                  )}
-                  <PromptInputSubmit status={status} onStop={stop} />
-                </div>
-              </PromptInputFooter>
-            </PromptInput>
+        <div className="grid shrink-0 gap-4 pt-4">
+          {isEmpty && isAuthed && !isHydrating && !isLimitReached && (
+            <Suggestions className="px-4">
+              {isPlanMode ? (
+                PLAN_SUGGESTIONS.map((s) => (
+                  <Suggestion key={s} suggestion={s} onClick={handleSuggestionClick} />
+                ))
+              ) : (
+                <>
+                  <FromImageSuggestion />
+                  {TEXT_SUGGESTIONS.map((s) => (
+                    <Suggestion key={s} suggestion={s} onClick={handleSuggestionClick} />
+                  ))}
+                </>
+              )}
+            </Suggestions>
           )}
+
+          <div className="w-full px-4 pb-4">
+            {isHydrating ? (
+              <PromptInput onSubmit={handleSubmit}>
+                <PromptInputBody>
+                  <PromptInputTextarea placeholder="Loading..." disabled />
+                </PromptInputBody>
+                <PromptInputFooter>
+                  <PromptInputSubmit status={status} onStop={stop} disabled />
+                </PromptInputFooter>
+              </PromptInput>
+            ) : !isAuthed ? (
+              <div className="flex items-center justify-center gap-2 rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+                <LockIcon className="size-4" />
+                <span>
+                  <Link
+                    href="/sign-in"
+                    className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
+                  >
+                    Sign in
+                  </Link>{" "}
+                  to use the AI theme generator
+                </span>
+              </div>
+            ) : isLimitReached ? (
+              <div className="flex items-center justify-center gap-2 rounded-lg border border-dashed border-amber-500/30 p-4 text-sm text-muted-foreground">
+                <SparklesIcon className="size-4 text-amber-500" />
+                <span>
+                  No messages remaining.{" "}
+                  <Link
+                    href="/pricing"
+                    className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
+                  >
+                    Upgrade to Pro
+                  </Link>{" "}
+                  for unlimited access
+                </span>
+              </div>
+            ) : (
+              <PromptInput
+                onSubmit={handleSubmit}
+                accept="image/*"
+                maxFiles={3}
+                maxFileSize={4 * 1024 * 1024}
+                onError={(err) => toast.error(err.message)}
+              >
+                <PromptInputHeader>
+                  <InputAttachmentPreviews />
+                  {colorPalette && (
+                    <ColorPalettePill
+                      palette={colorPalette}
+                      onRemove={() => setColorPalette(null)}
+                    />
+                  )}
+                </PromptInputHeader>
+                <PromptInputBody>
+                  <PromptInputTextarea placeholder="Describe your ideal theme..." />
+                </PromptInputBody>
+                <PromptInputFooter>
+                  <div className="flex items-center gap-2">
+                    <PromptInputActionMenu>
+                      <PromptInputActionMenuTrigger />
+                      <PromptInputActionMenuContent>
+                        <PromptInputActionAddAttachments label="Upload image" />
+                      </PromptInputActionMenuContent>
+                    </PromptInputActionMenu>
+
+                    <PlanModeToggle
+                      active={isPlanMode}
+                      onToggle={() => setIsPlanMode((prev) => !prev)}
+                    />
+
+                    <ColorPalettePicker value={colorPalette} onChange={setColorPalette} />
+
+                    <ExtractWebsiteButton />
+
+                    <PresetSelector
+                      open={presetMenuOpen}
+                      onOpenChange={setPresetMenuOpen}
+                      value={selectedPresetKey}
+                      onChange={setSelectedPresetKey}
+                      savedPresets={savedPresets}
+                      likedPresets={likedPresets}
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    {isPro ? (
+                      <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <SparklesIcon className="size-3" />
+                        Pro — unlimited
+                      </span>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <div className="flex h-1.5 w-20 overflow-hidden rounded-full bg-muted">
+                          <div
+                            className={`h-full rounded-full transition-all ${
+                              remaining <= 1
+                                ? "bg-destructive"
+                                : remaining <= 2
+                                  ? "bg-amber-500"
+                                  : "bg-foreground/60"
+                            }`}
+                            style={{ width: `${(remaining / FREE_MESSAGE_LIMIT) * 100}%` }}
+                          />
+                        </div>
+                        <span className="text-xs text-muted-foreground">
+                          {remaining}/{FREE_MESSAGE_LIMIT} left
+                        </span>
+                      </div>
+                    )}
+                    <PromptInputSubmit status={status} onStop={stop} />
+                  </div>
+                </PromptInputFooter>
+              </PromptInput>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Preview panel */}
+      {showPreviewPanel && latestPreset && (
+        <div className="w-1/2">
+          <PresetPreviewPanel
+            config={latestPreset.config}
+            customVars={latestPreset.customVars}
+            onClose={() => setPreviewDismissed(true)}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -717,6 +771,83 @@ function ColorPalettePill({ palette, onRemove }: { palette: ColorPalette; onRemo
         <XIcon className="size-3" />
       </button>
     </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Extract Website Button
+// ---------------------------------------------------------------------------
+
+function ExtractWebsiteButton() {
+  const [open, setOpen] = useState(false);
+  const [url, setUrl] = useState("");
+  const controller = usePromptInputController();
+
+  const handleExtract = useCallback(() => {
+    const trimmed = url.trim();
+    if (!trimmed) return;
+    // Normalize: add https:// if no protocol
+    const normalized = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+    setOpen(false);
+    setUrl("");
+    controller.textInput.setInput(`Extract design system from ${normalized}`);
+  }, [url, controller]);
+
+  return (
+    <Popover
+      open={open}
+      onOpenChange={(next) => {
+        if (!next) setUrl("");
+        setOpen(next);
+      }}
+    >
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          className="flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+        >
+          <GlobeIcon className="size-3" />
+          <span>Extract</span>
+        </button>
+      </PopoverTrigger>
+      <PopoverContent side="top" align="start" sideOffset={8} className="w-72 rounded-lg p-0">
+        <div className="border-b px-3 py-2.5">
+          <p className="text-xs font-medium">Extract from Website</p>
+          <p className="text-[10px] text-muted-foreground">
+            Extract a site's design system into a preset
+          </p>
+        </div>
+        <div className="px-3 py-3">
+          <div className="flex items-center gap-2">
+            <input
+              type="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleExtract();
+                }
+              }}
+              placeholder="example.com"
+              className="h-8 w-full rounded-md border bg-transparent px-2.5 text-xs outline-none placeholder:text-muted-foreground/60 focus:border-ring"
+              autoFocus
+            />
+          </div>
+        </div>
+        <div className="flex items-center justify-end border-t px-3 py-2.5">
+          <button
+            type="button"
+            onClick={handleExtract}
+            disabled={!url.trim()}
+            className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50 disabled:pointer-events-none"
+          >
+            <GlobeIcon className="size-3" />
+            Extract
+          </button>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 
