@@ -1,6 +1,5 @@
 import { Agent } from "@mastra/core/agent";
 import { weatherTool } from "../tools/weather-tool";
-import { mastraGateway } from "../providers/mastra-gateway";
 
 export const weatherAgent = new Agent({
   id: "weather-agent",
@@ -16,6 +15,6 @@ export const weatherAgent = new Agent({
 
     Use the weatherTool to fetch current weather data.
   `,
-  model: mastraGateway("openai/gpt-4o"),
+  model: "openai/gpt-4o",
   tools: { weatherTool },
 });

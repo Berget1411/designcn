@@ -23,6 +23,8 @@ interface AuthConfig {
     webhookSecret: string;
   };
   plugins?: BetterAuthOptions["plugins"];
+  advanced?: BetterAuthOptions["advanced"];
+  trustedOrigins?: BetterAuthOptions["trustedOrigins"];
 }
 
 export function createAuth(config: AuthConfig) {
@@ -67,6 +69,8 @@ export function createAuth(config: AuthConfig) {
     emailAndPassword: config.emailAndPassword,
     emailVerification: config.emailVerification,
     socialProviders: config.socialProviders,
+    advanced: config.advanced,
+    trustedOrigins: config.trustedOrigins,
     plugins,
   });
 

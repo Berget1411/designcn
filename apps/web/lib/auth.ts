@@ -3,10 +3,26 @@ import { nextCookies } from "better-auth/next-js";
 import { db } from "@workspace/db";
 import * as schema from "@workspace/db/auth-schema";
 
+const cookieDomain = process.env.BETTER_AUTH_COOKIE_DOMAIN;
+const mastraApiUrl = process.env.NEXT_PUBLIC_MASTRA_API_URL;
+
 export const auth = createAuth({
   baseURL: process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL!,
   secret: process.env.BETTER_AUTH_SECRET,
   database: { db, schema },
+  trustedOrigins: mastraApiUrl ? [mastraApiUrl] : undefined,
+  advanced: cookieDomain
+    ? {
+        crossSubDomainCookies: {
+          enabled: true,
+          domain: cookieDomain,
+        },
+        defaultCookieAttributes: {
+          sameSite: "none",
+          secure: true,
+        },
+      }
+    : undefined,
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,

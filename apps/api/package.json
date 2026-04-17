@@ -7,13 +7,17 @@
     "dev": "mastra dev",
     "build": "mastra build",
     "typecheck": "tsc --noEmit",
-    "deploy": "mastra studio deploy"
+    "deploy": "mastra build && wrangler deploy --config .mastra/output/wrangler.json",
+    "deploy:preview": "mastra build && wrangler deploy --config .mastra/output/wrangler.json --env preview",
+    "dev:cf": "mastra build && wrangler dev --config .mastra/output/wrangler.json",
+    "deploy:secrets": "cat .env.local .env.production > .env.deploy && wrangler secret bulk .env.deploy --config .mastra/output/wrangler.json && rm .env.deploy"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^2.0.41",
     "@mastra/ai-sdk": "^1.4.0",
     "@mastra/auth-better-auth": "latest",
     "@mastra/core": "latest",
+    "@mastra/deployer-cloudflare": "^1.1.23",
     "@mastra/server": "latest",
     "@polar-sh/sdk": "^0.47.0",
     "@workspace/db": "workspace:*",
@@ -24,6 +28,7 @@
   "devDependencies": {
     "@types/node": "^25.1.0",
     "mastra": "latest",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.83.0"
   }
 }
