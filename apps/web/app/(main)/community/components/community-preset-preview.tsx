@@ -132,6 +132,7 @@ export function CommunityPresetPreview({
               communityPresetId={preset.id}
               likeCount={preset.likeCount}
               isLiked={preset.isLikedByMe}
+              authorId={preset.author.id}
             />
             <Button variant="outline" size="sm" onClick={handleShare}>
               <Link2 className="size-3.5 mr-1.5" />

@@ -21,6 +21,8 @@ interface CommunityMobileFiltersProps {
   onFilterChange: (filter: CommunityFilterOption) => void;
   selectedTags: string[];
   onTagToggle: (tag: string) => void;
+  selectedStyle: string | null;
+  onStyleChange: (style: string | null) => void;
 }
 
 export function CommunityMobileFilters({
@@ -28,9 +30,11 @@ export function CommunityMobileFilters({
   onFilterChange,
   selectedTags,
   onTagToggle,
+  selectedStyle,
+  onStyleChange,
 }: CommunityMobileFiltersProps) {
   const [open, setOpen] = React.useState(false);
-  const activeCount = (filter !== "all" ? 1 : 0) + selectedTags.length;
+  const activeCount = (filter !== "all" ? 1 : 0) + selectedTags.length + (selectedStyle ? 1 : 0);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -58,6 +62,8 @@ export function CommunityMobileFilters({
             }}
             selectedTags={selectedTags}
             onTagToggle={onTagToggle}
+            selectedStyle={selectedStyle}
+            onStyleChange={onStyleChange}
           />
         </div>
       </SheetContent>

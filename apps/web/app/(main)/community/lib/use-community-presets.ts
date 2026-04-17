@@ -4,16 +4,21 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import type { CommunityFilterOption, CommunitySortOption } from "./types";
 
+type CommunityBaseOption = "radix" | "base" | "craft";
+type CommunityStyleOption = "vega" | "nova" | "maia" | "lyra" | "mira" | "luma";
+
 export function useCommunityPresets({
   filter,
   sort,
   tags,
   base,
+  style,
 }: {
   filter: CommunityFilterOption;
   sort: CommunitySortOption;
   tags: string[];
   base: string | null;
+  style: string | null;
 }) {
   const trpc = useTRPC();
 
@@ -21,7 +26,8 @@ export function useCommunityPresets({
     filter,
     sort,
     tags: tags.length > 0 ? tags : undefined,
-    base: base ?? undefined,
+    base: (base as CommunityBaseOption) ?? undefined,
+    style: (style as CommunityStyleOption) ?? undefined,
   };
 
   return useInfiniteQuery(

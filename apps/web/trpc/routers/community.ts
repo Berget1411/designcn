@@ -1,5 +1,6 @@
 import { and, count, desc, eq, gt, inArray, sql, asc } from "drizzle-orm";
 import { z } from "zod";
+import { decodePreset } from "shadcn/preset";
 
 import { db } from "@workspace/db";
 import { user } from "@workspace/db/auth-schema";
@@ -28,10 +29,11 @@ export const communityRouter = createTRPCRouter({
           .default("newest"),
         tags: z.array(z.string()).max(10).optional(),
         base: z.enum(["radix", "base", "craft"]).optional(),
+        style: z.enum(["vega", "nova", "maia", "lyra", "mira", "luma"]).optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { cursor, limit, filter, sort, tags, base } = input;
+      const { cursor, limit, filter, sort, tags, base, style } = input;
 
       // Build WHERE conditions
       const conditions = [];
@@ -105,6 +107,9 @@ export const communityRouter = createTRPCRouter({
       // For popular sort with cursor, use offset
       const offset = sort.startsWith("popular") && cursor ? Number(cursor) : 0;
 
+      // When filtering by style, over-fetch since we filter after decode
+      const fetchLimit = style ? (limit + 1) * 4 : limit + 1;
+
       const query = db
         .select({
           id: communityPreset.id,
@@ -123,9 +128,21 @@ export const communityRouter = createTRPCRouter({
         .innerJoin(user, eq(communityPreset.userId, user.id))
         .where(whereClause)
         .orderBy(...orderBy)
-        .limit(limit + 1);
+        .limit(fetchLimit);
 
-      const rows = sort.startsWith("popular") ? await query.offset(offset) : await query;
+      let rows = sort.startsWith("popular") ? await query.offset(offset) : await query;
+
+      // Filter by style (decoded from presetCode)
+      if (style) {
+        rows = rows.filter((row) => {
+          try {
+            const decoded = decodePreset(row.presetCode);
+            return decoded?.style === style;
+          } catch {
+            return false;
+          }
+        });
+      }
 
       const hasMore = rows.length > limit;
       const items = hasMore ? rows.slice(0, limit) : rows;
@@ -427,6 +444,17 @@ export const communityRouter = createTRPCRouter({
   like: authedProcedure
     .input(z.object({ communityPresetId: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
+      // Block self-like
+      const [preset] = await db
+        .select({ userId: communityPreset.userId })
+        .from(communityPreset)
+        .where(eq(communityPreset.id, input.communityPresetId))
+        .limit(1);
+
+      if (preset?.userId === ctx.userId) {
+        throw new Error("Cannot like your own preset");
+      }
+
       // Check if already liked
       const [existing] = await db
         .select({ userId: presetLike.userId })
@@ -498,6 +526,25 @@ export const communityRouter = createTRPCRouter({
       }
       return result;
     }),
+
+  // -----------------------------------------------------------------------
+  // likedPresets — user's liked community presets (for action menu)
+  // -----------------------------------------------------------------------
+  likedPresets: authedProcedure.query(async ({ ctx }) => {
+    const rows = await db
+      .select({
+        id: communityPreset.id,
+        title: communityPreset.title,
+        presetCode: communityPreset.presetCode,
+        base: communityPreset.base,
+      })
+      .from(presetLike)
+      .innerJoin(communityPreset, eq(presetLike.communityPresetId, communityPreset.id))
+      .where(eq(presetLike.userId, ctx.userId))
+      .orderBy(desc(presetLike.createdAt));
+
+    return rows;
+  }),
 
   // -----------------------------------------------------------------------
   // tagCounts — tag usage counts

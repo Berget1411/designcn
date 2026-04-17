@@ -3,60 +3,60 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 
+type InfiniteListData = {
+  pages: {
+    items: {
+      id: string;
+      isLikedByMe: boolean;
+      likeCount: number;
+    }[];
+    nextCursor: string | null;
+  }[];
+  pageParams: unknown[];
+};
+
+function toggleLikeInData(data: unknown, communityPresetId: string): unknown {
+  if (!data || typeof data !== "object" || !("pages" in data)) return data;
+  const d = data as InfiniteListData;
+  return {
+    ...d,
+    pages: d.pages.map((page) => ({
+      ...page,
+      items: page.items.map((item) =>
+        item.id === communityPresetId
+          ? {
+              ...item,
+              isLikedByMe: !item.isLikedByMe,
+              likeCount: item.isLikedByMe ? Math.max(0, item.likeCount - 1) : item.likeCount + 1,
+            }
+          : item,
+      ),
+    })),
+  };
+}
+
 export function useLike() {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
 
+  // Get filter that matches all community.list queries (regular + infinite)
+  const listFilter = trpc.community.list.pathFilter();
+
   return useMutation(
     trpc.community.like.mutationOptions({
       onMutate: async ({ communityPresetId }) => {
-        // Cancel any outgoing refetches
-        await queryClient.cancelQueries({
-          queryKey: trpc.community.list.queryKey(),
-        });
+        await queryClient.cancelQueries(listFilter);
 
-        // Snapshot previous data for all list queries
-        const previousData = queryClient.getQueriesData({
-          queryKey: trpc.community.list.queryKey(),
-        });
+        const previousData = queryClient.getQueriesData(listFilter);
 
         // Optimistically toggle like in all cached list queries
-        queryClient.setQueriesData({ queryKey: trpc.community.list.queryKey() }, (old: unknown) => {
-          if (!old || typeof old !== "object" || !("pages" in old)) return old;
-          const data = old as {
-            pages: {
-              items: {
-                id: string;
-                isLikedByMe: boolean;
-                likeCount: number;
-              }[];
-              nextCursor: string | null;
-            }[];
-            pageParams: unknown[];
-          };
-          return {
-            ...data,
-            pages: data.pages.map((page) => ({
-              ...page,
-              items: page.items.map((item) =>
-                item.id === communityPresetId
-                  ? {
-                      ...item,
-                      isLikedByMe: !item.isLikedByMe,
-                      likeCount: item.isLikedByMe
-                        ? Math.max(0, item.likeCount - 1)
-                        : item.likeCount + 1,
-                    }
-                  : item,
-              ),
-            })),
-          };
-        });
+        queryClient.setQueriesData(listFilter, (old: unknown) =>
+          toggleLikeInData(old, communityPresetId),
+        );
 
         return { previousData };
       },
       onError: (_err, _vars, context) => {
-        // Rollback on error
         if (context?.previousData) {
           for (const [key, data] of context.previousData) {
             queryClient.setQueryData(key, data);
@@ -64,9 +64,8 @@ export function useLike() {
         }
       },
       onSettled: () => {
-        void queryClient.invalidateQueries({
-          queryKey: trpc.community.list.queryKey(),
-        });
+        void queryClient.invalidateQueries(listFilter);
+        void queryClient.invalidateQueries(trpc.community.getById.pathFilter());
       },
     }),
   );

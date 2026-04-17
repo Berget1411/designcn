@@ -16,6 +16,7 @@ export function CommunityPage() {
   const sort = params.sort as CommunitySortOption;
   const tags = params.tags ?? [];
   const base = params.base;
+  const style = params.style;
 
   const handleFilterChange = React.useCallback(
     (f: CommunityFilterOption) => {
@@ -40,6 +41,13 @@ export function CommunityPage() {
     [tags, setParams],
   );
 
+  const handleStyleChange = React.useCallback(
+    (s: string | null) => {
+      void setParams({ style: s as typeof style });
+    },
+    [setParams],
+  );
+
   return (
     <div className="flex min-h-svh pt-14">
       {/* Desktop sidebar */}
@@ -49,6 +57,8 @@ export function CommunityPage() {
           onFilterChange={handleFilterChange}
           selectedTags={tags}
           onTagToggle={handleTagToggle}
+          selectedStyle={style}
+          onStyleChange={handleStyleChange}
         />
       </aside>
 
@@ -63,13 +73,15 @@ export function CommunityPage() {
               onFilterChange={handleFilterChange}
               selectedTags={tags}
               onTagToggle={handleTagToggle}
+              selectedStyle={style}
+              onStyleChange={handleStyleChange}
             />
           </div>
           <CommunitySortSelect value={sort} onChange={handleSortChange} />
         </div>
 
         {/* Grid — cards link directly to /create */}
-        <CommunityGrid filter={filter} sort={sort} tags={tags} base={base} />
+        <CommunityGrid filter={filter} sort={sort} tags={tags} base={base} style={style} />
       </main>
     </div>
   );

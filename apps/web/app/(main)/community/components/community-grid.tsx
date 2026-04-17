@@ -14,14 +14,16 @@ interface CommunityGridProps {
   sort: CommunitySortOption;
   tags: string[];
   base: string | null;
+  style: string | null;
 }
 
-export function CommunityGrid({ filter, sort, tags, base }: CommunityGridProps) {
+export function CommunityGrid({ filter, sort, tags, base, style }: CommunityGridProps) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useCommunityPresets({
     filter,
     sort,
     tags,
     base,
+    style,
   });
 
   const sentinelRef = React.useRef<HTMLDivElement>(null);

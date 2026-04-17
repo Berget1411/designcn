@@ -9,7 +9,7 @@ import { Badge } from "@workspace/ui/components/badge";
 
 import type { CommunityPresetItem } from "../lib/types";
 import { LikeButton } from "./like-button";
-import { PresetColorSwatch } from "./preset-color-swatch";
+import { PresetColorSwatch, usePresetColors } from "./preset-color-swatch";
 
 interface CommunityPresetCardProps {
   preset: CommunityPresetItem;
@@ -32,6 +32,7 @@ function getStyleLabel(presetCode: string): string | null {
 
 export function CommunityPresetCard({ preset }: CommunityPresetCardProps) {
   const styleLabel = React.useMemo(() => getStyleLabel(preset.presetCode), [preset.presetCode]);
+  const presetColors = usePresetColors(preset.presetCode);
   const maxVisibleTags = 2;
   const visibleTags = preset.tags.slice(0, maxVisibleTags);
   const extraTagCount = preset.tags.length - maxVisibleTags;
@@ -41,46 +42,40 @@ export function CommunityPresetCard({ preset }: CommunityPresetCardProps) {
   return (
     <Link href={href} className="group text-left w-full">
       {/* Preview */}
-      <div className="relative h-44 overflow-hidden rounded-xl border border-border/50 transition-all group-hover:shadow-md group-hover:border-border">
+      <div className="relative h-48 overflow-hidden rounded-xl border border-border/50 transition-all group-hover:shadow-md group-hover:border-border">
         <PresetColorSwatch presetCode={preset.presetCode} className="h-full" />
-        {/* Tags overlay */}
+
+        {/* Tags overlay — top left */}
         {visibleTags.length > 0 && (
-          <div className="absolute left-2 top-2 flex gap-1">
+          <div className="absolute left-3 top-3 flex gap-1.5">
             {visibleTags.map((tag) => (
-              <Badge
+              <span
                 key={tag}
-                variant="secondary"
-                className="bg-background/80 backdrop-blur-sm text-[10px] px-1.5 py-0"
+                className="text-[11px] font-medium"
+                style={{ color: presetColors?.foreground ?? "white" }}
               >
                 {tag}
-              </Badge>
+              </span>
             ))}
             {extraTagCount > 0 && (
-              <Badge
-                variant="secondary"
-                className="bg-background/80 backdrop-blur-sm text-[10px] px-1.5 py-0"
+              <span
+                className="text-[11px] opacity-60"
+                style={{ color: presetColors?.foreground ?? "white" }}
               >
                 +{extraTagCount}
-              </Badge>
+              </span>
             )}
           </div>
         )}
-        {/* Style + base badges */}
-        <div className="absolute right-2 top-2 flex gap-1">
-          {styleLabel && (
-            <Badge
-              variant="outline"
-              className="bg-background/80 backdrop-blur-sm text-[10px] px-1.5 py-0"
-            >
-              {styleLabel}
-            </Badge>
-          )}
-          <Badge
-            variant="outline"
-            className="bg-background/80 backdrop-blur-sm text-[10px] px-1.5 py-0 capitalize"
+
+        {/* Preset title — bottom left */}
+        <div className="absolute left-3 bottom-3 right-3">
+          <h3
+            className="text-lg font-bold leading-tight truncate"
+            style={{ color: presetColors?.foreground ?? "white" }}
           >
-            {preset.base}
-          </Badge>
+            {preset.title}
+          </h3>
         </div>
       </div>
 
@@ -94,16 +89,25 @@ export function CommunityPresetCard({ preset }: CommunityPresetCardProps) {
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0 flex items-baseline gap-1.5">
-            <span className="text-sm font-medium truncate max-w-[140px]">{preset.title}</span>
+            <span className="text-sm font-medium truncate max-w-[140px]">{preset.author.name}</span>
             <span className="text-xs text-muted-foreground shrink-0">
               {formatDate(preset.publishedAt)}
             </span>
           </div>
+          {styleLabel && (
+            <Badge variant="secondary" className="text-[10px] px-1.5 py-0 shrink-0">
+              {styleLabel}
+            </Badge>
+          )}
+          <Badge variant="secondary" className="text-[10px] px-1.5 py-0 capitalize shrink-0">
+            {preset.base}
+          </Badge>
         </div>
         <LikeButton
           communityPresetId={preset.id}
           likeCount={preset.likeCount}
           isLiked={preset.isLikedByMe}
+          authorId={preset.author.id}
         />
       </div>
     </Link>

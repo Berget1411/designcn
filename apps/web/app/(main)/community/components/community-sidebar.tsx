@@ -6,6 +6,7 @@ import { cn } from "@workspace/ui/lib/utils";
 import { Button } from "@workspace/ui/components/button";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 import { useSession } from "@/lib/auth-client";
+import { STYLES } from "@/registry/styles";
 
 import type { CommunityFilterOption } from "../lib/types";
 import { useCommunityTagCounts } from "../lib/use-community-presets";
@@ -21,6 +22,8 @@ interface CommunitySidebarContentProps {
   onFilterChange: (filter: CommunityFilterOption) => void;
   selectedTags: string[];
   onTagToggle: (tag: string) => void;
+  selectedStyle: string | null;
+  onStyleChange: (style: string | null) => void;
 }
 
 export function CommunitySidebarContent({
@@ -28,6 +31,8 @@ export function CommunitySidebarContent({
   onFilterChange,
   selectedTags,
   onTagToggle,
+  selectedStyle,
+  onStyleChange,
 }: CommunitySidebarContentProps) {
   const { data: session } = useSession();
   const { data: tagCounts, isLoading: tagsLoading } = useCommunityTagCounts();
@@ -60,6 +65,45 @@ export function CommunitySidebarContent({
             </Button>
           );
         })}
+      </div>
+
+      {/* Styles */}
+      <div className="flex flex-col gap-2">
+        <span className="px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+          Style
+        </span>
+        <div className="flex flex-col gap-0.5">
+          <Button
+            variant="ghost"
+            size="sm"
+            className={cn(
+              "justify-start h-7 text-xs gap-2",
+              !selectedStyle
+                ? "bg-foreground/10 text-foreground font-medium"
+                : "text-muted-foreground hover:bg-foreground/5",
+            )}
+            onClick={() => onStyleChange(null)}
+          >
+            All Styles
+          </Button>
+          {STYLES.map((style) => (
+            <Button
+              key={style.name}
+              variant="ghost"
+              size="sm"
+              className={cn(
+                "justify-start h-7 text-xs gap-2",
+                selectedStyle === style.name
+                  ? "bg-foreground/10 text-foreground font-medium"
+                  : "text-muted-foreground hover:bg-foreground/5",
+              )}
+              onClick={() => onStyleChange(selectedStyle === style.name ? null : style.name)}
+            >
+              <span className="size-3.5 shrink-0 [&>svg]:size-full">{style.icon}</span>
+              {style.title}
+            </Button>
+          ))}
+        </div>
       </div>
 
       {/* Tags */}

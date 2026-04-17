@@ -14,6 +14,7 @@ export const communitySearchParams = {
   ]).withDefault("newest"),
   tags: parseAsArrayOf(parseAsString).withDefault([]),
   base: parseAsStringLiteral(["radix", "base", "craft"] as const),
+  style: parseAsStringLiteral(["vega", "nova", "maia", "lyra", "mira", "luma"] as const),
 };
 
 export function useCommunitySearchParams(options: Options = {}) {

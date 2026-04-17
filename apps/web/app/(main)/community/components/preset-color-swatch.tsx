@@ -5,7 +5,13 @@ import { decodePreset } from "shadcn/preset";
 import { buildRegistryTheme } from "@/registry/config";
 import { cn } from "@workspace/ui/lib/utils";
 
-function oklchToStyle(value: string) {
+function toColorValue(value: string) {
+  // Values from registry themes already include oklch() wrapper
+  // e.g. "oklch(0.145 0 0)" — use directly as CSS color
+  if (value.startsWith("oklch(") || value.startsWith("rgb(") || value.startsWith("#")) {
+    return value;
+  }
+  // Bare oklch values without wrapper (e.g. "0.145 0 0")
   return `oklch(${value})`;
 }
 
@@ -14,10 +20,16 @@ interface PresetColorSwatchProps {
   className?: string;
 }
 
-const COLOR_KEYS = ["background", "primary", "secondary", "accent", "muted"] as const;
+const SWATCH_COLOR_KEYS = ["primary", "secondary", "accent", "muted"] as const;
 
-export function PresetColorSwatch({ presetCode, className }: PresetColorSwatchProps) {
-  const colors = React.useMemo(() => {
+export interface PresetSwatchColors {
+  background: string | undefined;
+  foreground: string | undefined;
+  swatches: { key: string; value: string | undefined }[];
+}
+
+export function usePresetColors(presetCode: string): PresetSwatchColors | null {
+  return React.useMemo(() => {
     try {
       const decoded = decodePreset(presetCode);
       if (!decoded) return null;
@@ -37,18 +49,27 @@ export function PresetColorSwatch({ presetCode, className }: PresetColorSwatchPr
         rtl: false,
       });
 
+      const darkVars = (theme.cssVars?.dark ?? {}) as Record<string, string>;
       const lightVars = (theme.cssVars?.light ?? {}) as Record<string, string>;
 
-      return COLOR_KEYS.map((key) => ({
-        key,
-        value: lightVars[key] ? oklchToStyle(lightVars[key]) : undefined,
-      })).filter((c) => c.value);
+      return {
+        background: darkVars["background"] ? toColorValue(darkVars["background"]) : undefined,
+        foreground: darkVars["foreground"] ? toColorValue(darkVars["foreground"]) : undefined,
+        swatches: SWATCH_COLOR_KEYS.map((key) => ({
+          key,
+          value: lightVars[key] ? toColorValue(lightVars[key]) : undefined,
+        })).filter((c) => c.value),
+      };
     } catch {
       return null;
     }
   }, [presetCode]);
+}
 
-  if (!colors || colors.length === 0) {
+export function PresetColorSwatch({ presetCode, className }: PresetColorSwatchProps) {
+  const colors = usePresetColors(presetCode);
+
+  if (!colors || colors.swatches.length === 0) {
     return (
       <div
         className={cn("flex h-full items-center justify-center bg-muted/50 rounded-xl", className)}
@@ -58,16 +79,27 @@ export function PresetColorSwatch({ presetCode, className }: PresetColorSwatchPr
     );
   }
 
+  const PILL_HEIGHTS = [80, 64, 52, 44];
+
   return (
-    <div className={cn("flex h-full gap-1 p-3 rounded-xl bg-muted/30", className)}>
-      {colors.map((c) => (
-        <div
-          key={c.key}
-          className="flex-1 rounded-lg transition-all"
-          style={{ backgroundColor: c.value }}
-          title={c.key}
-        />
-      ))}
+    <div
+      className={cn("relative h-full rounded-xl", className)}
+      style={{ backgroundColor: colors.background }}
+    >
+      <div className="absolute inset-0 flex items-center justify-center gap-1.5">
+        {colors.swatches.map((c, i) => (
+          <div
+            key={c.key}
+            className="w-3 rounded-full"
+            style={{
+              backgroundColor: c.value,
+              height: `${PILL_HEIGHTS[i] ?? 40}px`,
+              opacity: i === 0 ? 1 : 0.65 - i * 0.1,
+            }}
+            title={c.key}
+          />
+        ))}
+      </div>
     </div>
   );
 }
