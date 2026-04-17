@@ -1,12 +1,12 @@
 import { Mastra } from "@mastra/core";
 import { chatRoute } from "@mastra/ai-sdk";
 import { CloudflareDeployer } from "@mastra/deployer-cloudflare";
-import { weatherAgent } from "./agents/weather-agent";
+import { presetAgent } from "./agents/preset-agent";
 import { mastraAuth } from "./auth";
 import { usageLimitMiddleware } from "./usage";
 
 export const mastra = new Mastra({
-  agents: { weatherAgent },
+  agents: { presetAgent },
   deployer: new CloudflareDeployer({
     name: "designcn-api",
     compatibility_date: "2025-04-01",
@@ -21,7 +21,7 @@ export const mastra = new Mastra({
     apiRoutes: [
       chatRoute({
         path: "/chat",
-        agent: "weatherAgent",
+        agent: "presetAgent",
         version: "v6",
       }),
     ],
@@ -32,7 +32,10 @@ export const mastra = new Mastra({
       },
     ],
     cors: {
-      origin: process.env.CORS_ORIGIN ?? "http://localhost:3000",
+      origin: [
+        process.env.CORS_ORIGIN ?? "http://localhost:3000",
+        process.env.CORS_STUDIO_ORIGIN ?? "http://localhost:3000",
+      ].filter(Boolean),
       credentials: true,
       exposeHeaders: ["X-AI-Usage-Limit", "X-AI-Usage-Used", "X-AI-Usage-Plan"],
     },

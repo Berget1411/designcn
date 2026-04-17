@@ -1,25 +1,11 @@
-import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 
-import { db } from "@workspace/db";
-import { communityPreset, savedPreset } from "@workspace/db/schema";
+import { presetRepository } from "@workspace/db/repositories";
 import { authedProcedure, createTRPCRouter } from "../init";
 
 export const presetsRouter = createTRPCRouter({
   list: authedProcedure.query(async ({ ctx }) => {
-    const rows = await db
-      .select({
-        id: savedPreset.id,
-        name: savedPreset.name,
-        presetCode: savedPreset.presetCode,
-        base: savedPreset.base,
-        createdAt: savedPreset.createdAt,
-        communityPresetId: communityPreset.id,
-      })
-      .from(savedPreset)
-      .leftJoin(communityPreset, eq(savedPreset.id, communityPreset.savedPresetId))
-      .where(eq(savedPreset.userId, ctx.userId))
-      .orderBy(desc(savedPreset.createdAt));
+    const rows = await presetRepository.listByUser(ctx.userId);
 
     return rows.map((row) => ({
       id: row.id,
@@ -41,39 +27,18 @@ export const presetsRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const [result] = await db
-        .insert(savedPreset)
-        .values({
-          userId: ctx.userId,
-          name: input.name,
-          presetCode: input.presetCode,
-          base: input.base,
-        })
-        .onConflictDoUpdate({
-          target: [savedPreset.userId, savedPreset.name],
-          set: {
-            presetCode: input.presetCode,
-            base: input.base,
-            updatedAt: new Date(),
-          },
-        })
-        .returning({
-          id: savedPreset.id,
-          name: savedPreset.name,
-          presetCode: savedPreset.presetCode,
-          base: savedPreset.base,
-        });
-
-      return result;
+      return presetRepository.upsert({
+        userId: ctx.userId,
+        name: input.name,
+        presetCode: input.presetCode,
+        base: input.base,
+      });
     }),
 
   delete: authedProcedure
     .input(z.object({ id: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
-      await db
-        .delete(savedPreset)
-        .where(and(eq(savedPreset.id, input.id), eq(savedPreset.userId, ctx.userId)));
-
+      await presetRepository.deleteByIdAndUser(input.id, ctx.userId);
       return { success: true };
     }),
 });

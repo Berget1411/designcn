@@ -6,7 +6,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./schema": "./src/schema.ts",
-    "./auth-schema": "./src/auth-schema.ts"
+    "./auth-schema": "./src/auth-schema.ts",
+    "./repositories": "./src/repositories/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

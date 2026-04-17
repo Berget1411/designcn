@@ -1,6 +1,4 @@
-import { eq, and, sql } from "drizzle-orm";
-import { db } from "@workspace/db";
-import { aiMessageUsage } from "@workspace/db/schema";
+import { usageRepository } from "@workspace/db/repositories";
 import { Polar } from "@polar-sh/sdk";
 import type { MiddlewareHandler } from "hono";
 
@@ -10,7 +8,7 @@ import type { MiddlewareHandler } from "hono";
 
 const FREE_MESSAGE_LIMIT = 5;
 
-/** In-memory cache: userId → { plan, expiresAt } */
+/** In-memory cache: userId -> { plan, expiresAt } */
 const planCache = new Map<string, { plan: "free" | "pro"; expiresAt: number }>();
 const PLAN_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
@@ -44,12 +42,6 @@ interface BetterAuthUser {
 // Helpers
 // ---------------------------------------------------------------------------
 
-/** First day of current month at 00:00 UTC */
-function currentPeriodStart(): Date {
-  const now = new Date();
-  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
-}
-
 /** Check Polar for active subscriptions (with in-memory cache). */
 async function getUserPlan(userId: string, email: string): Promise<"free" | "pro"> {
   const cached = planCache.get(userId);
@@ -80,52 +72,11 @@ async function getUserPlan(userId: string, email: string): Promise<"free" | "pro
   return "free";
 }
 
-/** Get or create usage row for current month. Returns current message count. */
-async function getUsageCount(userId: string): Promise<number> {
-  const period = currentPeriodStart();
-
-  const rows = await db
-    .select({ messageCount: aiMessageUsage.messageCount })
-    .from(aiMessageUsage)
-    .where(and(eq(aiMessageUsage.userId, userId), eq(aiMessageUsage.periodStart, period)))
-    .limit(1);
-
-  return rows[0]?.messageCount ?? 0;
-}
-
-/** Increment the usage counter (upsert). */
-async function incrementUsage(userId: string): Promise<number> {
-  const period = currentPeriodStart();
-
-  const result = await db
-    .insert(aiMessageUsage)
-    .values({
-      userId,
-      periodStart: period,
-      messageCount: 1,
-    })
-    .onConflictDoUpdate({
-      target: [aiMessageUsage.userId, aiMessageUsage.periodStart],
-      set: {
-        messageCount: sql`${aiMessageUsage.messageCount} + 1`,
-        updatedAt: new Date(),
-      },
-    })
-    .returning({ messageCount: aiMessageUsage.messageCount });
-
-  return result[0]?.messageCount ?? 1;
-}
-
 // ---------------------------------------------------------------------------
 // Middleware
 // ---------------------------------------------------------------------------
 
 export const usageLimitMiddleware: MiddlewareHandler = async (c, next) => {
-  // server.middleware runs BEFORE auth middleware, so we must
-  // resolve the user ourselves. getAuthenticatedUser() bails on
-  // empty bearer tokens, but we use cookie auth — call the
-  // provider's authenticateToken directly with the raw request
-  // so it can read cookies.
   const authConfig = c.get("mastra")?.getServer?.()?.auth;
   let authedUser: BetterAuthUser | null = null;
   if (authConfig && typeof authConfig.authenticateToken === "function") {
@@ -138,7 +89,6 @@ export const usageLimitMiddleware: MiddlewareHandler = async (c, next) => {
   }
 
   if (!authedUser?.user?.id) {
-    // No authenticated user — auth middleware will handle 401 later
     return next();
   }
 
@@ -146,13 +96,12 @@ export const usageLimitMiddleware: MiddlewareHandler = async (c, next) => {
   const plan = await getUserPlan(userId, email);
 
   if (plan === "pro") {
-    // Pro users: unlimited, just increment for stats
-    await incrementUsage(userId);
+    await usageRepository.incrementUsage(userId);
     return next();
   }
 
   // Free user: check limit
-  const currentCount = await getUsageCount(userId);
+  const currentCount = await usageRepository.getUsageCount(userId);
 
   if (currentCount >= FREE_MESSAGE_LIMIT) {
     return c.json(
@@ -168,9 +117,8 @@ export const usageLimitMiddleware: MiddlewareHandler = async (c, next) => {
   }
 
   // Under limit — increment and continue
-  const newCount = await incrementUsage(userId);
+  const newCount = await usageRepository.incrementUsage(userId);
 
-  // Set headers so frontend can track usage
   c.header("X-AI-Usage-Limit", String(FREE_MESSAGE_LIMIT));
   c.header("X-AI-Usage-Used", String(newCount));
   c.header("X-AI-Usage-Plan", plan);

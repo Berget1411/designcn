@@ -8,7 +8,8 @@
     "ANTHROPIC_API_KEY",
     "GOOGLE_GENERATIVE_AI_API_KEY",
     "NEXT_PUBLIC_MASTRA_API_URL",
-    "CORS_ORIGIN"
+    "CORS_ORIGIN",
+    "CORS_STUDIO_ORIGIN"
   ],
   "tasks": {
     "build": {
