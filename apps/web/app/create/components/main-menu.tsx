@@ -57,10 +57,26 @@ export function MainMenu({ className }: React.ComponentProps<typeof Button>) {
     }),
   );
 
+  const { data: likedPresets = [] } = useQuery(
+    trpc.community.likedPresets.queryOptions(undefined, {
+      enabled: isAuthenticated,
+      staleTime: 30_000,
+    }),
+  );
+
   const deleteMutation = useMutation(
     trpc.presets.delete.mutationOptions({
       onSuccess: () => {
         void queryClient.invalidateQueries({ queryKey: trpc.presets.list.queryKey() });
+      },
+    }),
+  );
+
+  const unlikeMutation = useMutation(
+    trpc.community.like.mutationOptions({
+      onSuccess: () => {
+        void queryClient.invalidateQueries({ queryKey: trpc.community.likedPresets.queryKey() });
+        void queryClient.invalidateQueries(trpc.community.list.pathFilter());
       },
     }),
   );
@@ -102,7 +118,7 @@ export function MainMenu({ className }: React.ComponentProps<typeof Button>) {
             >
               <PickerSubTrigger>My Presets</PickerSubTrigger>
               <PickerSubContent side="right" align="start" sideOffset={0}>
-                {isAuthenticated && savedPresets.length > 0 && (
+                {isAuthenticated && (savedPresets.length > 0 || likedPresets.length > 0) && (
                   <div className="px-1.5 pb-1.5">
                     <input
                       type="text"
@@ -115,49 +131,109 @@ export function MainMenu({ className }: React.ComponentProps<typeof Button>) {
                     />
                   </div>
                 )}
-                <PickerGroup>
-                  {!isAuthenticated && <PickerLabel>Sign in to save presets</PickerLabel>}
-                  {isAuthenticated && savedPresets.length === 0 && (
+                {!isAuthenticated && (
+                  <PickerGroup>
+                    <PickerLabel>Sign in to save presets</PickerLabel>
+                  </PickerGroup>
+                )}
+                {isAuthenticated && savedPresets.length === 0 && likedPresets.length === 0 && (
+                  <PickerGroup>
                     <PickerLabel>No saved presets</PickerLabel>
-                  )}
-                  {isAuthenticated &&
-                    savedPresets
-                      .filter((p) => p.name.toLowerCase().includes(presetSearch.toLowerCase()))
-                      .map((preset) => (
-                        <PickerItem
-                          key={preset.id}
-                          onClick={() => {
-                            setParams({
-                              preset: preset.presetCode,
-                              base: preset.base as "radix" | "base",
-                            });
-                          }}
-                        >
-                          <span className="flex-1 truncate">{preset.name}</span>
-                          <button
-                            type="button"
-                            className="ml-auto shrink-0 rounded p-0.5 opacity-50 hover:opacity-100"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              e.preventDefault();
-                              deleteMutation.mutate({ id: preset.id });
+                  </PickerGroup>
+                )}
+                {isAuthenticated &&
+                  savedPresets.filter((p) =>
+                    p.name.toLowerCase().includes(presetSearch.toLowerCase()),
+                  ).length > 0 && (
+                    <PickerGroup>
+                      <PickerLabel>My</PickerLabel>
+                      {savedPresets
+                        .filter((p) => p.name.toLowerCase().includes(presetSearch.toLowerCase()))
+                        .map((preset) => (
+                          <PickerItem
+                            key={preset.id}
+                            onClick={() => {
+                              setParams({
+                                preset: preset.presetCode,
+                                base: preset.base as "radix" | "base",
+                              });
                             }}
                           >
-                            <HugeiconsIcon
-                              icon={Delete02Icon}
-                              strokeWidth={2}
-                              className="size-3.5"
-                            />
-                          </button>
-                        </PickerItem>
-                      ))}
-                  {isAuthenticated &&
-                    savedPresets.length > 0 &&
-                    presetSearch &&
-                    savedPresets.filter((p) =>
-                      p.name.toLowerCase().includes(presetSearch.toLowerCase()),
-                    ).length === 0 && <PickerLabel>No matches</PickerLabel>}
-                </PickerGroup>
+                            <span className="flex-1 truncate">{preset.name}</span>
+                            <button
+                              type="button"
+                              className="ml-auto shrink-0 rounded p-0.5 opacity-50 hover:opacity-100"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                deleteMutation.mutate({ id: preset.id });
+                              }}
+                            >
+                              <HugeiconsIcon
+                                icon={Delete02Icon}
+                                strokeWidth={2}
+                                className="size-3.5"
+                              />
+                            </button>
+                          </PickerItem>
+                        ))}
+                    </PickerGroup>
+                  )}
+                {isAuthenticated &&
+                  likedPresets.filter((p) =>
+                    p.title.toLowerCase().includes(presetSearch.toLowerCase()),
+                  ).length > 0 && (
+                    <>
+                      {savedPresets.filter((p) =>
+                        p.name.toLowerCase().includes(presetSearch.toLowerCase()),
+                      ).length > 0 && <PickerSeparator />}
+                      <PickerGroup>
+                        <PickerLabel>Liked</PickerLabel>
+                        {likedPresets
+                          .filter((p) => p.title.toLowerCase().includes(presetSearch.toLowerCase()))
+                          .map((preset) => (
+                            <PickerItem
+                              key={preset.id}
+                              onClick={() => {
+                                setParams({
+                                  preset: preset.presetCode,
+                                  base: preset.base as "radix" | "base",
+                                });
+                              }}
+                            >
+                              <span className="flex-1 truncate">{preset.title}</span>
+                              <button
+                                type="button"
+                                className="ml-auto shrink-0 rounded p-0.5 opacity-50 hover:opacity-100"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  e.preventDefault();
+                                  unlikeMutation.mutate({ communityPresetId: preset.id });
+                                }}
+                              >
+                                <HugeiconsIcon
+                                  icon={Delete02Icon}
+                                  strokeWidth={2}
+                                  className="size-3.5"
+                                />
+                              </button>
+                            </PickerItem>
+                          ))}
+                      </PickerGroup>
+                    </>
+                  )}
+                {isAuthenticated &&
+                  presetSearch &&
+                  savedPresets.filter((p) =>
+                    p.name.toLowerCase().includes(presetSearch.toLowerCase()),
+                  ).length === 0 &&
+                  likedPresets.filter((p) =>
+                    p.title.toLowerCase().includes(presetSearch.toLowerCase()),
+                  ).length === 0 && (
+                    <PickerGroup>
+                      <PickerLabel>No matches</PickerLabel>
+                    </PickerGroup>
+                  )}
               </PickerSubContent>
             </PickerSub>
             <PickerSeparator />
