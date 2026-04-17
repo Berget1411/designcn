@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { index, integer, pgTable, primaryKey, text, timestamp, unique } from "drizzle-orm/pg-core";
 
 import { user } from "./auth-schema";
@@ -141,5 +141,40 @@ export const presetLikeRelations = relations(presetLike, ({ one }) => ({
   communityPreset: one(communityPreset, {
     fields: [presetLike.communityPresetId],
     references: [communityPreset.id],
+  }),
+}));
+
+// ---------------------------------------------------------------------------
+// AI Message Usage (rate-limiting for free users)
+// ---------------------------------------------------------------------------
+
+export const aiMessageUsage = pgTable(
+  "ai_message_usage",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    /** First day of the calendar month (UTC) this row tracks */
+    periodStart: timestamp("period_start").notNull(),
+    messageCount: integer("message_count").notNull().default(0),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    unique("ai_usage_user_period_unq").on(table.userId, table.periodStart),
+    index("ai_usage_userId_idx").on(table.userId),
+  ],
+);
+
+export const aiMessageUsageRelations = relations(aiMessageUsage, ({ one }) => ({
+  user: one(user, {
+    fields: [aiMessageUsage.userId],
+    references: [user.id],
   }),
 }));

@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@workspace/db": ["../../packages/db/src/index.ts"],
+      "@workspace/db/*": ["../../packages/db/src/*"],
+      "@/*": ["./src/*"]
+    },
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "bundler",

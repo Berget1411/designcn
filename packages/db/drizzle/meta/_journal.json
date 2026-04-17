@@ -15,6 +15,13 @@
       "when": 1776370263550,
       "tag": "0001_narrow_mad_thinker",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1776419239164,
+      "tag": "0002_talented_true_believers",
+      "breakpoints": true
     }
   ]
 }

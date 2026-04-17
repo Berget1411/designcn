@@ -10,7 +10,13 @@
   },
   "dependencies": {
     "@mastra/ai-sdk": "^1.4.0",
+    "@mastra/auth-better-auth": "latest",
     "@mastra/core": "latest",
+    "@mastra/server": "latest",
+    "@polar-sh/sdk": "^0.47.0",
+    "@workspace/db": "workspace:*",
+    "better-auth": "^1.6.5",
+    "drizzle-orm": "^0.45.2",
     "zod": "^3.25.0"
   },
   "devDependencies": {
