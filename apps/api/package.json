@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "mastra dev",
     "build": "mastra build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "deploy": "mastra studio deploy"
   },
   "dependencies": {
+    "@ai-sdk/openai-compatible": "^2.0.41",
     "@mastra/ai-sdk": "^1.4.0",
     "@mastra/auth-better-auth": "latest",
     "@mastra/core": "latest",

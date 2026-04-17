@@ -6,6 +6,9 @@ import { usageLimitMiddleware } from "./usage";
 
 export const mastra = new Mastra({
   agents: { weatherAgent },
+  bundler: {
+    transpilePackages: ["@workspace/db"],
+  },
   server: {
     apiRoutes: [
       chatRoute({
