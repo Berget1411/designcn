@@ -1,6 +1,18 @@
 "use client";
 
 import { Message, MessageContent, MessageResponse } from "@/components/ai-elements/message";
+import {
+  Queue,
+  QueueItem,
+  QueueItemContent,
+  QueueItemDescription,
+  QueueItemIndicator,
+  QueueList,
+  QueueSection,
+  QueueSectionContent,
+  QueueSectionLabel,
+  QueueSectionTrigger,
+} from "@/components/ai-elements/queue";
 import { Reasoning, ReasoningContent, ReasoningTrigger } from "@/components/ai-elements/reasoning";
 import {
   type CustomThemeVars,
@@ -59,6 +71,94 @@ function extractPresetFromText(text: string): {
 
 function hasIncompletePresetBlock(text: string): boolean {
   return text.includes("```designcn-preset") && !PRESET_REGEX.test(text);
+}
+
+// ---------------------------------------------------------------------------
+// Step Progress Extraction
+// ---------------------------------------------------------------------------
+
+const STEP_REGEX = /```designcn-step\s*\n([\s\S]*?)\n```/;
+
+type StepTodo = {
+  id: string;
+  title: string;
+  status: "pending" | "completed";
+  description?: string;
+};
+
+type StepData = {
+  currentStep: number;
+  totalSteps: number;
+  stepName: string;
+  decisions: Record<string, string>;
+  todos: StepTodo[];
+};
+
+function extractStepFromText(text: string): {
+  step: StepData | null;
+  rest: string;
+} {
+  const match = text.match(STEP_REGEX);
+  if (!match) return { step: null, rest: text };
+
+  const rest =
+    text.slice(0, match.index).trimStart() + text.slice((match.index ?? 0) + match[0].length);
+
+  try {
+    const parsed = JSON.parse(match[1] as string);
+    if (typeof parsed.currentStep === "number" && Array.isArray(parsed.todos)) {
+      return { step: parsed as StepData, rest };
+    }
+  } catch {
+    // JSON parse failed
+  }
+
+  return { step: null, rest: text };
+}
+
+function hasIncompleteStepBlock(text: string): boolean {
+  return text.includes("```designcn-step") && !STEP_REGEX.test(text);
+}
+
+// ---------------------------------------------------------------------------
+// Brand Summary Extraction
+// ---------------------------------------------------------------------------
+
+const BRAND_SUMMARY_REGEX = /```designcn-brand-summary\s*\n([\s\S]*?)\n```/;
+
+type BrandDecision = {
+  value: string;
+  rationale: string;
+};
+
+type BrandSummaryData = {
+  personality: string;
+  audience?: string;
+  direction?: string;
+  decisions: Record<string, BrandDecision>;
+};
+
+function extractBrandSummaryFromText(text: string): {
+  summary: BrandSummaryData | null;
+  before: string;
+  after: string;
+} {
+  const match = text.match(BRAND_SUMMARY_REGEX);
+  if (!match) return { summary: null, before: text, after: "" };
+
+  const before = text.slice(0, match.index);
+  const after = text.slice((match.index ?? 0) + match[0].length);
+
+  try {
+    const parsed = JSON.parse(match[1] as string);
+    if (typeof parsed.personality === "string" && parsed.decisions) {
+      return { summary: parsed as BrandSummaryData, before, after };
+    }
+  } catch {
+    // JSON parse failed
+  }
+
+  return { summary: null, before: text, after: "" };
 }
 
 // ---------------------------------------------------------------------------
@@ -256,6 +356,129 @@ function PresetCardStreaming() {
 }
 
 // ---------------------------------------------------------------------------
+// Step Progress Card (planner mode)
+// ---------------------------------------------------------------------------
+
+function StepProgressCard({ step }: { step: StepData }) {
+  const completed = step.todos.filter((t) => t.status === "completed").length;
+  return (
+    <div className="my-3">
+      <Queue>
+        <QueueSection>
+          <QueueSectionTrigger>
+            <QueueSectionLabel
+              count={step.todos.length}
+              label={`Design Steps \u2014 ${completed}/${step.todos.length} complete`}
+            />
+          </QueueSectionTrigger>
+          <QueueSectionContent>
+            <QueueList>
+              {step.todos.map((todo) => (
+                <QueueItem key={todo.id}>
+                  <div className="flex items-center gap-2">
+                    <QueueItemIndicator completed={todo.status === "completed"} />
+                    <QueueItemContent completed={todo.status === "completed"}>
+                      {todo.title}
+                    </QueueItemContent>
+                  </div>
+                  {todo.description && (
+                    <QueueItemDescription completed={todo.status === "completed"}>
+                      {todo.description}
+                    </QueueItemDescription>
+                  )}
+                </QueueItem>
+              ))}
+            </QueueList>
+          </QueueSectionContent>
+        </QueueSection>
+      </Queue>
+    </div>
+  );
+}
+
+/** Placeholder shown while step JSON block is still streaming */
+function StepProgressStreaming() {
+  return (
+    <div className="my-3 flex items-center gap-2 rounded-lg border border-dashed px-4 py-3 text-sm text-muted-foreground">
+      <Loader2Icon className="size-4 animate-spin" />
+      Loading progress…
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Brand Summary Card (planner mode final output)
+// ---------------------------------------------------------------------------
+
+function BrandSummaryCard({ summary }: { summary: BrandSummaryData }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = useCallback(async () => {
+    const lines = [
+      `Brand Personality: ${summary.personality}`,
+      summary.audience ? `Audience: ${summary.audience}` : null,
+      summary.direction ? `Direction: ${summary.direction}` : null,
+      "",
+      "Design Decisions:",
+      ...Object.entries(summary.decisions).map(
+        ([key, dec]) => `  ${key}: ${dec.value} — ${dec.rationale}`,
+      ),
+    ].filter(Boolean);
+    await navigator.clipboard.writeText(lines.join("\n"));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, [summary]);
+
+  return (
+    <div className="my-3 overflow-hidden rounded-lg border bg-card text-card-foreground">
+      {/* Header */}
+      <div className="border-b px-4 py-3">
+        <p className="text-sm font-medium">Brand Guideline Summary</p>
+        <p className="mt-0.5 text-xs text-muted-foreground">{summary.personality}</p>
+        {summary.audience && (
+          <p className="text-xs text-muted-foreground">Audience: {summary.audience}</p>
+        )}
+        {summary.direction && (
+          <p className="text-xs text-muted-foreground">Direction: {summary.direction}</p>
+        )}
+      </div>
+
+      {/* Decisions grid */}
+      <div className="grid grid-cols-1 gap-3 px-4 py-3 sm:grid-cols-2">
+        {Object.entries(summary.decisions).map(([key, dec]) => (
+          <div key={key}>
+            <span className="text-xs text-muted-foreground capitalize">{key}</span>
+            <p className="text-sm font-medium capitalize">{dec.value}</p>
+            <p className="text-xs text-muted-foreground">{dec.rationale}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Actions */}
+      <div className="flex items-center gap-2 border-t px-4 py-3">
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+        >
+          {copied ? (
+            <>
+              <CheckIcon className="size-3" />
+              Copied
+            </>
+          ) : (
+            <>
+              <ClipboardIcon className="size-3" />
+              Copy Summary
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Palette Card (tool output)
 // ---------------------------------------------------------------------------
 
@@ -408,17 +631,30 @@ export const ChatMessage = memo(
           {message.parts.map((part, index) => {
             switch (part.type) {
               case "text": {
-                const { config, customVars, before, after } = extractPresetFromText(part.text);
-                const showStreamingPlaceholder =
+                // Extract structured blocks: step progress, brand summary, preset
+                const { step, rest: afterStep } = extractStepFromText(part.text);
+                const {
+                  summary,
+                  before: beforeSummary,
+                  after: afterSummary,
+                } = extractBrandSummaryFromText(afterStep);
+                const textForPreset = summary ? beforeSummary + afterSummary : afterStep;
+                const { config, customVars, before, after } = extractPresetFromText(textForPreset);
+
+                const showStepStreaming = isStreaming && !step && hasIncompleteStepBlock(part.text);
+                const showPresetStreaming =
                   isStreaming && !config && hasIncompletePresetBlock(part.text);
 
                 return (
                   <div key={`text-${index}`}>
+                    {step && <StepProgressCard step={step} />}
+                    {showStepStreaming && <StepProgressStreaming />}
                     {before.trim() && (
-                      <MessageResponse isAnimating={isStreaming && !config}>
+                      <MessageResponse isAnimating={isStreaming && !config && !summary}>
                         {before}
                       </MessageResponse>
                     )}
+                    {summary && <BrandSummaryCard summary={summary} />}
                     {config && (
                       <PresetCard
                         config={config}
@@ -426,7 +662,7 @@ export const ChatMessage = memo(
                         isStreaming={isStreaming}
                       />
                     )}
-                    {showStreamingPlaceholder && <PresetCardStreaming />}
+                    {showPresetStreaming && <PresetCardStreaming />}
                     {after.trim() && (
                       <MessageResponse isAnimating={isStreaming}>{after}</MessageResponse>
                     )}

@@ -39,6 +39,7 @@ import {
   AlertCircleIcon,
   ChevronDownIcon,
   HeartIcon,
+  ListOrderedIcon,
   LockIcon,
   PaletteIcon,
   SaveIcon,
@@ -57,6 +58,12 @@ const MASTRA_URL = process.env.NEXT_PUBLIC_MASTRA_API_URL ?? "http://localhost:4
 const FREE_MESSAGE_LIMIT = 5;
 
 const TEXT_SUGGESTIONS = ["Flat Design", "Minimal Style", "Brutalist Vibe", "Developer Dashboard"];
+
+const PLAN_SUGGESTIONS = [
+  "Start from scratch",
+  "I have a brand in mind",
+  "Redesign my current theme",
+];
 
 function isAuthError(error: Error): boolean {
   const msg = error.message.toLowerCase();
@@ -155,6 +162,9 @@ function AiChatInner() {
     }),
   );
 
+  // Plan mode
+  const [isPlanMode, setIsPlanMode] = useState(false);
+
   // Selected preset for context
   const [selectedPresetKey, setSelectedPresetKey] = useState<string | null>(null);
   const [presetMenuOpen, setPresetMenuOpen] = useState(false);
@@ -177,7 +187,7 @@ function AiChatInner() {
     return null;
   }, [selectedPresetKey, savedPresets, likedPresets]);
 
-  const transport = useMemo(
+  const presetTransport = useMemo(
     () =>
       new DefaultChatTransport({
         api: `${MASTRA_URL}/chat`,
@@ -186,12 +196,17 @@ function AiChatInner() {
     [],
   );
 
-  const { messages, sendMessage, status, stop, error, clearError } = useChat({
-    transport,
-    onFinish() {
-      refetchUsage();
-    },
-    onError(error) {
+  const plannerTransport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        api: `${MASTRA_URL}/chat/planner`,
+        credentials: "include",
+      }),
+    [],
+  );
+
+  const chatErrorHandler = useCallback(
+    (error: Error) => {
       if (isAuthError(error)) {
         toast.error("Sign in required", {
           description: "Please sign in to use the AI assistant.",
@@ -210,7 +225,29 @@ function AiChatInner() {
         });
       }
     },
+    [refetchUsage],
+  );
+
+  const presetChat = useChat({
+    id: "preset-chat",
+    transport: presetTransport,
+    onFinish() {
+      refetchUsage();
+    },
+    onError: chatErrorHandler,
   });
+
+  const plannerChat = useChat({
+    id: "planner-chat",
+    transport: plannerTransport,
+    onFinish() {
+      refetchUsage();
+    },
+    onError: chatErrorHandler,
+  });
+
+  const activeChat = isPlanMode ? plannerChat : presetChat;
+  const { messages, sendMessage, status, stop, error, clearError } = activeChat;
 
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
@@ -294,19 +331,25 @@ function AiChatInner() {
         <ConversationContent>
           {isEmpty && !showAuthError && !showLimitError ? (
             <ConversationEmptyState
-              title="What can I help you theme?"
+              title={isPlanMode ? "Let's build your design system" : "What can I help you theme?"}
               description={
                 isHydrating
                   ? ""
                   : isAuthed
-                    ? "Describe your ideal design system, upload a reference image, or pick a quick style"
+                    ? isPlanMode
+                      ? "I'll learn about your brand, then guide you through each design decision"
+                      : "Describe your ideal design system, upload a reference image, or pick a quick style"
                     : "Sign in to start creating themes"
               }
               icon={
                 isHydrating ? (
                   <SparklesIcon className="size-8 animate-pulse opacity-50" />
                 ) : isAuthed ? (
-                  <SparklesIcon className="size-8" />
+                  isPlanMode ? (
+                    <ListOrderedIcon className="size-8" />
+                  ) : (
+                    <SparklesIcon className="size-8" />
+                  )
                 ) : (
                   <LockIcon className="size-8" />
                 )
@@ -378,10 +421,18 @@ function AiChatInner() {
       <div className="grid shrink-0 gap-4 pt-4">
         {isEmpty && isAuthed && !isHydrating && !isLimitReached && (
           <Suggestions className="px-4">
-            <FromImageSuggestion />
-            {TEXT_SUGGESTIONS.map((s) => (
-              <Suggestion key={s} suggestion={s} onClick={handleSuggestionClick} />
-            ))}
+            {isPlanMode ? (
+              PLAN_SUGGESTIONS.map((s) => (
+                <Suggestion key={s} suggestion={s} onClick={handleSuggestionClick} />
+              ))
+            ) : (
+              <>
+                <FromImageSuggestion />
+                {TEXT_SUGGESTIONS.map((s) => (
+                  <Suggestion key={s} suggestion={s} onClick={handleSuggestionClick} />
+                ))}
+              </>
+            )}
           </Suggestions>
         )}
 
@@ -447,6 +498,11 @@ function AiChatInner() {
                       <PromptInputActionAddAttachments label="Upload image" />
                     </PromptInputActionMenuContent>
                   </PromptInputActionMenu>
+
+                  <PlanModeToggle
+                    active={isPlanMode}
+                    onToggle={() => setIsPlanMode((prev) => !prev)}
+                  />
 
                   <ColorPalettePicker value={colorPalette} onChange={setColorPalette} />
 
@@ -661,6 +717,27 @@ function ColorPalettePill({ palette, onRemove }: { palette: ColorPalette; onRemo
         <XIcon className="size-3" />
       </button>
     </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Plan Mode Toggle
+// ---------------------------------------------------------------------------
+
+function PlanModeToggle({ active, onToggle }: { active: boolean; onToggle: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className={`flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs transition-colors ${
+        active
+          ? "border-primary bg-primary/10 text-primary"
+          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+      }`}
+    >
+      <ListOrderedIcon className="size-3" />
+      <span>Plan</span>
+    </button>
   );
 }
 

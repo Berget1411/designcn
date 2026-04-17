@@ -1,12 +1,13 @@
 import { Mastra } from "@mastra/core";
 import { chatRoute } from "@mastra/ai-sdk";
 import { CloudflareDeployer } from "@mastra/deployer-cloudflare";
+import { plannerAgent } from "./agents/planner-agent";
 import { presetAgent } from "./agents/preset-agent";
 import { mastraAuth } from "./auth";
 import { usageLimitMiddleware } from "./usage";
 
 export const mastra = new Mastra({
-  agents: { presetAgent },
+  agents: { presetAgent, plannerAgent },
   deployer: new CloudflareDeployer({
     name: "designcn-api",
     compatibility_date: "2025-04-01",
@@ -24,10 +25,19 @@ export const mastra = new Mastra({
         agent: "presetAgent",
         version: "v6",
       }),
+      chatRoute({
+        path: "/chat/planner",
+        agent: "plannerAgent",
+        version: "v6",
+      }),
     ],
     middleware: [
       {
         path: "/chat",
+        handler: usageLimitMiddleware,
+      },
+      {
+        path: "/chat/planner",
         handler: usageLimitMiddleware,
       },
     ],

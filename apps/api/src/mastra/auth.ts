@@ -35,5 +35,5 @@ const auth = betterAuth(options);
 
 export const mastraAuth = new MastraAuthBetterAuth({
   auth,
-  protected: ["/chat", "/api/*"],
+  protected: ["/chat", "/chat/planner", "/api/*"],
 });
