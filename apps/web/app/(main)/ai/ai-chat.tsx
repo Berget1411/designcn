@@ -30,6 +30,7 @@ import {
 } from "@/components/ai-elements/prompt-input";
 import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
 import { useSession, useSubscription } from "@/lib/auth-client";
+import { DEFAULT_CONFIG, type DesignSystemConfig } from "@/registry/config";
 import { useTRPC } from "@/trpc/client";
 import { useChat } from "@ai-sdk/react";
 import { useQuery } from "@tanstack/react-query";
@@ -38,6 +39,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@workspace/ui/component
 import {
   AlertCircleIcon,
   ChevronDownIcon,
+  EyeIcon,
   GlobeIcon,
   HeartIcon,
   ListOrderedIcon,
@@ -54,6 +56,7 @@ import { decodePreset } from "shadcn/preset";
 import { toast } from "sonner";
 import { ChatMessage, extractPresetFromText, type PaletteColors } from "./chat-message";
 import { PresetPreviewPanel } from "./preset-preview";
+import { usePreviewHistory, type PreviewEntry } from "./use-preview-history";
 
 const MASTRA_URL = process.env.NEXT_PUBLIC_MASTRA_API_URL ?? "http://localhost:4111";
 
@@ -251,8 +254,14 @@ function AiChatInner() {
   const activeChat = isPlanMode ? plannerChat : presetChat;
   const { messages, sendMessage, status, stop, error, clearError } = activeChat;
 
-  // Track whether user manually dismissed the preview panel
-  const [previewDismissed, setPreviewDismissed] = useState(false);
+  // Preview panel — always visible from start, with version history
+  const [previewPanelVisible, setPreviewPanelVisible] = useState(true);
+
+  const previewHistory = usePreviewHistory({
+    config: DEFAULT_CONFIG,
+    customVars: null,
+    label: "Default",
+  });
 
   // Derive latest preset from messages (last assistant message with a preset block)
   const latestPreset = useMemo(() => {
@@ -271,16 +280,55 @@ function AiChatInner() {
     return null;
   }, [messages]);
 
-  // Show panel when new preset appears (reset dismissed state)
-  const prevPresetRef = useRef(latestPreset);
+  // Push reference preset into history when user selects one
+  const prevSelectedPresetRef = useRef(selectedPresetInfo);
   useEffect(() => {
-    if (latestPreset && latestPreset !== prevPresetRef.current) {
-      setPreviewDismissed(false);
+    if (!selectedPresetInfo || selectedPresetInfo === prevSelectedPresetRef.current) {
+      prevSelectedPresetRef.current = selectedPresetInfo;
+      return;
     }
-    prevPresetRef.current = latestPreset;
-  }, [latestPreset]);
+    prevSelectedPresetRef.current = selectedPresetInfo;
 
-  const showPreviewPanel = !!latestPreset && !previewDismissed && status !== "streaming";
+    const decoded = decodePreset(selectedPresetInfo.presetCode);
+    if (!decoded) return;
+
+    // Resolve base from the saved/liked preset data
+    let base: string = DEFAULT_CONFIG.base;
+    if (selectedPresetKey) {
+      const [kind, id] = selectedPresetKey.split(":") as [string, string];
+      if (kind === "saved") {
+        base = savedPresets.find((s) => s.id === id)?.base ?? DEFAULT_CONFIG.base;
+      } else if (kind === "liked") {
+        base = likedPresets.find((l) => l.id === id)?.base ?? DEFAULT_CONFIG.base;
+      }
+    }
+
+    const config: DesignSystemConfig = {
+      ...DEFAULT_CONFIG,
+      ...decoded,
+      base: base as DesignSystemConfig["base"],
+    };
+    previewHistory.push({
+      config,
+      customVars: null,
+      label: selectedPresetInfo.name,
+    });
+    setPreviewPanelVisible(true);
+  }, [selectedPresetInfo, selectedPresetKey, savedPresets, likedPresets, previewHistory]);
+
+  // Push AI-generated preset into history when it appears
+  const prevLatestPresetRef = useRef(latestPreset);
+  useEffect(() => {
+    if (latestPreset && latestPreset !== prevLatestPresetRef.current) {
+      previewHistory.push({
+        config: latestPreset.config,
+        customVars: latestPreset.customVars,
+        label: "AI Generated",
+      });
+      setPreviewPanelVisible(true);
+    }
+    prevLatestPresetRef.current = latestPreset;
+  }, [latestPreset, previewHistory]);
 
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
@@ -362,7 +410,7 @@ function AiChatInner() {
     <div className="relative flex size-full overflow-hidden">
       {/* Chat column */}
       <div
-        className={`flex flex-col divide-y overflow-hidden transition-all ${showPreviewPanel ? "w-1/2" : "w-full"}`}
+        className={`flex flex-col divide-y overflow-hidden transition-all ${previewPanelVisible ? "w-1/2" : "w-full"}`}
       >
         <Conversation>
           <ConversationContent>
@@ -593,14 +641,32 @@ function AiChatInner() {
       </div>
 
       {/* Preview panel */}
-      {showPreviewPanel && latestPreset && (
+      {previewPanelVisible && (
         <div className="w-1/2">
           <PresetPreviewPanel
-            config={latestPreset.config}
-            customVars={latestPreset.customVars}
-            onClose={() => setPreviewDismissed(true)}
+            config={previewHistory.current.config}
+            customVars={previewHistory.current.customVars}
+            onClose={() => setPreviewPanelVisible(false)}
+            canGoBack={previewHistory.canGoBack}
+            canGoForward={previewHistory.canGoForward}
+            onGoBack={previewHistory.goBack}
+            onGoForward={previewHistory.goForward}
+            historyPosition={previewHistory.currentPosition}
+            historyLength={previewHistory.historyLength}
           />
         </div>
+      )}
+
+      {/* Re-open preview button when panel is dismissed */}
+      {!previewPanelVisible && (
+        <button
+          type="button"
+          onClick={() => setPreviewPanelVisible(true)}
+          className="absolute right-4 top-3 z-10 flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1 text-xs text-muted-foreground shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+        >
+          <EyeIcon className="size-3" />
+          Preview
+        </button>
       )}
     </div>
   );
