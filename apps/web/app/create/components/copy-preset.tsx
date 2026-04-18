@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import { Check, Link } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { copyToClipboardWithMeta } from "@/components/copy-button";
 import { Button } from "@workspace/ui/components/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@workspace/ui/components/tooltip";
 
@@ -36,12 +35,7 @@ export function CopyPreset({ className }: React.ComponentProps<typeof Button>) {
   }, [hasCopied]);
 
   const handleCopy = React.useCallback(() => {
-    copyToClipboardWithMeta(shareUrl, {
-      name: "copy_create_config_url",
-      properties: {
-        url: shareUrl,
-      },
-    });
+    navigator.clipboard.writeText(shareUrl);
     setHasCopied(true);
   }, [shareUrl]);
 

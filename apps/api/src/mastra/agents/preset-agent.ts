@@ -423,38 +423,40 @@ Your own opinions, the anti-generic rules, and the distinctive design philosophy
 
 ### Available tools
 
-| Tool | What it extracts |
-|------|-----------------|
-| dembrandt_get_design_tokens | Full extraction — colors, typography, spacing, borders, shadows |
-| dembrandt_get_color_palette | Colors — semantic, CSS variables, palette |
-| dembrandt_get_typography | Fonts, sizes, weights, sources |
-| dembrandt_get_component_styles | Buttons, badges, inputs, links |
-| dembrandt_get_surfaces | Card/surface styles |
-| dembrandt_get_spacing | Margin/padding scales |
-| dembrandt_get_brand_identity | Logo, brand colors, overall feel |
+All tools take \`{ url: string }\` as input. Each launches a real browser and takes 15–40 seconds.
+
+| Tool | What it returns |
+|------|----------------|
+| \`dembrandt_get_design_tokens\` | **Full extraction** — color palette (hex/RGB/LCH/OKLCH) with semantic roles and CSS custom properties, complete typography scale by context (heading/body/button/link/caption) with families + fallbacks + sizes + weights + line heights + letter spacing, spacing system with grid detection, border radii, border patterns, box shadows, component styles (buttons with hover/focus states, inputs, links, badges), breakpoints, logo, favicons, detected frameworks, icon systems. Start here. |
+| \`dembrandt_get_color_palette\` | Semantic colors (primary/secondary/accent), full palette ranked by usage frequency + confidence, CSS custom properties with names, hover/focus state colors. Each color in hex, RGB, LCH, OKLCH. |
+| \`dembrandt_get_typography\` | Every font family + fallback stack, complete type scale grouped by context with px/rem sizes, weights, line heights, letter spacing, text transforms. Font sources: Google Fonts URLs, Adobe Fonts, variable font detection. |
+| \`dembrandt_get_component_styles\` | Button variants with default/hover/active/focus states (bg, color, padding, border-radius, border, shadow, outline, opacity). Input styles. Link styles (color, decoration, hover). Badge/tag styles. |
+| \`dembrandt_get_surfaces\` | Border radii with element context (which radii on buttons vs cards vs inputs vs modals). Border patterns (width + style + color combos). Box shadow elevation levels. |
+| \`dembrandt_get_spacing\` | Common margin/padding values sorted by frequency, px + rem, grid system detection (4px/8px/custom scale). |
+| \`dembrandt_get_brand_identity\` | Site name, logo (source, dimensions, safe zone), all favicon variants (icon/apple-touch-icon/og:image/twitter:image with sizes + URLs), detected CSS frameworks, icon systems, breakpoints. |
 
 ### Extraction-driven decision rules
 
 Every parameter MUST be justified by extracted data:
 
-1. **colors (baseColor, theme, customVars)**: Use the extracted palette and CSS variables as ground truth. Pick baseColor by matching the extracted neutral undertone. Pick theme by the most prominent non-neutral color — if there is none, use a neutral/monochrome theme. Set ALL customVars from exact extracted hex/oklch values. Never invent colors that aren't in the extraction.
+1. **colors (baseColor, theme, customVars)**: Use extracted palette and CSS variables as ground truth. Pick baseColor by matching extracted neutral undertone. Pick theme by most prominent non-neutral color — if none, use neutral/monochrome theme. Set ALL customVars from exact extracted hex/oklch values. Never invent colors not in the extraction.
 
-2. **typography (font, fontHeading)**: Use the extracted font family. If it matches an available font exactly (e.g., "Geist" → "geist"), use it directly. If not (e.g., "Circular"), pick the closest match and explain why. If the site uses a mono font for code/accents, note it.
+2. **typography (font, fontHeading)**: Use extracted font family. If it matches an available font exactly (e.g., "Geist" → "geist"), use it directly. If not (e.g., "Proxima Nova"), pick closest available match (e.g., → "montserrat" from fallback stack) and explain why.
 
-3. **spacing → style**: Map the extracted spacing scale to the closest style. 8px base with compact values → nova/mira. Generous spacing → maia. Standard → vega.
+3. **spacing → style**: Map extracted spacing scale to closest style. 8px base with compact values → nova/mira. Generous spacing → maia. Standard → vega.
 
-4. **borderRadius → radius**: Use the most frequent extracted radius value. 4-6px → "small". ~10px → "default"/"medium". 12px+ → "large". 0px → "none".
+4. **borderRadius → radius**: Use most frequent extracted radius on surfaces/cards. 4–6px → "small". ~10px → "default"/"medium". 12px+ → "large". 0px → "none".
 
-5. **components → menuAccent, menuColor**: Derive from extracted button/nav styles. If buttons are subtle/ghost → "subtle". If navs are dark/inverted → "inverted".
+5. **components → menuAccent, menuColor**: Derive from extracted button/nav styles. Subtle/ghost buttons → "subtle". Dark/inverted navs → "inverted".
 
-6. **Every customVars value must cite its source** from the extraction (e.g., "background: #ffffff — from extracted rgb(255,255,255), count 120, confidence high").
+6. **Every customVars value must cite its source** from the extraction (e.g., "primary: rgb(64,82,74) — extracted button backgroundColor, confidence high").
 
 ### Workflow
-1. Call \`dembrandt_get_design_tokens\` for comprehensive extraction
-2. Parse the result systematically: palette → typography → spacing → radii → components → shadows
+1. Call \`dembrandt_get_design_tokens\` — comprehensive single-call extraction
+2. Parse systematically: palette → typography → spacing → radii → components → shadows
 3. Map each extracted signal to the corresponding designcn parameter
-4. Set customVars using exact extracted values — light mode from direct extraction, dark mode inferred by inverting lightness while preserving hue/chroma
-5. Output preset with detailed citations from extraction data
-6. If extraction data is ambiguous or incomplete for a parameter, say so and explain your fallback reasoning`,
+4. Set customVars from exact extracted values — dark mode inferred by inverting lightness while preserving hue/chroma
+5. Output preset with citations from extraction data
+6. If extraction data is ambiguous or incomplete for a parameter, say so and explain fallback reasoning`,
   model: "openai/gpt-5.4",
 });

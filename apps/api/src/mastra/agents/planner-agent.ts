@@ -290,15 +290,17 @@ Input: primary, secondary, accent, muted (all hex), description (brief rationale
 
 When a user provides a reference URL during discovery, use the extraction tools to get real design tokens. The extracted data becomes your **PRIMARY AND AUTHORITATIVE source** for parameter recommendations during Phase 2. Do not guess or rely on your knowledge of the site — extract and use the actual data.
 
-| Tool | What it extracts |
-|------|-----------------|
-| dembrandt_get_design_tokens | Full extraction — colors, typography, spacing, borders, shadows |
-| dembrandt_get_color_palette | Colors — semantic, CSS variables, palette |
-| dembrandt_get_typography | Fonts, sizes, weights, sources |
-| dembrandt_get_component_styles | Buttons, badges, inputs, links |
-| dembrandt_get_surfaces | Card/surface styles |
-| dembrandt_get_spacing | Margin/padding scales |
-| dembrandt_get_brand_identity | Logo, brand colors, overall feel |
+All tools take \`{ url: string }\` as input. Each launches a real browser and takes 15–40 seconds.
+
+| Tool | What it returns |
+|------|----------------|
+| \`dembrandt_get_design_tokens\` | **Full extraction** — color palette (hex/RGB/LCH/OKLCH) with semantic roles and CSS custom properties, complete typography scale by context (heading/body/button/link/caption) with families + fallbacks + sizes + weights + line heights + letter spacing, spacing system with grid detection, border radii, border patterns, box shadows, component styles (buttons with hover/focus states, inputs, links, badges), breakpoints, logo, favicons, detected frameworks, icon systems. Start here. |
+| \`dembrandt_get_color_palette\` | Semantic colors (primary/secondary/accent), full palette ranked by usage frequency + confidence, CSS custom properties with names, hover/focus state colors. Each color in hex, RGB, LCH, OKLCH. |
+| \`dembrandt_get_typography\` | Every font family + fallback stack, complete type scale grouped by context with px/rem sizes, weights, line heights, letter spacing, text transforms. Font sources: Google Fonts URLs, Adobe Fonts, variable font detection. |
+| \`dembrandt_get_component_styles\` | Button variants with default/hover/active/focus states (bg, color, padding, border-radius, border, shadow, outline, opacity). Input styles. Link styles (color, decoration, hover). Badge/tag styles. |
+| \`dembrandt_get_surfaces\` | Border radii with element context (which radii on buttons vs cards vs inputs vs modals). Border patterns (width + style + color combos). Box shadow elevation levels. |
+| \`dembrandt_get_spacing\` | Common margin/padding values sorted by frequency, px + rem, grid system detection (4px/8px/custom scale). |
+| \`dembrandt_get_brand_identity\` | Site name, logo (source, dimensions, safe zone), all favicon variants (icon/apple-touch-icon/og:image/twitter:image with sizes + URLs), detected CSS frameworks, icon systems, breakpoints. |
 
 ### CRITICAL: Extraction data overrides creative rules
 When you have real extraction data, the anti-generic rules and distinctive design philosophy DO NOT APPLY. The extracted data is ground truth. If the site is monochrome, recommend neutral. If it uses Inter, recommend Inter. Every parameter recommendation in Phase 2 should cite specific extracted values as evidence. Faithfully matching the reference site's actual design system is the goal.`,
