@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function FormCreatorPage() {
+function FormCreatorRedirect() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -13,4 +13,12 @@ export default function FormCreatorPage() {
   }, [router, searchParams]);
 
   return null;
+}
+
+export default function FormCreatorPage() {
+  return (
+    <React.Suspense fallback={null}>
+      <FormCreatorRedirect />
+    </React.Suspense>
+  );
 }
