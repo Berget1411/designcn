@@ -46,10 +46,16 @@ export function ThemePicker({
 
   const customVars = React.useMemo(() => decodeCustomThemeVars(params.vars), [params.vars]);
 
-  const themeColorVar = currentThemeIsBaseColor ? "muted-foreground" : "primary";
+  // For display: base-color themes use muted-foreground as representative swatch,
+  // colored themes use primary.
+  const displayVar = currentThemeIsBaseColor ? "muted-foreground" : "primary";
+
+  // Custom color overrides always target `primary` — the theme accent variable.
+  // This avoids colliding with BaseColorPicker which writes `muted-foreground`.
+  const customWriteVar = "primary";
 
   const displayColor =
-    customVars?.dark?.[themeColorVar] ?? currentTheme?.cssVars?.dark?.[themeColorVar];
+    customVars?.dark?.[customWriteVar] ?? currentTheme?.cssVars?.dark?.[displayVar];
 
   const nativeColorValue = React.useMemo(() => {
     if (!mounted || !displayColor) return "#000000";
@@ -64,18 +70,18 @@ export function ThemePicker({
           ...latestVars,
           light: {
             ...(latestVars.light ?? {}),
-            [themeColorVar]: hex,
+            [customWriteVar]: hex,
           },
           dark: {
             ...(latestVars.dark ?? {}),
-            [themeColorVar]: hex,
+            [customWriteVar]: hex,
           },
         };
         const encoded = encodeCustomThemeVars(next);
         return { custom: Boolean(encoded), vars: encoded };
       });
     },
-    [themeColorVar, setParams],
+    [setParams],
   );
 
   // Only auto-correct theme if it's truly invalid for the current baseColor,
@@ -104,7 +110,7 @@ export function ThemePicker({
             <div className="text-xs text-muted-foreground">Theme</div>
             <div className="text-sm font-medium text-foreground">
               {currentTheme?.title}
-              {customVars?.dark?.[themeColorVar] ? " (Custom)" : ""}
+              {customVars?.dark?.[customWriteVar] ? " (Custom)" : ""}
             </div>
           </div>
           {mounted && (

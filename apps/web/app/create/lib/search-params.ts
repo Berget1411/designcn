@@ -273,10 +273,13 @@ export function useDesignSystemSearchParams(options: Options = {}) {
       // Cast needed: merged values may include null from nuqs resets,
       // but encodePreset handles missing values by falling back to defaults.
       const code = getPresetCode(merged);
+      // Preserve existing custom vars when only design-system keys change
+      // (e.g. switching baseColor via radio). Only clear vars when the caller
+      // explicitly passes vars/custom, or when a preset is being loaded.
       const nextVars =
         "vars" in resolvedUpdates
           ? ((resolvedUpdates as Partial<DesignSystemSearchParams>).vars ?? null)
-          : null;
+          : (paramsRef.current.vars ?? null);
       const nextCustom =
         "custom" in resolvedUpdates
           ? Boolean((resolvedUpdates as Partial<DesignSystemSearchParams>).custom)

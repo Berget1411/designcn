@@ -40,6 +40,8 @@ export function useReset() {
       radius: preset.radius,
       template: DEFAULT_CONFIG.template,
       item: params.item,
+      vars: null,
+      custom: false,
     });
   }, [setParams, params.base, params.style, params.item]);
 

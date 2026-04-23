@@ -78,6 +78,7 @@ export function PresetPicker({
       menuAccent: preset.menuAccent,
       menuColor: preset.menuColor,
       radius: preset.radius,
+      vars: null,
       custom: false,
     });
   };

@@ -124,6 +124,8 @@ export function useRandom() {
       menuAccent: selectedMenuAccent,
       menuColor: selectedMenuColor,
       radius: selectedRadius,
+      vars: null,
+      custom: false,
     };
 
     // Keep the ref in sync so rapid repeats use the latest randomized state

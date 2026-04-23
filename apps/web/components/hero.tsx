@@ -3,11 +3,12 @@ import type { JSX } from "react";
 import { Button } from "@workspace/ui/components/button";
 import { cn } from "@workspace/ui/lib/utils";
 import {
+  AstroIcon,
   LaravelIcon,
   NextJSIcon,
-  NodeJSIcon,
-  ReactIcon,
-  TailwindCSSIcon,
+  ReactRouterIcon,
+  TanStackIcon,
+  ViteIcon,
 } from "@/components/hero-01-icons";
 
 export function Hero() {
@@ -221,11 +222,12 @@ function MainContent({ className }: { className?: string }) {
         <div className="absolute -top-2 right-0 z-1 block h-10 w-20 bg-background mask-[linear-gradient(to_left,white,transparent)] lg:hidden" />
 
         <div className="no-scrollbar flex items-center gap-4 overflow-x-auto px-4 lg:px-0">
-          <TechItem icon={<NodeJSIcon />} title="Node.js" />
-          <TechItem icon={<LaravelIcon />} title="Laravel" />
           <TechItem icon={<NextJSIcon />} title="Next.js" />
-          <TechItem icon={<ReactIcon />} title="React" />
-          <TechItem icon={<TailwindCSSIcon />} title="Tailwind CSS" />
+          <TechItem icon={<ViteIcon />} title="Vite" />
+          <TechItem icon={<ReactRouterIcon />} title="React Router" />
+          <TechItem icon={<AstroIcon />} title="Astro" />
+          <TechItem icon={<LaravelIcon />} title="Laravel" />
+          <TechItem icon={<TanStackIcon />} title="TanStack Start" />
         </div>
       </div>
     </div>
