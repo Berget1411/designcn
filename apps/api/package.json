@@ -13,17 +13,21 @@
     "deploy:secrets": "cat .env.local .env.production > .env.deploy && wrangler secret bulk .env.deploy --config .mastra/output/wrangler.json && rm .env.deploy"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^3.0.53",
     "@ai-sdk/openai-compatible": "^2.0.41",
     "@mastra/ai-sdk": "^1.4.0",
     "@mastra/auth-better-auth": "latest",
     "@mastra/core": "latest",
     "@mastra/deployer-cloudflare": "^1.1.23",
+    "@mastra/pg": "^1.9.1",
     "@mastra/server": "latest",
     "@polar-sh/sdk": "^0.47.0",
     "@workspace/db": "workspace:*",
+    "@workspace/forms": "workspace:*",
+    "ai": "^6.0.168",
     "better-auth": "^1.6.5",
     "drizzle-orm": "^0.45.2",
-    "zod": "^3.25.0"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^25.1.0",

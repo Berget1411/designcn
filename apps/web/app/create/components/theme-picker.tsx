@@ -58,25 +58,40 @@ export function ThemePicker({
 
   const handleColorPick = React.useCallback(
     (hex: string) => {
-      const next = {
-        ...customVars,
-        light: {
-          ...(customVars.light ?? {}),
-          [themeColorVar]: hex,
-        },
-        dark: {
-          ...(customVars.dark ?? {}),
-          [themeColorVar]: hex,
-        },
-      };
-      const encoded = encodeCustomThemeVars(next);
-      setParams({ custom: Boolean(encoded), vars: encoded });
+      setParams((prev) => {
+        const latestVars = decodeCustomThemeVars(prev.vars);
+        const next = {
+          ...latestVars,
+          light: {
+            ...(latestVars.light ?? {}),
+            [themeColorVar]: hex,
+          },
+          dark: {
+            ...(latestVars.dark ?? {}),
+            [themeColorVar]: hex,
+          },
+        };
+        const encoded = encodeCustomThemeVars(next);
+        return { custom: Boolean(encoded), vars: encoded };
+      });
     },
-    [customVars, themeColorVar, setParams],
+    [themeColorVar, setParams],
   );
 
+  // Only auto-correct theme if it's truly invalid for the current baseColor,
+  // not during transient renders where params haven't settled yet.
+  const hasInitializedTheme = React.useRef(false);
   React.useEffect(() => {
-    if (!currentTheme && themes.length > 0) {
+    if (currentTheme) {
+      hasInitializedTheme.current = true;
+      return;
+    }
+    // Skip auto-reset on first render — let normalizeDesignSystemParams handle it.
+    if (!hasInitializedTheme.current) {
+      hasInitializedTheme.current = true;
+      return;
+    }
+    if (themes.length > 0) {
       setParams({ theme: themes[0].name });
     }
   }, [currentTheme, themes, setParams]);

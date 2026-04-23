@@ -32,14 +32,16 @@ import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
 import { useSession, useSubscription } from "@/lib/auth-client";
 import { DEFAULT_CONFIG, type DesignSystemConfig } from "@/registry/config";
 import { useTRPC } from "@/trpc/client";
+import { useLocalForms } from "@/form-builder/hooks/use-local-forms";
 import { useChat } from "@ai-sdk/react";
 import { useQuery } from "@tanstack/react-query";
-import { DefaultChatTransport } from "ai";
+import { DefaultChatTransport, lastAssistantMessageIsCompleteWithApprovalResponses } from "ai";
 import { Popover, PopoverContent, PopoverTrigger } from "@workspace/ui/components/popover";
 import {
   AlertCircleIcon,
   ChevronDownIcon,
   EyeIcon,
+  FileTextIcon,
   GlobeIcon,
   HeartIcon,
   ListOrderedIcon,
@@ -51,12 +53,22 @@ import {
   XIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { decodePreset } from "shadcn/preset";
 import { toast } from "sonner";
 import { ChatMessage, extractPresetFromText, type PaletteColors } from "./chat-message";
+import {
+  type AiMode,
+  extractLatestFormToolResult,
+  extractLatestSavedFormToolResult,
+  FORM_SUGGESTIONS,
+  getFormContextMessages,
+  toFormBuilderElements,
+} from "./form-mode";
+import { FormPreviewPanel } from "./form-preview-panel";
 import { PresetPreviewPanel } from "./preset-preview";
-import { usePreviewHistory, type PreviewEntry } from "./use-preview-history";
+import { usePreviewHistory } from "./use-preview-history";
 
 const MASTRA_URL = process.env.NEXT_PUBLIC_MASTRA_API_URL ?? "http://localhost:4111";
 
@@ -69,6 +81,13 @@ const PLAN_SUGGESTIONS = [
   "I have a brand in mind",
   "Redesign my current theme",
 ];
+
+function getModeFromSearchParam(value: string | null): AiMode {
+  if (value === "plan" || value === "form") {
+    return value;
+  }
+  return "preset";
+}
 
 function isAuthError(error: Error): boolean {
   const msg = error.message.toLowerCase();
@@ -137,9 +156,12 @@ function decodePresetContext(presetCode: string, name: string): string {
 // ---------------------------------------------------------------------------
 
 function AiChatInner() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const { data: session, isPending: isSessionLoading } = useSession();
   const isAuthed = !!session?.user;
   const { plan, isPending: isPlanPending } = useSubscription();
+  const mode = getModeFromSearchParam(searchParams.get("mode"));
   const isPro = plan === "pro";
   const {
     used,
@@ -166,9 +188,8 @@ function AiChatInner() {
       staleTime: 30_000,
     }),
   );
-
-  // Plan mode
-  const [isPlanMode, setIsPlanMode] = useState(false);
+  const setLocalForm = useLocalForms((state) => state.setForm);
+  const hasLocalFormsHydrated = useLocalForms((state) => state.hasHydrated);
 
   // Selected preset for context
   const [selectedPresetKey, setSelectedPresetKey] = useState<string | null>(null);
@@ -176,6 +197,12 @@ function AiChatInner() {
 
   // Color palette context
   const [colorPalette, setColorPalette] = useState<ColorPalette | null>(null);
+  const [pendingFormIntent, setPendingFormIntent] = useState<"generate" | "save" | null>(null);
+  const [latestSavedDraftInfo, setLatestSavedDraftInfo] = useState<{
+    draftId: string;
+    sourceToolCallId: string;
+  } | null>(null);
+  const persistedSaveToolCallIdsRef = useRef(new Set<string>());
 
   // Resolve selected preset to { name, presetCode }
   const selectedPresetInfo = useMemo(() => {
@@ -210,8 +237,21 @@ function AiChatInner() {
     [],
   );
 
+  const formTransport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        api: `${MASTRA_URL}/chat/form`,
+        credentials: "include",
+        body: {
+          mode: "form",
+        },
+      }),
+    [],
+  );
+
   const chatErrorHandler = useCallback(
     (error: Error) => {
+      setPendingFormIntent(null);
       if (isAuthError(error)) {
         toast.error("Sign in required", {
           description: "Please sign in to use the AI assistant.",
@@ -251,8 +291,28 @@ function AiChatInner() {
     onError: chatErrorHandler,
   });
 
-  const activeChat = isPlanMode ? plannerChat : presetChat;
-  const { messages, sendMessage, status, stop, error, clearError } = activeChat;
+  const formChat = useChat({
+    id: "form-chat",
+    transport: formTransport,
+    sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithApprovalResponses,
+    onFinish() {
+      setPendingFormIntent(null);
+      refetchUsage();
+    },
+    onError: chatErrorHandler,
+  });
+
+  const activeChat = mode === "plan" ? plannerChat : mode === "form" ? formChat : presetChat;
+  const {
+    messages,
+    sendMessage,
+    setMessages,
+    status,
+    stop,
+    error,
+    clearError,
+    addToolApprovalResponse,
+  } = activeChat;
 
   // Preview panel — always visible from start, with version history
   const [previewPanelVisible, setPreviewPanelVisible] = useState(true);
@@ -279,6 +339,35 @@ function AiChatInner() {
     }
     return null;
   }, [messages]);
+
+  const latestFormToolResult = useMemo(
+    () => extractLatestFormToolResult(formChat.messages),
+    [formChat.messages],
+  );
+  const latestSavedFormToolResult = useMemo(
+    () => extractLatestSavedFormToolResult(formChat.messages),
+    [formChat.messages],
+  );
+  const currentFormDraft = latestFormToolResult?.result.form ?? null;
+  const savedDraftId =
+    latestSavedDraftInfo &&
+    latestFormToolResult?.toolCallId === latestSavedDraftInfo.sourceToolCallId
+      ? latestSavedDraftInfo.draftId
+      : null;
+
+  const setMode = useCallback(
+    (nextMode: AiMode) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (nextMode === "preset") {
+        params.delete("mode");
+      } else {
+        params.set("mode", nextMode);
+      }
+      const query = params.toString();
+      router.replace(query ? `/ai?${query}` : "/ai");
+    },
+    [router, searchParams],
+  );
 
   // Push reference preset into history when user selects one
   const prevSelectedPresetRef = useRef(selectedPresetInfo);
@@ -330,6 +419,36 @@ function AiChatInner() {
     prevLatestPresetRef.current = latestPreset;
   }, [latestPreset, previewHistory]);
 
+  useEffect(() => {
+    if (!hasLocalFormsHydrated || !latestSavedFormToolResult) {
+      return;
+    }
+
+    if (persistedSaveToolCallIdsRef.current.has(latestSavedFormToolResult.toolCallId)) {
+      return;
+    }
+
+    const draftId = crypto.randomUUID();
+    const now = new Date().toISOString();
+    const { formElements, isMS } = toFormBuilderElements(latestSavedFormToolResult.result.form);
+
+    setLocalForm({
+      id: draftId,
+      name: latestSavedFormToolResult.result.title,
+      formElements,
+      isMS,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    persistedSaveToolCallIdsRef.current.add(latestSavedFormToolResult.toolCallId);
+    setLatestSavedDraftInfo({
+      draftId,
+      sourceToolCallId: latestSavedFormToolResult.toolCallId,
+    });
+    toast.success("Draft saved locally");
+  }, [hasLocalFormsHydrated, latestSavedFormToolResult, setLocalForm]);
+
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
       if (!message.text.trim() && message.files.length === 0) return;
@@ -349,6 +468,20 @@ function AiChatInner() {
       }
       if (status === "error") clearError();
 
+      if (mode === "form") {
+        setPendingFormIntent("generate");
+        sendMessage(
+          { text: message.text },
+          {
+            body: {
+              context: getFormContextMessages(currentFormDraft, "generate"),
+            },
+          },
+        );
+        if (!isPro) incrementUsage();
+        return;
+      }
+
       // Build text with optional context
       let text = message.text;
       if (selectedPresetInfo) {
@@ -364,6 +497,7 @@ function AiChatInner() {
       if (!isPro) incrementUsage();
     },
     [
+      mode,
       sendMessage,
       isAuthed,
       isLimitReached,
@@ -373,6 +507,7 @@ function AiChatInner() {
       incrementUsage,
       selectedPresetInfo,
       colorPalette,
+      currentFormDraft,
     ],
   );
 
@@ -392,15 +527,67 @@ function AiChatInner() {
         });
         return;
       }
-      sendMessage({ text: suggestion });
+      if (mode === "form") {
+        setPendingFormIntent("generate");
+        sendMessage(
+          { text: suggestion },
+          {
+            body: {
+              context: getFormContextMessages(currentFormDraft, "generate"),
+            },
+          },
+        );
+      } else {
+        sendMessage({ text: suggestion });
+      }
       if (!isPro) incrementUsage();
     },
-    [sendMessage, isAuthed, isLimitReached, isPro, incrementUsage],
+    [sendMessage, isAuthed, isLimitReached, isPro, incrementUsage, mode, currentFormDraft],
   );
 
   const handleApplyPalette = useCallback((palette: PaletteColors) => {
     setColorPalette(palette);
   }, []);
+
+  const handleSaveDraft = useCallback(() => {
+    if (!currentFormDraft) {
+      return;
+    }
+    if (!isAuthed || isLimitReached) {
+      return;
+    }
+    if (status === "error") {
+      clearError();
+    }
+    setPendingFormIntent("save");
+    sendMessage(
+      { text: `Save the current draft "${currentFormDraft.title}"` },
+      {
+        body: {
+          context: getFormContextMessages(currentFormDraft, "save"),
+        },
+      },
+    );
+    if (!isPro) {
+      incrementUsage();
+    }
+  }, [
+    clearError,
+    currentFormDraft,
+    incrementUsage,
+    isAuthed,
+    isLimitReached,
+    isPro,
+    sendMessage,
+    status,
+  ]);
+
+  const handleNewForm = useCallback(() => {
+    setPendingFormIntent(null);
+    setLatestSavedDraftInfo(null);
+    setMessages([]);
+    setPreviewPanelVisible(true);
+  }, [setMessages]);
 
   const isEmpty = messages.length === 0;
   const showAuthError = error && isAuthError(error);
@@ -416,22 +603,32 @@ function AiChatInner() {
           <ConversationContent>
             {isEmpty && !showAuthError && !showLimitError ? (
               <ConversationEmptyState
-                title={isPlanMode ? "Let's build your design system" : "What can I help you theme?"}
+                title={
+                  mode === "plan"
+                    ? "Let's build your design system"
+                    : mode === "form"
+                      ? "What form should I build?"
+                      : "What can I help you theme?"
+                }
                 description={
                   isHydrating
                     ? ""
                     : isAuthed
-                      ? isPlanMode
+                      ? mode === "plan"
                         ? "I'll learn about your brand, then guide you through each design decision"
-                        : "Describe your ideal design system, upload a reference image, or pick a quick style"
+                        : mode === "form"
+                          ? "Describe the form you want, then keep refining it while the live preview and code update on the right."
+                          : "Describe your ideal design system, upload a reference image, or pick a quick style"
                       : "Sign in to start creating themes"
                 }
                 icon={
                   isHydrating ? (
                     <SparklesIcon className="size-8 animate-pulse opacity-50" />
                   ) : isAuthed ? (
-                    isPlanMode ? (
+                    mode === "plan" ? (
                       <ListOrderedIcon className="size-8" />
+                    ) : mode === "form" ? (
+                      <FileTextIcon className="size-8" />
                     ) : (
                       <SparklesIcon className="size-8" />
                     )
@@ -448,6 +645,7 @@ function AiChatInner() {
                     message={msg}
                     isStreaming={status === "streaming" && msg === messages.at(-1)}
                     onApplyPalette={handleApplyPalette}
+                    onToolApprovalResponse={addToolApprovalResponse}
                   />
                 ))}
                 {showAuthError && (
@@ -506,9 +704,17 @@ function AiChatInner() {
         <div className="grid shrink-0 gap-4 pt-4">
           {isEmpty && isAuthed && !isHydrating && !isLimitReached && (
             <Suggestions className="px-4">
-              {isPlanMode ? (
+              {mode === "plan" ? (
                 PLAN_SUGGESTIONS.map((s) => (
                   <Suggestion key={s} suggestion={s} onClick={handleSuggestionClick} />
+                ))
+              ) : mode === "form" ? (
+                FORM_SUGGESTIONS.map((suggestion) => (
+                  <Suggestion
+                    key={suggestion}
+                    suggestion={suggestion}
+                    onClick={handleSuggestionClick}
+                  />
                 ))
               ) : (
                 <>
@@ -541,7 +747,7 @@ function AiChatInner() {
                   >
                     Sign in
                   </Link>{" "}
-                  to use the AI theme generator
+                  to use the AI assistant
                 </span>
               </div>
             ) : isLimitReached ? (
@@ -561,14 +767,14 @@ function AiChatInner() {
             ) : (
               <PromptInput
                 onSubmit={handleSubmit}
-                accept="image/*"
-                maxFiles={3}
-                maxFileSize={4 * 1024 * 1024}
+                accept={mode === "form" ? undefined : "image/*"}
+                maxFiles={mode === "form" ? undefined : 3}
+                maxFileSize={mode === "form" ? undefined : 4 * 1024 * 1024}
                 onError={(err) => toast.error(err.message)}
               >
                 <PromptInputHeader>
-                  <InputAttachmentPreviews />
-                  {colorPalette && (
+                  {mode !== "form" && <InputAttachmentPreviews />}
+                  {mode !== "form" && colorPalette && (
                     <ColorPalettePill
                       palette={colorPalette}
                       onRemove={() => setColorPalette(null)}
@@ -576,34 +782,51 @@ function AiChatInner() {
                   )}
                 </PromptInputHeader>
                 <PromptInputBody>
-                  <PromptInputTextarea placeholder="Describe your ideal theme..." />
+                  <PromptInputTextarea
+                    placeholder={
+                      mode === "form"
+                        ? "Describe the form you want to build..."
+                        : "Describe your ideal theme..."
+                    }
+                  />
                 </PromptInputBody>
                 <PromptInputFooter>
                   <div className="flex items-center gap-2">
-                    <PromptInputActionMenu>
-                      <PromptInputActionMenuTrigger />
-                      <PromptInputActionMenuContent>
-                        <PromptInputActionAddAttachments label="Upload image" />
-                      </PromptInputActionMenuContent>
-                    </PromptInputActionMenu>
+                    {mode !== "form" && (
+                      <PromptInputActionMenu>
+                        <PromptInputActionMenuTrigger />
+                        <PromptInputActionMenuContent>
+                          <PromptInputActionAddAttachments label="Upload image" />
+                        </PromptInputActionMenuContent>
+                      </PromptInputActionMenu>
+                    )}
 
                     <PlanModeToggle
-                      active={isPlanMode}
-                      onToggle={() => setIsPlanMode((prev) => !prev)}
+                      active={mode === "plan"}
+                      onToggle={() => setMode(mode === "plan" ? "preset" : "plan")}
                     />
 
-                    <ColorPalettePicker value={colorPalette} onChange={setColorPalette} />
-
-                    <ExtractWebsiteButton />
-
-                    <PresetSelector
-                      open={presetMenuOpen}
-                      onOpenChange={setPresetMenuOpen}
-                      value={selectedPresetKey}
-                      onChange={setSelectedPresetKey}
-                      savedPresets={savedPresets}
-                      likedPresets={likedPresets}
+                    <FormModeToggle
+                      active={mode === "form"}
+                      onToggle={() => setMode(mode === "form" ? "preset" : "form")}
                     />
+
+                    {mode === "preset" && (
+                      <>
+                        <ColorPalettePicker value={colorPalette} onChange={setColorPalette} />
+
+                        <ExtractWebsiteButton />
+
+                        <PresetSelector
+                          open={presetMenuOpen}
+                          onOpenChange={setPresetMenuOpen}
+                          value={selectedPresetKey}
+                          onChange={setSelectedPresetKey}
+                          savedPresets={savedPresets}
+                          likedPresets={likedPresets}
+                        />
+                      </>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -643,17 +866,30 @@ function AiChatInner() {
       {/* Preview panel */}
       {previewPanelVisible && (
         <div className="w-1/2">
-          <PresetPreviewPanel
-            config={previewHistory.current.config}
-            customVars={previewHistory.current.customVars}
-            onClose={() => setPreviewPanelVisible(false)}
-            canGoBack={previewHistory.canGoBack}
-            canGoForward={previewHistory.canGoForward}
-            onGoBack={previewHistory.goBack}
-            onGoForward={previewHistory.goForward}
-            historyPosition={previewHistory.currentPosition}
-            historyLength={previewHistory.historyLength}
-          />
+          {mode === "form" ? (
+            <FormPreviewPanel
+              form={currentFormDraft}
+              isGenerating={pendingFormIntent === "generate"}
+              isSaving={pendingFormIntent === "save"}
+              hasHydratedDrafts={hasLocalFormsHydrated}
+              savedDraftId={savedDraftId}
+              onClose={() => setPreviewPanelVisible(false)}
+              onSaveDraft={handleSaveDraft}
+              onNewForm={handleNewForm}
+            />
+          ) : (
+            <PresetPreviewPanel
+              config={previewHistory.current.config}
+              customVars={previewHistory.current.customVars}
+              onClose={() => setPreviewPanelVisible(false)}
+              canGoBack={previewHistory.canGoBack}
+              canGoForward={previewHistory.canGoForward}
+              onGoBack={previewHistory.goBack}
+              onGoForward={previewHistory.goForward}
+              historyPosition={previewHistory.currentPosition}
+              historyLength={previewHistory.historyLength}
+            />
+          )}
         </div>
       )}
 
@@ -934,6 +1170,23 @@ function PlanModeToggle({ active, onToggle }: { active: boolean; onToggle: () =>
     >
       <ListOrderedIcon className="size-3" />
       <span>Plan</span>
+    </button>
+  );
+}
+
+function FormModeToggle({ active, onToggle }: { active: boolean; onToggle: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className={`flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs transition-colors ${
+        active
+          ? "border-primary bg-primary/10 text-primary"
+          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+      }`}
+    >
+      <FileTextIcon className="size-3" />
+      <span>Create form</span>
     </button>
   );
 }

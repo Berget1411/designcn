@@ -1,13 +1,19 @@
 import { Mastra } from "@mastra/core";
 import { chatRoute } from "@mastra/ai-sdk";
 import { CloudflareDeployer } from "@mastra/deployer-cloudflare";
+import { PostgresStore } from "@mastra/pg";
+import { formAgent } from "./agents/form-agent";
 import { plannerAgent } from "./agents/planner-agent";
 import { presetAgent } from "./agents/preset-agent";
 import { mastraAuth } from "./auth";
 import { usageLimitMiddleware } from "./usage";
 
 export const mastra = new Mastra({
-  agents: { presetAgent, plannerAgent },
+  agents: { presetAgent, plannerAgent, formAgent },
+  storage: new PostgresStore({
+    id: "designcn-mastra-storage",
+    connectionString: process.env.DATABASE_URL!,
+  }),
   deployer: new CloudflareDeployer({
     name: "designcn-api",
     compatibility_date: "2025-04-01",
@@ -30,6 +36,11 @@ export const mastra = new Mastra({
         agent: "plannerAgent",
         version: "v6",
       }),
+      chatRoute({
+        path: "/chat/form",
+        agent: "formAgent",
+        version: "v6",
+      }),
     ],
     middleware: [
       {
@@ -38,6 +49,10 @@ export const mastra = new Mastra({
       },
       {
         path: "/chat/planner",
+        handler: usageLimitMiddleware,
+      },
+      {
+        path: "/chat/form",
         handler: usageLimitMiddleware,
       },
     ],

@@ -2,6 +2,7 @@ import { createAuth } from "@workspace/auth/server";
 import { nextCookies } from "better-auth/next-js";
 import { db } from "@workspace/db";
 import * as schema from "@workspace/db/auth-schema";
+import { ENABLE_SUBSCRIPTIONS } from "@/lib/features";
 
 const cookieDomain = process.env.BETTER_AUTH_COOKIE_DOMAIN;
 const mastraApiUrl = process.env.NEXT_PUBLIC_MASTRA_API_URL;
@@ -47,13 +48,15 @@ export const auth = createAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     },
   },
-  polar: {
-    accessToken: process.env.POLAR_ACCESS_TOKEN!,
-    server: "sandbox",
-    productId: process.env.POLAR_PRO_PRODUCT_ID!,
-    successUrl: process.env.POLAR_SUCCESS_URL!,
-    webhookSecret: process.env.POLAR_WEBHOOK_SECRET!,
-  },
+  polar: ENABLE_SUBSCRIPTIONS
+    ? {
+        accessToken: process.env.POLAR_ACCESS_TOKEN!,
+        server: "sandbox",
+        productId: process.env.POLAR_PRO_PRODUCT_ID!,
+        successUrl: process.env.POLAR_SUCCESS_URL!,
+        webhookSecret: process.env.POLAR_WEBHOOK_SECRET!,
+      }
+    : undefined,
   plugins: [
     nextCookies(), // must be last
   ],

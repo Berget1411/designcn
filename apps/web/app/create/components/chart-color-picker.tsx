@@ -75,25 +75,40 @@ export function ChartColorPicker({
   const handleColorPick = React.useCallback(
     (hex: string) => {
       const palette = generateChartPalette(hex);
-      const next = {
-        ...customVars,
-        light: {
-          ...(customVars.light ?? {}),
-          ...palette,
-        },
-        dark: {
-          ...(customVars.dark ?? {}),
-          ...palette,
-        },
-      };
-      const encoded = encodeCustomThemeVars(next);
-      setParams({ custom: Boolean(encoded), vars: encoded });
+      setParams((prev) => {
+        const latestVars = decodeCustomThemeVars(prev.vars);
+        const next = {
+          ...latestVars,
+          light: {
+            ...(latestVars.light ?? {}),
+            ...palette,
+          },
+          dark: {
+            ...(latestVars.dark ?? {}),
+            ...palette,
+          },
+        };
+        const encoded = encodeCustomThemeVars(next);
+        return { custom: Boolean(encoded), vars: encoded };
+      });
     },
-    [customVars, setParams],
+    [setParams],
   );
 
+  // Only auto-correct chartColor if it's truly invalid for the current baseColor,
+  // not during transient renders where params haven't settled yet.
+  const hasInitializedChartColor = React.useRef(false);
   React.useEffect(() => {
-    if (!currentChartColor && availableChartColors.length > 0) {
+    if (currentChartColor) {
+      hasInitializedChartColor.current = true;
+      return;
+    }
+    // Skip auto-reset on first render — let normalizeDesignSystemParams handle it.
+    if (!hasInitializedChartColor.current) {
+      hasInitializedChartColor.current = true;
+      return;
+    }
+    if (availableChartColors.length > 0) {
       setParams({ chartColor: availableChartColors[0].name });
     }
   }, [currentChartColor, availableChartColors, setParams]);

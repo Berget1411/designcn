@@ -43,9 +43,7 @@ export function LocalFormsMenu({ className }: { className?: string }) {
         </PickerGroup>
         <PickerSeparator />
         <PickerGroup>
-          <PickerItem onClick={() => router.push("/ai-form-generator")}>
-            AI Form Generator
-          </PickerItem>
+          <PickerItem onClick={() => router.push("/ai?mode=form")}>AI Form Generator</PickerItem>
         </PickerGroup>
       </PickerContent>
     </Picker>

@@ -23,8 +23,8 @@ import {
 } from "@/form-builder/form-types";
 import useFormBuilderStore from "@/form-builder/hooks/use-form-builder-store";
 import useLocalForms from "@/form-builder/hooks/use-local-forms";
-import { aiFormSchema } from "@/form-builder/lib/ai-form-schema";
 import { MultiStepFormPreview } from "../preview/multi-step-form-preview";
+import { aiFormSchema } from "@workspace/forms";
 
 // const list = [];
 function RenderFormWhileStreaming({ list, form }: { list: FormElement[] | undefined; form: any }) {
@@ -111,7 +111,7 @@ const useAiFormGenerator = () => {
   const inputRef = React.useRef<HTMLTextAreaElement | null>(null);
 
   const { object, submit, isLoading, error, stop } = useObject({
-    api: `/api/generate?prompt=${encodeURIComponent(prompt)}`,
+    api: `/api/generate`,
     schema: aiFormSchema,
     // initialValue: {
     //   form: {

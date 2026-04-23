@@ -251,7 +251,7 @@ export function MyForms() {
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <Link href="/ai-form-generator">
+              <Link href="/ai?mode=form">
                 <Button variant="default" className="rounded-xl">
                   <BsStars />
                   AI Form Generator

@@ -1,7 +1,10 @@
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@workspace/ui/components/button";
+import { ENABLE_SUBSCRIPTIONS } from "@/lib/features";
 
 export default function CheckoutSuccessPage() {
+  if (!ENABLE_SUBSCRIPTIONS) redirect("/");
   return (
     <div className="flex min-h-svh flex-col items-center justify-center px-4 text-center">
       <h1 className="font-heading text-3xl font-semibold tracking-tight">Welcome to Pro!</h1>

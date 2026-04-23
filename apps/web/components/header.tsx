@@ -27,6 +27,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@workspace/ui/components/navigation-menu";
 import { cn } from "@workspace/ui/lib/utils";
+import { ENABLE_AI, ENABLE_SUBSCRIPTIONS } from "@/lib/features";
 
 const createItems = [
   {
@@ -75,11 +76,13 @@ export function Header({ stars }: { stars?: React.ReactNode }) {
                 <Link href="/presets">My Presets</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/ai">AI</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
+            {ENABLE_AI && (
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link href="/ai">AI</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            )}
             <NavigationMenuItem>
               <NavigationMenuTrigger>Create</NavigationMenuTrigger>
               <NavigationMenuContent
@@ -104,15 +107,15 @@ export function Header({ stars }: { stars?: React.ReactNode }) {
     <div className="flex items-center gap-3">
       {stars}
       <ThemeSwitcher />
-      {!isPending && session && subscriptionPending && (
+      {ENABLE_SUBSCRIPTIONS && !isPending && session && subscriptionPending && (
         <Skeleton className="h-7 w-16 rounded-full" />
       )}
-      {!isPending && session && !subscriptionPending && plan === "free" && (
+      {ENABLE_SUBSCRIPTIONS && !isPending && session && !subscriptionPending && plan === "free" && (
         <Button size="sm" variant="outline" asChild>
           <Link href="/pricing">Upgrade</Link>
         </Button>
       )}
-      {!isPending && session && !subscriptionPending && plan === "pro" && (
+      {ENABLE_SUBSCRIPTIONS && !isPending && session && !subscriptionPending && plan === "pro" && (
         <Badge variant="secondary">Pro</Badge>
       )}
       {isPending ? (
@@ -142,7 +145,7 @@ export function Header({ stars }: { stars?: React.ReactNode }) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {plan === "pro" && (
+            {ENABLE_SUBSCRIPTIONS && plan === "pro" && (
               <DropdownMenuItem onSelect={() => authClient.customer.portal()}>
                 Manage Subscription
               </DropdownMenuItem>

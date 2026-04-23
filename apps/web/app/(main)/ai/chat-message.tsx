@@ -15,6 +15,15 @@ import {
 } from "@/components/ai-elements/queue";
 import { Reasoning, ReasoningContent, ReasoningTrigger } from "@/components/ai-elements/reasoning";
 import {
+  Confirmation,
+  ConfirmationAccepted,
+  ConfirmationAction,
+  ConfirmationActions,
+  ConfirmationRejected,
+  ConfirmationRequest,
+  ConfirmationTitle,
+} from "@/components/ai-elements/confirmation";
+import {
   type CustomThemeVars,
   encodeCustomThemeVars,
   hasCustomThemeVars,
@@ -26,9 +35,19 @@ import {
   THEMES,
   type DesignSystemConfig,
 } from "@/registry/config";
+import type { FormToolResult } from "./form-mode";
 import type { UIMessage } from "ai";
-import { CheckIcon, ClipboardIcon, ExternalLinkIcon, Loader2Icon, PaletteIcon } from "lucide-react";
+import {
+  CheckIcon,
+  ClipboardIcon,
+  ExternalLinkIcon,
+  FileTextIcon,
+  Loader2Icon,
+  PaletteIcon,
+  SaveIcon,
+} from "lucide-react";
 import Link from "next/link";
+import type { ComponentProps } from "react";
 import { memo, useCallback, useMemo, useState } from "react";
 
 // ---------------------------------------------------------------------------
@@ -591,6 +610,131 @@ function PaletteCard({
   );
 }
 
+type ToolApprovalRequest = ComponentProps<typeof Confirmation>["approval"];
+
+type FormToolPart = {
+  state:
+    | "approval-requested"
+    | "approval-responded"
+    | "input-available"
+    | "input-streaming"
+    | "output-available"
+    | "output-denied"
+    | "output-error";
+  output?: unknown;
+  input?: Record<string, unknown>;
+  approval?: ToolApprovalRequest;
+  toolCallId?: string;
+  errorText?: string;
+};
+
+function isFormToolResult(output: unknown): output is FormToolResult {
+  if (!output || typeof output !== "object") {
+    return false;
+  }
+
+  const candidate = output as Record<string, unknown>;
+  return (
+    typeof candidate.summary === "string" &&
+    typeof candidate.fieldCount === "number" &&
+    typeof candidate.stepCount === "number" &&
+    typeof candidate.title === "string" &&
+    !!candidate.form
+  );
+}
+
+function FormDraftStreaming({ label }: { label: string }) {
+  return (
+    <div className="my-3 flex items-center gap-2 rounded-lg border border-dashed px-4 py-3 text-sm text-muted-foreground">
+      <Loader2Icon className="size-4 animate-spin" />
+      {label}
+    </div>
+  );
+}
+
+function FormDraftCard({ result, saved = false }: { result: FormToolResult; saved?: boolean }) {
+  return (
+    <div className="my-3 overflow-hidden rounded-lg border bg-card text-card-foreground">
+      <div className="flex items-center gap-3 border-b px-4 py-3">
+        <FileTextIcon className="size-4 text-muted-foreground" />
+        <div className="flex-1">
+          <p className="text-sm font-medium">{result.title}</p>
+          <p className="text-xs text-muted-foreground">{result.summary}</p>
+        </div>
+        {saved && (
+          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
+            Saved
+          </span>
+        )}
+      </div>
+      <div className="grid grid-cols-3 gap-3 px-4 py-3 text-xs">
+        <div>
+          <span className="text-muted-foreground">Type</span>
+          <p className="font-medium">{result.isMS ? "Multi-step" : "Single-step"}</p>
+        </div>
+        <div>
+          <span className="text-muted-foreground">Fields</span>
+          <p className="font-medium">{result.fieldCount}</p>
+        </div>
+        <div>
+          <span className="text-muted-foreground">Steps</span>
+          <p className="font-medium">{result.stepCount}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SaveDraftConfirmationCard({
+  part,
+  onToolApprovalResponse,
+}: {
+  part: FormToolPart;
+  onToolApprovalResponse?: (options: { id: string; approved: boolean; reason?: string }) => void;
+}) {
+  const approvalId = part.approval?.id;
+  const title = typeof part.input?.title === "string" ? part.input.title : "current draft";
+
+  return (
+    <Confirmation approval={part.approval} state={part.state} className="my-3">
+      <ConfirmationTitle>Save form draft "{title}"?</ConfirmationTitle>
+      <ConfirmationRequest>
+        <p className="text-sm text-muted-foreground">
+          Approve this to save the current AI-generated draft into your local drafts list.
+        </p>
+        <ConfirmationActions>
+          <ConfirmationAction
+            variant="outline"
+            onClick={() => {
+              if (!approvalId || !onToolApprovalResponse) return;
+              onToolApprovalResponse({ id: approvalId, approved: false });
+            }}
+          >
+            Deny
+          </ConfirmationAction>
+          <ConfirmationAction
+            onClick={() => {
+              if (!approvalId || !onToolApprovalResponse) return;
+              onToolApprovalResponse({ id: approvalId, approved: true });
+            }}
+          >
+            <SaveIcon className="size-3" />
+            Approve Save
+          </ConfirmationAction>
+        </ConfirmationActions>
+      </ConfirmationRequest>
+      <ConfirmationAccepted>
+        <p className="text-sm text-muted-foreground">Save approved. Finalizing the draft…</p>
+      </ConfirmationAccepted>
+      <ConfirmationRejected>
+        <p className="text-sm text-muted-foreground">
+          Save was denied. The draft is still available in the preview panel.
+        </p>
+      </ConfirmationRejected>
+    </Confirmation>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Main Chat Message
 // ---------------------------------------------------------------------------
@@ -613,10 +757,11 @@ interface ChatMessageProps {
   message: UIMessage;
   isStreaming: boolean;
   onApplyPalette?: (palette: PaletteColors) => void;
+  onToolApprovalResponse?: (options: { id: string; approved: boolean; reason?: string }) => void;
 }
 
 export const ChatMessage = memo(
-  ({ message, isStreaming, onApplyPalette }: ChatMessageProps) => {
+  ({ message, isStreaming, onApplyPalette, onToolApprovalResponse }: ChatMessageProps) => {
     if (message.role === "user") {
       return (
         <Message from="user">
@@ -711,6 +856,61 @@ export const ChatMessage = memo(
                     );
                   }
 
+                  if (toolName === "generateFormLayout") {
+                    const formPart = part as unknown as FormToolPart;
+                    if (
+                      (formPart.state === "input-available" ||
+                        formPart.state === "input-streaming") &&
+                      !formPart.output
+                    ) {
+                      return (
+                        <FormDraftStreaming key={`tool-${index}`} label="Generating form draft…" />
+                      );
+                    }
+
+                    if (
+                      formPart.state === "output-available" &&
+                      isFormToolResult(formPart.output)
+                    ) {
+                      return <FormDraftCard key={`tool-${index}`} result={formPart.output} />;
+                    }
+                  }
+
+                  if (toolName === "saveFormDraft") {
+                    const formPart = part as unknown as FormToolPart;
+
+                    if (
+                      formPart.state === "approval-requested" ||
+                      formPart.state === "approval-responded" ||
+                      formPart.state === "output-denied"
+                    ) {
+                      return (
+                        <SaveDraftConfirmationCard
+                          key={`tool-${index}`}
+                          part={formPart}
+                          onToolApprovalResponse={onToolApprovalResponse}
+                        />
+                      );
+                    }
+
+                    if (
+                      (formPart.state === "input-available" ||
+                        formPart.state === "input-streaming") &&
+                      !formPart.output
+                    ) {
+                      return (
+                        <FormDraftStreaming key={`tool-${index}`} label="Preparing save request…" />
+                      );
+                    }
+
+                    if (
+                      formPart.state === "output-available" &&
+                      isFormToolResult(formPart.output)
+                    ) {
+                      return <FormDraftCard key={`tool-${index}`} result={formPart.output} saved />;
+                    }
+                  }
+
                   // Generic tool fallback
                   return (
                     <div
@@ -745,6 +945,7 @@ export const ChatMessage = memo(
     prev.message.id === next.message.id &&
     prev.isStreaming === next.isStreaming &&
     prev.onApplyPalette === next.onApplyPalette &&
+    prev.onToolApprovalResponse === next.onToolApprovalResponse &&
     prev.message.parts.length === next.message.parts.length &&
     prev.message.parts.at(-1) === next.message.parts.at(-1),
 );

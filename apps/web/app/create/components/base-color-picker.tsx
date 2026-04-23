@@ -47,21 +47,24 @@ export function BaseColorPicker({
 
   const handleColorPick = React.useCallback(
     (hex: string) => {
-      const next = {
-        ...customVars,
-        light: {
-          ...(customVars.light ?? {}),
-          "muted-foreground": hex,
-        },
-        dark: {
-          ...(customVars.dark ?? {}),
-          "muted-foreground": hex,
-        },
-      };
-      const encoded = encodeCustomThemeVars(next);
-      setParams({ custom: Boolean(encoded), vars: encoded });
+      setParams((prev) => {
+        const latestVars = decodeCustomThemeVars(prev.vars);
+        const next = {
+          ...latestVars,
+          light: {
+            ...(latestVars.light ?? {}),
+            "muted-foreground": hex,
+          },
+          dark: {
+            ...(latestVars.dark ?? {}),
+            "muted-foreground": hex,
+          },
+        };
+        const encoded = encodeCustomThemeVars(next);
+        return { custom: Boolean(encoded), vars: encoded };
+      });
     },
-    [customVars, setParams],
+    [setParams],
   );
 
   return (

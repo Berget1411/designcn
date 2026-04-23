@@ -15,7 +15,8 @@ interface AuthConfig {
   emailAndPassword?: BetterAuthOptions["emailAndPassword"];
   emailVerification?: BetterAuthOptions["emailVerification"];
   socialProviders?: BetterAuthOptions["socialProviders"];
-  polar: {
+  /** Pass `undefined` to disable Polar/subscriptions entirely */
+  polar?: {
     accessToken: string;
     server?: "sandbox" | "production";
     productId: string;
@@ -28,36 +29,41 @@ interface AuthConfig {
 }
 
 export function createAuth(config: AuthConfig) {
-  const polarClient = createPolarClient({
-    accessToken: config.polar.accessToken,
-    server: config.polar.server,
-  });
+  const plugins: BetterAuthOptions["plugins"] = [];
 
-  const plugins: BetterAuthOptions["plugins"] = [
-    polar({
-      client: polarClient,
-      createCustomerOnSignUp: true,
-      enableCustomerPortal: true,
-      use: [
-        checkout({
-          products: [
-            {
-              productId: config.polar.productId,
-              slug: "pro",
-            },
-          ],
-          successUrl: config.polar.successUrl,
-          authenticatedUsersOnly: true,
-        }),
-        portal(),
-        webhooks({
-          secret: config.polar.webhookSecret,
-        }),
-      ],
-    }),
-    // Append any extra plugins from consumer (e.g. nextCookies)
-    ...(config.plugins ?? []),
-  ];
+  if (config.polar) {
+    const polarClient = createPolarClient({
+      accessToken: config.polar.accessToken,
+      server: config.polar.server,
+    });
+
+    plugins.push(
+      polar({
+        client: polarClient,
+        createCustomerOnSignUp: true,
+        enableCustomerPortal: true,
+        use: [
+          checkout({
+            products: [
+              {
+                productId: config.polar.productId,
+                slug: "pro",
+              },
+            ],
+            successUrl: config.polar.successUrl,
+            authenticatedUsersOnly: true,
+          }),
+          portal(),
+          webhooks({
+            secret: config.polar.webhookSecret,
+          }),
+        ],
+      }),
+    );
+  }
+
+  // Append any extra plugins from consumer (e.g. nextCookies)
+  plugins.push(...(config.plugins ?? []));
 
   const auth = betterAuth({
     baseURL: config.baseURL,

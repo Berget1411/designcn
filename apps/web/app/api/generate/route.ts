@@ -1,6 +1,6 @@
 import { openai } from "@ai-sdk/openai";
 import { streamObject } from "ai";
-import { aiFormSchema } from "@/form-builder/lib/ai-form-schema";
+import { AI_FORM_SYSTEM_PROMPT, aiFormSchema } from "@workspace/forms";
 
 const responseHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -48,22 +48,12 @@ export async function POST(request: Request) {
     }
 
     const res = streamObject({
-      // @ts-expect-error - type mismatch between AI SDK versions
       model: openai("gpt-4o-mini"),
       schema: aiFormSchema,
       prompt: prompt,
-      system:
-        "You are an expert form generator. Your task is to convert natural language form descriptions into structured JSON that matches the provided Zod schema.\n\n" +
-        "Key instructions:\n" +
-        "- Generate form elements (fields) based on the user's natural language description\n" +
-        "- The schema supports both interactive input fields (Input, Select, Checkbox, etc.) and static text elements (H1, H2, H3, Paragraph)\n" +
-        "- Use text elements (H1, H2, H3, Paragraph) to add titles, descriptions, and section headers as needed\n" +
-        "- Ignore submit buttons, action buttons, or any form submission controls in the output\n" +
-        "- Ensure all generated JSON strictly adheres to the provided Zod schema structure\n" +
-        "- Include all required fields (id, name, label, fieldType, etc.) for each element\n" +
-        "- Generate unique IDs for each form element\n" +
-        "- Interpret the user's requirements comprehensively and include all necessary form fields",
+      system: AI_FORM_SYSTEM_PROMPT,
       maxRetries: 2,
+      providerOptions: { openai: { strictJsonSchema: false } },
       onError: (event) => {
         console.error("Stream error:", event.error);
       },

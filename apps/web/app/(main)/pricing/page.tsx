@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { CheckIcon } from "lucide-react";
+import { ENABLE_SUBSCRIPTIONS } from "@/lib/features";
 import { authClient, useSession, useSubscription } from "@/lib/auth-client";
 import { Badge } from "@workspace/ui/components/badge";
 import { Button } from "@workspace/ui/components/button";
@@ -33,6 +34,11 @@ export default function PricingPage() {
   const { data: session } = useSession();
   const { plan, isPending } = useSubscription();
   const router = useRouter();
+
+  if (!ENABLE_SUBSCRIPTIONS) {
+    router.replace("/");
+    return null;
+  }
 
   function handleUpgrade() {
     if (!session) {

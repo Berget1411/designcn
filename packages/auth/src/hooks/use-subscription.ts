@@ -10,13 +10,16 @@ interface SubscriptionState {
   isPending: boolean;
 }
 
-export function createUseSubscription(authClient: AuthClient) {
+export function createUseSubscription(authClient: AuthClient, options?: { enabled?: boolean }) {
   return function useSubscription(): SubscriptionState {
     const { data: session, isPending: sessionPending } = authClient.useSession();
     const [plan, setPlan] = useState<Plan>("free");
-    const [isPending, setIsPending] = useState(true);
+    const [isPending, setIsPending] = useState(options?.enabled !== false);
 
     useEffect(() => {
+      // When subscriptions are disabled, skip Polar API calls entirely
+      if (options?.enabled === false) return;
+
       if (sessionPending) return;
 
       if (!session) {

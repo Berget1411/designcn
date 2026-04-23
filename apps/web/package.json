@@ -39,6 +39,7 @@
     "@upstash/redis": "^1.37.0",
     "@workspace/auth": "workspace:*",
     "@workspace/db": "workspace:*",
+    "@workspace/forms": "workspace:*",
     "@workspace/ui": "workspace:*",
     "ai": "^6.0.168",
     "better-auth": "^1.6.5",
