@@ -1,87 +1,22 @@
-# designcn
+# Designcn
 
-An AI-powered design platform built as a full-stack monorepo with Next.js, Mastra agents, and shadcn/ui.
+Build production-ready design systems and forms with a few clicks.
+
+![screenshot](./apps/web/public/designcn-readme.png)
+
+A modern shadcn/ui builder that helps you customize your design system, generate presets, and create production-ready forms without starting from scratch.
+
+## Motivation
+
+Design systems and forms are repetitive to set up well. You need consistent colors, typography, components, and validation, but getting there usually means a lot of manual boilerplate and trial-and-error. Designcn streamlines that process by guiding configuration, generating presets, and helping scaffold form experiences faster.
 
 ## Features
 
-- **Next.js** - React framework with Turbopack for fast development
-- **React** - UI library (v19)
-- **TailwindCSS** - Utility-first CSS for rapid UI development
-- **Shared UI package** - shadcn/ui primitives in `packages/ui`
-- **Mastra** - AI agent framework powering the API
-- **tRPC** - End-to-end type-safe APIs
-- **Drizzle** - TypeScript-first ORM
-- **Better Auth** - Authentication
-- **AI SDK** - OpenAI integration for AI features
-- **Turborepo** - Optimized monorepo build system
-- **Bun** - Fast JavaScript runtime and package manager
-- **Husky** - Git hooks for code quality
-- **Oxlint** - Oxlint + Oxfmt (linting & formatting)
-
-## Getting Started
-
-Install dependencies:
-
-```bash
-bun install
-```
-
-Run the development server:
-
-```bash
-bun run dev
-```
-
-## Project Structure
-
-```
-designcn/
-├── apps/
-│   ├── web/           # Next.js web application
-│   ├── api/           # Mastra AI agent API (Cloudflare Workers)
-│   └── studio/        # Mastra Studio dashboard
-├── packages/
-│   ├── ui/            # Shared shadcn/ui components (@workspace/ui)
-│   ├── auth/          # Authentication configuration
-│   ├── db/            # Database schema & queries (Drizzle ORM)
-│   ├── forms/         # Shared form utilities
-│   └── typescript-config/ # Shared TypeScript config
-```
-
-## UI Components
-
-React apps share shadcn/ui primitives through `packages/ui`.
-
-### Add shared components
-
-```bash
-pnpm dlx shadcn@latest add button -c apps/web
-```
-
-This places UI components in `packages/ui/src/components`.
-
-### Import components
-
-```tsx
-import { Button } from "@workspace/ui/components/button";
-```
-
-## Git Hooks and Formatting
-
-- Initialize hooks: `bun run prepare`
-- Format and lint: `bun run check`
-
-## Available Scripts
-
-- `bun run dev` - Start all apps in development mode
-- `bun run build` - Build all apps
-- `bun run typecheck` - Check TypeScript types across all apps
-- `bun run check` - Run Oxlint and Oxfmt
-
-## Contributing
-
-This project is open source under the [MIT License](LICENSE). While contributions are welcome in spirit, **we are not currently accepting pull requests or external changes**. Feel free to fork and adapt for your own use.
+- Custom design system presets for colors, fonts, icons, themes, and component styles
+- AI-assisted preset and form generation to avoid starting from a blank page
+- Production-ready forms built with modern shadcn/ui components
+- Type-safe architecture with Next.js, tRPC, Drizzle, Better Auth, and shared workspace packages
 
 ## License
 
-[MIT](LICENSE)
+This project is open source. See [LICENSE](./LICENSE) for details.
