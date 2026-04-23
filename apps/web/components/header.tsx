@@ -27,6 +27,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@workspace/ui/components/navigation-menu";
 import { cn } from "@workspace/ui/lib/utils";
+import { IoIosColorPalette } from "react-icons/io";
 import { ENABLE_AI, ENABLE_SUBSCRIPTIONS } from "@/lib/features";
 
 const createItems = [
@@ -60,7 +61,8 @@ export function Header({ stars }: { stars?: React.ReactNode }) {
 
   const headerNavigation = (
     <div className={cn("flex items-center gap-4", isHomePage && "relative z-[60]")}>
-      <Link href="/" className="text-sm font-semibold tracking-tight">
+      <Link href="/" className="flex items-center gap-1.5 text-sm font-semibold tracking-tight">
+        <IoIosColorPalette className="size-4" />
         Designcn
       </Link>
       <nav className="hidden items-center sm:flex">
