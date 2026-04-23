@@ -120,7 +120,7 @@ export function PresetsPage() {
   }
 
   return (
-    <div className="min-h-svh pt-14 p-6">
+    <div className="min-h-svh pt-20 p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-xl font-semibold">My Presets</h1>
